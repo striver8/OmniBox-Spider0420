@@ -14,19 +14,6 @@
     "lastUrl": ""
   },
   {
-    "file": "听书/听友FM.js",
-    "verdict": "broken",
-    "step": "category",
-    "steps": [
-      "category",
-      "search",
-      "detail",
-      "play"
-    ],
-    "err": "category: empty list (type_id=21)",
-    "lastUrl": "https://tingyou.fm/"
-  },
-  {
     "file": "影视/影视库/影视库.js",
     "verdict": "broken",
     "step": "category",
@@ -153,12 +140,13 @@
   {
     "file": "影视/网盘/欧哥.js",
     "verdict": "broken",
-    "step": "detail",
+    "step": "search",
     "steps": [
+      "search",
       "detail",
       "play"
     ],
-    "err": "detail: no playable episodes (sources=0, episodes=0)",
+    "err": "search: empty list for keyword=蜂鸟行动",
     "lastUrl": "https://woog.nxog.eu.org/index.php/vod/detail/id/33472.html"
   },
   {
@@ -181,7 +169,7 @@
       "play"
     ],
     "err": "detail: no playable episodes (sources=0, episodes=0)",
-    "lastUrl": "http://38.76.197.172:12521/index.php/vod/detail/id/513408.html"
+    "lastUrl": "https://www.wogg.net/voddetail/134043.html"
   },
   {
     "file": "影视/网盘/玩偶聚合.js",
@@ -348,16 +336,6 @@
     "lastUrl": "https://v.tai2.lol/index.php/vod/play/id/700/sid/1/nid/1.html"
   },
   {
-    "file": "影视/采集/布布影视.js",
-    "verdict": "partial",
-    "step": "play",
-    "steps": [
-      "play"
-    ],
-    "err": "play: empty urls",
-    "lastUrl": "https://323433ssdfd.top/api.php/web/vod/get_detail?vod_id=86421"
-  },
-  {
     "file": "影视/采集/枝枝影视.js",
     "verdict": "broken",
     "step": "home",
@@ -457,7 +435,7 @@
       "play"
     ],
     "err": "category: empty list (type_id=4)",
-    "lastUrl": "https://pianku.pro/index.php/verify/index.html?type=search&t=1794233245266"
+    "lastUrl": "https://pianku.pro/index.php/verify/index.html?type=search&t=1794235503094"
   },
   {
     "file": "影视/采集/荐片.js",
@@ -533,7 +511,7 @@
     "steps": [
       "search"
     ],
-    "err": "search: empty list for keyword=开❤每一天正在直播",
+    "err": "search: empty list for keyword=退市老钱币知识讲解",
     "lastUrl": "https://live.douyin.com/webcast/room/web/enter/?aid=6383&app_name=douyin_web&live_id=1&device_platform=web&enter_from=web_live&browser_language=zh-CN&browser_platform=Win32&browser_name=Chrome&browser"
   },
   {
@@ -543,8 +521,8 @@
     "steps": [
       "search"
     ],
-    "err": "search: empty list for keyword=二营长你的意大利炮呢~开",
-    "lastUrl": "https://www.douyu.com/lapi/live/getH5PlayV1/431460"
+    "err": "search: empty list for keyword=平安顺遂~~~",
+    "lastUrl": "https://www.douyu.com/lapi/live/getH5PlayV1/74374"
   },
   {
     "file": "短剧/短剧粉.js",

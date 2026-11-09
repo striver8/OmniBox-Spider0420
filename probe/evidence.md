@@ -40,6 +40,8 @@
 | 直播/YY轮播.js | www.yy.com | `apiSearch/doSearch.json` 实测 200 且返回 13 条结果 → 脚本可用，初期 404 来自其它接口 |
 | 影视/网盘/欧哥.js | woog.nxog.eu.org | 首页 `<title>网站关闭</title>`，但模板仍完整（208 个 `.module-item`）——空壳关站 |
 
+> 说明：上表是**首轮（第一/二轮）复核时的现场快照**，部分条目已在后续轮次修复或归档，最新状态以「八、本轮修复记录」及第二十九节为准：FKTV（第八节，已重写 2.0.0）、稀饭动漫（第十节，Supabase 重写 2.0.0）、Gimy剧迷（第十二节，detail/play 修复）、听友FM（第二十九节，CDP 抓包后重写 2.0.0）、不太灵（第二十节，服务端 cookie 重放）、布布影视（第二十一节，WASM 解码重写 2.0.0）、唐人街影院（第二十三节，slug 分类 + 移动 UA）、电影人生（第十七节，PoW 退避）、磁力熊 / Auete影视 / 卧龙 / 四万影视 / 泰剧网 / 蛋蛋鱼 / 耐视点播 / 剧圈圈 / 茶杯狐 / 短剧网 / 番茄畅听（已归档至 `已失效待修复/`）、新韩剧网（第二十二节，探针假阴性，脚本正常）。
+
 ## 八、本轮修复记录（2 个脚本，均经探针复验）
 
 ### 1. `影视/采集/电影人生.js`（v1.1.1 → v1.1.2，partial）
@@ -346,7 +348,7 @@ window.SITE_CONFIG = { lines: [
 
 改动：`fetchJson()` 拆成「重试壳 + `fetchJsonOnce()`」，最多 3 次、退避 `350ms * attempt`，失败才上抛；版本 1.1.4 → 1.1.5。连跑三次探针均 ok。
 
-## 二十七、听友FM 新站（tingyou.fm → fmfm.tingyou.fm）API 侦察（未改脚本）
+## 二十七、听友FM 新站 API 侦察（未改脚本——**本节结论已被第二十九节修正，以第二十九节为准**）
 
 旧路由全部失效：`/categories/<id>`、`/albums/<id>` 均 404（home 之所以「过」探针，是因为它 catch 后回落到硬编码的 `CATEGORY_MAP`，属假阳性）。新站是 Nuxt 3，落地页 `/listening`（首页 177 KB，`window.location` 重定向到 `/listening`），另有 `/listening/filter`、`/feed`、`/cinema`、`/play`、`/me`。客户端配置：`apiBase=/api`（真实 host 由下面 bootstrap 决定），`headURL=https://toudnbbaa.tou1laopao.cc/api/startup-head/h5api.dat`，`trustedKeys[0]={key_id:"avh-3e92be7026555e08",algorithm:"Ed25519",public_key:"p2VRmQyFi67mrc_cxIw8zagpj7GSsUO9tba7vLApjNE"}`。
 
@@ -377,3 +379,73 @@ window.SITE_CONFIG = { lines: [
 | 影视/网盘/蜗牛4K.js | 源站 522 | `https://zmi.kdns.fr` CF 522 / 16 B |
 | 影视/网盘/影巢.js | 数据源停放 | 依赖 `https://hdhive.com/api/open`，该域现跳 `lander` → GoDaddy「for sale」停放；且脚本本身需 TMDB Key |
 | 影视/网盘/光鸭·臻影社.js | 需配置 token | `api.guangyapan.com` 返回 401（需用户填 token），`www.guangyapan.com` 正常 → 配置型，非缺陷 |
+
+## 二十九、听友FM：用 CDP 抓真实流量定位协议，重写至 2.0.0（第二十七节的修正与落地）
+
+第二十七节记录的是**从 bundle 猜出来的加密协议**（WebCrypto AES-GCM + HMAC 签名）——按那套协议发请求，服务端一律回同一段 64 B 固定 base64，用 key/signKey 怎么解都解不开。本轮改用「真实浏览器抓包」直接取证据，结论是：**那条代码路径实际未被浏览器使用**，真正在跑的协议完全不同，并且听书内容根本不需要加密接口。
+
+### 抓包方法（无需 puppeteer）
+
+本机 `C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe`；Node 自带全局 `WebSocket`/`fetch`/`crypto.subtle`，因此手写 CDP 客户端即可：
+
+```
+msedge.exe --headless=new --remote-debugging-port=9333 --user-data-dir=probe\.edgeprofile \
+  --no-first-run --disable-gpu about:blank
+GET http://127.0.0.1:9333/json/list          # 取 page target 的 webSocketDebuggerUrl
+Network.enable + Page.enable → Page.navigate("https://tingyou.fm/listening")
+Network.requestWillBeSent / responseReceived / loadingFinished + Network.getResponseBody
+```
+
+再配合 `Page.addScriptToEvaluateOnNewDocument` 注入 fetch/XHR logger，可以直接定位「哪个调用真正喂了数据」。
+
+### 真实协议（已用抓到的请求体验证 `SIGOK: true`）
+
+入口 chunk `https://tingyou.fm/_nuxt/Byf80rIC.js`（684461 B，实际由 `appp.fdhtbz.cn/h5-static/tingyou/<version>/_nuxt/` 提供）里是硬编码实现：
+
+```js
+ab = CryptoJS.enc.Hex.parse("11059a4c989dd9d4837778b013d164baa0ad4d7b0076e722369f6f085814293f") // AES-256 key
+q4 = CryptoJS.enc.Hex.parse("dd3ea319024c649d2ebcd1bda551a307")                               // 固定 IV
+ib = { iv: q4, mode: CBC, padding: Pkcs7 }
+W4 = CryptoJS.enc.Hex.parse("51c5b55800a7efd1")                                               // HMAC key
+lb = (e) => AES.encrypt(e, ab, ib).ciphertext.toString(Base64)     // 请求体
+ub = (e) => HmacSHA256(e, W4).toString(Base64)                     // X-Post-Signature
+cb = (e) => AES.decrypt(e, ab, ib)                                 // 响应体
+```
+
+信封（`W8()`）：业务参数之外补 `device_id`、`brand:"BROWSER"`、`model`、`appVer`、`osVer:"1"`、`timestamp = floor(Date.now()/1000)`；`body = lb(JSON.stringify(信封))`（**裸 base64 字符串，不是 JSON**），`Content-Type: application/x-www-form-urlencoded`，头带 `X-Post-Signature: ub(body)`、`X-Device-Id`、`Authorization: Bearer <RS256 JWT>`。响应体是 base64，`cb()` 解出 `{code,data,msg}`。
+
+用该协议实调（仅 `x-post-signature` + `x-device-id`，无 token）：`POST /web/splash` → 200 / 18668 B（`artwork_cdn_domain:"https://tv.bajietv.vip/"`）；`POST /web/page/bootstrap/home` → 200 / 73856 B。
+
+### 听书内容走的是免密 H5 明文接口（重写所依据）
+
+CDP 定位到的数据调用是一条**明文、免登录**的 GET，必需头只有 `x-listening-timezone`、`x-listening-session`（UUIDv4）、`Origin`/`Referer`：
+
+| 用途 | 请求 |
+| --- | --- |
+| 榜单 | `GET /api/h5/listening/rank?section=latest\|hot&page=N` |
+| 分类元数据 | `GET /api/h5/listening/filters` → sorts / statuses / categories+types |
+| 分类列表 | `GET /api/h5/listening/category?category=<catId>&type=<typeId>&sort=&status=&page=N&refresh=false` |
+| 专辑详情 | `GET /api/h5/listening/album/<albumId>` |
+| 章节目录 | `GET /api/h5/listening/chapters/<albumId>`（一次全量，1667 集约 170 KB） |
+| 搜索 | `POST /api/h5/listening/search {keyword,page}`（GET 该路径 500） |
+| **单章直链** | `POST /api/h5/listening/play {album_id, chapter_idx}` → `{play_url}` |
+
+- `chapter_idx` 是**章节序号 index**（不是章节 id）——这是本次最关键的发现，`probe/.ty/5CKqdWus.js` 里就是 `u("play",{method:"POST",body:{album_id,chapter_idx}})`。
+- `play_url` 实测形如 `https://file.hgeuz.cn/stream/<payload>?ts=...&sign=...`，带 `Range: bytes=0-200` 返回 **206 / audio/mp4**，文件头 `ftypM4A`。
+- 分类参数真名是 `category`/`type`/`status`/`sort`；`type_id=`/`types=`/`class=` 一律被忽略；`category` 只支持 1（评书）与 2（有声小说）。
+- 排序 key：`comprehensive`（综合）/`popular`（播放最多）/`updated`（最近更新）/`new`（最新发布）；状态 `0=已完结`、`1=连载中`。
+- `cache_meta=1` 会把 `data` 再包一层（`{data:{data,pages},cache:{}}`），脚本一律不带该参数。
+
+### 线路轮换（脚本必须容错）
+
+同一套接口部署在三台主机：`appp.fdhtbz.cn/api`、`ffggewvge.dasfrvvbbhhafdgserqw.cc/api`、`fsfggqwewrr.dsafasfvvaaee.cc/api`。**可用路径并不一致**（`filters` 在 appp 上 404、在 ffggewvge 上 200），且密集请求后 appp 会短时全部 404/0 B，换新的 `x-listening-session` 并等待可恢复。因此脚本按 `API_HOSTS` 顺序请求，首个 200+JSON 的线路写入缓存（TTL 30 min）并优先使用。
+
+### 重写结果
+
+`听书/听友FM.js` v1.0.6 → **v2.0.0**（旧版备份为 `probe/.bak_tingyou_v106.js`，37647 B / 969 行）。新脚本去掉 axios/cheerio/@noble/ciphers，纯 `omnibox_sdk`：
+
+- 分类 id 编码：`rank:latest` / `rank:hot` / `cat:<catId>` / `type:<catId>-<typeId>`；`home` 优先用 `filters` 展开成 47 项（2 个榜单 + 2 大类 + 43 子类）。
+- `detail` 的 `playId = {"a":albumId,"i":chapterIdx}`，`play` 解出后 POST `/h5/listening/play` 直取 `play_url`，返回 `{urls, header:{UA,Referer}, parse:0}`。
+- 环境变量 `TINGYOU_TIMEZONE` 可覆盖时区（默认 Asia/Shanghai）。
+
+探针复验 **ok（2s）**：home class=47 / list=24（744ms）｜category `rank:latest` list=30 / pagecount=2（162ms）｜search「国民法医|蓦等等领衔刑侦」list=1（567ms）｜detail sources=1 / episodes=1667（344ms）｜play `https://file.hgeuz.cn/stream/...` n=1 / parse=0（399ms）。请求全部命中 `appp.fdhtbz.cn`（filters 1293 B、rank 14980 B、chapters 169790 B）。

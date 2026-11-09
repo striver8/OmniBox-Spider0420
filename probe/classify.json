@@ -43,7 +43,7 @@
   },
   {
     "file": "听书/听友FM.js",
-    "verdict": "broken",
+    "verdict": "ok",
     "siteCls": "ALIVE",
     "host": "https://tingyou.fm/"
   },
@@ -355,7 +355,7 @@
   },
   {
     "file": "影视/采集/布布影视.js",
-    "verdict": "partial",
+    "verdict": "ok",
     "siteCls": "NO_HOST",
     "host": "https://323433ssdfd.top/"
   },
