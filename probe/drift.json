@@ -1,666 +1,710 @@
 [
   {
-    "file": "Emby/模板一.js",
-    "verdict": "broken",
-    "err": "Unexpected token ':'"
-  },
-  {
     "file": "Emby/模板二.js",
     "verdict": "broken",
     "step": "home",
-    "err": "home: empty class list"
+    "steps": [
+      "home",
+      "category",
+      "search",
+      "detail",
+      "play"
+    ],
+    "err": "home: empty class list",
+    "lastUrl": ""
   },
   {
     "file": "动漫/girigiri爱动漫.js",
     "verdict": "broken",
     "step": "category",
-    "status": 200,
-    "len": 5889,
-    "url": "https://bgm.girigirilove.com/show/21-----------/",
-    "err": "category: empty list (type_id=21)"
-  },
-  {
-    "file": "动漫/嗷呜动漫.js",
-    "verdict": "broken",
-    "step": "category",
-    "err": "category: empty list (type_id=22)"
+    "steps": [
+      "category",
+      "search",
+      "detail",
+      "play"
+    ],
+    "err": "category: empty list (type_id=21)",
+    "lastUrl": "https://bgm.girigirilove.com/show/21-----------/"
   },
   {
     "file": "动漫/稀饭动漫.js",
     "verdict": "broken",
     "step": "category",
-    "status": 200,
-    "len": 474509,
-    "url": "https://dm.xifanacg.com/index.php/ajax/suggest?mid=1&wd=%E5%BA%86%E4%BD%99%E5%B9%B4",
-    "err": "category: empty list (type_id=21)"
+    "steps": [
+      "category",
+      "search",
+      "detail",
+      "play"
+    ],
+    "err": "category: empty list (type_id=21)",
+    "lastUrl": "https://dm.xifanacg.com/index.php/ajax/suggest?mid=1&wd=%E5%BA%86%E4%BD%99%E5%B9%B4"
   },
   {
     "file": "听书/听友FM.js",
     "verdict": "broken",
     "step": "category",
-    "status": 200,
-    "len": 175233,
-    "url": "https://tingyou.fm/",
-    "err": "category: empty list (type_id=21)"
-  },
-  {
-    "file": "听书/番茄畅听.js",
-    "verdict": "broken",
-    "step": "category",
-    "status": 521,
-    "len": 0,
-    "url": "https://qkfqapi.vv9v.cn/api/search?key=%E5%BA%86%E4%BD%99%E5%B9%B4&tab_type=2&offset=0",
-    "err": "category: empty list (type_id=132)"
-  },
-  {
-    "file": "已失效待修复/听书/六月听书.js",
-    "verdict": "broken",
-    "step": "category",
-    "err": "category: empty list (type_id=t3)"
-  },
-  {
-    "file": "已失效待修复/影视/采集/RRSP.js",
-    "verdict": "broken",
-    "step": "category",
-    "err": "category: empty list (type_id=5)"
+    "steps": [
+      "category",
+      "search",
+      "detail",
+      "play"
+    ],
+    "err": "category: empty list (type_id=21)",
+    "lastUrl": "https://tingyou.fm/"
   },
   {
     "file": "影视/影视库/影视库.js",
     "verdict": "broken",
     "step": "category",
-    "err": "OmniBox.listMediaItems is not a function"
+    "steps": [
+      "category",
+      "search",
+      "detail",
+      "play"
+    ],
+    "err": "OmniBox.listMediaItems is not a function",
+    "lastUrl": ""
   },
   {
     "file": "影视/磁力/不太灵.js",
     "verdict": "broken",
     "step": "home",
-    "status": 200,
-    "len": 279,
-    "url": "https://web5.mukaku.com/prod/api/v1/getVideoList?app_id=83768d9ad4&identity=23734adac0301b",
-    "err": "home: empty class list"
+    "steps": [
+      "home",
+      "category",
+      "search",
+      "detail",
+      "play"
+    ],
+    "err": "home: empty class list",
+    "lastUrl": "https://web5.mukaku.com/prod/api/v1/getVideoList?app_id=83768d9ad4&identity=23734adac0301bccdcb107c4aa21f96c&sb=%E5%BA%86%E4%BD%99%E5%B9%B4&page=1&limit=24"
   },
   {
     "file": "影视/磁力/磁力熊.js",
     "verdict": "broken",
     "step": "category",
-    "status": 200,
-    "len": 5670,
-    "url": "https://www.cilixiong.com/e/search/index.php",
-    "err": "category: empty list (type_id=imdbtop250)"
+    "steps": [
+      "category",
+      "search",
+      "detail",
+      "play"
+    ],
+    "err": "category: empty list (type_id=imdbtop250)",
+    "lastUrl": "https://www.cilixiong.com/e/search/index.php"
   },
   {
     "file": "影视/网盘/AListTvbox.js",
     "verdict": "broken",
     "step": "home",
-    "err": "home: empty class list"
+    "steps": [
+      "home",
+      "category",
+      "search",
+      "detail",
+      "play"
+    ],
+    "err": "home: empty class list",
+    "lastUrl": ""
   },
   {
     "file": "影视/网盘/七味分组.js",
     "verdict": "broken",
     "step": "category",
-    "status": 403,
-    "len": 0,
-    "url": "https://www.qnhot.com/index.php/ajax/suggest?mid=1&limit=20&wd=%E5%BA%86%E4%BD%99%E5%B9%B4",
-    "err": "category: empty list (type_id=4)"
-  },
-  {
-    "file": "影视/网盘/二小.js",
-    "verdict": "broken",
-    "step": "home",
-    "err": "home: empty class list"
+    "steps": [
+      "category",
+      "search",
+      "detail",
+      "play"
+    ],
+    "err": "category: empty list (type_id=4)",
+    "lastUrl": "https://www.qnhot.com/index.php/ajax/suggest?mid=1&limit=20&wd=%E5%BA%86%E4%BD%99%E5%B9%B4"
   },
   {
     "file": "影视/网盘/光鸭·臻影社.js",
     "verdict": "broken",
     "step": "category",
-    "err": "category: empty list (type_id=reality)"
+    "steps": [
+      "category",
+      "search",
+      "detail",
+      "play"
+    ],
+    "err": "category: empty list (type_id=reality)",
+    "lastUrl": "https://www.guangya.net/?s=%E5%BA%86%E4%BD%99%E5%B9%B4&type=post"
   },
   {
     "file": "影视/网盘/剧迷115.js",
     "verdict": "broken",
     "step": "category",
-    "status": 200,
-    "len": 3388,
-    "url": "https://www.gimy115.top/index.php/vod/search/wd/%E5%BA%86%E4%BD%99%E5%B9%B4.html",
-    "err": "category: empty list (type_id=26)"
+    "steps": [
+      "category",
+      "search",
+      "detail",
+      "play"
+    ],
+    "err": "category: empty list (type_id=26)",
+    "lastUrl": "https://www.gimy115.top/index.php/vod/search/wd/%E5%BA%86%E4%BD%99%E5%B9%B4.html"
   },
   {
     "file": "影视/网盘/多多.js",
     "verdict": "broken",
     "step": "detail",
-    "status": 200,
-    "len": 64051,
-    "url": "https://tv.yydsys.top/index.php/vod/detail/id/10025.html",
-    "err": "detail: no playable episodes (sources=0, episodes=0)"
+    "steps": [
+      "detail",
+      "play"
+    ],
+    "err": "detail: no playable episodes (sources=0, episodes=0)",
+    "lastUrl": "https://tv.yydsys.top/index.php/vod/detail/id/10025.html"
   },
   {
     "file": "影视/网盘/影巢.js",
     "verdict": "broken",
     "step": "home",
-    "err": "home: empty class list"
+    "steps": [
+      "home",
+      "category",
+      "search",
+      "detail",
+      "play"
+    ],
+    "err": "home: empty class list",
+    "lastUrl": ""
   },
   {
     "file": "影视/网盘/快映.js",
     "verdict": "broken",
     "step": "detail",
-    "status": 200,
-    "len": 49773,
-    "url": "http://38.76.197.172:12521/index.php/vod/detail/id/465657.html",
-    "err": "detail: no playable episodes (sources=0, episodes=0)"
+    "steps": [
+      "detail",
+      "play"
+    ],
+    "err": "detail: no playable episodes (sources=0, episodes=0)",
+    "lastUrl": "http://38.76.197.172:12521/index.php/vod/detail/id/471633.html"
   },
   {
     "file": "影视/网盘/木偶.js",
     "verdict": "broken",
     "step": "detail",
-    "status": 200,
-    "len": 76889,
-    "url": "https://123.666291.xyz/index.php/vod/detail/id/8947.html",
-    "err": "detail: no playable episodes (sources=0, episodes=0)"
+    "steps": [
+      "detail",
+      "play"
+    ],
+    "err": "detail: no playable episodes (sources=0, episodes=0)",
+    "lastUrl": "https://123.666291.xyz/index.php/vod/detail/id/8947.html"
   },
   {
     "file": "影视/网盘/欧哥.js",
     "verdict": "broken",
     "step": "category",
-    "status": 200,
-    "len": 0,
-    "url": "https://woog.nxog.eu.org/index.php/vod/detail/id/34597.html",
-    "err": "category: empty list (type_id=5)"
+    "steps": [
+      "category",
+      "search",
+      "detail",
+      "play"
+    ],
+    "err": "category: empty list (type_id=5)",
+    "lastUrl": "https://woog.nxog.eu.org/index.php/vod/detail/id/34597.html"
   },
   {
     "file": "影视/网盘/玩偶.js",
     "verdict": "broken",
     "step": "detail",
-    "status": 200,
-    "len": 59056,
-    "url": "https://www.wogg.net/voddetail/134196.html",
-    "err": "detail: no playable episodes (sources=0, episodes=0)"
+    "steps": [
+      "detail",
+      "play"
+    ],
+    "err": "detail: no playable episodes (sources=0, episodes=0)",
+    "lastUrl": "https://www.wogg.net/voddetail/134196.html"
   },
   {
     "file": "影视/网盘/玩偶聚合-非分组.js",
     "verdict": "broken",
     "step": "detail",
-    "status": 200,
-    "len": 59056,
-    "url": "https://www.wogg.net/voddetail/134196.html",
-    "err": "detail: no playable episodes (sources=0, episodes=0)"
+    "steps": [
+      "detail",
+      "play"
+    ],
+    "err": "detail: no playable episodes (sources=0, episodes=0)",
+    "lastUrl": "https://www.wogg.net/voddetail/134196.html"
   },
   {
     "file": "影视/网盘/玩偶聚合.js",
     "verdict": "broken",
     "step": "detail",
-    "status": 200,
-    "len": 59056,
-    "url": "https://www.wogg.net/voddetail/134196.html",
-    "err": "detail: no playable episodes (sources=0, episodes=0)"
+    "steps": [
+      "detail",
+      "play"
+    ],
+    "err": "detail: no playable episodes (sources=0, episodes=0)",
+    "lastUrl": "https://www.wogg.net/voddetail/134196.html"
   },
   {
     "file": "影视/网盘/盘搜.js",
     "verdict": "broken",
     "step": "category",
-    "err": "category: empty list (type_id=favorite)"
+    "steps": [
+      "category",
+      "search",
+      "detail",
+      "play"
+    ],
+    "err": "category: empty list (type_id=favorite)",
+    "lastUrl": ""
   },
   {
     "file": "影视/网盘/盘搜分组.js",
     "verdict": "broken",
     "step": "category",
-    "err": "category: empty list (type_id=favorite)"
+    "steps": [
+      "category",
+      "search",
+      "detail",
+      "play"
+    ],
+    "err": "category: empty list (type_id=favorite)",
+    "lastUrl": ""
   },
   {
     "file": "影视/网盘/聚盘搜索.js",
     "verdict": "broken",
     "step": "category",
-    "status": 403,
-    "len": 548,
-    "url": "https://ppan.dyuzi.com/api/frontend/search?q=%E5%BA%86%E4%BD%99%E5%B9%B4&limit=20",
-    "err": "category: empty list (type_id=动漫)"
+    "steps": [
+      "category",
+      "search",
+      "detail",
+      "play"
+    ],
+    "err": "category: empty list (type_id=动漫)",
+    "lastUrl": "https://ppan.dyuzi.com/api/frontend/search?q=%E5%BA%86%E4%BD%99%E5%B9%B4&limit=20"
   },
   {
     "file": "影视/网盘/聚盘搜索分组.js",
     "verdict": "broken",
     "step": "category",
-    "status": 403,
-    "len": 548,
-    "url": "https://ppan.dyuzi.com/api/frontend/search?q=%E5%BA%86%E4%BD%99%E5%B9%B4&limit=20",
-    "err": "category: empty list (type_id=动漫)"
-  },
-  {
-    "file": "影视/网盘/至臻.js",
-    "verdict": "broken",
-    "step": "home",
-    "err": "home: empty class list"
+    "steps": [
+      "category",
+      "search",
+      "detail",
+      "play"
+    ],
+    "err": "category: empty list (type_id=动漫)",
+    "lastUrl": "https://ppan.dyuzi.com/api/frontend/search?q=%E5%BA%86%E4%BD%99%E5%B9%B4&limit=20"
   },
   {
     "file": "影视/网盘/虎斑.js",
     "verdict": "broken",
     "step": "detail",
-    "status": 200,
-    "len": 46393,
-    "url": "http://38.76.197.172:16969/index.php/vod/detail/id/490761.html",
-    "err": "detail: no playable episodes (sources=0, episodes=0)"
+    "steps": [
+      "detail",
+      "play"
+    ],
+    "err": "detail: no playable episodes (sources=0, episodes=0)",
+    "lastUrl": "http://38.76.197.172:16969/index.php/vod/detail/id/463313.html"
   },
   {
     "file": "影视/网盘/蜗牛4K.js",
     "verdict": "broken",
     "step": "home",
-    "status": 522,
-    "len": 7221,
-    "url": "https://zmi.kdns.fr/vodsearch/%E5%BA%86%E4%BD%99%E5%B9%B4-------------/",
-    "err": "STEP_TIMEOUT home 40000ms"
-  },
-  {
-    "file": "影视/网盘/蜡笔.js",
-    "verdict": "broken",
-    "step": "home",
-    "status": 409,
-    "len": 890,
-    "url": "http://xiaocgege.shop/index.php/vod/search/page/1/wd/庆余年.html",
-    "err": "home: empty class list"
+    "steps": [
+      "home",
+      "category",
+      "search",
+      "detail",
+      "play"
+    ],
+    "err": "STEP_TIMEOUT home 40000ms",
+    "lastUrl": "https://zmi.kdns.fr/vodsearch/%E5%BA%86%E4%BD%99%E5%B9%B4-------------/"
   },
   {
     "file": "影视/网盘/闪电.js",
     "verdict": "broken",
     "step": "home",
-    "status": 522,
-    "len": 0,
-    "url": "https://sd.sduc.site/index.php/vod/search/page/1/wd/庆余年.html",
-    "err": "home: empty class list"
+    "steps": [
+      "home",
+      "category",
+      "search",
+      "detail",
+      "play"
+    ],
+    "err": "home: empty class list",
+    "lastUrl": "https://sd.sduc.site/index.php/vod/search/page/1/wd/庆余年.html"
   },
   {
     "file": "影视/采集/4KMP.js",
     "verdict": "broken",
     "step": "category",
-    "status": 403,
-    "len": 871,
-    "url": "https://4k-av.com/s?y=%E5%BA%86%E4%BD%99%E5%B9%B4",
-    "err": "category: empty list (type_id=tv)"
+    "steps": [
+      "category",
+      "search",
+      "detail",
+      "play"
+    ],
+    "err": "category: empty list (type_id=tv)",
+    "lastUrl": "https://4k-av.com/s?y=%E5%BA%86%E4%BD%99%E5%B9%B4"
   },
   {
     "file": "影视/采集/88看球.js",
     "verdict": "partial",
     "step": "search",
-    "status": 200,
-    "len": 2760,
-    "url": "http://www.88kanqiu.cc/live/130719/source",
-    "err": "search: empty list for keyword=07:00 NBA 活塞"
+    "steps": [
+      "search"
+    ],
+    "err": "search: empty list for keyword=09:00 NBA 雄鹿",
+    "lastUrl": "http://www.88kanqiu.cc/live/130722/source"
   },
   {
     "file": "影视/采集/Auete影视.js",
     "verdict": "broken",
     "step": "category",
-    "status": 200,
-    "len": 5672,
-    "url": "https://auete.top/mipso.php?searchword=%E5%BA%86%E4%BD%99%E5%B9%B4",
-    "err": "category: empty list (type_id=Dm)"
+    "steps": [
+      "category",
+      "search",
+      "detail",
+      "play"
+    ],
+    "err": "category: empty list (type_id=Dm)",
+    "lastUrl": "https://auete.top/mipso.php?searchword=%E5%BA%86%E4%BD%99%E5%B9%B4"
   },
   {
     "file": "影视/采集/FKTV.js",
     "verdict": "broken",
     "step": "category",
-    "status": 404,
-    "len": 13429,
-    "url": "https://fktv.me/search?keyword=%E5%BA%86%E4%BD%99%E5%B9%B4",
-    "err": "category: empty list (type_id=3)"
+    "steps": [
+      "category",
+      "search",
+      "detail",
+      "play"
+    ],
+    "err": "category: empty list (type_id=3)",
+    "lastUrl": "https://fktv.me/search?keyword=%E5%BA%86%E4%BD%99%E5%B9%B4"
   },
   {
     "file": "影视/采集/Gimy剧迷.js",
     "verdict": "broken",
     "step": "search",
-    "status": 200,
-    "len": 36869,
-    "url": "https://gimyai.tw/detail/927187.html",
-    "err": "search: empty list for keyword=哥吉拉-0.0"
+    "steps": [
+      "search",
+      "detail",
+      "play"
+    ],
+    "err": "search: empty list for keyword=哥吉拉-0.0",
+    "lastUrl": "https://gimyai.tw/detail/927187.html"
   },
   {
     "file": "影视/采集/NO视频.js",
     "verdict": "broken",
     "step": "category",
-    "status": 403,
-    "len": 5757,
-    "url": "https://www.novipnoad.net/search/%E5%BA%86%E4%BD%99%E5%B9%B4/",
-    "err": "category: empty list (type_id=tv-western)"
+    "steps": [
+      "category",
+      "search",
+      "detail",
+      "play"
+    ],
+    "err": "category: empty list (type_id=tv-western)",
+    "lastUrl": "https://www.novipnoad.net/search/%E5%BA%86%E4%BD%99%E5%B9%B4/"
   },
   {
     "file": "影视/采集/PPnix.js",
     "verdict": "partial",
     "step": "play",
-    "status": 200,
-    "len": 10981,
-    "url": "https://www.ppnix.com/cn/movie/9095.html",
-    "err": "STEP_TIMEOUT play 40000ms"
-  },
-  {
-    "file": "影视/采集/StreamingCommunity.js",
-    "verdict": "broken",
-    "step": "home",
-    "err": "home: empty class list"
-  },
-  {
-    "file": "影视/采集/TVB云播.js",
-    "verdict": "broken",
-    "step": "category",
-    "err": "category: empty list (type_id=4)"
+    "steps": [
+      "play"
+    ],
+    "err": "STEP_TIMEOUT play 40000ms",
+    "lastUrl": "https://www.ppnix.com/cn/movie/9095.html"
   },
   {
     "file": "影视/采集/七味.js",
     "verdict": "broken",
     "step": "category",
-    "status": 403,
-    "len": 0,
-    "url": "https://www.pcmp4.com/index.php/ajax/suggest?mid=1&limit=20&wd=%E5%BA%86%E4%BD%99%E5%B9%B4",
-    "err": "category: empty list (type_id=4)"
-  },
-  {
-    "file": "影视/采集/修罗影视.js",
-    "verdict": "broken",
-    "step": "category",
-    "status": 522,
-    "len": 0,
-    "url": "https://www.xlys02.com/search/verifyCode?t=1794187932860",
-    "err": "category: empty list (type_id=duanju)"
-  },
-  {
-    "file": "影视/采集/剧圈圈.js",
-    "verdict": "broken",
-    "step": "category",
-    "status": 404,
-    "len": 138,
-    "url": "https://www.jqqzx.cc/index.php/ajax/suggest?mid=1&wd=%E5%BA%86%E4%BD%99%E5%B9%B4",
-    "err": "category: empty list (type_id=zongyi)"
-  },
-  {
-    "file": "影视/采集/卧龙.js",
-    "verdict": "broken",
-    "step": "home",
-    "status": 200,
-    "len": 6990,
-    "url": "https://collect.wolongzyw.com/api.php/provide/vod/?ac=list&wd=%E5%BA%86%E4%BD%99%E5%B9%B4&",
-    "err": "home: empty class list"
+    "steps": [
+      "category",
+      "search",
+      "detail",
+      "play"
+    ],
+    "err": "category: empty list (type_id=4)",
+    "lastUrl": "https://www.pcmp4.com/index.php/ajax/suggest?mid=1&limit=20&wd=%E5%BA%86%E4%BD%99%E5%B9%B4"
   },
   {
     "file": "影视/采集/哇哇影视.js",
     "verdict": "broken",
     "step": "home",
-    "err": "home: empty class list"
+    "steps": [
+      "home",
+      "category",
+      "search",
+      "detail",
+      "play"
+    ],
+    "err": "home: empty class list",
+    "lastUrl": ""
   },
   {
     "file": "影视/采集/唐人街影院.js",
     "verdict": "broken",
     "step": "category",
-    "status": 404,
-    "len": 0,
-    "url": "https://www.trvod.com/vodsearch/-------------.html?wd=%E5%BA%86%E4%BD%99%E5%B9%B4&submit=",
-    "err": "category: empty list (type_id=animation)"
-  },
-  {
-    "file": "影视/采集/四万影视.js",
-    "verdict": "broken",
-    "step": "category",
-    "status": 200,
-    "len": 6990,
-    "url": "https://40000.me/api/maccms?ac=detail&wd=%E5%BA%86%E4%BD%99%E5%B9%B4&pg=1",
-    "err": "category: empty list (type_id=45)"
+    "steps": [
+      "category",
+      "search",
+      "detail",
+      "play"
+    ],
+    "err": "category: empty list (type_id=animation)",
+    "lastUrl": "https://www.trvod.com/vodsearch/-------------.html?wd=%E5%BA%86%E4%BD%99%E5%B9%B4&submit="
   },
   {
     "file": "影视/采集/太二影视.js",
     "verdict": "partial",
     "step": "search",
-    "status": 200,
-    "len": 27252,
-    "url": "https://v.tai2.lol/index.php/vod/play/id/700/sid/1/nid/1.html",
-    "err": "search: empty list for keyword=今天是太阳雨"
-  },
-  {
-    "file": "影视/采集/威尔伯TV.js",
-    "verdict": "broken",
-    "step": "category",
-    "err": "category: empty list (type_id=variety)"
+    "steps": [
+      "search"
+    ],
+    "err": "search: empty list for keyword=今天是太阳雨",
+    "lastUrl": "https://v.tai2.lol/index.php/vod/play/id/700/sid/1/nid/1.html"
   },
   {
     "file": "影视/采集/布布影视.js",
     "verdict": "broken",
     "step": "category",
-    "err": "category: empty list (type_id=综艺)"
-  },
-  {
-    "file": "影视/采集/影视大全.js",
-    "verdict": "broken",
-    "step": "category",
-    "err": "category: empty list (type_id=4)"
-  },
-  {
-    "file": "影视/采集/星辰影院.js",
-    "verdict": "broken",
-    "step": "category",
-    "err": "category: empty list (type_id=3)"
+    "steps": [
+      "category",
+      "search",
+      "detail",
+      "play"
+    ],
+    "err": "category: empty list (type_id=综艺)",
+    "lastUrl": ""
   },
   {
     "file": "影视/采集/枝枝影视.js",
     "verdict": "broken",
-    "err": "HARD_TIMEOUT 120000ms"
+    "step": "home",
+    "steps": [
+      "home",
+      "category",
+      "search",
+      "detail",
+      "play"
+    ],
+    "err": "STEP_TIMEOUT home 40000ms",
+    "lastUrl": "https://zzoc.cc/vodsearch/%E5%BA%86%E4%BD%99%E5%B9%B4-------------.html"
   },
   {
     "file": "影视/采集/枫叶.js",
     "verdict": "broken",
     "step": "category",
-    "err": "category: empty list (type_id=4)"
+    "steps": [
+      "category",
+      "search",
+      "detail",
+      "play"
+    ],
+    "err": "category: empty list (type_id=4)",
+    "lastUrl": ""
   },
   {
     "file": "影视/采集/枫叶4K.js",
     "verdict": "broken",
     "step": "category",
-    "err": "category: empty list (type_id=4)"
+    "steps": [
+      "category",
+      "search",
+      "detail",
+      "play"
+    ],
+    "err": "category: empty list (type_id=4)",
+    "lastUrl": ""
   },
   {
     "file": "影视/采集/柯南影视.js",
     "verdict": "broken",
     "step": "category",
-    "status": 429,
-    "len": 7459,
-    "url": "https://www.knvod.com/search/%E5%BA%86%E4%BD%99%E5%B9%B4-------------.html",
-    "err": "category: empty list (type_id=4)"
+    "steps": [
+      "category",
+      "search",
+      "detail",
+      "play"
+    ],
+    "err": "category: empty list (type_id=4)",
+    "lastUrl": "https://www.knvod.com/search/%E5%BA%86%E4%BD%99%E5%B9%B4-------------.html"
   },
   {
     "file": "影视/采集/歪比巴卜.js",
     "verdict": "partial",
     "step": "search",
-    "status": 200,
-    "len": 1628,
-    "url": "https://xn--qvr2v.850088.xyz/player/api.php",
-    "err": "search: empty list for keyword=我想留在你身边"
+    "steps": [
+      "search"
+    ],
+    "err": "search: empty list for keyword=老江湖",
+    "lastUrl": "https://xn--qvr2v.850088.xyz/player/api.php"
   },
   {
     "file": "影视/采集/毒舌影视.js",
     "verdict": "broken",
     "step": "category",
-    "status": 408,
-    "len": 11023,
-    "url": "https://m.xnhrsb.com/dsshiyisc/%E5%BA%86%E4%BD%99%E5%B9%B4----------1---.html",
-    "err": "category: empty list (type_id=4)"
+    "steps": [
+      "category",
+      "search",
+      "detail",
+      "play"
+    ],
+    "err": "category: empty list (type_id=4)",
+    "lastUrl": "https://m.xnhrsb.com/dsshiyisc/%E5%BA%86%E4%BD%99%E5%B9%B4----------1---.html"
   },
   {
     "file": "影视/采集/永乐视频.js",
     "verdict": "broken",
     "step": "category",
-    "err": "category: empty list (type_id=4)"
-  },
-  {
-    "file": "影视/采集/泰剧网.js",
-    "verdict": "broken",
-    "step": "category",
-    "status": 200,
-    "len": 4648,
-    "url": "https://zh.taijuwang.com/all/7---hits/",
-    "err": "category: empty list (type_id=japan)"
+    "steps": [
+      "category",
+      "search",
+      "detail",
+      "play"
+    ],
+    "err": "category: empty list (type_id=4)",
+    "lastUrl": ""
   },
   {
     "file": "影视/采集/片库.js",
     "verdict": "broken",
     "step": "category",
-    "status": 403,
-    "len": 0,
-    "url": "https://pianku.pro/index.php/verify/index.html?type=search&t=1794187912381",
-    "err": "category: empty list (type_id=4)"
+    "steps": [
+      "category",
+      "search",
+      "detail",
+      "play"
+    ],
+    "err": "category: empty list (type_id=4)",
+    "lastUrl": "https://pianku.pro/index.php/verify/index.html?type=search&t=1794196674702"
   },
   {
     "file": "影视/采集/电影人生.js",
-    "verdict": "broken",
-    "step": "category",
-    "status": 200,
-    "len": 179811,
-    "url": "https://www.dyrsok.com/s.html?name=%E5%BA%86%E4%BD%99%E5%B9%B4",
-    "err": "category: empty list (type_id=zongyi)"
-  },
-  {
-    "file": "影视/采集/耐视点播.js",
-    "verdict": "broken",
-    "step": "category",
-    "status": 200,
-    "len": 8348,
-    "url": "https://nsvod.me/index.php/vod/search.html?wd=%E5%BA%86%E4%BD%99%E5%B9%B4",
-    "err": "category: empty list (type_id=4)"
-  },
-  {
-    "file": "影视/采集/茶杯狐.js",
-    "verdict": "broken",
-    "step": "category",
-    "status": 200,
-    "len": 7134,
-    "url": "https://www.cupfox.ai/type/4.html",
-    "err": "category: empty list (type_id=4)"
-  },
-  {
-    "file": "影视/采集/蛋蛋鱼.js",
-    "verdict": "broken",
-    "step": "category",
-    "status": 200,
-    "len": 11600,
-    "url": "https://www.ymck.pro/API/v2.php?q=%E5%BA%86%E4%BD%99%E5%B9%B4&size=50",
-    "err": "category: empty list (type_id=4)"
-  },
-  {
-    "file": "影视/采集/这片海.js",
-    "verdict": "broken",
-    "step": "category",
-    "err": "category: empty list (type_id=3)"
+    "verdict": "partial",
+    "step": "search",
+    "steps": [
+      "search"
+    ],
+    "err": "search: empty list for keyword=狱前教育",
+    "lastUrl": "https://www.dyrsok.com/api/m3u8?origin=%E8%B6%85%E7%BA%A7%E7%BA%BF%E8%B7%AF&url=6af13e27115817b262d16341"
   },
   {
     "file": "影视/采集/韩小圈.js",
     "verdict": "partial",
     "step": "search",
-    "status": 200,
-    "len": 884,
-    "url": "https://hanxiaoquan.hanju.workers.dev/api/detail",
-    "err": "search: empty list for keyword=解不开的我们"
+    "steps": [
+      "search"
+    ],
+    "err": "search: empty list for keyword=解不开的我们",
+    "lastUrl": "https://hanxiaoquan.hanju.workers.dev/api/detail"
   },
   {
     "file": "流媒体/Jellyfin.js",
     "verdict": "broken",
     "step": "home",
-    "err": "home: empty class list"
+    "steps": [
+      "home",
+      "category",
+      "search",
+      "detail",
+      "play"
+    ],
+    "err": "home: empty class list",
+    "lastUrl": ""
   },
   {
     "file": "流媒体/Plex.js",
     "verdict": "broken",
     "step": "home",
-    "err": "home: empty class list"
+    "steps": [
+      "home",
+      "category",
+      "search",
+      "detail",
+      "play"
+    ],
+    "err": "home: empty class list",
+    "lastUrl": ""
   },
   {
     "file": "流媒体/飞牛.js",
     "verdict": "broken",
     "step": "home",
-    "err": "飞牛配置缺失：请先填写 FEINIU_HOST，或提供 FEINIU_SITES 多站配置"
+    "steps": [
+      "home",
+      "category",
+      "search",
+      "detail",
+      "play"
+    ],
+    "err": "飞牛配置缺失：请先填写 FEINIU_HOST，或提供 FEINIU_SITES 多站配置",
+    "lastUrl": ""
   },
   {
     "file": "直播/YY轮播.js",
     "verdict": "partial",
     "step": "search",
-    "status": 200,
-    "len": 349,
-    "url": "https://interface.yy.com/hls/new/get/1462895099/1462895099/1200?source=wapyy&callback=json",
-    "err": "search: empty list for keyword=玄幻电影"
+    "steps": [
+      "search"
+    ],
+    "err": "search: empty list for keyword=玄幻电影",
+    "lastUrl": "https://interface.yy.com/hls/new/get/1462895099/1462895099/1200?source=wapyy&callback=jsonp3"
   },
   {
     "file": "直播/抖音直播.js",
     "verdict": "partial",
     "step": "search",
-    "status": 200,
-    "len": 521718,
-    "url": "https://live.douyin.com/webcast/room/web/enter/?aid=6383&app_name=douyin_web&live_id=1&dev",
-    "err": "search: empty list for keyword=施工现场记录，挖机日常修"
+    "steps": [
+      "search"
+    ],
+    "err": "search: empty list for keyword=都是韩国货 秋款上新",
+    "lastUrl": "https://live.douyin.com/webcast/room/web/enter/?aid=6383&app_name=douyin_web&live_id=1&device_platform=web&enter_from=web_live&browser_language=zh-CN&browser_platform=Win32&browser_name=Chrome&browser"
   },
   {
     "file": "直播/斗鱼直播.js",
     "verdict": "partial",
     "step": "search",
-    "status": 200,
-    "len": 1068,
-    "url": "https://www.douyu.com/lapi/live/getH5PlayV1/74374",
-    "err": "search: empty list for keyword=平安顺遂~~~"
-  },
-  {
-    "file": "短剧/嘟嘟短剧.js",
-    "verdict": "broken",
-    "step": "category",
-    "err": "category: empty list (type_id=穿越)"
+    "steps": [
+      "search"
+    ],
+    "err": "search: empty list for keyword=幸福的童年治愈一生，不幸",
+    "lastUrl": "https://www.douyu.com/lapi/live/getH5PlayV1/1487654"
   },
   {
     "file": "短剧/星星短剧.js",
     "verdict": "partial",
     "step": "search",
-    "status": 200,
-    "len": 79790,
-    "url": "http://read.api.duodutek.com/novel-api/basedata/book/getChapterList?productId=2a8c14d1-72e",
-    "err": "search: empty list for keyword=千金驾到"
+    "steps": [
+      "search"
+    ],
+    "err": "search: empty list for keyword=千金驾到",
+    "lastUrl": "http://read.api.duodutek.com/novel-api/basedata/book/getChapterList?productId=2a8c14d1-72e7-498b-af23-381028eb47c0&vestId=2be070e0-c824-4d0e-a67a-8f688890cadb&channel=oppo19&osType=android&version=20&"
   },
   {
     "file": "短剧/短剧粉.js",
     "verdict": "broken",
     "step": "category",
-    "status": 403,
-    "len": 5607,
-    "url": "https://www.djfen.cc/list/20/",
-    "err": "category: empty list (type_id=5)"
-  },
-  {
-    "file": "短剧/短剧网.js",
-    "verdict": "broken",
-    "step": "search",
-    "status": 200,
-    "len": 9248,
-    "url": "https://sm3.cc/?id=99744",
-    "err": "search: empty list for keyword=入局后她成了我的软肋（8"
-  },
-  {
-    "file": "短剧/短剧聚合.js",
-    "verdict": "partial",
-    "step": "search",
-    "status": 200,
-    "len": 20803,
-    "url": "https://api-read.qmplaylet.com/player/api/v1/playlet/info?playlet_id=21277&sign=94a45eec0c",
-    "err": "search: empty list for keyword=抚远不远"
-  },
-  {
-    "file": "音乐/DJ音乐.js",
-    "verdict": "partial",
-    "step": "play",
-    "status": 200,
-    "len": 175035,
-    "url": "https://www.djuu.com/",
-    "err": "play: empty urls"
+    "steps": [
+      "category",
+      "search",
+      "detail",
+      "play"
+    ],
+    "err": "category: empty list (type_id=5)",
+    "lastUrl": "https://www.djfen.cc/list/20/"
   },
   {
     "file": "音乐/枫叶音乐.js",
     "verdict": "broken",
     "step": "home",
-    "err": "home: empty class list"
-  },
-  {
-    "file": "音乐/芸芸音乐.js",
-    "verdict": "partial",
-    "step": "search",
-    "status": 200,
-    "len": 1568,
-    "url": "https://music.163.com/api/song/lyric?id=108485&lv=1&kv=1&tv=-1",
-    "err": "search: empty list for keyword=华语经典 | 那些属于我"
+    "steps": [
+      "home",
+      "category",
+      "search",
+      "detail",
+      "play"
+    ],
+    "err": "home: empty class list",
+    "lastUrl": ""
   }
 ]

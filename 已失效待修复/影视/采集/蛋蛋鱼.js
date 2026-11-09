@@ -4,6 +4,7 @@
 // @version 1.4.3
 // @downloadURL https://gh-proxy.org/https://github.com/Silent1566/OmniBox-Spider/raw/refs/heads/main/影视/采集/蛋蛋鱼.js
 // @dependencies axios,cheerio
+// @status dead | HTTP_404 | 原域名 https://www.dandanyu.fun/ 已不可用（2026-11-09 逐站复核）——换源后需重写解析
 
 const axios = require("axios");
 const cheerio = require("cheerio");

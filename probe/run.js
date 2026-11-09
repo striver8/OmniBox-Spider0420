@@ -6,7 +6,7 @@ const { spawn } = require("child_process");
 const ROOT = path.resolve(__dirname, "..");
 const CONC = Number(process.env.PROBE_CONC || 8);
 const HARD_MS = Number(process.env.PROBE_HARD_MS || 150000);
-const SKIP_DIRS = new Set(["node_modules", ".git", "tests", "模板", "配置", "拦截器", "定时任务", "probe", "本地调试"]);
+const SKIP_DIRS = new Set(["node_modules", ".git", "tests", "模板", "配置", "拦截器", "定时任务", "probe", "本地调试", "已失效待修复"]);
 
 function walk(dir, acc = []) {
   for (const ent of fs.readdirSync(dir, { withFileTypes: true })) {

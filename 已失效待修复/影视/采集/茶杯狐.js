@@ -4,6 +4,7 @@
 // @dependencies cheerio
 // @version 1.1.1
 // @downloadURL https://gh-proxy.org/https://github.com/Silent1566/OmniBox-Spider/raw/refs/heads/main/影视/采集/茶杯狐.js
+// @status dead | WALL_验证码 | 原域名 https://www.cupfox.ai/ 已不可用（2026-11-09 逐站复核）——换源后需重写解析
 
 const OmniBox = require("omnibox_sdk");
 const runner = require("spider_runner");

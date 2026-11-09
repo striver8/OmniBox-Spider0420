@@ -1,5 +1,5 @@
 // @name DJ音乐[听] - OmniBox
-// @version 1.0.7
+// @version 1.0.8
 // @author https://github.com/hjdhnx/drpy-node/blob/main/spider/js/DJ%E9%9F%B3%E4%B9%90%5B%E5%90%AC%5D.js
 // @origin https://github.com/hjdhnx/drpy-node/blob/main/spider/js/DJ%E9%9F%B3%E4%B9%90%5B%E5%90%AC%5D.js
 // @push 0
@@ -66,6 +66,11 @@ async function requestText(url) {
   return res.body || "";
 }
 
+function isMusicLink(href) {
+  // 只接受曲目/专辑详情链接，过滤导航与列表页链接（如 https://www.djuu.com/ 、/hot/92.html）
+  return /\/(?:play|hot)\/\d+\.html/i.test(String(href || ""));
+}
+
 function parseListFromHtml(html) {
   const $ = cheerio.load(html || "");
   const list = [];
@@ -76,7 +81,7 @@ function parseListFromHtml(html) {
     const a = $tr.find("a[title]").first();
     const name = (a.attr("title") || a.text() || "").trim();
     const href = abs(a.attr("href") || "");
-    if (!name || !href) return;
+    if (!name || !href || !isMusicLink(href)) return;
 
     const pic = abs($tr.find("img").first().attr("src") || "");
     const remark = ($tr.find(".cor999").eq(1).text() || "").trim();
@@ -173,7 +178,7 @@ async function search(params, context) {
         const a = $(el);
         const name = (a.attr("title") || a.text() || "").trim();
         const href = abs(a.attr("href") || "");
-        if (!name || !href || seen.has(href)) return;
+        if (!name || !href || seen.has(href) || !isMusicLink(href)) return;
         seen.add(href);
         list.push({
           vod_id: makeVodId({ id: href, name }),
@@ -192,6 +197,18 @@ async function search(params, context) {
     await OmniBox.log("error", `[search] ${e.message}`);
     return { page: Number(params?.page || 1), pagecount: 0, total: 0, list: [] };
   }
+}
+
+function buildMediaUrl(file) {
+  // 站内 music.file 是相对路径（如 c2/16/2026/26f25652aeb79d84），
+  // 真实播放地址由播放器脚本拼成 https://mp4.djuu.com/<file>.m4a
+  const raw = String(file || "").trim();
+  if (!raw) return "";
+  if (/^https?:\/\//i.test(raw)) return raw;
+  if (/\.(m4a|mp3|aac|flac)$/i.test(raw)) {
+    return raw.startsWith("/") ? `${HOST}${raw}` : `${HOST}/${raw}`;
+  }
+  return `https://mp4.djuu.com/${raw.replace(/^\/+/, "")}.m4a`;
 }
 
 function parseMusicObject(text) {
@@ -224,7 +241,15 @@ async function play(params, context) {
     const flag = String(params?.flag || "DJ专线");
     if (!playId) throw new Error("playId 为空");
 
-    const html = await requestText(playId);
+    let html = await requestText(playId);
+    // 专辑页（/hot/<id>.html）等非单曲页没有 music 对象，退化为取该页第一个单曲链接再解析
+    if (!parseMusicObject(html)) {
+      const alt = (String(html || "").match(/\/play\/\d+\.html/i) || [])[0];
+      if (alt && alt !== playId) {
+        await OmniBox.log("info", `[play] ${playId} 无 music 对象，转单曲 ${alt}`);
+        html = await requestText(alt);
+      }
+    }
     const tried = [];
 
     const music = parseMusicObject(html);
@@ -235,8 +260,8 @@ async function play(params, context) {
     }
 
     if (music?.file) {
-      const url = music.file;
-      await OmniBox.log("info", `[play] hit music.file -> ${url}`);
+      const url = buildMediaUrl(music.file);
+      await OmniBox.log("info", `[play] hit music.file=${music.file} -> ${url}`);
       return {
         urls: [{ name: "播放", url }],
         header: { "User-Agent": UA, Referer: HOST + "/" },

@@ -154,7 +154,7 @@ if (fs.existsSync(archivedPath)) {
   if (arch.length) {
     md.push("## 六、本轮已处置：归档到 `已失效待修复/`");
     md.push("");
-    md.push(`共 ${arch.length} 个脚本的站点域名已确认失效（DNS 不可达或域名已出售），已移入 \`已失效待修复/\` 并在脚本头打 \`@status dead\` 标记，保留 operator 追溯：`);
+    md.push(`共 ${arch.length} 个脚本的站点已确认不可用（域名出售 / 关站公告 / 跳转广告发布页 / DNS 不可达 / 强制验证码），已移入 \`已失效待修复/\` 并在脚本头打 \`@status dead\` 标记，保留 operator 追溯：`);
     md.push("");
     md.push("| 原位置 | 判定 | 原域名 |");
     md.push("| --- | --- | --- |");
@@ -163,6 +163,12 @@ if (fs.existsSync(archivedPath)) {
     md.push("> 归档不是删除：换到新域名后，把文件移回原目录、更新 `HOST`，再跑 `node probe/run.js <路径>` 验证即可。");
     md.push("");
   }
+}
+
+const evidencePath = path.join(HERE, "evidence.md");
+if (fs.existsSync(evidencePath)) {
+  const extra = fs.readFileSync(evidencePath, "utf8").trim();
+  if (extra) { md.push(extra); md.push(""); }
 }
 
 fs.writeFileSync(path.join(ROOT, "维护报告.md"), md.join("\n"));

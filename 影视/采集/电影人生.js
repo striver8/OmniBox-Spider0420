@@ -2,7 +2,7 @@
 // @author 梦
 // @description 页面解析：已接入；播放优先直解析，失败后 SDK 嗅探，再失败交给播放器嗅探
 // @dependencies cheerio
-// @version 1.1.1
+// @version 1.1.2
 // @downloadURL https://gh-proxy.org/https://github.com/Silent1566/OmniBox-Spider/raw/refs/heads/main/影视/采集/电影人生.js
 
 const OmniBox = require("omnibox_sdk");
@@ -131,7 +131,8 @@ function parseVodCards(html) {
     const $a = $(el);
     const href = $a.attr("href") || $a.attr("data-url") || "";
     const vodName = ($a.attr("title") || "").trim();
-    if (!href || !vodName || !/\/dyrscom-/.test(href)) return;
+    if (!href || !vodName) return;
+    if (!/\/(tv|movie)\//.test(href) && !/\/dyrscom-/.test(href)) return;
 
     const vodId = href.replace(/^\//, "");
     if (seen.has(vodId)) return;
@@ -249,7 +250,7 @@ async function detail(params, context) {
     });
 
     const originLinks = [];
-    $("#originTabs a[href*='?origin='] button[data-origin]").each((_, el) => {
+    $("#originTabs a[href*='origin='] button[data-origin]").each((_, el) => {
       const $btn = $(el);
       const origin = ($btn.attr("data-origin") || $btn.text() || "").trim();
       const href = $btn.closest("a").attr("href") || "";
@@ -264,7 +265,7 @@ async function detail(params, context) {
         const lineHtml = line.href === url ? html : await fetchText(line.href, { headers: { Referer: url } });
         const $$ = cheerio.load(lineHtml);
         const episodes = [];
-        $$(".seqlist a[href*='?origin=']").each((_, el) => {
+        $$(".seqlist a[href*='origin=']").each((_, el) => {
           const $a = $$(el);
           const href = $a.attr("href") || "";
           const title = ($a.attr("data-title") || stripHtml($a.text()) || "播放").trim();

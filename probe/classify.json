@@ -2,1531 +2,619 @@
   {
     "file": "Emby/模板一.js",
     "verdict": "broken",
-    "step": null,
-    "cls": "LOAD_ERR",
-    "last": {
-      "url": ""
-    },
-    "err": "Unexpected token ':'",
-    "host": null,
-    "siteCls": "LOAD_ERR"
+    "siteCls": "NO_HOST",
+    "host": ""
   },
   {
     "file": "Emby/模板二.js",
     "verdict": "broken",
-    "step": "home",
-    "cls": "NO_REQ",
-    "last": {
-      "url": ""
-    },
-    "err": "home: empty class list",
-    "host": null,
-    "hostCode": null,
-    "hostSize": null,
-    "effective": null,
-    "siteCls": "NO_HOST"
+    "siteCls": "NO_HOST",
+    "host": ""
   },
   {
     "file": "动漫/girigiri爱动漫.js",
     "verdict": "broken",
-    "step": "category",
-    "cls": "SHELL",
-    "last": {
-      "url": "https://bgm.girigirilove.com/show/2-----------/",
-      "status": 200,
-      "len": 5889
-    },
-    "err": "category: empty list (type_id=2)",
-    "host": "https://bgm.girigirilove.com/",
-    "hostCode": 200,
-    "hostSize": 2080,
-    "effective": "https://ani.girigirilove.com/",
-    "siteCls": "ALIVE"
-  },
-  {
-    "file": "动漫/嗷呜动漫.js",
-    "verdict": "broken",
-    "step": "category",
-    "cls": "NO_REQ",
-    "last": {
-      "url": ""
-    },
-    "err": "category: empty list (type_id=20)",
-    "host": "https://www.aowu.tv/",
-    "hostCode": 0,
-    "hostSize": 0,
-    "effective": "https://www.aowu.tv/",
-    "siteCls": "DNS_DEAD"
+    "siteCls": "SPA",
+    "host": "https://bgm.girigirilove.com/"
   },
   {
     "file": "动漫/樱花动漫.js",
-    "verdict": "partial",
-    "step": "search",
-    "cls": "PARSE",
-    "last": {
-      "url": "https://www.dmvvv.com/play/891-1-1/",
-      "status": 200,
-      "len": 47273
-    },
-    "err": "search: empty list for keyword=庆余年",
-    "host": "https://www.dmvvv.com/",
-    "hostCode": 200,
-    "hostSize": 8296,
-    "effective": "https://www.vtt6.com/",
-    "siteCls": "ALIVE"
+    "verdict": "ok",
+    "siteCls": "ALIVE",
+    "host": "https://www.dmvvv.com/"
   },
   {
     "file": "动漫/稀饭动漫.js",
     "verdict": "broken",
-    "step": "category",
-    "cls": "PARSE",
-    "last": {
-      "url": "https://dm.xifanacg.com/index.php/ajax/suggest?mid=1&wd=%E5%BA%86%E4%B",
-      "status": 200,
-      "len": 474509
-    },
-    "err": "category: empty list (type_id=1)",
-    "host": "https://dm.xifanacg.com/",
-    "hostCode": 200,
-    "hostSize": 45058,
-    "effective": "https://next.xifanacg.com/",
-    "siteCls": "ALIVE"
+    "siteCls": "ALIVE",
+    "host": "https://dm.xifanacg.com/"
+  },
+  {
+    "file": "听书/275听书.js",
+    "verdict": "ok",
+    "siteCls": "UNKNOWN",
+    "host": "https://www.i275.com/"
   },
   {
     "file": "听书/博看听书.js",
-    "verdict": "partial",
-    "step": "search",
-    "cls": "PARSE",
-    "last": {
-      "url": "https://api.bookan.com.cn/voice/album/units?album_id=902849&page=1&num",
-      "status": 200,
-      "len": 26252
-    },
-    "err": "search: empty list for keyword=庆余年",
-    "host": "https://api.bookan.com.cn/",
-    "hostCode": 200,
-    "hostSize": 67,
-    "effective": "https://api.bookan.com.cn/",
-    "siteCls": "ALIVE"
+    "verdict": "ok",
+    "siteCls": "ALIVE",
+    "host": "https://api.bookan.com.cn/"
   },
   {
     "file": "听书/听友FM.js",
     "verdict": "broken",
-    "step": "category",
-    "cls": "PARSE",
-    "last": {
-      "url": "https://tingyou.fm/",
-      "status": 200,
-      "len": 175233
-    },
-    "err": "category: empty list (type_id=46)",
-    "host": "https://tingyou.fm/",
-    "hostCode": 200,
-    "hostSize": 34722,
-    "effective": "https://tingyou.fm/listening",
-    "siteCls": "ALIVE"
+    "siteCls": "ALIVE",
+    "host": "https://tingyou.fm/"
   },
   {
-    "file": "听书/番茄畅听.js",
-    "verdict": "broken",
-    "step": "category",
-    "cls": "SERVER_5XX",
-    "last": {
-      "url": "https://qkfqapi.vv9v.cn/api/search?key=%E5%BA%86%E4%BD%99%E5%B9%B4&tab",
-      "status": 521,
-      "len": 0
-    },
-    "err": "category: empty list (type_id=899)",
-    "host": "https://qkfqapi.vv9v.cn/",
-    "hostCode": 521,
-    "hostSize": 0,
-    "effective": "https://qkfqapi.vv9v.cn/",
-    "siteCls": "HTTP_521"
+    "file": "听书/酷我听书.js",
+    "verdict": "ok",
+    "siteCls": "UNKNOWN",
+    "host": "http://mobi.kuwo.cn/"
   },
   {
-    "file": "已失效待修复/听书/六月听书.js",
-    "verdict": "broken",
-    "step": "category",
-    "cls": "NO_REQ",
-    "last": {
-      "url": ""
-    },
-    "err": "category: empty list (type_id=t0)",
-    "host": "http://m.5weiting.com/",
-    "hostCode": 0,
-    "hostSize": 0,
-    "effective": "http://m.5weiting.com/",
-    "siteCls": "DNS_DEAD"
+    "file": "导航/MakkaPakka聚合导航.js",
+    "verdict": "ok",
+    "siteCls": "UNKNOWN",
+    "host": "https://gh-proxy.org/"
   },
   {
-    "file": "已失效待修复/影视/采集/RRSP.js",
-    "verdict": "broken",
-    "step": "category",
-    "cls": "NO_REQ",
-    "last": {
-      "url": ""
-    },
-    "err": "category: empty list (type_id=1)",
-    "host": "https://docs.qq.com/",
-    "hostCode": 200,
-    "hostSize": 1895,
-    "effective": "https://docs.qq.com/",
-    "siteCls": "ALIVE"
+    "file": "导航/豆瓣推荐.js",
+    "verdict": "ok",
+    "siteCls": "UNKNOWN",
+    "host": "https://m.douban.com/"
   },
   {
     "file": "影视/影视库/影视库.js",
     "verdict": "broken",
-    "step": "category",
-    "cls": "NO_REQ",
-    "last": {
-      "url": ""
-    },
-    "err": "OmniBox.listMediaItems is not a function",
-    "host": null,
-    "hostCode": null,
-    "hostSize": null,
-    "effective": null,
-    "siteCls": "NO_HOST"
+    "siteCls": "NO_HOST",
+    "host": ""
   },
   {
     "file": "影视/磁力/不太灵.js",
     "verdict": "broken",
-    "step": "home",
-    "cls": "SHELL",
-    "last": {
-      "url": "https://web5.mukaku.com/prod/api/v1/getVideoList?app_id=83768d9ad4&ide",
-      "status": 200,
-      "len": 279
-    },
-    "err": "home: empty class list",
-    "host": "https://web5.mukaku.com/",
-    "hostCode": 200,
-    "hostSize": 279,
-    "effective": "https://web5.mukaku.com/",
-    "siteCls": "ALIVE"
+    "siteCls": "CHALLENGE",
+    "host": "https://web5.mukaku.com/"
   },
   {
     "file": "影视/磁力/磁力熊.js",
     "verdict": "broken",
-    "step": "category",
-    "cls": "SHELL",
-    "last": {
-      "url": "https://www.cilixiong.com/e/search/index.php",
-      "status": 200,
-      "len": 5670
-    },
-    "err": "category: empty list (type_id=movie)",
-    "host": "https://www.cilixiong.com/",
-    "hostCode": 200,
-    "hostSize": 2852,
-    "effective": "https://www.cilixiong.com/",
-    "siteCls": "ALIVE"
+    "siteCls": "ALIVE",
+    "host": "https://www.cilixiong.com/"
   },
   {
     "file": "影视/网盘/4K指南.js",
-    "verdict": "partial",
-    "step": "search",
-    "cls": "PARSE",
-    "last": {
-      "url": "https://4kzn.cc/book/15632.html",
-      "status": 200,
-      "len": 45079
-    },
-    "err": "search: empty list for keyword=庆余年",
-    "host": "https://4kzn.cc/",
-    "hostCode": 200,
-    "hostSize": 14729,
-    "effective": "https://4kzn.cc/",
-    "siteCls": "ALIVE"
+    "verdict": "ok",
+    "siteCls": "ALIVE",
+    "host": "https://4kzn.cc/"
   },
   {
     "file": "影视/网盘/AListTvbox.js",
     "verdict": "broken",
-    "step": "home",
-    "cls": "NO_REQ",
-    "last": {
-      "url": ""
-    },
-    "err": "home: empty class list",
-    "host": null,
-    "hostCode": null,
-    "hostSize": null,
-    "effective": null,
-    "siteCls": "NO_HOST"
+    "siteCls": "NO_HOST",
+    "host": ""
   },
   {
     "file": "影视/网盘/七味分组.js",
     "verdict": "broken",
-    "step": "category",
-    "cls": "WAF",
-    "last": {
-      "url": "https://www.qnhot.com/index.php/ajax/suggest?mid=1&limit=20&wd=%E5%BA%",
-      "status": 403,
-      "len": 0
-    },
-    "err": "category: empty list (type_id=1)",
-    "host": "https://www.pcmp4.com/",
-    "hostCode": 403,
-    "hostSize": 3244,
-    "effective": "https://www.pcmp4.com/",
-    "siteCls": "HTTP_403"
-  },
-  {
-    "file": "影视/网盘/二小.js",
-    "verdict": "broken",
-    "step": "home",
-    "cls": "NO_REQ",
-    "last": {
-      "url": ""
-    },
-    "err": "home: empty class list",
-    "host": "https://www.2xiaopan.top/",
-    "hostCode": 0,
-    "hostSize": 0,
-    "effective": "https://www.2xiaopan.top/",
-    "siteCls": "DNS_DEAD"
+    "siteCls": "CHALLENGE",
+    "host": "https://www.qnhot.com/"
   },
   {
     "file": "影视/网盘/光鸭·臻影社.js",
     "verdict": "broken",
-    "step": "category",
-    "cls": "NO_REQ",
-    "last": {
-      "url": ""
-    },
-    "err": "category: empty list (type_id=film)",
-    "host": "https://www.guangyapan.com/",
-    "hostCode": 200,
-    "hostSize": 852,
-    "effective": "https://www.guangyapan.com/",
-    "siteCls": "ALIVE"
+    "siteCls": "NO_HOST",
+    "host": "https://www.guangya.net/"
   },
   {
     "file": "影视/网盘/剧迷115.js",
     "verdict": "broken",
-    "step": "category",
-    "cls": "SHELL",
-    "last": {
-      "url": "https://www.gimy115.top/index.php/vod/search/wd/%E5%BA%86%E4%BD%99%E5%",
-      "status": 200,
-      "len": 3388
-    },
-    "err": "category: empty list (type_id=1)",
-    "host": "https://www.gimy115.top/",
-    "hostCode": 200,
-    "hostSize": 2681,
-    "effective": "https://www.gimy115.top/",
-    "siteCls": "ALIVE"
+    "siteCls": "ALIVE",
+    "host": "https://www.gimy115.top/"
   },
   {
     "file": "影视/网盘/多多.js",
     "verdict": "broken",
-    "step": "detail",
-    "cls": "PARSE",
-    "last": {
-      "url": "https://tv.yydsys.top/index.php/vod/detail/id/139.html",
-      "status": 200,
-      "len": 73527
-    },
-    "err": "detail: no playable episodes (sources=0, episodes=0)",
-    "host": "https://tv.yydsys.top/",
-    "hostCode": 200,
-    "hostSize": 99423,
-    "effective": "https://tv.yydsys.top/",
-    "siteCls": "ALIVE"
+    "siteCls": "CHALLENGE",
+    "host": "https://tv.yydsys.top/"
   },
   {
     "file": "影视/网盘/影巢.js",
     "verdict": "broken",
-    "step": "home",
-    "cls": "NO_REQ",
-    "last": {
-      "url": ""
-    },
-    "err": "home: empty class list",
-    "host": "https://hdhive.com/",
-    "hostCode": 200,
-    "hostSize": 114,
-    "effective": "https://hdhive.com/",
-    "siteCls": "ALIVE"
+    "siteCls": "NO_HOST",
+    "host": ""
   },
   {
     "file": "影视/网盘/快映.js",
     "verdict": "broken",
-    "step": "detail",
-    "cls": "PARSE",
-    "last": {
-      "url": "http://38.76.197.172:12521/index.php/vod/detail/id/487492.html",
-      "status": 200,
-      "len": 62580
-    },
-    "err": "detail: no playable episodes (sources=0, episodes=0)",
-    "host": "http://38.76.197.172/",
-    "hostCode": 200,
-    "hostSize": 1462,
-    "effective": "http://38.76.197.42:15152/",
-    "siteCls": "ALIVE"
+    "siteCls": "ALIVE",
+    "host": "http://38.76.197.172:12521/"
   },
   {
     "file": "影视/网盘/木偶.js",
     "verdict": "broken",
-    "step": "detail",
-    "cls": "PARSE",
-    "last": {
-      "url": "https://123.666291.xyz/index.php/vod/detail/id/406.html",
-      "status": 200,
-      "len": 76295
-    },
-    "err": "detail: no playable episodes (sources=0, episodes=0)",
-    "host": "https://123.666291.xyz/",
-    "hostCode": 200,
-    "hostSize": 114629,
-    "effective": "https://123.666291.xyz/",
-    "siteCls": "ALIVE"
+    "siteCls": "ALIVE",
+    "host": "https://123.666291.xyz/"
   },
   {
     "file": "影视/网盘/欧哥.js",
     "verdict": "broken",
-    "step": "category",
-    "cls": "SHELL",
-    "last": {
-      "url": "https://woog.nxog.eu.org/index.php/vod/search/page/1/wd/庆余年.html",
-      "status": 200,
-      "len": 0
-    },
-    "err": "category: empty list (type_id=1)",
-    "host": "https://woog.nxog.eu.org/",
-    "hostCode": 200,
-    "hostSize": 77031,
-    "effective": "https://woog.nxog.eu.org/",
-    "siteCls": "ALIVE"
+    "siteCls": "ALIVE",
+    "host": "https://woog.nxog.eu.org/"
   },
   {
     "file": "影视/网盘/玩偶.js",
     "verdict": "broken",
-    "step": "detail",
-    "cls": "PARSE",
-    "last": {
-      "url": "https://www.wogg.net/voddetail/76340.html",
-      "status": 200,
-      "len": 63246
-    },
-    "err": "detail: no playable episodes (sources=0, episodes=0)",
-    "host": "https://www.wogg.net/",
-    "hostCode": 200,
-    "hostSize": 120335,
-    "effective": "https://www.wogg.net/",
-    "siteCls": "ALIVE"
+    "siteCls": "ALIVE",
+    "host": "https://www.wogg.net/"
   },
   {
     "file": "影视/网盘/玩偶聚合-非分组.js",
     "verdict": "broken",
-    "step": "detail",
-    "cls": "PARSE",
-    "last": {
-      "url": "https://tv.214521.xyz/index.php/vod/detail/id/142.html",
-      "status": 200,
-      "len": 80405
-    },
-    "err": "detail: no playable episodes (sources=0, episodes=0)",
-    "host": "https://www.wogg.net/",
-    "hostCode": 200,
-    "hostSize": 120332,
-    "effective": "https://www.wogg.net/",
-    "siteCls": "ALIVE"
+    "siteCls": "ALIVE",
+    "host": "https://www.wogg.net/"
   },
   {
     "file": "影视/网盘/玩偶聚合.js",
     "verdict": "broken",
-    "step": "detail",
-    "cls": "PARSE",
-    "last": {
-      "url": "https://www.wogg.net/voddetail/76340.html",
-      "status": 200,
-      "len": 63246
-    },
-    "err": "detail: no playable episodes (sources=0, episodes=0)",
-    "host": "https://www.wogg.net/",
-    "hostCode": 200,
-    "hostSize": 120337,
-    "effective": "https://www.wogg.net/",
-    "siteCls": "ALIVE"
+    "siteCls": "ALIVE",
+    "host": "https://www.wogg.net/"
   },
   {
     "file": "影视/网盘/盘搜.js",
     "verdict": "broken",
-    "step": "category",
-    "cls": "NO_REQ",
-    "last": {
-      "url": ""
-    },
-    "err": "category: empty list (type_id=history)",
-    "host": null,
-    "hostCode": null,
-    "hostSize": null,
-    "effective": null,
-    "siteCls": "NO_HOST"
+    "siteCls": "NO_HOST",
+    "host": ""
   },
   {
     "file": "影视/网盘/盘搜分组.js",
     "verdict": "broken",
-    "step": "category",
-    "cls": "NO_REQ",
-    "last": {
-      "url": ""
-    },
-    "err": "category: empty list (type_id=history)",
-    "host": "https://115.com/",
-    "hostCode": 200,
-    "hostSize": 9754,
-    "effective": "https://115.com/",
-    "siteCls": "ALIVE"
+    "siteCls": "NO_HOST",
+    "host": ""
   },
   {
     "file": "影视/网盘/聚盘搜索.js",
     "verdict": "broken",
-    "step": "category",
-    "cls": "WAF",
-    "last": {
-      "url": "https://ppan.dyuzi.com/api/frontend/search?q=%E5%BA%86%E4%BD%99%E5%B9%",
-      "status": 403,
-      "len": 548
-    },
-    "err": "category: empty list (type_id=电视剧)",
-    "host": "https://ppan.dyuzi.com/",
-    "hostCode": 403,
-    "hostSize": 548,
-    "effective": "https://ppan.dyuzi.com/",
-    "siteCls": "HTTP_403"
+    "siteCls": "ALIVE",
+    "host": "https://ppan.dyuzi.com/"
   },
   {
     "file": "影视/网盘/聚盘搜索分组.js",
     "verdict": "broken",
-    "step": "category",
-    "cls": "WAF",
-    "last": {
-      "url": "https://ppan.dyuzi.com/api/frontend/search?q=%E5%BA%86%E4%BD%99%E5%B9%",
-      "status": 403,
-      "len": 548
-    },
-    "err": "category: empty list (type_id=电视剧)",
-    "host": "https://ppan.dyuzi.com/",
-    "hostCode": 403,
-    "hostSize": 548,
-    "effective": "https://ppan.dyuzi.com/",
-    "siteCls": "HTTP_403"
-  },
-  {
-    "file": "影视/网盘/至臻.js",
-    "verdict": "broken",
-    "step": "home",
-    "cls": "NO_REQ",
-    "last": {
-      "url": ""
-    },
-    "err": "home: empty class list",
-    "host": "http://www.miqk.cc/",
-    "hostCode": 0,
-    "hostSize": 0,
-    "effective": "http://www.miqk.cc/",
-    "siteCls": "DNS_DEAD"
+    "siteCls": "ALIVE",
+    "host": "https://ppan.dyuzi.com/"
   },
   {
     "file": "影视/网盘/虎斑.js",
     "verdict": "broken",
-    "step": "detail",
-    "cls": "PARSE",
-    "last": {
-      "url": "http://38.76.197.172:16969/index.php/vod/detail/id/478632.html",
-      "status": 200,
-      "len": 63329
-    },
-    "err": "detail: no playable episodes (sources=0, episodes=0)",
-    "host": "http://38.76.197.172/",
-    "hostCode": 200,
-    "hostSize": 1462,
-    "effective": "http://38.76.197.42:15152/",
-    "siteCls": "ALIVE"
+    "siteCls": "ALIVE",
+    "host": "http://38.76.197.172:16969/"
   },
   {
     "file": "影视/网盘/蜗牛4K.js",
     "verdict": "broken",
-    "step": "home",
-    "cls": "SERVER_5XX",
-    "last": {
-      "url": "https://zmi.kdns.fr/vodsearch/%E5%BA%86%E4%BD%99%E5%B9%B4-------------",
-      "status": 522,
-      "len": 7221
-    },
-    "err": "STEP_TIMEOUT home 40000ms",
-    "host": "https://115.com/",
-    "hostCode": 200,
-    "hostSize": 9754,
-    "effective": "https://115.com/",
-    "siteCls": "ALIVE"
-  },
-  {
-    "file": "影视/网盘/蜡笔.js",
-    "verdict": "broken",
-    "step": "home",
-    "cls": "HTTP_409",
-    "last": {
-      "url": "http://xiaocgege.shop/index.php/vod/search/page/1/wd/庆余年.html",
-      "status": 409,
-      "len": 890
-    },
-    "err": "home: empty class list",
-    "host": "http://feimo.fun/",
-    "hostCode": 0,
-    "hostSize": 0,
-    "effective": "http://feimo.fun/",
-    "siteCls": "DNS_DEAD"
+    "siteCls": "UNKNOWN",
+    "host": "https://zmi.kdns.fr/"
   },
   {
     "file": "影视/网盘/闪电.js",
     "verdict": "broken",
-    "step": "home",
-    "cls": "SERVER_5XX",
-    "last": {
-      "url": "https://sd.sduc.site/index.php/vod/search/page/1/wd/庆余年.html",
-      "status": 522,
-      "len": 0
-    },
-    "err": "home: empty class list",
-    "host": "https://sd.sduc.site/",
-    "hostCode": 522,
-    "hostSize": 0,
-    "effective": "https://sd.sduc.site/",
-    "siteCls": "HTTP_522"
+    "siteCls": "UNKNOWN",
+    "host": "https://sd.sduc.site/"
+  },
+  {
+    "file": "影视/解析/movie360.js",
+    "verdict": "ok",
+    "siteCls": "UNKNOWN",
+    "host": "https://jx.m3u8.tv/"
+  },
+  {
+    "file": "影视/采集/123TV.js",
+    "verdict": "ok",
+    "siteCls": "UNKNOWN",
+    "host": "https://a123tv.com/"
+  },
+  {
+    "file": "影视/采集/3Q影视.js",
+    "verdict": "ok",
+    "siteCls": "UNKNOWN",
+    "host": "https://dduotv01.top/"
   },
   {
     "file": "影视/采集/4KMP.js",
     "verdict": "broken",
-    "step": "category",
-    "cls": "WAF",
-    "last": {
-      "url": "https://4k-av.com/s?y=%E5%BA%86%E4%BD%99%E5%B9%B4",
-      "status": 403,
-      "len": 871
-    },
-    "err": "category: empty list (type_id=movie)",
-    "host": "https://4k-av.com/",
-    "hostCode": 403,
-    "hostSize": 281,
-    "effective": "https://4k-av.com/",
-    "siteCls": "HTTP_403"
+    "siteCls": "ALIVE",
+    "host": "https://4k-av.com/"
+  },
+  {
+    "file": "影视/采集/4KVM.js",
+    "verdict": "ok",
+    "siteCls": "UNKNOWN",
+    "host": "https://www.4kvm.org/"
   },
   {
     "file": "影视/采集/88看球.js",
     "verdict": "partial",
-    "step": "search",
-    "cls": "SHELL",
-    "last": {
-      "url": "http://www.88kanqiu.cc/live/130719/source",
-      "status": 200,
-      "len": 2760
-    },
-    "err": "search: empty list for keyword=庆余年",
-    "host": "http://www.88kanqiu.cc/",
-    "hostCode": 200,
-    "hostSize": 12040,
-    "effective": "https://www.88kanqiu.us/",
-    "siteCls": "ALIVE"
+    "siteCls": "ALIVE",
+    "host": "http://www.88kanqiu.cc/"
   },
   {
     "file": "影视/采集/Auete影视.js",
     "verdict": "broken",
-    "step": "category",
-    "cls": "SHELL",
-    "last": {
-      "url": "https://auete.top/mipso.php?searchword=%E5%BA%86%E4%BD%99%E5%B9%B4",
-      "status": 200,
-      "len": 5672
-    },
-    "err": "category: empty list (type_id=Movie)",
-    "host": "https://auete.top/",
-    "hostCode": 200,
-    "hostSize": 2822,
-    "effective": "https://auete.top/",
-    "siteCls": "ALIVE"
+    "siteCls": "ALIVE",
+    "host": "https://auete.top/"
   },
   {
     "file": "影视/采集/FKTV.js",
     "verdict": "broken",
-    "step": "category",
-    "cls": "404",
-    "last": {
-      "url": "https://fktv.me/search?keyword=%E5%BA%86%E4%BD%99%E5%B9%B4",
-      "status": 404,
-      "len": 13429
-    },
-    "err": "category: empty list (type_id=1)",
-    "host": "https://fktv.me/",
-    "hostCode": 200,
-    "hostSize": 61489,
-    "effective": "https://fktv.me/",
-    "siteCls": "ALIVE"
+    "siteCls": "UNKNOWN",
+    "host": "https://fktv.me/"
   },
   {
     "file": "影视/采集/Gimy剧迷.js",
     "verdict": "broken",
-    "step": "search",
-    "cls": "PARSE",
-    "last": {
-      "url": "https://gimyai.tw/detail/927187.html",
-      "status": 200,
-      "len": 36869
-    },
-    "err": "search: empty list for keyword=庆余年",
-    "host": "https://gimyai.tw/",
-    "hostCode": 200,
-    "hostSize": 14917,
-    "effective": "https://gimyai.tw/",
-    "siteCls": "ALIVE"
+    "siteCls": "ALIVE",
+    "host": "https://gimyai.tw/"
   },
   {
     "file": "影视/采集/HDmoli.js",
-    "verdict": "partial",
-    "step": "search",
-    "cls": "PARSE",
-    "last": {
-      "url": "https://www.hdmoli.me/play/3927-5-1.html",
-      "status": 200,
-      "len": 38557
-    },
-    "err": "search: empty list for keyword=庆余年",
-    "host": "https://www.hdmoli.me/",
-    "hostCode": 200,
-    "hostSize": 10858,
-    "effective": "https://www.hdmoli.me/",
-    "siteCls": "ALIVE"
+    "verdict": "ok",
+    "siteCls": "ALIVE",
+    "host": "https://www.hdmoli.me/"
   },
   {
     "file": "影视/采集/LIBVIO.js",
-    "verdict": "partial",
-    "step": "search",
-    "cls": "NO_REQ",
-    "last": {
-      "url": ""
-    },
-    "err": "search: empty list for keyword=庆余年",
-    "host": "https://www.libvio.lat/",
-    "hostCode": 200,
-    "hostSize": 12983,
-    "effective": "https://www.libvio.lat/",
-    "siteCls": "ALIVE"
+    "verdict": "ok",
+    "siteCls": "ALIVE",
+    "host": "https://www.libvio.lat/"
   },
   {
     "file": "影视/采集/NO视频.js",
     "verdict": "broken",
-    "step": "category",
-    "cls": "WAF",
-    "last": {
-      "url": "https://www.novipnoad.net/search/%E5%BA%86%E4%BD%99%E5%B9%B4/",
-      "status": 403,
-      "len": 5757
-    },
-    "err": "category: empty list (type_id=movie)",
-    "host": "https://www.novipnoad.net/",
-    "hostCode": 403,
-    "hostSize": 3262,
-    "effective": "https://www.novipnoad.net/",
-    "siteCls": "HTTP_403"
+    "siteCls": "CHALLENGE",
+    "host": "https://www.novipnoad.net/"
   },
   {
     "file": "影视/采集/PPnix.js",
     "verdict": "partial",
-    "step": "play",
-    "cls": "SHELL",
-    "last": {
-      "url": "https://www.ppnix.com/cn/tv/1804.html",
-      "status": 200,
-      "len": 12767
-    },
-    "err": "STEP_TIMEOUT play 40000ms",
-    "host": "https://www.ppnix.com/",
-    "hostCode": 200,
-    "hostSize": 6612,
-    "effective": "https://www.ppnix.com/",
-    "siteCls": "ALIVE"
+    "siteCls": "CHALLENGE",
+    "host": "https://www.ppnix.com/"
   },
   {
-    "file": "影视/采集/StreamingCommunity.js",
-    "verdict": "broken",
-    "step": "home",
-    "cls": "NO_REQ",
-    "last": {
-      "url": ""
-    },
-    "err": "home: empty class list",
-    "host": "https://streamingcommunityz.pink/",
-    "hostCode": 0,
-    "hostSize": 0,
-    "effective": "https://streamingcommunityz.pink/",
-    "siteCls": "DNS_DEAD"
-  },
-  {
-    "file": "影视/采集/TVB云播.js",
-    "verdict": "broken",
-    "step": "category",
-    "cls": "NO_REQ",
-    "last": {
-      "url": ""
-    },
-    "err": "category: empty list (type_id=1)",
-    "host": "http://www.viptv01.com/",
-    "hostCode": 0,
-    "hostSize": 0,
-    "effective": "http://www.viptv01.com/",
-    "siteCls": "DNS_DEAD"
+    "file": "影视/采集/iKanBot.js",
+    "verdict": "ok",
+    "siteCls": "UNKNOWN",
+    "host": "https://www1.ikanbot.com/"
   },
   {
     "file": "影视/采集/七味.js",
     "verdict": "broken",
-    "step": "category",
-    "cls": "WAF",
-    "last": {
-      "url": "https://www.pcmp4.com/index.php/ajax/suggest?mid=1&limit=20&wd=%E5%BA%",
-      "status": 403,
-      "len": 0
-    },
-    "err": "category: empty list (type_id=1)",
-    "host": "https://www.pcmp4.com/",
-    "hostCode": 403,
-    "hostSize": 3232,
-    "effective": "https://www.pcmp4.com/",
-    "siteCls": "HTTP_403"
+    "siteCls": "CHALLENGE",
+    "host": "https://www.pcmp4.com/"
   },
   {
-    "file": "影视/采集/修罗影视.js",
-    "verdict": "broken",
-    "step": "category",
-    "cls": "SERVER_5XX",
-    "last": {
-      "url": "https://www.xlys02.com/search/verifyCode?t=1794186988255",
-      "status": 522,
-      "len": 0
-    },
-    "err": "category: empty list (type_id=movie)",
-    "host": "https://api.nn.ci/",
-    "hostCode": 200,
-    "hostSize": 19834,
-    "effective": "https://nn.ci/",
-    "siteCls": "ALIVE"
+    "file": "影视/采集/两个BT.js",
+    "verdict": "ok",
+    "siteCls": "UNKNOWN",
+    "host": "https://www.bttwoo.com/"
   },
   {
-    "file": "影视/采集/剧圈圈.js",
-    "verdict": "broken",
-    "step": "category",
-    "cls": "404",
-    "last": {
-      "url": "https://www.jqqzx.cc/index.php/ajax/suggest?mid=1&wd=%E5%BA%86%E4%BD%9",
-      "status": 404,
-      "len": 138
-    },
-    "err": "category: empty list (type_id=dianying)",
-    "host": "https://www.jqqzx.cc/",
-    "hostCode": 404,
-    "hostSize": 138,
-    "effective": "https://www.jqqzx.one/",
-    "siteCls": "HTTP_404"
+    "file": "影视/采集/乌云影视.js",
+    "verdict": "ok",
+    "siteCls": "UNKNOWN",
+    "host": "https://wooyun.tv/"
   },
   {
-    "file": "影视/采集/卧龙.js",
-    "verdict": "broken",
-    "step": "home",
-    "cls": "SHELL",
-    "last": {
-      "url": "https://collect.wolongzyw.com/api.php/provide/vod/?ac=list&wd=%E5%BA%8",
-      "status": 200,
-      "len": 6990
-    },
-    "err": "home: empty class list",
-    "host": "https://collect.wolongzyw.com/",
-    "hostCode": 200,
-    "hostSize": 3266,
-    "effective": "https://collect.wolongzyw.com/",
-    "siteCls": "ALIVE"
+    "file": "影视/采集/乐兔.js",
+    "verdict": "ok",
+    "siteCls": "UNKNOWN",
+    "host": "https://www.qqys01.com/"
+  },
+  {
+    "file": "影视/采集/人人影视PRO.js",
+    "verdict": "ok",
+    "siteCls": "UNKNOWN",
+    "host": "https://www.renren.pro/"
+  },
+  {
+    "file": "影视/采集/凡客TV.js",
+    "verdict": "ok",
+    "siteCls": "UNKNOWN",
+    "host": ""
   },
   {
     "file": "影视/采集/哇哇影视.js",
     "verdict": "broken",
-    "step": "home",
-    "cls": "NO_REQ",
-    "last": {
-      "url": ""
-    },
-    "err": "home: empty class list",
-    "host": "https://gitee.com/",
-    "hostCode": 200,
-    "hostSize": 74203,
-    "effective": "https://gitee.com/",
-    "siteCls": "ALIVE"
+    "siteCls": "NO_HOST",
+    "host": ""
   },
   {
     "file": "影视/采集/唐人街影院.js",
     "verdict": "broken",
-    "step": "category",
-    "cls": "404",
-    "last": {
-      "url": "https://www.trvod.com/vodsearch/-------------.html?wd=%E5%BA%86%E4%BD%",
-      "status": 404,
-      "len": 0
-    },
-    "err": "category: empty list (type_id=movie)",
-    "host": "https://www.trvod.com/",
-    "hostCode": 200,
-    "hostSize": 14534,
-    "effective": "https://www.trvod.com/",
-    "siteCls": "ALIVE"
-  },
-  {
-    "file": "影视/采集/四万影视.js",
-    "verdict": "broken",
-    "step": "category",
-    "cls": "SHELL",
-    "last": {
-      "url": "https://40000.me/api/maccms?ac=detail&wd=%E5%BA%86%E4%BD%99%E5%B9%B4&p",
-      "status": 200,
-      "len": 6990
-    },
-    "err": "category: empty list (type_id=20)",
-    "host": "https://40000.me/",
-    "hostCode": 200,
-    "hostSize": 3267,
-    "effective": "https://40000.me/",
-    "siteCls": "ALIVE"
+    "siteCls": "CHALLENGE",
+    "host": "https://www.trvod.com/"
   },
   {
     "file": "影视/采集/在线之家.js",
-    "verdict": "partial",
-    "step": "search",
-    "cls": "SHELL",
-    "last": {
-      "url": "https://www.zxzjhd.com/vodplay/4601-1-1.html",
-      "status": 200,
-      "len": 13718
-    },
-    "err": "search: empty list for keyword=庆余年",
-    "host": "https://www.zxzjhd.com/",
-    "hostCode": 200,
-    "hostSize": 6384,
-    "effective": "https://www.zxzj.run/",
-    "siteCls": "ALIVE"
+    "verdict": "ok",
+    "siteCls": "ALIVE",
+    "host": "https://www.zxzjhd.com/"
+  },
+  {
+    "file": "影视/采集/多瑙影院.js",
+    "verdict": "ok",
+    "siteCls": "UNKNOWN",
+    "host": "https://v1.ppqrrs.com/"
   },
   {
     "file": "影视/采集/太二影视.js",
     "verdict": "partial",
-    "step": "search",
-    "cls": "PARSE",
-    "last": {
-      "url": "https://v.tai2.lol/index.php/vod/play/id/700/sid/1/nid/1.html",
-      "status": 200,
-      "len": 27252
-    },
-    "err": "search: empty list for keyword=庆余年",
-    "host": "https://v.tai2.lol/",
-    "hostCode": 200,
-    "hostSize": 10148,
-    "effective": "https://v.tai2.lol/",
-    "siteCls": "ALIVE"
+    "siteCls": "JUMP",
+    "host": "https://v.tai2.lol/"
   },
   {
-    "file": "影视/采集/威尔伯TV.js",
-    "verdict": "broken",
-    "step": "category",
-    "cls": "NO_REQ",
-    "last": {
-      "url": ""
-    },
-    "err": "category: empty list (type_id=movie)",
-    "host": "https://wei2bo.com/",
-    "hostCode": 0,
-    "hostSize": 0,
-    "effective": "https://wei2bo.com/",
-    "siteCls": "DNS_DEAD"
+    "file": "影视/采集/如意资源.js",
+    "verdict": "ok",
+    "siteCls": "UNKNOWN",
+    "host": "https://cj.rycjapi.com/"
   },
   {
     "file": "影视/采集/小黑米.js",
-    "verdict": "broken",
-    "step": "category",
-    "cls": "PARSE",
-    "last": {
-      "url": "https://xiaoheimi.cc/index.php/vod/play/id/64107/sid/1/nid/1.html",
-      "status": 200,
-      "len": 86661
-    },
-    "err": "category: empty list (type_id=7)",
-    "host": "https://xiaoheimi.cc/",
-    "hostCode": 200,
-    "hostSize": 19508,
-    "effective": "https://ibaotv.com/",
-    "siteCls": "ALIVE"
+    "verdict": "ok",
+    "siteCls": "ALIVE",
+    "host": "https://xiaoheimi.cc/"
   },
   {
     "file": "影视/采集/布布影视.js",
     "verdict": "broken",
-    "step": "category",
-    "cls": "NO_REQ",
-    "last": {
-      "url": ""
-    },
-    "err": "category: empty list (type_id=电影)",
-    "host": "https://bubuzhuiju.com/",
-    "hostCode": 200,
-    "hostSize": 1533,
-    "effective": "https://duoduozhuiju.com/",
-    "siteCls": "ALIVE"
+    "siteCls": "NO_HOST",
+    "host": ""
+  },
+  {
+    "file": "影视/采集/布布影视2.js",
+    "verdict": "ok",
+    "siteCls": "UNKNOWN",
+    "host": "https://bbys.app/"
   },
   {
     "file": "影视/采集/影猫仓库.js",
     "verdict": "ok",
-    "step": null,
-    "cls": "SHELL",
-    "last": {
-      "url": "https://www.ymck.pro/API/v2.php?q=%E5%BA%86%E4%BD%99%E5%B9%B4%E7%AC%AC",
-      "status": 200,
-      "len": 11600
-    },
-    "err": "",
-    "host": "https://www.ymck.pro/",
-    "hostCode": 200,
-    "hostSize": 13303,
-    "effective": "https://www.ymck.pro/",
-    "siteCls": "ALIVE"
-  },
-  {
-    "file": "影视/采集/影视大全.js",
-    "verdict": "broken",
-    "step": "category",
-    "cls": "NO_REQ",
-    "last": {
-      "url": ""
-    },
-    "err": "category: empty list (type_id=1)",
-    "host": "https://www.iysdq.tv/",
-    "hostCode": 0,
-    "hostSize": 0,
-    "effective": "https://www.iysdq.tv/",
-    "siteCls": "DNS_DEAD"
+    "siteCls": "ALIVE",
+    "host": "https://www.ymck.pro/"
   },
   {
     "file": "影视/采集/新韩剧网.js",
-    "verdict": "partial",
-    "step": "search",
-    "cls": "SHELL",
-    "last": {
-      "url": "https://www.9hanju.com/u/u1.php?ud=3710_1_1",
-      "status": 200,
-      "len": 108
-    },
-    "err": "search: empty list for keyword=庆余年",
-    "host": "https://www.9hanju.com/",
-    "hostCode": 200,
-    "hostSize": 5067,
-    "effective": "https://www.9hanju.com/",
-    "siteCls": "ALIVE"
-  },
-  {
-    "file": "影视/采集/星辰影院.js",
-    "verdict": "broken",
-    "step": "category",
-    "cls": "NO_REQ",
-    "last": {
-      "url": ""
-    },
-    "err": "category: empty list (type_id=1)",
-    "host": "https://www.xcyycn.com/",
-    "hostCode": 0,
-    "hostSize": 0,
-    "effective": "https://www.xcyycn.com/",
-    "siteCls": "DNS_DEAD"
+    "verdict": "ok",
+    "siteCls": "ALIVE",
+    "host": "https://www.9hanju.com/"
   },
   {
     "file": "影视/采集/枝枝影视.js",
     "verdict": "broken",
-    "step": null,
-    "cls": "LOAD_ERR",
-    "last": {
-      "url": ""
-    },
-    "err": "HARD_TIMEOUT 100000ms",
-    "host": null,
-    "siteCls": "LOAD_ERR"
+    "siteCls": "NO_HOST",
+    "host": "https://zzoc.cc/"
   },
   {
     "file": "影视/采集/枫叶.js",
     "verdict": "broken",
-    "step": "category",
-    "cls": "NO_REQ",
-    "last": {
-      "url": ""
-    },
-    "err": "category: empty list (type_id=1)",
-    "host": "https://fgsrg.hzqingshan.com/",
-    "hostCode": 200,
-    "hostSize": 25,
-    "effective": "https://fgsrg.hzqingshan.com/",
-    "siteCls": "ALIVE"
+    "siteCls": "NO_HOST",
+    "host": ""
   },
   {
     "file": "影视/采集/枫叶4K.js",
     "verdict": "broken",
-    "step": "category",
-    "cls": "NO_REQ",
-    "last": {
-      "url": ""
-    },
-    "err": "category: empty list (type_id=1)",
-    "host": "https://fgsrg.hzqingshan.com/",
-    "hostCode": 200,
-    "hostSize": 25,
-    "effective": "https://fgsrg.hzqingshan.com/",
-    "siteCls": "ALIVE"
+    "siteCls": "NO_HOST",
+    "host": ""
   },
   {
     "file": "影视/采集/柯南影视.js",
     "verdict": "broken",
-    "step": "category",
-    "cls": "SERVER_5XX",
-    "last": {
-      "url": "https://www.knvod.com/search/%E5%BA%86%E4%BD%99%E5%B9%B4-------------.",
-      "status": 520,
-      "len": 7334
-    },
-    "err": "category: empty list (type_id=1)",
-    "host": "https://bfq.txnp.cn/",
-    "hostCode": 200,
-    "hostSize": 6059,
-    "effective": "https://art.txnp.cn/",
-    "siteCls": "ALIVE"
+    "siteCls": "UNKNOWN",
+    "host": "https://www.knvod.com/"
   },
   {
     "file": "影视/采集/歪比巴卜.js",
     "verdict": "partial",
-    "step": "search",
-    "cls": "SHELL",
-    "last": {
-      "url": "https://xn--qvr2v.850088.xyz/player/api.php",
-      "status": 200,
-      "len": 1628
-    },
-    "err": "search: empty list for keyword=庆余年",
-    "host": "https://wbbb1.com/",
-    "hostCode": 403,
-    "hostSize": 107,
-    "effective": "https://wbbb1.com/",
-    "siteCls": "HTTP_403"
+    "siteCls": "UNKNOWN",
+    "host": "https://xn--qvr2v.850088.xyz/"
+  },
+  {
+    "file": "影视/采集/毒舌03.js",
+    "verdict": "ok",
+    "siteCls": "UNKNOWN",
+    "host": "https://www.dushe03.com/"
   },
   {
     "file": "影视/采集/毒舌影视.js",
     "verdict": "broken",
-    "step": "category",
-    "cls": "HTTP_408",
-    "last": {
-      "url": "https://m.xnhrsb.com/dsshiyisc/%E5%BA%86%E4%BD%99%E5%B9%B4----------1-",
-      "status": 408,
-      "len": 11023
-    },
-    "err": "category: empty list (type_id=1)",
-    "host": "https://www.xnhrsb.com/",
-    "hostCode": 408,
-    "hostSize": 4837,
-    "effective": "https://m.xnhrsb.com/",
-    "siteCls": "HTTP_408"
+    "siteCls": "CHALLENGE",
+    "host": "https://m.xnhrsb.com/"
   },
   {
     "file": "影视/采集/永乐视频.js",
     "verdict": "broken",
-    "step": "category",
-    "cls": "NO_REQ",
-    "last": {
-      "url": ""
-    },
-    "err": "category: empty list (type_id=1)",
-    "host": "https://placehold.co/",
-    "hostCode": 200,
-    "hostSize": 2250,
-    "effective": "https://placehold.co/",
-    "siteCls": "ALIVE"
+    "siteCls": "NO_HOST",
+    "host": ""
   },
   {
-    "file": "影视/采集/泰剧网.js",
-    "verdict": "broken",
-    "step": "category",
-    "cls": "SHELL",
-    "last": {
-      "url": "https://zh.taijuwang.com/all/7---hits/",
-      "status": 200,
-      "len": 4648
-    },
-    "err": "category: empty list (type_id=movie)",
-    "host": "https://zh.taijuwang.com/",
-    "hostCode": 200,
-    "hostSize": 2131,
-    "effective": "https://zh.taijuwang.com/",
-    "siteCls": "ALIVE"
+    "file": "影视/采集/热播.js",
+    "verdict": "ok",
+    "siteCls": "UNKNOWN",
+    "host": "https://api.nbyjson.top:7788/"
+  },
+  {
+    "file": "影视/采集/爱奇艺资源站.js",
+    "verdict": "ok",
+    "siteCls": "UNKNOWN",
+    "host": "https://iqiyizy.cc/"
   },
   {
     "file": "影视/采集/片库.js",
     "verdict": "broken",
-    "step": "category",
-    "cls": "WAF",
-    "last": {
-      "url": "https://pianku.pro/index.php/verify/index.html?type=search&t=179418700",
-      "status": 403,
-      "len": 0
-    },
-    "err": "category: empty list (type_id=1)",
-    "host": "https://api.nn.ci/",
-    "hostCode": 200,
-    "hostSize": 19834,
-    "effective": "https://nn.ci/",
-    "siteCls": "ALIVE"
+    "siteCls": "CHALLENGE",
+    "host": "https://pianku.pro/"
+  },
+  {
+    "file": "影视/采集/独播库.js",
+    "verdict": "ok",
+    "siteCls": "UNKNOWN",
+    "host": "https://api.dbokutv.com/"
+  },
+  {
+    "file": "影视/采集/瓜子.js",
+    "verdict": "ok",
+    "siteCls": "UNKNOWN",
+    "host": "https://apinew.uozvr.com/"
   },
   {
     "file": "影视/采集/电影人生.js",
-    "verdict": "broken",
-    "step": "category",
-    "cls": "PARSE",
-    "last": {
-      "url": "https://www.dyrsok.com/s.html?name=%E5%BA%86%E4%BD%99%E5%B9%B4",
-      "status": 200,
-      "len": 179811
-    },
-    "err": "category: empty list (type_id=dianying)",
-    "host": "https://www.dyrsok.com/",
-    "hostCode": 200,
-    "hostSize": 39854,
-    "effective": "https://kingtv.vip/?host=www.dyrsok.com",
-    "siteCls": "ALIVE"
+    "verdict": "partial",
+    "siteCls": "ALIVE",
+    "host": "https://www.dyrsok.com/"
   },
   {
-    "file": "影视/采集/耐视点播.js",
-    "verdict": "broken",
-    "step": "category",
-    "cls": "SHELL",
-    "last": {
-      "url": "https://nsvod.me/index.php/vod/search.html?wd=%E5%BA%86%E4%BD%99%E5%B9",
-      "status": 200,
-      "len": 8348
-    },
-    "err": "category: empty list (type_id=1)",
-    "host": "https://nsvod.me/",
-    "hostCode": 200,
-    "hostSize": 2140,
-    "effective": "https://vxuiw.iubybk09jugroup.top/",
-    "siteCls": "ALIVE"
+    "file": "影视/采集/电影天堂.js",
+    "verdict": "ok",
+    "siteCls": "UNKNOWN",
+    "host": "https://caiji.dyttzyapi.com/"
   },
   {
-    "file": "影视/采集/茶杯狐.js",
-    "verdict": "broken",
-    "step": "category",
-    "cls": "SHELL",
-    "last": {
-      "url": "https://www.cupfox.ai/type/1.html",
-      "status": 200,
-      "len": 7134
-    },
-    "err": "category: empty list (type_id=1)",
-    "host": "https://www.cupfox.ai/",
-    "hostCode": 404,
-    "hostSize": 144,
-    "effective": "https://www.cupfox.ai/",
-    "siteCls": "HTTP_404"
+    "file": "影视/采集/荐片.js",
+    "verdict": "ok",
+    "siteCls": "UNKNOWN",
+    "host": "https://h5.jianpianips1.com/"
   },
   {
-    "file": "影视/采集/蛋蛋鱼.js",
-    "verdict": "broken",
-    "step": "category",
-    "cls": "SHELL",
-    "last": {
-      "url": "https://www.ymck.pro/API/v2.php?q=%E5%BA%86%E4%BD%99%E5%B9%B4&size=50",
-      "status": 200,
-      "len": 11600
-    },
-    "err": "category: empty list (type_id=1)",
-    "host": "https://www.ymck.pro/",
-    "hostCode": 200,
-    "hostSize": 13305,
-    "effective": "https://www.ymck.pro/",
-    "siteCls": "ALIVE"
+    "file": "影视/采集/莫小影.js",
+    "verdict": "ok",
+    "siteCls": "UNKNOWN",
+    "host": "https://www.qqys01.com/"
   },
   {
-    "file": "影视/采集/这片海.js",
-    "verdict": "broken",
-    "step": "category",
-    "cls": "NO_REQ",
-    "last": {
-      "url": ""
-    },
-    "err": "category: empty list (type_id=1)",
-    "host": "https://www.zhepianhai.com/",
-    "hostCode": 0,
-    "hostSize": 0,
-    "effective": "https://www.zhepianhai.com/",
-    "siteCls": "DNS_DEAD"
+    "file": "影视/采集/袋鼠影视.js",
+    "verdict": "ok",
+    "siteCls": "UNKNOWN",
+    "host": "https://dsystv.com/"
+  },
+  {
+    "file": "影视/采集/金牌.js",
+    "verdict": "ok",
+    "siteCls": "UNKNOWN",
+    "host": "https://m.jiabaide.cn/"
   },
   {
     "file": "影视/采集/韩小圈.js",
     "verdict": "partial",
-    "step": "search",
-    "cls": "SHELL",
-    "last": {
-      "url": "https://hanxiaoquan.hanju.workers.dev/api/detail",
-      "status": 200,
-      "len": 884
-    },
-    "err": "search: empty list for keyword=庆余年",
-    "host": "https://hanxiaoquan.hanju.workers.dev/",
-    "hostCode": 200,
-    "hostSize": 1340,
-    "effective": "https://hanxiaoquan.hanju.workers.dev/",
-    "siteCls": "ALIVE"
+    "siteCls": "ALIVE",
+    "host": "https://hanxiaoquan.hanju.workers.dev/"
+  },
+  {
+    "file": "教育/哔哩教育.js",
+    "verdict": "ok",
+    "siteCls": "UNKNOWN",
+    "host": "https://api.bilibili.com/"
   },
   {
     "file": "教育/贝乐虎.js",
-    "verdict": "partial",
-    "step": "search",
-    "cls": "SHELL",
-    "last": {
-      "url": "https://vd.ubestkid.com/api/v1/bv/video",
-      "status": 200,
-      "len": 14385
-    },
-    "err": "search: empty list for keyword=庆余年",
-    "host": "https://vd.ubestkid.com/",
-    "hostCode": 404,
-    "hostSize": 125,
-    "effective": "https://vd.ubestkid.com/",
-    "siteCls": "HTTP_404"
+    "verdict": "ok",
+    "siteCls": "HTTP_404",
+    "host": "https://vd.ubestkid.com/"
   },
   {
     "file": "流媒体/Jellyfin.js",
     "verdict": "broken",
-    "step": "home",
-    "cls": "NO_REQ",
-    "last": {
-      "url": ""
-    },
-    "err": "home: empty class list",
-    "host": "http://.../",
-    "hostCode": 0,
-    "hostSize": 0,
-    "effective": "http://.../",
-    "siteCls": "DNS_DEAD"
+    "siteCls": "NO_HOST",
+    "host": ""
   },
   {
     "file": "流媒体/Plex.js",
     "verdict": "broken",
-    "step": "home",
-    "cls": "NO_REQ",
-    "last": {
-      "url": ""
-    },
-    "err": "home: empty class list",
-    "host": "https://plex.tv/",
-    "hostCode": 200,
-    "hostSize": 280870,
-    "effective": "https://watch.plex.tv/",
-    "siteCls": "ALIVE"
+    "siteCls": "NO_HOST",
+    "host": ""
+  },
+  {
+    "file": "流媒体/YouTube.js",
+    "verdict": "ok",
+    "siteCls": "UNKNOWN",
+    "host": "https://www.youtube.com/"
   },
   {
     "file": "流媒体/飞牛.js",
     "verdict": "broken",
-    "step": "home",
-    "cls": "NO_REQ",
-    "last": {
-      "url": ""
-    },
-    "err": "飞牛配置缺失：请先填写 FEINIU_HOST，或提供 FEINIU_SITES 多站配置",
-    "host": null,
-    "hostCode": null,
-    "hostSize": null,
-    "effective": null,
-    "siteCls": "NO_HOST"
+    "siteCls": "NO_HOST",
+    "host": ""
   },
   {
     "file": "直播/YY轮播.js",
     "verdict": "partial",
-    "step": "search",
-    "cls": "SHELL",
-    "last": {
-      "url": "https://interface.yy.com/hls/new/get/1462895099/1462895099/1200?source",
-      "status": 200,
-      "len": 349
-    },
-    "err": "search: empty list for keyword=庆余年",
-    "host": "https://www.yy.com/",
-    "hostCode": 200,
-    "hostSize": 35890,
-    "effective": "https://www.yy.com/",
-    "siteCls": "ALIVE"
+    "siteCls": "UNKNOWN",
+    "host": "https://interface.yy.com/"
   },
   {
     "file": "直播/抖音直播.js",
     "verdict": "partial",
-    "step": "search",
-    "cls": "PARSE",
-    "last": {
-      "url": "https://live.douyin.com/webcast/room/web/enter/?aid=6383&app_name=douy",
-      "status": 200,
-      "len": 481137
-    },
-    "err": "search: empty list for keyword=庆余年",
-    "host": "https://live.douyin.com/",
-    "hostCode": 200,
-    "hostSize": 159764,
-    "effective": "https://live.douyin.com/",
-    "siteCls": "ALIVE"
+    "siteCls": "ALIVE",
+    "host": "https://live.douyin.com/"
   },
   {
     "file": "直播/斗鱼直播.js",
     "verdict": "partial",
-    "step": "search",
-    "cls": "SHELL",
-    "last": {
-      "url": "https://www.douyu.com/lapi/live/getH5PlayV1/431460",
-      "status": 200,
-      "len": 2220
-    },
-    "err": "search: empty list for keyword=庆余年",
-    "host": "https://m.douyu.com/",
-    "hostCode": 200,
-    "hostSize": 21661,
-    "effective": "https://m.douyu.com/",
-    "siteCls": "ALIVE"
+    "siteCls": "ALIVE",
+    "host": "https://www.douyu.com/"
   },
   {
-    "file": "短剧/嘟嘟短剧.js",
-    "verdict": "broken",
-    "step": "category",
-    "cls": "NO_REQ",
-    "last": {
-      "url": ""
-    },
-    "err": "category: empty list (type_id=热播)",
-    "host": "https://api-v2.cenguigui.cn/",
-    "hostCode": 0,
-    "hostSize": 0,
-    "effective": "https://api-v2.cenguigui.cn/",
-    "siteCls": "DNS_DEAD"
+    "file": "直播/虎牙直播.js",
+    "verdict": "ok",
+    "siteCls": "UNKNOWN",
+    "host": "https://mp.huya.com/"
   },
   {
     "file": "短剧/星星短剧.js",
     "verdict": "partial",
-    "step": "search",
-    "cls": "PARSE",
-    "last": {
-      "url": "http://read.api.duodutek.com/novel-api/basedata/book/getChapterList?pr",
-      "status": 200,
-      "len": 79790
-    },
-    "err": "search: empty list for keyword=庆余年",
-    "host": "http://read.api.duodutek.com/",
-    "hostCode": 200,
-    "hostSize": 616,
-    "effective": "http://read.api.duodutek.com/",
-    "siteCls": "ALIVE"
+    "siteCls": "ALIVE",
+    "host": "http://read.api.duodutek.com/"
+  },
+  {
+    "file": "短剧/河马短剧.js",
+    "verdict": "ok",
+    "siteCls": "UNKNOWN",
+    "host": "https://www.kuaikaw.cn/"
   },
   {
     "file": "短剧/短剧粉.js",
     "verdict": "broken",
-    "step": "category",
-    "cls": "WAF",
-    "last": {
-      "url": "https://www.djfen.cc/list/20/",
-      "status": 403,
-      "len": 5607
-    },
-    "err": "category: empty list (type_id=21)",
-    "host": "https://www.djfen.cc/",
-    "hostCode": 403,
-    "hostSize": 3242,
-    "effective": "https://www.djfen.cc/",
-    "siteCls": "HTTP_403"
+    "siteCls": "CHALLENGE",
+    "host": "https://www.djfen.cc/"
   },
   {
-    "file": "短剧/短剧网.js",
-    "verdict": "broken",
-    "step": "search",
-    "cls": "SHELL",
-    "last": {
-      "url": "https://sm3.cc/?id=99744",
-      "status": 200,
-      "len": 9248
-    },
-    "err": "search: empty list for keyword=庆余年",
-    "host": "https://sm3.cc/",
-    "hostCode": 200,
-    "hostSize": 7925,
-    "effective": "https://sm3.cc/",
-    "siteCls": "ALIVE"
-  },
-  {
-    "file": "短剧/短剧聚合.js",
-    "verdict": "partial",
-    "step": "search",
-    "cls": "PARSE",
-    "last": {
-      "url": "https://api-read.qmplaylet.com/player/api/v1/playlet/info?playlet_id=2",
-      "status": 200,
-      "len": 20803
-    },
-    "err": "search: empty list for keyword=庆余年",
-    "host": "https://api.jkyai.top/",
-    "hostCode": 0,
-    "hostSize": 0,
-    "effective": "https://api.jkyai.top/",
-    "siteCls": "DNS_DEAD"
+    "file": "综合/哔哩大全.js",
+    "verdict": "ok",
+    "siteCls": "UNKNOWN",
+    "host": "https://api.bilibili.com/"
   },
   {
     "file": "音乐/DJ音乐.js",
-    "verdict": "partial",
-    "step": "play",
-    "cls": "PARSE",
-    "last": {
-      "url": "https://www.djuu.com/",
-      "status": 200,
-      "len": 175035
-    },
-    "err": "play: empty urls",
-    "host": "https://www.djuu.com/",
-    "hostCode": 200,
-    "hostSize": 19382,
-    "effective": "https://www.djuu.com/",
-    "siteCls": "ALIVE"
+    "verdict": "ok",
+    "siteCls": "ALIVE",
+    "host": "https://www.djuu.com/"
   },
   {
     "file": "音乐/世纪音乐.js",
-    "verdict": "broken",
-    "step": "category",
-    "cls": "404",
-    "last": {
-      "url": "https://www.4c44.com/data/lrc/hyckwkthyn.lrc",
-      "status": 404,
-      "len": 1
-    },
-    "err": "category: empty list (type_id=home)",
-    "host": "https://www.4c44.com/",
-    "hostCode": 200,
-    "hostSize": 1048,
-    "effective": "https://www.4c44.com/",
-    "siteCls": "ALIVE"
+    "verdict": "ok",
+    "siteCls": "ALIVE",
+    "host": "https://www.4c44.com/"
   },
   {
     "file": "音乐/枫叶音乐.js",
     "verdict": "broken",
-    "step": "home",
-    "cls": "NO_REQ",
-    "last": {
-      "url": ""
-    },
-    "err": "home: empty class list",
-    "host": "https://mu-jie.cc/",
-    "hostCode": 200,
-    "hostSize": 13749,
-    "effective": "https://mu-jie.cc/",
-    "siteCls": "ALIVE"
+    "siteCls": "NO_HOST",
+    "host": ""
+  },
+  {
+    "file": "音乐/芸芸音乐.js",
+    "verdict": "ok",
+    "siteCls": "CHALLENGE",
+    "host": "https://music.163.com/"
   }
 ]

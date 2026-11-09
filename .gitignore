@@ -4,3 +4,11 @@ node_modules/
 # probe scratch
 probe/t_*
 probe/.c.html
+probe/.r.html
+probe/.v.html
+probe/.c2.html
+probe/.h.html
+probe/.j.html
+probe/.w.html
+probe/.peek.html
+probe/.4k.html

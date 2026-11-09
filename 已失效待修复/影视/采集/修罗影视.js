@@ -4,6 +4,7 @@
 // @dependencies: axios, cheerio, crypto-js
 // @version 1.0.21
 // @downloadURL https://gh-proxy.org/https://github.com/Silent1566/OmniBox-Spider/raw/refs/heads/main/影视/采集/修罗影视.js
+// @status dead | DNS_DEAD | 原域名 https://www.xlys02.com/ 已不可用（2026-11-09 逐站复核）——换源后需重写解析
 
 /**
  * ============================================================================

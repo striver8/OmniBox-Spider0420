@@ -4,6 +4,7 @@
 // @dependencies: crypto-js
 // @version 1.0.0
 // @downloadURL https://gh-proxy.org/https://github.com/Silent1566/OmniBox-Spider/raw/refs/heads/main/听书/番茄畅听.js
+// @status dead | HTTP_521 | 原域名 https://qkfqapi.vv9v.cn/ 已不可用（2026-11-09 逐站复核）——换源后需重写解析
 
 
 /**
