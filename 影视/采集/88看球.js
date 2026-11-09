@@ -1,6 +1,6 @@
 // @name 88看球
 // @dependencies: axios, cheerio, crypto-js
-// @version 1.1.0
+// @version 1.2.0
 // @downloadURL https://gh-proxy.org/https://github.com/Silent1566/OmniBox-Spider/raw/refs/heads/main/影视/采集/88看球.js
 /**
  * 刮削：不支持
@@ -15,6 +15,7 @@
  *
  * 变更记录：
  * - v1.1.0：网站改版，分类由4大类改为24子类，移除无效筛选；play-url API 改为 /source
+ * - v1.2.0：search 落地为本地关键词过滤（源站无搜索接口），按队名/联赛/时间匹配全部直播列表
  *
  * 环境变量：
  * - `KANQIU_HOST`：88看球域名，默认 `http://www.88kanqiu.cc`
@@ -452,16 +453,40 @@ async function detail(params) {
 
 // ==================== 标准接口：search ====================
 /**
- * 搜索（源站暂无关键词搜索能力）
+ * 搜索
+ * 源站没有任何关键词搜索接口（/search、/so、/match/search 等路由全部 404），
+ * 因此这里对「全部直播」列表做本地关键词过滤：按队名 / 联赛 / 时间匹配。
  */
 async function search(params) {
-  return {
-    list: [],
-    page: Number(params?.page || 1),
-    pagecount: 1,
-    total: 0,
-    limit: 0,
-  };
+  const keyword = String(params?.keyword || params?.wd || "").trim();
+  if (!keyword) {
+    return { list: [], page: 1, pagecount: 1, total: 0, limit: 0 };
+  }
+
+  try {
+    const { list } = await getCategoryList("");
+    const key = keyword.toLowerCase();
+    const keyNoSpace = key.replace(/\s+/g, "");
+    const matched = list.filter((item) => {
+      const name = String(item?.vod_name || "").toLowerCase();
+      const remarks = String(item?.vod_remarks || "").toLowerCase();
+      return name.includes(key)
+        || name.replace(/\s+/g, "").includes(keyNoSpace)
+        || remarks.includes(key);
+    });
+
+    logInfo("搜索完成", { keyword, total: list.length, matched: matched.length });
+    return {
+      list: matched,
+      page: 1,
+      pagecount: 1,
+      total: matched.length,
+      limit: matched.length,
+    };
+  } catch (error) {
+    logError("search 失败", error);
+    return { list: [], page: 1, pagecount: 1, total: 0, limit: 0 };
+  }
 }
 
 // ==================== 标准接口：play ==================== 

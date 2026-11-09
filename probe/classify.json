@@ -13,7 +13,7 @@
   },
   {
     "file": "动漫/girigiri爱动漫.js",
-    "verdict": "broken",
+    "verdict": "ok",
     "siteCls": "SPA",
     "host": "https://bgm.girigirilove.com/"
   },
@@ -235,7 +235,7 @@
   },
   {
     "file": "影视/采集/88看球.js",
-    "verdict": "partial",
+    "verdict": "ok",
     "siteCls": "ALIVE",
     "host": "http://www.88kanqiu.cc/"
   },
@@ -367,9 +367,9 @@
   },
   {
     "file": "影视/采集/布布影视.js",
-    "verdict": "broken",
+    "verdict": "ok",
     "siteCls": "NO_HOST",
-    "host": ""
+    "host": "https://323433ssdfd.top/"
   },
   {
     "file": "影视/采集/布布影视2.js",
@@ -385,7 +385,7 @@
   },
   {
     "file": "影视/采集/新韩剧网.js",
-    "verdict": "partial",
+    "verdict": "ok",
     "siteCls": "UNKNOWN",
     "host": "https://www.9hanju.com/"
   },
@@ -415,7 +415,7 @@
   },
   {
     "file": "影视/采集/歪比巴卜.js",
-    "verdict": "partial",
+    "verdict": "broken",
     "siteCls": "UNKNOWN",
     "host": "https://xn--qvr2v.850088.xyz/"
   },
@@ -505,7 +505,7 @@
   },
   {
     "file": "影视/采集/韩小圈.js",
-    "verdict": "partial",
+    "verdict": "ok",
     "siteCls": "ALIVE",
     "host": "https://hanxiaoquan.hanju.workers.dev/"
   },
@@ -571,7 +571,7 @@
   },
   {
     "file": "短剧/星星短剧.js",
-    "verdict": "partial",
+    "verdict": "ok",
     "siteCls": "ALIVE",
     "host": "http://read.api.duodutek.com/"
   },

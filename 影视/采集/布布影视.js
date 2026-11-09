@@ -1,23 +1,31 @@
 // @name 布布影视
 // @author tcxp
-// @description 刮削：支持，弹幕：支持，嗅探：支持
+// @description 刮削：支持，弹幕：支持，嗅探：支持，接口：多多影视 JSON API（/api.php/web）+ WASM 解码直链
 // @dependencies: axios, crypto
-// @version 1.1.0
+// @version 2.0.0
 // @downloadURL https://gh-proxy.org/https://github.com/Silent1566/OmniBox-Spider/raw/refs/heads/main/影视/采集/布布影视.js
 
 /**
  * ============================================================================
- * 布布影视 (bubuyingshi.com)
+ * 布布影视 (多多影视 / 多多追剧)
+ * 发布页：https://duoduozhuiju.com（bubuzhuiju.com 已 301 迁移）
+ * 主站：https://323433ssdfd.top（备线 duoduosdf12223234334.top / xds2435u23422342342u.top / dduotv01.top）
  * 刮削：支持
  * 弹幕：支持
  * 嗅探：支持
  * 
  * 特色功能：
- * - WASM Protobuf 解码加密播放地址
+ * - WASM Protobuf 解码加密播放地址（/api.php/web/decode/url）
+ * - wasm 资产名带内容哈希，启动时动态解析，避免版本升级后失效
  * - 支持多线路画质优先级排序
  * - 完整的筛选器配置（类型/地区/年份）
  * - 集成 TMDB 刮削元数据
  * - 自动匹配弹幕
+ * 
+ * 2026-11 改版说明：
+ * - 站点由 MacCMS 页面 + vodplayer 线路表改为纯 JSON 接口，vodplayer 不再下发，
+ *   线路信息改为从 vod_play_from/vod_play_url 按 $$$ 下标一一对应解析。
+ * - CO4K 为客户端专属线路，服务端返回 PLATFORM_NOT_ALLOWED，排序时置底。
  * ============================================================================
  */
 
@@ -35,14 +43,21 @@ const BUBU_API_HEADERS = {
     'User-Agent': BUBU_UA,
     'Accept': 'application/json',
     'X-Client': '8f3d2a1c7b6e5d4c9a0b1f2e3d4c5b6a',
-    'web-sign': 'f65f3a83d6d9ad6f',
+    'web-sign': 'ddtvf65f3a83d6d9ad6f',
     'accept-language': 'zh-CN,zh;q=0.9',
 };
 const config = { headers: BUBU_API_HEADERS };
 
 // ========== 动态域名配置 ==========
 const BUBU_RELEASE_URL = "https://bubuzhuiju.com";
-const HOST_CANDIDATES = [];
+// 发布页（https://duoduozhuiju.com/js/config.js）的 lines[].host，顺序即优先级。
+// 作为发布页不可解析时的兜底线路，避免单一环节失败导致整站不可用。
+const HOST_CANDIDATES = [
+    "https://323433ssdfd.top",
+    "https://duoduosdf12223234334.top",
+    "https://xds2435u23422342342u.top",
+    "https://dduotv01.top",
+];
 const HOST_CACHE_KEY = "bubu:active_host";
 const HOST_CACHE_TTL = 60 * 60 * 24 * 30;
 let ACTIVE_HOST = "";
@@ -155,6 +170,9 @@ async function fetchReleaseHosts() {
         if (/bubuyingshi\.(app|com)$/i.test(hostPart)) return;
         if (/bubuzhuiju\.com$/i.test(hostPart)) return;
         if (/www\.w3\.org$/i.test(hostPart)) return;
+        // 发布页里混有埋点/统计脚本域名（如 umm.dduotv01.top），不是线路域名
+        if (/^(umm|umami|static|analytics)\./i.test(hostPart)) return;
+        if (/googletagmanager|google-analytics|baidu|cnzz|51\.la/i.test(hostPart)) return;
         found.push(normalized);
     };
 
@@ -193,18 +211,33 @@ async function fetchReleaseHosts() {
     }
 
     const scriptSrcs = [...String(html).matchAll(/<script[^>]*src=["']([^"']+)["']/gi)].map(m => m[1]);
+    const configCandidates = [];
     const configSrc = scriptSrcs.find(s => /config/i.test(s));
     if (configSrc) {
-        const configUrl = configSrc.startsWith("http") ? configSrc : `${normalizeHost(pageUrl)}/${configSrc.startsWith("/") ? configSrc.substring(1) : configSrc}`;
+        try {
+            configCandidates.push(new (require("url").URL)(configSrc, pageUrl).href);
+        } catch (e) { }
+    }
+    // 兜底：发布页约定把线路配置放在站点的 /js/config.js
+    const finalOrigin = normalizeHost(pageUrl);
+    if (finalOrigin) configCandidates.push(`${finalOrigin}/js/config.js`);
+
+    const triedConfigs = configCandidates.filter((v, i, a) => v && a.indexOf(v) === i);
+    for (const configUrl of triedConfigs) {
         try {
             const configText = await requestTextAbsolute(configUrl, {
                 timeout: 8000,
-                hostForHeaders: normalizeHost(pageUrl),
+                hostForHeaders: finalOrigin,
             });
             const hostRegex = /host\s*:\s*['"]([^'"]+)['"]/gi;
             let hm;
+            const before = found.length;
             while ((hm = hostRegex.exec(configText))) {
                 pushHost(hm[1]);
+            }
+            if (found.length > before) {
+                logInfo("发布页config.js解析成功", { url: configUrl, added: found.length - before });
+                break;
             }
         } catch (e) {
             logInfo("发布页config.js获取失败", { url: configUrl, error: e.message });
@@ -548,13 +581,15 @@ const calculateQualityScore = (showCode, lineName) => {
  * @param {Array} arr - 原始视频数据数组
  * @returns {Array} 标准化后的视频数组
  */
+const joinText = (v) => Array.isArray(v) ? v.filter(Boolean).join(',') : (v == null ? '' : String(v));
+
 const json2vods = (arr) => (arr || []).map(i => ({
-    vod_id: i.vod_id.toString(),
+    vod_id: i.vod_id == null ? '' : String(i.vod_id),
     vod_name: i.vod_name,
     vod_pic: i.vod_pic,
     vod_remarks: i.vod_remarks,
-    type_name: i.vod_class ? `${i.type_name},${i.vod_class}` : i.type_name,
-    vod_year: i.vod_year.toString()
+    type_name: i.vod_class ? `${joinText(i.type_name)},${joinText(i.vod_class)}` : joinText(i.type_name),
+    vod_year: joinText(i.vod_year)
 }));
 
 // ============================================================
@@ -718,6 +753,96 @@ let wasmInitPromise = null;
  * 尝试从本地加载或从远程下载 WASM 文件
  * @returns {Promise<boolean>} 初始化是否成功
  */
+const WASM_PATH_CACHE_KEY = 'bubu:wasm_path';
+const WASM_PATH_CACHE_TTL = 60 * 60 * 24 * 30;
+const WASM_PATH_FALLBACKS = [
+    '/assets/web_app_wasm_bg-Bxwbrgev.wasm',
+    '/assets/web_app_wasm_bg-DaFtKBCq.wasm'
+];
+
+/**
+ * 下载 wasm 二进制
+ * @param {string} wasmUrl - 完整 wasm 地址
+ * @returns {Promise<Buffer>}
+ */
+function downloadWasmFile(wasmUrl) {
+    return new Promise((resolve, reject) => {
+        const target = new URL(wasmUrl);
+        const lib = target.protocol === 'https:' ? https : http;
+        const req = lib.get({
+            hostname: target.hostname,
+            port: target.port || undefined,
+            path: `${target.pathname}${target.search || ''}`,
+            headers: {
+                'User-Agent': BUBU_UA,
+                'Referer': `${getCurrentHost()}/`,
+            },
+            rejectUnauthorized: false,
+        }, (res) => {
+            if (res.statusCode && (res.statusCode < 200 || res.statusCode >= 300)) {
+                res.resume();
+                reject(new Error(`下载失败 HTTP ${res.statusCode}`));
+                return;
+            }
+            const chunks = [];
+            res.on('data', c => chunks.push(c));
+            res.on('end', () => resolve(Buffer.concat(chunks)));
+        });
+        req.on('error', reject);
+        req.setTimeout(15000, () => { req.destroy(); reject(new Error('WASM下载超时')); });
+    });
+}
+
+/**
+ * 解析当前站点真实的 wasm 资产路径
+ * 站点资产文件名带内容哈希（web_app_wasm_bg-<hash>.wasm），改版后会变化，
+ * 所以优先从缓存、首页 HTML、入口 JS 里解析，最后才退回内置候选。
+ * @returns {Promise<string[]>} 候选路径数组（相对路径，以 /assets/ 开头）
+ */
+async function resolveWasmCandidates() {
+    const host = getCurrentHost();
+    const found = [];
+
+    try {
+        const cached = await OmniBox.getCache(WASM_PATH_CACHE_KEY);
+        const cachedPath = typeof cached === 'string' ? cached.trim() : '';
+        if (/^\/assets\/.*\.wasm$/i.test(cachedPath)) found.push(cachedPath);
+    } catch (e) { }
+
+    const assetRegex = /\/assets\/[A-Za-z0-9._-]*web_app_wasm[A-Za-z0-9._-]*\.wasm/gi;
+
+    const collectFrom = (text) => {
+        const hits = String(text || '').match(assetRegex) || [];
+        hits.forEach(h => found.push(h));
+    };
+
+    try {
+        const html = await requestTextAbsolute(`${host}/`, {
+            timeout: 10000,
+            hostForHeaders: host,
+        });
+        collectFrom(html);
+        if (found.length === 0) {
+            const jsList = (String(html).match(/\/assets\/[A-Za-z0-9._-]+\.js/gi) || []).slice(0, 3);
+            for (const js of jsList) {
+                try {
+                    const code = await requestTextAbsolute(`${host}${js}`, {
+                        timeout: 10000,
+                        hostForHeaders: host,
+                    });
+                    collectFrom(code);
+                    if (found.length) break;
+                } catch (e) { }
+            }
+        }
+    } catch (e) {
+        logInfo('解析 wasm 资产失败', { error: e.message });
+    }
+
+    WASM_PATH_FALLBACKS.forEach(p => found.push(p));
+    return [...new Set(found)];
+}
+
 async function initWasm() {
     if (wasmReady) return true;
     if (wasmInitPromise) return wasmInitPromise;
@@ -743,34 +868,34 @@ async function initWasm() {
             if (!wasmBuf) {
                 logInfo('本地未找到 WASM 文件，开始从远程下载...');
                 await ensureActiveHost();
-                const wasmUrl = `${getCurrentHost()}/assets/web_app_wasm_bg-DaFtKBCq.wasm`;
-                wasmBuf = await new Promise((resolve, reject) => {
-                    const target = new URL(wasmUrl);
-                    const req = https.get({
-                        hostname: target.hostname,
-                        path: target.pathname,
-                        headers: {
-                            'User-Agent': BUBU_UA,
-                            'Referer': `${getCurrentHost()}/`,
-                        },
-                        rejectUnauthorized: false,
-                    }, (res) => {
-                        const chunks = [];
-                        res.on('data', c => chunks.push(c));
-                        res.on('end', () => {
-                            const buf = Buffer.concat(chunks);
+                // 站点每次发版都会重命名 wasm 资产（web_app_wasm_bg-<hash>.wasm），
+                // 因此不能写死文件名：先从首页/入口 JS 里解析真实路径，再逐个候选下载。
+                const candidates = await resolveWasmCandidates();
+                for (const wasmPath of candidates) {
+                    try {
+                        const wasmUrl = `${getCurrentHost()}${wasmPath}`;
+                        const buf = await downloadWasmFile(wasmUrl);
+                        if (buf && buf.length > 1024) {
+                            wasmBuf = buf;
+                            logInfo('WASM 下载成功', { url: wasmUrl, size: buf.length });
+                            try {
+                                await OmniBox.setCache(WASM_PATH_CACHE_KEY, wasmPath, WASM_PATH_CACHE_TTL);
+                            } catch (e) { }
                             try {
                                 fs.writeFileSync(path.join(__dirname, 'bubuyingshi.wasm'), buf);
                                 logInfo('WASM 文件已缓存到本地');
-                            } catch (e) {
-                                logError('WASM 文件缓存失败', e);
-                            }
-                            resolve(buf);
-                        });
-                    });
-                    req.on('error', reject);
-                    req.setTimeout(15000, () => { req.destroy(); reject(new Error('WASM下载超时')); });
-                });
+                            } catch (e) { }
+                            break;
+                        }
+                    } catch (e) {
+                        logInfo('WASM 候选下载失败', { path: wasmPath, error: e.message });
+                    }
+                }
+                if (!wasmBuf) {
+                    logError('WASM 全部候选下载失败', new Error(candidates.join(', ')));
+                    wasmInitPromise = null;
+                    return false;
+                }
             }
 
             const { instance } = await WebAssembly.instantiate(wasmBuf, wasmBuildImports());
@@ -1462,13 +1587,13 @@ async function detail(params) {
 
         // 构建基本信息
         const vod = {
-            vod_id: data.vod_id.toString(),
+            vod_id: data.vod_id == null ? '' : String(data.vod_id),
             vod_name: data.vod_name,
             vod_pic: data.vod_pic,
             vod_remarks: data.vod_remarks,
             vod_content: data.vod_content,
-            vod_year: data.vod_year.toString() || '',
-            vod_area: data.vod_area || '',
+            vod_year: joinText(data.vod_year),
+            vod_area: joinText(data.vod_area),
             vod_actor: data.vod_actor || '',
             vod_director: data.vod_director || '',
             type_name: data.type_name || ''
@@ -1481,23 +1606,41 @@ async function detail(params) {
         const rawUrlsList = data.vod_play_url.split('$$$');
         const validLines = [];
 
-        rawShows.forEach((showCode, index) => {
-            const playerInfo = vodplayer.find(p => p.from === showCode);
-            if (!playerInfo) return;
+        const playerList = Array.isArray(vodplayer) ? vodplayer : [];
 
-            let lineName = playerInfo.show;
-            if (showCode.toLowerCase() !== lineName.toLowerCase()) {
-                lineName = `${lineName} (${showCode})`;
+        rawShows.forEach((showCode, index) => {
+            const code = String(showCode || '').trim();
+            if (!code) return;
+            // 2026-11 新版接口不再下发 vodplayer，线路信息只能由 vod_play_from 本身提供，
+            // 旧逻辑无条件 return 会导致所有线路被丢弃（detail 返回空列表）
+            const playerInfo = playerList.find(p => p && String(p.from) === code) || null;
+
+            let lineName = playerInfo && playerInfo.show ? String(playerInfo.show) : code;
+            if (playerInfo && playerInfo.show && code.toLowerCase() !== lineName.toLowerCase()) {
+                lineName = `${lineName} (${code})`;
             }
 
+            const rawGroup = String(rawUrlsList[index] || '').trim();
+            if (!rawGroup) return;
+
             // 解析播放地址
-            const urls = rawUrlsList[index].split('#').map(urlItem => {
-                if (urlItem.includes('$')) {
-                    const [episode, url] = urlItem.split('$');
-                    // 格式：集数名$线路代码@解码状态@URL
-                    return `${episode}$${showCode}@${playerInfo.decode_status}@${url}`;
+            const urls = rawGroup.split('#').map(urlItem => {
+                const item = String(urlItem || '').trim();
+                if (!item) return null;
+                let episode = '正片';
+                let url = item;
+                const sep = item.indexOf('$');
+                if (sep !== -1) {
+                    episode = item.substring(0, sep).trim() || '正片';
+                    url = item.substring(sep + 1).trim();
                 }
-                return null;
+                if (!url) return null;
+                // 解码状态：vodplayer 缺失时按是否为 http 直链推断（加密串都不是 http）
+                const decodeStatus = playerInfo && playerInfo.decode_status !== undefined && playerInfo.decode_status !== ''
+                    ? playerInfo.decode_status
+                    : (isHttpUrl(url) ? 0 : 1);
+                // 格式：集数名$线路代码@解码状态@URL
+                return `${episode}$${code}@${decodeStatus}@${url}`;
             }).filter(Boolean);
 
             if (urls.length > 0) {
@@ -1516,12 +1659,18 @@ async function detail(params) {
         }
 
         // 【修改点2】：自定义线路排序优先级
-        const SHOW_CODE_PRIORITY =['YYNB', 'BBA', 'NBY', 'JD4K'];
+        // 线路排序：已知可解码的线路优先；CO4K 为客户端专属线路（服务端返回 PLATFORM_NOT_ALLOWED），排最后
+        const SHOW_CODE_PRIORITY = ['BBA', 'NBY', 'QSVIP', 'PAN1', 'ZIJIANM3U8', 'YYNB', 'JD4K'];
+        const SHOW_CODE_DEPRIORITY = ['CO4K'];
 
         validLines.sort((a, b) => {
             const codeA = (a.showCode || "").toUpperCase();
             const codeB = (b.showCode || "").toUpperCase();
-            
+
+            const deadA = SHOW_CODE_DEPRIORITY.includes(codeA);
+            const deadB = SHOW_CODE_DEPRIORITY.includes(codeB);
+            if (deadA !== deadB) return deadA ? 1 : -1;
+
             const indexA = SHOW_CODE_PRIORITY.indexOf(codeA);
             const indexB = SHOW_CODE_PRIORITY.indexOf(codeB);
             

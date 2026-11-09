@@ -2,7 +2,7 @@
 // @author 梦
 // @description 资源网：详情与资源列表已接入；支持磁力/网盘资源展示
 // @dependencies cheerio
-// @version 1.2.6
+// @version 1.2.7
 // @downloadURL https://gh-proxy.org/https://github.com/Silent1566/OmniBox-Spider/raw/refs/heads/main/影视/磁力/不太灵.js
 
 const OmniBox = require("omnibox_sdk");
@@ -25,6 +25,17 @@ const DRIVE_ORDER = (process.env.DRIVE_ORDER || "baidu;tianyi;quark;uc;115;xunle
 module.exports = { home, category, detail, search, play };
 runner.run(module.exports);
 
+// 站点用 JS 校验页发 cookie：任何请求（含 API）首次都会返回
+//   <script>document.cookie = "ge_js_validator_18=<ts>@18@<hash>; ..."; window.location.reload();</script>
+// 值由服务端生成，直接把它取出来带上重放即可通过。
+let validatorCookie = String(process.env.MUKAKU_VALIDATOR_COOKIE || "").trim();
+
+function pickValidatorCookieFromBody(body) {
+  const text = body && typeof body === "string" ? body : Buffer.isBuffer(body) ? body.toString() : String(body || "");
+  const match = text.match(/ge_js_validator_18=([^;'"\s]+)/);
+  return match ? match[1] : "";
+}
+
 async function requestApi(path, params = {}, options = {}) {
   const qs = new URLSearchParams({
     app_id: APP_ID,
@@ -33,24 +44,39 @@ async function requestApi(path, params = {}, options = {}) {
   }).toString();
   const url = `${API_BASE}/${path}?${qs}`;
   await OmniBox.log("info", `[木卡库][api] ${url}`);
-  const res = await OmniBox.request(url, {
-    method: options.method || "GET",
-    headers: {
-      "User-Agent": UA,
-      "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
-      Referer: `${BASE_URL}/`,
-      ...(options.headers || {}),
-    },
-    timeout: options.timeout || 20000,
-  });
-  if (!res || Number(res.statusCode) !== 200) {
-    throw new Error(`HTTP ${res?.statusCode || "unknown"} @ ${url}`);
+
+  for (let attempt = 0; attempt < 3; attempt += 1) {
+    const res = await OmniBox.request(url, {
+      method: options.method || "GET",
+      headers: {
+        "User-Agent": UA,
+        "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
+        Referer: `${BASE_URL}/`,
+        ...(validatorCookie ? { Cookie: `ge_js_validator_18=${validatorCookie}` } : {}),
+        ...(options.headers || {}),
+      },
+      timeout: options.timeout || 20000,
+    });
+
+    // JS 校验页：取出 cookie 后重放
+    const cookieFromBody = pickValidatorCookieFromBody(res?.body);
+    if (cookieFromBody && cookieFromBody !== validatorCookie) {
+      validatorCookie = cookieFromBody;
+      await OmniBox.log("info", `[木卡库][validator] 取得校验 cookie，重放请求`);
+      continue;
+    }
+
+    if (!res || Number(res.statusCode) !== 200) {
+      throw new Error(`HTTP ${res?.statusCode || "unknown"} @ ${url}`);
+    }
+    const data = JSON.parse(res.body || "{}");
+    if (data && data.code && Number(data.code) !== 200) {
+      throw new Error(data.message || `API code=${data.code}`);
+    }
+    return data;
   }
-  const data = JSON.parse(res.body || "{}");
-  if (data && data.code && Number(data.code) !== 200) {
-    throw new Error(data.message || `API code=${data.code}`);
-  }
-  return data;
+
+  throw new Error(`validator cookie retry exhausted @ ${url}`);
 }
 
 function mapVideo(item) {

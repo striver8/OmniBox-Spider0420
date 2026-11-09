@@ -14,19 +14,6 @@
     "lastUrl": ""
   },
   {
-    "file": "动漫/girigiri爱动漫.js",
-    "verdict": "broken",
-    "step": "category",
-    "steps": [
-      "category",
-      "search",
-      "detail",
-      "play"
-    ],
-    "err": "category: empty list (type_id=21)",
-    "lastUrl": "https://bgm.girigirilove.com/show/21-----------/"
-  },
-  {
     "file": "听书/听友FM.js",
     "verdict": "broken",
     "step": "category",
@@ -55,16 +42,13 @@
   {
     "file": "影视/磁力/不太灵.js",
     "verdict": "broken",
-    "step": "home",
+    "step": "detail",
     "steps": [
-      "home",
-      "category",
-      "search",
       "detail",
       "play"
     ],
-    "err": "home: empty class list",
-    "lastUrl": "https://web5.mukaku.com/prod/api/v1/getVideoList?app_id=83768d9ad4&identity=23734adac0301bccdcb107c4aa21f96c&sb=%E5%BA%86%E4%BD%99%E5%B9%B4&page=1&limit=24"
+    "err": "detail: no playable episodes (sources=0, episodes=0)",
+    "lastUrl": "https://web5.mukaku.com/prod/api/v1/getVideoDetail?app_id=83768d9ad4&identity=23734adac0301bccdcb107c4aa21f96c&id=38242428"
   },
   {
     "file": "影视/磁力/磁力熊.js",
@@ -201,7 +185,7 @@
       "play"
     ],
     "err": "detail: no playable episodes (sources=0, episodes=0)",
-    "lastUrl": "https://www.wogg.net/voddetail/99509.html"
+    "lastUrl": "https://www.wogg.net/voddetail/134043.html"
   },
   {
     "file": "影视/网盘/玩偶聚合-非分组.js",
@@ -212,7 +196,7 @@
       "play"
     ],
     "err": "detail: no playable episodes (sources=0, episodes=0)",
-    "lastUrl": "http://38.76.197.172:12521/index.php/vod/detail/id/469884.html"
+    "lastUrl": "http://38.76.197.172:16969/index.php/vod/detail/id/504552.html"
   },
   {
     "file": "影视/网盘/玩偶聚合.js",
@@ -223,7 +207,7 @@
       "play"
     ],
     "err": "detail: no playable episodes (sources=0, episodes=0)",
-    "lastUrl": "https://www.wogg.net/voddetail/99509.html"
+    "lastUrl": "https://www.wogg.net/voddetail/134043.html"
   },
   {
     "file": "影视/网盘/盘搜.js",
@@ -319,25 +303,14 @@
   {
     "file": "影视/采集/4KMP.js",
     "verdict": "broken",
-    "step": "category",
+    "step": "search",
     "steps": [
-      "category",
       "search",
       "detail",
       "play"
     ],
-    "err": "category: empty list (type_id=tv)",
-    "lastUrl": "https://4k-av.com/s?y=%E5%BA%86%E4%BD%99%E5%B9%B4"
-  },
-  {
-    "file": "影视/采集/88看球.js",
-    "verdict": "partial",
-    "step": "search",
-    "steps": [
-      "search"
-    ],
-    "err": "search: empty list for keyword=08:00 NBA常规赛",
-    "lastUrl": "http://www.88kanqiu.cc/live/130977/source"
+    "err": "search: empty list for keyword=小兵张嘎",
+    "lastUrl": "https://4k-av.com/movie/008403-zhang-ga-the-soldier-boy/"
   },
   {
     "file": "影视/采集/Auete影视.js",
@@ -416,29 +389,6 @@
     "lastUrl": "https://v.tai2.lol/index.php/vod/play/id/700/sid/1/nid/1.html"
   },
   {
-    "file": "影视/采集/布布影视.js",
-    "verdict": "broken",
-    "step": "category",
-    "steps": [
-      "category",
-      "search",
-      "detail",
-      "play"
-    ],
-    "err": "category: empty list (type_id=综艺)",
-    "lastUrl": ""
-  },
-  {
-    "file": "影视/采集/新韩剧网.js",
-    "verdict": "partial",
-    "step": "search",
-    "steps": [
-      "search"
-    ],
-    "err": "search: empty list for keyword=家庭关系证明书",
-    "lastUrl": "https://www.9hanju.com/u/u1.php?ud=3706_1_1"
-  },
-  {
     "file": "影视/采集/枝枝影视.js",
     "verdict": "broken",
     "step": "home",
@@ -493,13 +443,15 @@
   },
   {
     "file": "影视/采集/歪比巴卜.js",
-    "verdict": "partial",
+    "verdict": "broken",
     "step": "search",
     "steps": [
-      "search"
+      "search",
+      "detail",
+      "play"
     ],
     "err": "search: empty list for keyword=老江湖",
-    "lastUrl": "https://xn--qvr2v.850088.xyz/player/api.php"
+    "lastUrl": "https://wbbb1.com/detail/116031.html"
   },
   {
     "file": "影视/采集/毒舌影视.js",
@@ -538,7 +490,7 @@
       "play"
     ],
     "err": "category: empty list (type_id=4)",
-    "lastUrl": "https://pianku.pro/index.php/verify/index.html?type=search&t=1794217330963"
+    "lastUrl": "https://pianku.pro/index.php/verify/index.html?type=search&t=1794230445323"
   },
   {
     "file": "影视/采集/荐片.js",
@@ -553,16 +505,6 @@
     ],
     "err": "home: empty class list",
     "lastUrl": ""
-  },
-  {
-    "file": "影视/采集/韩小圈.js",
-    "verdict": "partial",
-    "step": "search",
-    "steps": [
-      "search"
-    ],
-    "err": "search: empty list for keyword=末路兼职",
-    "lastUrl": "https://hanxiaoquan.hanju.workers.dev/api/detail"
   },
   {
     "file": "流媒体/Jellyfin.js",
@@ -624,7 +566,7 @@
     "steps": [
       "search"
     ],
-    "err": "search: empty list for keyword=简单舞蹈一起嗨起来",
+    "err": "search: empty list for keyword=森亿家居正在直播",
     "lastUrl": "https://live.douyin.com/webcast/room/web/enter/?aid=6383&app_name=douyin_web&live_id=1&device_platform=web&enter_from=web_live&browser_language=zh-CN&browser_platform=Win32&browser_name=Chrome&browser"
   },
   {
@@ -634,18 +576,8 @@
     "steps": [
       "search"
     ],
-    "err": "search: empty list for keyword=弹幕天团",
-    "lastUrl": "https://www.douyu.com/lapi/live/getH5PlayV1/5908256"
-  },
-  {
-    "file": "短剧/星星短剧.js",
-    "verdict": "partial",
-    "step": "search",
-    "steps": [
-      "search"
-    ],
-    "err": "search: empty list for keyword=千金驾到",
-    "lastUrl": "http://read.api.duodutek.com/novel-api/basedata/book/getChapterList?productId=2a8c14d1-72e7-498b-af23-381028eb47c0&vestId=2be070e0-c824-4d0e-a67a-8f688890cadb&channel=oppo19&osType=android&version=20&"
+    "err": "search: empty list for keyword=粤语学习",
+    "lastUrl": "https://www.douyu.com/lapi/live/getH5PlayV1/11878141"
   },
   {
     "file": "短剧/短剧粉.js",

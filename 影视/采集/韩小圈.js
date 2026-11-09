@@ -2,7 +2,7 @@
 // @author 梦
 // @description 影视站：支持首页、分类、详情、搜索与播放
 // @dependencies cheerio
-// @version 1.0.3
+// @version 1.0.4
 // @downloadURL https://gh-proxy.org/https://github.com/Silent1566/OmniBox-Spider/raw/refs/heads/main/影视/采集/韩小圈.js
 
 const OmniBox = require("omnibox_sdk");
@@ -353,14 +353,18 @@ async function search(params) {
         .filter((item) => item.vod_id && item.vod_name),
     );
     const refinedList = refineSearchList(allList, keyword);
+    // 站点 /api/search 是模糊匹配：搜「末路兼职」只返回「末日侵袭」这类弱相关条目，
+    // 严格打分过滤会把整页清空（表现为搜索永远无结果）。过滤后为空时退回原始结果，
+    // 至少给出候选，由用户二次筛选。
+    const resultList = refinedList.length > 0 ? refinedList : allList;
     const start = (pg - 1) * SEARCH_PAGE_SIZE;
-    const list = refinedList.slice(start, start + SEARCH_PAGE_SIZE);
-    const knownPageCount = Math.max(1, Math.ceil(refinedList.length / SEARCH_PAGE_SIZE));
-    const pagecount = refinedList.length > 0
+    const list = resultList.slice(start, start + SEARCH_PAGE_SIZE);
+    const knownPageCount = Math.max(1, Math.ceil(resultList.length / SEARCH_PAGE_SIZE));
+    const pagecount = resultList.length > 0
       ? (hasMore ? Math.max(pg + 1, knownPageCount) : Math.max(pg, knownPageCount))
       : pg;
-    const total = refinedList.length + (hasMore && refinedList.length > 0 ? 1 : 0);
-    await OmniBox.log("info", `[韩小圈][search] keyword=${keyword} pg=${pg} raw=${raw.length} refined=${refinedList.length} list=${list.length} pages=${fetchedPages} top=${list.slice(0, 5).map((item) => item.vod_name).join(" | ")}`);
+    const total = resultList.length + (hasMore && resultList.length > 0 ? 1 : 0);
+    await OmniBox.log("info", `[韩小圈][search] keyword=${keyword} pg=${pg} raw=${raw.length} refined=${refinedList.length} loose=${refinedList.length === 0 ? allList.length : 0} list=${list.length} pages=${fetchedPages} top=${list.slice(0, 5).map((item) => item.vod_name).join(" | ")}`);
     return {
       page: pg,
       pagecount,

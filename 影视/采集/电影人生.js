@@ -100,12 +100,19 @@ function stripParam(url, key) {
     .replace(/&&/g, "&");
 }
 
-async function fetchText(url, options = {}) {
-  let target = url;
-  let solved = false;
-  let lastStatus = 0;
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
 
-  for (let attempt = 0; attempt < 3; attempt++) {
+// 站点限速：连续请求会连发 429/验证页，重放 attack_key 也可能再被拦。
+// 策略：解题重放；仍被拦就退避后用“干净的 URL + 已获得的 cookie”重新挑战。
+async function fetchText(url, options = {}) {
+  const maxAttempts = 6;
+  let target = url;
+  let lastStatus = 0;
+  let solved = 0;
+
+  for (let attempt = 0; attempt < maxAttempts; attempt++) {
     const res = await OmniBox.request(target, {
       method: options.method || "GET",
       headers: {
@@ -123,11 +130,30 @@ async function fetchText(url, options = {}) {
     rememberCookie(res);
     const text = getBodyText(res);
 
-    if (isChallenge(text)) {
-      if (solved) break;
-      const key = solveChallenge(text);
-      if (key < 0) break;
-      solved = true;
+    const challenged = isChallenge(text) || lastStatus === 429;
+    if (challenged) {
+      await sleep(500 + attempt * 700);
+      // 先用干净 URL 重新取挑战页（站点会轮换 hash），再解题重放
+      const fresh = await OmniBox.request(url, {
+        method: options.method || "GET",
+        headers: {
+          "User-Agent": UA,
+          Referer: BASE_URL + "/",
+          Accept: "text/html,application/xhtml+xml",
+          ...(cookieJar ? { Cookie: cookieJar } : {}),
+          ...(options.headers || {}),
+        },
+        body: options.body,
+        timeout: options.timeout || 25000,
+      });
+      const freshStatus = Number(fresh?.statusCode) || 0;
+      rememberCookie(fresh);
+      const freshText = getBodyText(fresh);
+      if (freshStatus === 200 && !isChallenge(freshText)) return freshText;
+
+      const key = solveChallenge(freshText) >= 0 ? solveChallenge(freshText) : solveChallenge(text);
+      if (key < 0) continue;
+      solved += 1;
       target = withParam(url, "attack_key", key);
       continue;
     }
@@ -138,7 +164,7 @@ async function fetchText(url, options = {}) {
     return text;
   }
 
-  throw new Error(`challenge unsolved (HTTP ${lastStatus || 0}) @ ${url}`);
+  throw new Error(`challenge unsolved (HTTP ${lastStatus || 0}, attempts=${maxAttempts}, solved=${solved}) @ ${url}`);
 }
 
 function buildFilters() {

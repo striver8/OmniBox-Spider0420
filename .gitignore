@@ -1,24 +1,10 @@
 本地调试/
 node_modules/
 
-# probe scratch
+# 布布影视运行时下载的 wasm 缓存
+bubuyingshi.wasm
+
+# probe scratch：临时脚本
 probe/t_*
-probe/.c.html
-probe/.r.html
-probe/.v.html
-probe/.c2.html
-probe/.h.html
-probe/.j.html
-probe/.w.html
-probe/.peek.html
-probe/.4k.html
-probe/.fk/
-probe/.kt*
-probe/.k.html
-probe/.ch.html
-probe/.xf/
-probe/.g.html
-probe/.g0.html
-probe/.gp.html
-probe/.pp.m3u8
-probe/.yy.html
+# 探针抓取/调试产物统一以点号开头，整体忽略（report/metrics 等正式产物不受影响）
+probe/.*

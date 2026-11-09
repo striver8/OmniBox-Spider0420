@@ -1,5 +1,5 @@
 // @name 星星短剧 ᵈᶻ[短]
-// @version 1.0.4
+// @version 1.0.6
 // @push 0
 // @dependencies axios
 // @downloadURL https://gh-proxy.org/https://github.com/Silent1566/OmniBox-Spider/raw/refs/heads/main/短剧/星星短剧.js
@@ -27,6 +27,8 @@ const CATEGORIES = [
   { type_id: "1290", type_name: "现代" },
   { type_id: "1291", type_name: "古代" }
 ];
+
+const PAGE_SIZE = 20;
 
 function text(v) {
   return String(v == null ? "" : v).trim();
@@ -72,17 +74,20 @@ async function category(params, context) {
     const json = await apiGet("/novel-api/app/pageModel/getResourceById", {
       resourceId: tid,
       pageNum: String(page),
-      pageSize: "10"
+      pageSize: String(PAGE_SIZE)
     });
-    const list = (json?.data?.datalist || []).map(mapVod);
+    const data = json?.data || {};
+    const list = (data.datalist || []).map(mapVod);
     const total =
-      Number(json?.data?.total) ||
-      Number(json?.data?.totalCount) ||
+      Number(data?.page?.totalCount) ||
+      Number(data?.total) ||
+      Number(data?.totalCount) ||
       Number(json?.total) ||
       list.length;
+    const pagecount = total ? Math.max(Math.ceil(total / PAGE_SIZE), 1) : page;
     return {
       page,
-      pagecount: 999,
+      pagecount,
       total,
       list
     };
@@ -135,9 +140,28 @@ async function detail(params, context) {
 }
 
 async function search(params, context) {
-  // 原脚本未实现搜索，保持空结果
-  const page = Number(params?.page || 1);
-  return { page, pagecount: 0, total: 0, list: [] };
+  const page = Math.max(Number(params?.page || 1) || 1, 1);
+  const keyword = text(params?.keyword || params?.key || params?.wd || "");
+  if (!keyword) return { page, pagecount: 0, total: 0, list: [] };
+  try {
+    // 两个坑：①参数名是 key（keyword/name/searchKey 一律 code:1 参数错误）；
+    // ②不加 bookType=4 时命中的是同名小说库（短剧库独立，bookType=4 才是短剧）。
+    const json = await apiGet("/novel-api/basedata/book/searchBook", {
+      key: keyword,
+      bookType: "4",
+      pageNum: String(page),
+      pageSize: String(PAGE_SIZE)
+    });
+    const data = json?.data || {};
+    const list = (data.datalist || []).map(mapVod);
+    const total = Number(data?.page?.totalCount) || list.length;
+    const pagecount = total ? Math.max(Math.ceil(total / PAGE_SIZE), 1) : page;
+    await OmniBox.log("info", `[search] keyword=${keyword} page=${page} list=${list.length} total=${total}`);
+    return { page, pagecount, total, list };
+  } catch (e) {
+    await OmniBox.log("error", `[search] ${e.message}`);
+    return { page, pagecount: 0, total: 0, list: [] };
+  }
 }
 
 async function play(params, context) {

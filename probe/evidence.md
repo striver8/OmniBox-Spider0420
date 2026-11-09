@@ -186,3 +186,125 @@ GET https://www.ppnix.com/info/m3u8/9117/1080P.m3u8
 改法：`play()` 只读缓存 cookie（`PPNIX_CF_COOKIE` / `getCachedCfCookie()`），不主动求解；仅当 `PPNIX_REWRITE_M3U8` 分支里首次取 m3u8 失败且尚未有 cookie 时，才 `ensureCfCookie(true, referer)` 并重试一次。
 
 复验：play 由 66s 返回空 → **1ms 返回 `https://www.ppnix.com/info/m3u8/9117/1080P.m3u8`（parse=0）**；整脚本探针 ok。版本 1.7.4 → 1.7.5。
+
+## 十五、girigiri爱动漫重写（Vite SPA → ThinkPHP /api.php）
+
+站点 `https://bgm.girigirilove.com` 301 → `https://ani.girigirilove.com`，前端改为 Vite + React SPA（无 SSR 卡片、无 `_next`），旧的 MacCMS 路径 `/show/<id>-----------/`、`/index.php/ajax/suggest` 全部失效。
+
+从 `assets/client-DzOFWXhI.js` 取到客户端配置：`VITE_API_ORIGIN=https://m3u8.girigirilove.com`，接口基址 `${origin}/api.php`，ThinkPHP path-info 风格，响应统一 `{code:1,msg,info}`：
+
+| 端点 | 说明 |
+| --- | --- |
+| `GET /api.php/Vod/get_list` | 列表/搜索，`info:{offset,limit,total,rows[]}` |
+| `GET /api.php/Vod/get_detail?vod_id=` | 详情，含 `vod_play_from` / `vod_play_url`（MacCMS 分组串） |
+| `GET /api.php/Vod/get_class`、`getAllTagOption`、`get_year`、`get_area` | 筛选项 |
+| `GET /api.php/App2/bannerList`、`appConfigData` | 首页 banner / 公告 |
+| `GET /api.php/Vod/history` | 需要登录（401 `authentication_required`） |
+
+列表参数：`type_id / offset / limit / vod_weekday / vod_letter / vod_tag / vod_name / vod_blurb / vod_area / vod_year / orderby / vod_class / vod_lang / vod_version / vod_state / user_id`；`vod_name=<kw>` 即搜索（「巨人」total=15）。
+
+**关键坑**：站点把**空的 `type_id=` 当成有效筛选**。`Vod/get_list?type_id=&vod_name=黑暗召唤师…` 返回 `total=0`，去掉 `type_id=` 后 `total=1`。因此 `_queryString()` 对空字符串参数整条省略。驼峰 action 名（`Vod/getList`）一律 404，真名是下划线式 `get_list`。
+
+分类 ID：2 日番 / 3 美番 / 20 真人番剧 / 21 剧场版 / 24 BD副音轨 / 26 演唱会及其他。
+
+播放地址就藏在 `vod_play_url` 里（组间 `$$$`、集间 `#`、`名$址`），实测 `https://akua.girigirilove.com/.../01/playlist.m3u8` → 200 4109 B `application/vnd.apple.mpegurl`，无需 token，也不需要前端注入的 `detail-scripts` JSON。
+
+复验：home class=6 / list=72；category type_id=2 → 24 条 `pagecount=132` `total=3149`；search 1 条；detail sources=2 / episodes=11；play `parse=0`。版本 1.1.0 → 2.0.0。
+
+## 十六、星星短剧：搜索参数名 `key` + `bookType=4`
+
+`read.api.duodutek.com` 的搜索端点是 `/novel-api/basedata/book/searchBook`：
+
+- 参数名是 **`key`**（`keyword` / `name` / `bookName` / `searchKey` / `word` / `query` 一律返回 `{"code":"1","msg":"参数错误"}`）；POST 报 405。
+- **必须带 `bookType=4`**：不带时命中小说库（结果带 `haveText:true`），带上才是短剧库。实测「逆袭」→ 7 条，「千金驾到」→ 20 条 / `totalCount=21`。
+- 分页元数据在 `data.page`（`{pageSize,currentPage,totalCount,needTotal}`）。分类端点 `/novel-api/app/pageModel/getResourceById?resourceId=` 同样带 `data.page.totalCount`。
+- detail 用 `/novel-api/basedata/book/getChapterList?bookId=`，`shortPlayList[0].chapterShortPlayVoList[0].shortPlayUrl` 即 m3u8。
+- 路由不存在时统一返回 `{"msg":"safe filter error","code":-6001}`，可据此探测端点。
+
+改法：`search()` 改用 `key` + `bookType=4`；`pagecount` 由硬编码 999 改为 `ceil(totalCount/20)`（`PAGE_SIZE` 提为模块常量）。复验 ok：home 5 类 / category 1287 甜宠 17 条 `pagecount=3` / search 20 条 / detail 80 集 / play `parse=0`。版本 1.0.4 → 1.0.6。
+
+## 十七、电影人生：PoW 过检加上退避，避免限速死锁
+
+上一轮加的 SHA1 工作量证明在密集请求下会被站点限速：探针详情步骤报 `429`（8108 B），且拿旧挑战页算出的 `attack_key` 重放**仍然 429**（挑战与时间窗绑定，被限速后重放无效）。
+
+改法（`fetchText()`）：`maxAttempts` 提到 6；命中挑战或 429 时先 `sleep(500 + attempt*700)`，再以**干净 URL** 重新取一次挑战页（站点会轮换 `hash/target`），若这次直接 200 且非挑战页即返回；否则对新旧挑战页分别解 PoW 后重放。
+
+复验 ok：home 4 类 36 条 / category dianying 24 条 `pagecount=678` / search「城迷」24 条 / detail 1 源 1 集 / play `https://lzv34.com/.../index.m3u8` `parse=0`。
+
+## 十八、韩小圈：模糊搜索被严格打分清空
+
+`/api/search` 是模糊匹配（搜「末路兼职」返回「末日侵袭」这类弱相关条目），而 `refineSearchList()` 的严格打分（LCS 覆盖率 <0.68~0.75 记 0 分）会把整页过滤光，最终返回空列表。
+
+改法：`const resultList = refinedList.length > 0 ? refinedList : allList;` —— 严格过滤只在有命中时生效，否则退回原始结果；分页/总数同步改用 `resultList`，日志增加 `loose=` 计数。复验 ok：home 5 类 20 条 / category 20 条 / search 20 条 / play `parse=0`。版本 1.0.3 → 1.0.4。
+
+## 十九、88看球：源站没有搜索接口，改为本地过滤
+
+`search()` 原本是返回空数组的桩。实测源站确实没有搜索路由（`/search?keyword=`、`/search?wd=`、`/so/`、`/match/search`、`/api/search` 全 404），`www.88kanqiu.cc` → 301 → `www.88kanqiu.us`。
+
+改法：调用现成的 `getCategoryList("")` 拉全部直播，再按 `vod_name` / `vod_remarks` 包含关键词过滤（含去空格二次匹配），返回 `{list, page:1, pagecount:1, total}`。复验 ok：home 24 类 59 条 / category 17 条 / search 6 条 / play `parse=1`（源站播放页）。版本 1.1.0 → 1.2.0。
+
+## 二十、不太灵：服务端下发的 JS 校验 cookie，取出重放即可
+
+站点对所有请求先返回 279 B 校验页：
+
+```html
+<script>
+document.cookie = "ge_js_validator_18=<ts>@18@<32hex>; path=/; max-age=99999;";
+window.location.reload();
+</script>
+```
+
+cookie 值由**服务端**生成（无客户端计算），从响应体里取出后原样重放即可拿到正常内容（带 cookie 的 `/prod/api/v1/getVideoList` → 200 / 66 KB JSON）。改法：新增 `pickValidatorCookieFromBody()`，`requestApi()` 最多重试 3 次，命中新 cookie 就更新并重放，耗尽才抛错。
+
+复验：home 3 类 30 条 / category 25 条 / search 1 条恢复；detail 仍 0 源是因为该片 `movies_online_seed` 为空、且网盘分支依赖 `OmniBox.getDriveFileList`（探针环境无法提供），属网盘类不可探针验证，不是脚本缺陷。版本 1.2.6 → 1.2.7。
+
+## 二十一、布布影视（多多影视）：MacCMS 页面 → `/api.php/web` + WASM 解码
+
+`bubuzhuiju.com` 301 → `duoduozhuiju.com`（官方地址发布页），发布页 `js/config.js` 给出线路：
+
+```js
+window.SITE_CONFIG = { lines: [
+  { name: '线路 1', host: '323433ssdfd.top' },
+  { name: '线路 2', host: 'duoduosdf12223234334.top' },
+  { name: '线路 3', host: 'xds2435u23422342342u.top' },
+  { name: '线路 4', host: 'dduotv01.top' } ] };
+```
+
+主站是 Vue3 + Vite SPA，页面选择器全部失效，改为 JSON 接口：
+
+| 端点 | 参数 | 说明 |
+| --- | --- | --- |
+| `GET /api.php/web/index/home` | – | `{data:{categories[4],hotSearch,recommend}}` |
+| `GET /api.php/web/filter/vod` | `type_name`（比 `type_id` 准）、`page`、`limit`、`sort` | 分类列表 |
+| `GET /api.php/web/search/index` | `wd`（不是 `keyword`） | 搜索 |
+| `GET /api.php/web/vod/get_detail` | `vod_id`（不是 `id`） | 详情，含 `vod_play_from` / `vod_play_url` |
+| `POST /api.php/web/decode/url` | protobuf | 解密播放地址 |
+
+必需请求头：`X-Client: 8f3d2a1c7b6e5d4c9a0b1f2e3d4c5b6a`、`web-sign: ddtvf65f3a83d6d9ad6f`（旧脚本缺 `ddtv` 前缀）。
+
+三个真实故障点：
+
+1. **`vodplayer` 不再下发**，旧 `detail()` 里 `vodplayer.find(...)` 为 undefined 时直接 `return`，导致所有线路被丢弃、detail 返回空列表。改为按 `vod_play_from` / `vod_play_url` 的 `$$$` 下标一一对应解析，`playerInfo` 允许为空。
+2. **wasm 资产名带内容哈希**（`/assets/web_app_wasm_bg-Bxwbrgev.wasm`），写死文件名在发版后失效。改为启动时从首页 HTML / 入口 JS 正则解析，多候选依次下载，并缓存路径。
+3. **加密播放地址必须调用站点自己的 WASM**。`decode/url` 的 protobuf 请求含 `f3=时间戳 / f4=nonce / f5=签名`，签名验证失败会返回 `{"code":401,"msg":"签名验证失败: 签名已过期"}`；纯 JS 复现签名失败（315 种 sha256/hmac 组合 + 8 个候选密钥零命中），因此脚本内保留完整的 wasm-bindgen glue 手工实现（28 个 `__wbg_*` 导入与线上 wasm 的 import 表逐项一致）。
+
+另外 `CO4K` 线路是客户端专属，服务端返回 `PLATFORM_NOT_ALLOWED`，排序时置底。
+
+复验 ok：home 4 类 24 条 / category 电影 50 条 `pagecount=2` / search「疯狂动物城2」50 条 / detail 4 源 8 集 / play `parse=0`。版本 1.1.0 → 2.0.0。
+
+## 二十二、判定为死站 / 门禁 / 假阴性（本轮只记录，不改码）
+
+| 脚本 | 判定 | 依据 |
+| --- | --- | --- |
+| 影视/采集/新韩剧网.js | **探针假阴性，脚本正常** | 搜索是 `POST /search/`（`show=searchkey&keyboard=<kw>`）→ 302 → `/search/code.php?id=`，DOM 与解析一致；`PROBE_KEYWORD=韩剧` 时 ok。默认关键词取分类首条标题，站点索引里没有 → 假阴性 |
+| 影视/采集/歪比巴卜.js | 搜索被图形验证码门禁 | `/search/-------------.html?wd=` 返回「系统安全验证」页（内含 `MAC.Ajax('/index.php/ajax/verify_check?type=search&verify='+v)`）；`suggest`/`vodsearch` 403、`search.html` 404 |
+| 影视/采集/太二影视.js | 搜索被验证码门禁 | `/index.php/vod/search.html?wd=` 返回「系统提示请输入验证码」；首页/分类本身正常 |
+| 影视/网盘/剧迷115.js | 站长主动停站 | 所有路径返回同一 3388 B 页，标题「抱歉，站点已暂停」 |
+| 影视/采集/柯南影视.js | 站点级故障 | `www.knvod.com` 520 / 16 B |
+| 影视/采集/永乐视频.js | 站点级故障 | `ylys.tv` 523 / 16 B |
+| 影视/采集/毒舌影视.js | 反爬门禁 | `www.xnhrsb.com` → `m.xnhrsb.com`，408 Bot detection |
+| 影视/采集/枫叶.js、枫叶4K.js | TLS 不可达 | `budaichuchen.net` 握手失败 |
+| 影视/采集/片库.js | CF 挑战 | `pianku.pro` 403 `Just a moment` |
+| 影视/采集/荐片.js | 域名不可达 | `h5.jianpianips1.com` 连接 000 |
+| 影视/采集/哇哇影视.js | 脚本配置异常 | 脚本内唯一 URL 是 `gitee.com` |
+| 音乐/枫叶音乐.js | 后端 502 | `fy-musicbox-api.mu-jie.cc` 全路径 502（openresty），`mu-jie.cc` 子域全部无解析；不归档，等站点恢复 |
