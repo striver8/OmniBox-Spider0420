@@ -625,3 +625,8 @@ GET https://interface.yy.com/hls/new/get/<rid>/<rid>/<quality>?source=wapyy&call
 **本轮全量结果（101 个 active 脚本）**：`ok=58 / partial=2 / unverifiable=9 / config=6 / broken=26`。对照上一版口径（`ok=59 / partial=1 / broken=41`）可见：**原先 41 条"失效"里有 15 条属于探针能力边界或未配置，并非脚本缺陷**。
 
 **剩余的 26 条 `broken` 已逐站复核过**，均为站点级问题：站点改版为 SPA/改接口（`毒舌影视` 仍受 IP 级 WAF 限流、`枝枝影视` CF Turnstile 需 FlareSolverr 环境）、域名/源站死亡（`枫叶`/`枫叶4K`/`柯南影视`/`永乐视频`/`片库`/`荐片`/`4KMP`/`NO视频`/`七味`/`剧迷115`/`蜗牛4K`/`闪电`/`聚盘搜索`）、后端 502（`枫叶音乐`）、CF 522（`枫叶` 系）、以及两个模板/示例文件（`Emby/模板一.js`）。
+
+## 三十九、3Q影视 与 直播站搜索的判定说明
+
+- **`影视/采集/3Q影视.js` 与 布布影视同源**：同样打 `/api.php/web/*`（多多影视系），播放走 `/api.php/web/decode/url`。它**自带** `影视/采集/duoduo.wasm`（46,648 B，仓库内已跟踪，另有 `tests/3q-wasm-binary.test.js` 守着），不做运行时下载，所以不受第三十六节里布布影视"wasm 文件名变更"的影响。单脚本探针实测 **ok**（home 4 类 29 条 / category 24 / search 50 / detail 12 源 16 集 / play 解码出 `https://cambrian-video-origin.cdn.bcebos.com/…mp4`）。12 并发全量跑时偶发 `play: empty urls`（解码那一步受 CPU/网络争用影响），属调度抖动，不是脚本缺陷 —— 复查方式：`PROBE_CONC=1 node probe/run.js "影视/采集/3Q影视.js"`。
+- **直播站的 search 判定有天然局限**：`直播/斗鱼直播.js` 走官方 `searchShow`，而探针的关键词来自 category 首屏的**直播间标题**（如 `弹幕天团` / `平安顺遂~~~` / `粤语学习`）。这类标题不是主播昵称，斗鱼搜索索引里查不到 —— 用 curl 直接验证：`https://www.douyu.com/japi/search/api/searchShow?kw=弹幕天团` 返回 `{"data":{"relateShow":[],"total":0}}`（三个候选关键词都是 total=0），而搜索主播名（如"滚石老炮至尊店"）则精确命中。**结论：该条的 partial 是探针关键词取样问题，脚本本身可用**；同类直播脚本（YY 轮播）因为检索字段是频道名才恰好通过。后续若要彻底消除这类假阴性，可让探针在 live 类脚本上改用"分类条目的主播名/频道名"而非房间标题。

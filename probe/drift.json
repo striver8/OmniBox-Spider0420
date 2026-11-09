@@ -139,13 +139,13 @@
   },
   {
     "file": "影视/网盘/欧哥.js",
-    "verdict": "unverifiable",
+    "verdict": "broken",
     "step": "detail",
     "steps": [
       "detail",
       "play"
     ],
-    "err": "detail: no playable episodes (sources=0, episodes=0)",
+    "err": "detail: empty list for videoId=/index.php/vod/detail/id/33472.html",
     "lastUrl": "https://woog.nxog.eu.org/index.php/vod/detail/id/33472.html"
   },
   {
@@ -273,16 +273,6 @@
     "lastUrl": "https://sd.sduc.site/index.php/vod/search/page/1/wd/庆余年.html"
   },
   {
-    "file": "影视/采集/3Q影视.js",
-    "verdict": "partial",
-    "step": "play",
-    "steps": [
-      "play"
-    ],
-    "err": "play: empty urls",
-    "lastUrl": "https://dduotv01.top/api.php/web/decode/url"
-  },
-  {
     "file": "影视/采集/4KMP.js",
     "verdict": "broken",
     "step": "category",
@@ -391,14 +381,28 @@
   {
     "file": "影视/采集/歪比巴卜.js",
     "verdict": "broken",
-    "step": "search",
+    "step": "category",
     "steps": [
+      "category",
       "search",
       "detail",
       "play"
     ],
-    "err": "search: empty list for tried=老江湖 / 敦煌英雄 / 空枪 / 痴迷 / 一英里 / 双妻之劫",
-    "lastUrl": "https://wbbb1.com/detail/116031.html"
+    "err": "category: empty list (type_id=4)",
+    "lastUrl": "https://wbbb1.com/search/-------------.html?wd=%E5%BA%86%E4%BD%99%E5%B9%B4"
+  },
+  {
+    "file": "影视/采集/毒舌影视.js",
+    "verdict": "broken",
+    "step": "category",
+    "steps": [
+      "category",
+      "search",
+      "detail",
+      "play"
+    ],
+    "err": "category: empty list (type_id=4)",
+    "lastUrl": "https://m.xnhrsb.com/__xcdn/captcha/api/verify"
   },
   {
     "file": "影视/采集/永乐视频.js",
@@ -424,7 +428,7 @@
       "play"
     ],
     "err": "category: empty list (type_id=4)",
-    "lastUrl": "https://pianku.pro/index.php/verify/index.html?type=search&t=1794242016384"
+    "lastUrl": "https://pianku.pro/index.php/verify/index.html?type=search&t=1794242357055"
   },
   {
     "file": "影视/采集/荐片.js",
@@ -489,8 +493,8 @@
     "steps": [
       "search"
     ],
-    "err": "search: empty list for tried=弹幕天团 / 一起来看剧啦！ / 平安顺遂~~~ / 粤语学习",
-    "lastUrl": "https://www.douyu.com/lapi/live/getH5PlayV1/5908256"
+    "err": "search: empty list for tried=粤语学习 / 弹幕天团 / 一起来看剧啦！ / 平安顺遂~~~",
+    "lastUrl": "https://www.douyu.com/lapi/live/getH5PlayV1/11878141"
   },
   {
     "file": "短剧/短剧粉.js",

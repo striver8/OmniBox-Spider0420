@@ -133,7 +133,7 @@
   },
   {
     "file": "影视/网盘/欧哥.js",
-    "verdict": "unverifiable",
+    "verdict": "broken",
     "siteCls": "ALIVE",
     "host": "https://woog.nxog.eu.org/"
   },
@@ -211,7 +211,7 @@
   },
   {
     "file": "影视/采集/3Q影视.js",
-    "verdict": "partial",
+    "verdict": "ok",
     "siteCls": "UNKNOWN",
     "host": "https://dduotv01.top/"
   },
