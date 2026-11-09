@@ -1,0 +1,62 @@
+[
+  {
+    "file": "已失效待修复\\动漫\\嗷呜动漫.js",
+    "reason": "DNS_DEAD",
+    "host": "https://www.aowu.tv/"
+  },
+  {
+    "file": "已失效待修复\\影视\\网盘\\二小.js",
+    "reason": "DNS_DEAD",
+    "host": "https://www.2xiaopan.top/"
+  },
+  {
+    "file": "已失效待修复\\影视\\网盘\\至臻.js",
+    "reason": "DNS_DEAD",
+    "host": "http://www.miqk.cc/"
+  },
+  {
+    "file": "已失效待修复\\影视\\网盘\\蜡笔.js",
+    "reason": "DNS_DEAD",
+    "host": "http://feimo.fun/"
+  },
+  {
+    "file": "已失效待修复\\影视\\采集\\StreamingCommunity.js",
+    "reason": "DNS_DEAD",
+    "host": "https://streamingcommunityz.pink/"
+  },
+  {
+    "file": "已失效待修复\\影视\\采集\\TVB云播.js",
+    "reason": "DNS_DEAD",
+    "host": "http://www.viptv01.com/"
+  },
+  {
+    "file": "已失效待修复\\影视\\采集\\威尔伯TV.js",
+    "reason": "DNS_DEAD",
+    "host": "https://wei2bo.com/"
+  },
+  {
+    "file": "已失效待修复\\影视\\采集\\影视大全.js",
+    "reason": "DNS_DEAD",
+    "host": "https://www.iysdq.tv/"
+  },
+  {
+    "file": "已失效待修复\\影视\\采集\\星辰影院.js",
+    "reason": "DNS_DEAD",
+    "host": "https://www.xcyycn.com/"
+  },
+  {
+    "file": "已失效待修复\\影视\\采集\\这片海.js",
+    "reason": "DNS_DEAD",
+    "host": "https://www.zhepianhai.com/"
+  },
+  {
+    "file": "已失效待修复\\短剧\\嘟嘟短剧.js",
+    "reason": "DNS_DEAD",
+    "host": "https://api-v2.cenguigui.cn/"
+  },
+  {
+    "file": "已失效待修复\\短剧\\短剧聚合.js",
+    "reason": "DNS_DEAD",
+    "host": "https://api.jkyai.top/"
+  }
+]

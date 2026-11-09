@@ -4,6 +4,7 @@
 // @dependencies: axios, crypto-js
 // @version 1.0.4
 // @downloadURL https://gh-proxy.org/https://github.com/Silent1566/OmniBox-Spider/raw/refs/heads/main/短剧/短剧聚合.js
+// @status dead | DNS_DEAD | 原域名 https://api.jkyai.top/ 已不可用（2026-11-09 探活）——换源后需重写解析
 
 /**
  * ============================================================================

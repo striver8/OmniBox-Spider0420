@@ -1,0 +1,674 @@
+[
+  {
+    "file": "Emby/模板一.js",
+    "verdict": "broken",
+    "step": "load",
+    "class": "other",
+    "err": "Unexpected token ':'"
+  },
+  {
+    "file": "Emby/模板二.js",
+    "verdict": "broken",
+    "step": "home",
+    "class": "parse_empty",
+    "err": "home: empty class list"
+  },
+  {
+    "file": "动漫/girigiri爱动漫.js",
+    "verdict": "broken",
+    "step": "category",
+    "class": "parse_empty",
+    "err": "category: empty list (type_id=2)"
+  },
+  {
+    "file": "动漫/嗷呜动漫.js",
+    "verdict": "broken",
+    "step": "category",
+    "class": "parse_empty",
+    "err": "category: empty list (type_id=20)"
+  },
+  {
+    "file": "动漫/樱花动漫.js",
+    "verdict": "partial",
+    "step": "search",
+    "class": "parse_empty",
+    "err": "search: empty list for keyword=庆余年"
+  },
+  {
+    "file": "动漫/稀饭动漫.js",
+    "verdict": "broken",
+    "step": "category",
+    "class": "parse_empty",
+    "err": "category: empty list (type_id=1)"
+  },
+  {
+    "file": "听书/博看听书.js",
+    "verdict": "partial",
+    "step": "search",
+    "class": "parse_empty",
+    "err": "search: empty list for keyword=庆余年"
+  },
+  {
+    "file": "听书/听友FM.js",
+    "verdict": "broken",
+    "step": "category",
+    "class": "parse_empty",
+    "err": "category: empty list (type_id=46)"
+  },
+  {
+    "file": "听书/番茄畅听.js",
+    "verdict": "broken",
+    "step": "category",
+    "class": "parse_empty",
+    "err": "category: empty list (type_id=899)"
+  },
+  {
+    "file": "已失效待修复/听书/六月听书.js",
+    "verdict": "broken",
+    "step": "category",
+    "class": "parse_empty",
+    "err": "category: empty list (type_id=t0)"
+  },
+  {
+    "file": "已失效待修复/影视/采集/RRSP.js",
+    "verdict": "broken",
+    "step": "category",
+    "class": "parse_empty",
+    "err": "category: empty list (type_id=1)"
+  },
+  {
+    "file": "影视/影视库/影视库.js",
+    "verdict": "broken",
+    "step": "category",
+    "class": "other",
+    "err": "OmniBox.listMediaItems is not a function"
+  },
+  {
+    "file": "影视/磁力/不太灵.js",
+    "verdict": "broken",
+    "step": "home",
+    "class": "parse_empty",
+    "err": "home: empty class list"
+  },
+  {
+    "file": "影视/磁力/磁力熊.js",
+    "verdict": "broken",
+    "step": "category",
+    "class": "parse_empty",
+    "err": "category: empty list (type_id=movie)"
+  },
+  {
+    "file": "影视/网盘/4K指南.js",
+    "verdict": "partial",
+    "step": "search",
+    "class": "parse_empty",
+    "err": "search: empty list for keyword=庆余年"
+  },
+  {
+    "file": "影视/网盘/AListTvbox.js",
+    "verdict": "broken",
+    "step": "home",
+    "class": "parse_empty",
+    "err": "home: empty class list"
+  },
+  {
+    "file": "影视/网盘/七味分组.js",
+    "verdict": "broken",
+    "step": "category",
+    "class": "parse_empty",
+    "err": "category: empty list (type_id=1)"
+  },
+  {
+    "file": "影视/网盘/二小.js",
+    "verdict": "broken",
+    "step": "home",
+    "class": "parse_empty",
+    "err": "home: empty class list"
+  },
+  {
+    "file": "影视/网盘/光鸭·臻影社.js",
+    "verdict": "broken",
+    "step": "category",
+    "class": "parse_empty",
+    "err": "category: empty list (type_id=film)"
+  },
+  {
+    "file": "影视/网盘/剧迷115.js",
+    "verdict": "broken",
+    "step": "category",
+    "class": "parse_empty",
+    "err": "category: empty list (type_id=1)"
+  },
+  {
+    "file": "影视/网盘/多多.js",
+    "verdict": "broken",
+    "step": "detail",
+    "class": "parse_empty",
+    "err": "detail: no playable episodes (sources=0, episodes=0)"
+  },
+  {
+    "file": "影视/网盘/影巢.js",
+    "verdict": "broken",
+    "step": "home",
+    "class": "parse_empty",
+    "err": "home: empty class list"
+  },
+  {
+    "file": "影视/网盘/快映.js",
+    "verdict": "broken",
+    "step": "detail",
+    "class": "parse_empty",
+    "err": "detail: no playable episodes (sources=0, episodes=0)"
+  },
+  {
+    "file": "影视/网盘/木偶.js",
+    "verdict": "broken",
+    "step": "detail",
+    "class": "parse_empty",
+    "err": "detail: no playable episodes (sources=0, episodes=0)"
+  },
+  {
+    "file": "影视/网盘/欧哥.js",
+    "verdict": "broken",
+    "step": "category",
+    "class": "parse_empty",
+    "err": "category: empty list (type_id=1)"
+  },
+  {
+    "file": "影视/网盘/玩偶.js",
+    "verdict": "broken",
+    "step": "detail",
+    "class": "parse_empty",
+    "err": "detail: no playable episodes (sources=0, episodes=0)"
+  },
+  {
+    "file": "影视/网盘/玩偶聚合-非分组.js",
+    "verdict": "broken",
+    "step": "detail",
+    "class": "parse_empty",
+    "err": "detail: no playable episodes (sources=0, episodes=0)"
+  },
+  {
+    "file": "影视/网盘/玩偶聚合.js",
+    "verdict": "broken",
+    "step": "detail",
+    "class": "parse_empty",
+    "err": "detail: no playable episodes (sources=0, episodes=0)"
+  },
+  {
+    "file": "影视/网盘/盘搜.js",
+    "verdict": "broken",
+    "step": "category",
+    "class": "parse_empty",
+    "err": "category: empty list (type_id=history)"
+  },
+  {
+    "file": "影视/网盘/盘搜分组.js",
+    "verdict": "broken",
+    "step": "category",
+    "class": "parse_empty",
+    "err": "category: empty list (type_id=history)"
+  },
+  {
+    "file": "影视/网盘/聚盘搜索.js",
+    "verdict": "broken",
+    "step": "category",
+    "class": "parse_empty",
+    "err": "category: empty list (type_id=电视剧)"
+  },
+  {
+    "file": "影视/网盘/聚盘搜索分组.js",
+    "verdict": "broken",
+    "step": "category",
+    "class": "parse_empty",
+    "err": "category: empty list (type_id=电视剧)"
+  },
+  {
+    "file": "影视/网盘/至臻.js",
+    "verdict": "broken",
+    "step": "home",
+    "class": "parse_empty",
+    "err": "home: empty class list"
+  },
+  {
+    "file": "影视/网盘/虎斑.js",
+    "verdict": "broken",
+    "step": "detail",
+    "class": "parse_empty",
+    "err": "detail: no playable episodes (sources=0, episodes=0)"
+  },
+  {
+    "file": "影视/网盘/蜗牛4K.js",
+    "verdict": "broken",
+    "step": "home",
+    "class": "step_timeout",
+    "err": "STEP_TIMEOUT home 40000ms"
+  },
+  {
+    "file": "影视/网盘/蜡笔.js",
+    "verdict": "broken",
+    "step": "home",
+    "class": "parse_empty",
+    "err": "home: empty class list"
+  },
+  {
+    "file": "影视/网盘/闪电.js",
+    "verdict": "broken",
+    "step": "home",
+    "class": "parse_empty",
+    "err": "home: empty class list"
+  },
+  {
+    "file": "影视/采集/4KMP.js",
+    "verdict": "broken",
+    "step": "category",
+    "class": "parse_empty",
+    "err": "category: empty list (type_id=movie)"
+  },
+  {
+    "file": "影视/采集/88看球.js",
+    "verdict": "partial",
+    "step": "search",
+    "class": "parse_empty",
+    "err": "search: empty list for keyword=庆余年"
+  },
+  {
+    "file": "影视/采集/Auete影视.js",
+    "verdict": "broken",
+    "step": "category",
+    "class": "parse_empty",
+    "err": "category: empty list (type_id=Movie)"
+  },
+  {
+    "file": "影视/采集/FKTV.js",
+    "verdict": "broken",
+    "step": "load",
+    "class": "other",
+    "err": "no exported handlers"
+  },
+  {
+    "file": "影视/采集/Gimy剧迷.js",
+    "verdict": "broken",
+    "step": "search",
+    "class": "parse_empty",
+    "err": "search: empty list for keyword=庆余年"
+  },
+  {
+    "file": "影视/采集/HDmoli.js",
+    "verdict": "partial",
+    "step": "search",
+    "class": "parse_empty",
+    "err": "search: empty list for keyword=庆余年"
+  },
+  {
+    "file": "影视/采集/LIBVIO.js",
+    "verdict": "partial",
+    "step": "search",
+    "class": "parse_empty",
+    "err": "search: empty list for keyword=庆余年"
+  },
+  {
+    "file": "影视/采集/NO视频.js",
+    "verdict": "broken",
+    "step": "category",
+    "class": "parse_empty",
+    "err": "category: empty list (type_id=movie)"
+  },
+  {
+    "file": "影视/采集/PPnix.js",
+    "verdict": "partial",
+    "step": "play",
+    "class": "step_timeout",
+    "err": "STEP_TIMEOUT play 40000ms"
+  },
+  {
+    "file": "影视/采集/StreamingCommunity.js",
+    "verdict": "broken",
+    "step": "home",
+    "class": "parse_empty",
+    "err": "home: empty class list"
+  },
+  {
+    "file": "影视/采集/TVB云播.js",
+    "verdict": "broken",
+    "step": "category",
+    "class": "parse_empty",
+    "err": "category: empty list (type_id=1)"
+  },
+  {
+    "file": "影视/采集/七味.js",
+    "verdict": "broken",
+    "step": "category",
+    "class": "parse_empty",
+    "err": "category: empty list (type_id=1)"
+  },
+  {
+    "file": "影视/采集/修罗影视.js",
+    "verdict": "broken",
+    "step": "category",
+    "class": "parse_empty",
+    "err": "category: empty list (type_id=movie)"
+  },
+  {
+    "file": "影视/采集/凡客TV.js",
+    "verdict": "broken",
+    "step": "load",
+    "class": "other",
+    "err": "no exported handlers"
+  },
+  {
+    "file": "影视/采集/剧圈圈.js",
+    "verdict": "broken",
+    "step": "category",
+    "class": "parse_empty",
+    "err": "category: empty list (type_id=dianying)"
+  },
+  {
+    "file": "影视/采集/卧龙.js",
+    "verdict": "broken",
+    "step": "home",
+    "class": "parse_empty",
+    "err": "home: empty class list"
+  },
+  {
+    "file": "影视/采集/哇哇影视.js",
+    "verdict": "broken",
+    "step": "home",
+    "class": "parse_empty",
+    "err": "home: empty class list"
+  },
+  {
+    "file": "影视/采集/唐人街影院.js",
+    "verdict": "broken",
+    "step": "load",
+    "class": "hard_timeout",
+    "err": "HARD_TIMEOUT 110000ms"
+  },
+  {
+    "file": "影视/采集/四万影视.js",
+    "verdict": "broken",
+    "step": "category",
+    "class": "parse_empty",
+    "err": "category: empty list (type_id=20)"
+  },
+  {
+    "file": "影视/采集/在线之家.js",
+    "verdict": "partial",
+    "step": "search",
+    "class": "parse_empty",
+    "err": "search: empty list for keyword=庆余年"
+  },
+  {
+    "file": "影视/采集/太二影视.js",
+    "verdict": "partial",
+    "step": "search",
+    "class": "parse_empty",
+    "err": "search: empty list for keyword=庆余年"
+  },
+  {
+    "file": "影视/采集/威尔伯TV.js",
+    "verdict": "broken",
+    "step": "category",
+    "class": "parse_empty",
+    "err": "category: empty list (type_id=movie)"
+  },
+  {
+    "file": "影视/采集/小黑米.js",
+    "verdict": "broken",
+    "step": "category",
+    "class": "parse_empty",
+    "err": "category: empty list (type_id=7)"
+  },
+  {
+    "file": "影视/采集/布布影视.js",
+    "verdict": "broken",
+    "step": "category",
+    "class": "parse_empty",
+    "err": "category: empty list (type_id=电影)"
+  },
+  {
+    "file": "影视/采集/影猫仓库.js",
+    "verdict": "broken",
+    "step": "category",
+    "class": "parse_empty",
+    "err": "category: empty list (type_id=1)"
+  },
+  {
+    "file": "影视/采集/影视大全.js",
+    "verdict": "broken",
+    "step": "category",
+    "class": "parse_empty",
+    "err": "category: empty list (type_id=1)"
+  },
+  {
+    "file": "影视/采集/新韩剧网.js",
+    "verdict": "partial",
+    "step": "search",
+    "class": "parse_empty",
+    "err": "search: empty list for keyword=庆余年"
+  },
+  {
+    "file": "影视/采集/星辰影院.js",
+    "verdict": "broken",
+    "step": "category",
+    "class": "parse_empty",
+    "err": "category: empty list (type_id=1)"
+  },
+  {
+    "file": "影视/采集/枝枝影视.js",
+    "verdict": "broken",
+    "step": "load",
+    "class": "hard_timeout",
+    "err": "HARD_TIMEOUT 110000ms"
+  },
+  {
+    "file": "影视/采集/枫叶.js",
+    "verdict": "broken",
+    "step": "category",
+    "class": "parse_empty",
+    "err": "category: empty list (type_id=1)"
+  },
+  {
+    "file": "影视/采集/枫叶4K.js",
+    "verdict": "broken",
+    "step": "category",
+    "class": "parse_empty",
+    "err": "category: empty list (type_id=1)"
+  },
+  {
+    "file": "影视/采集/柯南影视.js",
+    "verdict": "broken",
+    "step": "category",
+    "class": "parse_empty",
+    "err": "category: empty list (type_id=1)"
+  },
+  {
+    "file": "影视/采集/歪比巴卜.js",
+    "verdict": "partial",
+    "step": "search",
+    "class": "parse_empty",
+    "err": "search: empty list for keyword=庆余年"
+  },
+  {
+    "file": "影视/采集/毒舌影视.js",
+    "verdict": "broken",
+    "step": "category",
+    "class": "parse_empty",
+    "err": "category: empty list (type_id=1)"
+  },
+  {
+    "file": "影视/采集/永乐视频.js",
+    "verdict": "broken",
+    "step": "category",
+    "class": "parse_empty",
+    "err": "category: empty list (type_id=1)"
+  },
+  {
+    "file": "影视/采集/泰剧网.js",
+    "verdict": "broken",
+    "step": "category",
+    "class": "parse_empty",
+    "err": "category: empty list (type_id=movie)"
+  },
+  {
+    "file": "影视/采集/片库.js",
+    "verdict": "broken",
+    "step": "category",
+    "class": "parse_empty",
+    "err": "category: empty list (type_id=1)"
+  },
+  {
+    "file": "影视/采集/电影人生.js",
+    "verdict": "broken",
+    "step": "category",
+    "class": "parse_empty",
+    "err": "category: empty list (type_id=dianying)"
+  },
+  {
+    "file": "影视/采集/耐视点播.js",
+    "verdict": "broken",
+    "step": "category",
+    "class": "parse_empty",
+    "err": "category: empty list (type_id=1)"
+  },
+  {
+    "file": "影视/采集/茶杯狐.js",
+    "verdict": "broken",
+    "step": "category",
+    "class": "parse_empty",
+    "err": "category: empty list (type_id=1)"
+  },
+  {
+    "file": "影视/采集/蛋蛋鱼.js",
+    "verdict": "broken",
+    "step": "category",
+    "class": "parse_empty",
+    "err": "category: empty list (type_id=1)"
+  },
+  {
+    "file": "影视/采集/这片海.js",
+    "verdict": "broken",
+    "step": "category",
+    "class": "parse_empty",
+    "err": "category: empty list (type_id=1)"
+  },
+  {
+    "file": "影视/采集/金牌.js",
+    "verdict": "partial",
+    "step": "search",
+    "class": "parse_empty",
+    "err": "search: empty list for keyword=庆余年"
+  },
+  {
+    "file": "影视/采集/韩小圈.js",
+    "verdict": "partial",
+    "step": "search",
+    "class": "parse_empty",
+    "err": "search: empty list for keyword=庆余年"
+  },
+  {
+    "file": "教育/贝乐虎.js",
+    "verdict": "partial",
+    "step": "search",
+    "class": "parse_empty",
+    "err": "search: empty list for keyword=庆余年"
+  },
+  {
+    "file": "流媒体/Jellyfin.js",
+    "verdict": "broken",
+    "step": "home",
+    "class": "parse_empty",
+    "err": "home: empty class list"
+  },
+  {
+    "file": "流媒体/Plex.js",
+    "verdict": "broken",
+    "step": "home",
+    "class": "parse_empty",
+    "err": "home: empty class list"
+  },
+  {
+    "file": "流媒体/飞牛.js",
+    "verdict": "broken",
+    "step": "home",
+    "class": "other",
+    "err": "飞牛配置缺失：请先填写 FEINIU_HOST，或提供 FEINIU_SITES 多站配置"
+  },
+  {
+    "file": "直播/YY轮播.js",
+    "verdict": "partial",
+    "step": "search",
+    "class": "parse_empty",
+    "err": "search: empty list for keyword=庆余年"
+  },
+  {
+    "file": "直播/抖音直播.js",
+    "verdict": "partial",
+    "step": "search",
+    "class": "parse_empty",
+    "err": "search: empty list for keyword=庆余年"
+  },
+  {
+    "file": "直播/斗鱼直播.js",
+    "verdict": "partial",
+    "step": "search",
+    "class": "parse_empty",
+    "err": "search: empty list for keyword=庆余年"
+  },
+  {
+    "file": "短剧/嘟嘟短剧.js",
+    "verdict": "broken",
+    "step": "category",
+    "class": "parse_empty",
+    "err": "category: empty list (type_id=热播)"
+  },
+  {
+    "file": "短剧/星星短剧.js",
+    "verdict": "partial",
+    "step": "search",
+    "class": "parse_empty",
+    "err": "search: empty list for keyword=庆余年"
+  },
+  {
+    "file": "短剧/短剧粉.js",
+    "verdict": "broken",
+    "step": "category",
+    "class": "parse_empty",
+    "err": "category: empty list (type_id=21)"
+  },
+  {
+    "file": "短剧/短剧网.js",
+    "verdict": "broken",
+    "step": "search",
+    "class": "parse_empty",
+    "err": "search: empty list for keyword=庆余年"
+  },
+  {
+    "file": "短剧/短剧聚合.js",
+    "verdict": "partial",
+    "step": "search",
+    "class": "parse_empty",
+    "err": "search: empty list for keyword=庆余年"
+  },
+  {
+    "file": "音乐/DJ音乐.js",
+    "verdict": "partial",
+    "step": "play",
+    "class": "parse_empty",
+    "err": "play: empty urls"
+  },
+  {
+    "file": "音乐/世纪音乐.js",
+    "verdict": "broken",
+    "step": "category",
+    "class": "parse_empty",
+    "err": "category: empty list (type_id=home)"
+  },
+  {
+    "file": "音乐/枫叶音乐.js",
+    "verdict": "broken",
+    "step": "home",
+    "class": "parse_empty",
+    "err": "home: empty class list"
+  }
+]

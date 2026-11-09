@@ -1,0 +1,6607 @@
+{
+  "generatedAt": "2026-11-09T01:17:31.117Z",
+  "keyword": "庆余年",
+  "results": [
+    {
+      "file": "Emby/模板一.js",
+      "loadOk": false,
+      "exports": [],
+      "steps": {},
+      "verdict": "broken",
+      "loadErr": "Unexpected token ':'",
+      "reqs": []
+    },
+    {
+      "file": "Emby/模板二.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": false,
+          "ms": 1,
+          "err": "home: empty class list"
+        },
+        "category": {
+          "ok": false,
+          "ms": 0,
+          "err": "category: empty list (type_id=1)"
+        },
+        "search": {
+          "ok": false,
+          "ms": 0,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": false,
+          "ms": 1,
+          "err": "detail: no candidate videoId (search+category both empty)"
+        },
+        "play": {
+          "ok": false,
+          "ms": 0,
+          "err": "play: no episode from detail"
+        }
+      },
+      "verdict": "broken",
+      "reqs": []
+    },
+    {
+      "file": "动漫/girigiri爱动漫.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 1698,
+          "note": {
+            "class": 2,
+            "list": 0,
+            "filters": 2,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": false,
+          "ms": 1061,
+          "err": "category: empty list (type_id=2)"
+        },
+        "search": {
+          "ok": false,
+          "ms": 0,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": false,
+          "ms": 0,
+          "err": "detail: no candidate videoId (search+category both empty)"
+        },
+        "play": {
+          "ok": false,
+          "ms": 1,
+          "err": "play: no episode from detail"
+        }
+      },
+      "verdict": "broken",
+      "reqs": [
+        {
+          "url": "https://bgm.girigirilove.com/show/2-----------/",
+          "status": 200,
+          "len": 5889,
+          "t": "axios"
+        },
+        {
+          "url": "https://bgm.girigirilove.com/show/21-----------/",
+          "status": 200,
+          "len": 5889,
+          "t": "axios"
+        },
+        {
+          "url": "https://bgm.girigirilove.com/",
+          "status": 200,
+          "len": 5889,
+          "t": "axios"
+        },
+        {
+          "url": "https://bgm.girigirilove.com/show/2-----------/",
+          "status": 200,
+          "len": 5889,
+          "t": "axios"
+        }
+      ]
+    },
+    {
+      "file": "动漫/嗷呜动漫.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 271,
+          "note": {
+            "class": 3,
+            "list": 0,
+            "filters": 0,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": false,
+          "ms": 159,
+          "err": "category: empty list (type_id=20)"
+        },
+        "search": {
+          "ok": false,
+          "ms": 252,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": false,
+          "ms": 0,
+          "err": "detail: no candidate videoId (search+category both empty)"
+        },
+        "play": {
+          "ok": false,
+          "ms": 0,
+          "err": "play: no episode from detail"
+        }
+      },
+      "verdict": "broken",
+      "reqs": []
+    },
+    {
+      "file": "动漫/樱花动漫.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 1639,
+          "note": {
+            "class": 4,
+            "list": 20,
+            "filters": 0,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": true,
+          "ms": 948,
+          "note": {
+            "list": 36,
+            "pagecount": 167
+          }
+        },
+        "search": {
+          "ok": false,
+          "ms": 999,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": true,
+          "ms": 4765,
+          "note": {
+            "name": "仙逆",
+            "sources": 4,
+            "episodes": 96
+          }
+        },
+        "play": {
+          "ok": true,
+          "ms": 1005,
+          "note": {
+            "url": "https://cdn1.yzzyhd-play.com/20230925/702_a76644e3/index.m3u8",
+            "n": 1,
+            "parse": 0
+          }
+        }
+      },
+      "verdict": "partial",
+      "reqs": [
+        {
+          "url": "https://www.dmvvv.com/",
+          "status": 200,
+          "len": 33912,
+          "t": "axios"
+        },
+        {
+          "url": "https://www.dmvvv.com/type/guoman/",
+          "status": 200,
+          "len": 23249,
+          "t": "axios"
+        },
+        {
+          "url": "https://www.dmvvv.com/search/?wd=%E5%BA%86%E4%BD%99%E5%B9%B4",
+          "status": 200,
+          "len": 7671,
+          "t": "axios"
+        },
+        {
+          "url": "https://www.dmvvv.com/detail/891/",
+          "status": 200,
+          "len": 46131,
+          "t": "axios"
+        },
+        {
+          "url": "https://www.dmvvv.com/play/891-1-1/",
+          "status": 200,
+          "len": 47273,
+          "t": "axios"
+        },
+        {
+          "url": "https://www.dmvvv.com/play/891-2-1/",
+          "status": 200,
+          "len": 47273,
+          "t": "axios"
+        },
+        {
+          "url": "https://www.dmvvv.com/play/891-3-1/",
+          "status": 200,
+          "len": 47268,
+          "t": "axios"
+        },
+        {
+          "url": "https://www.dmvvv.com/play/891-4-1/",
+          "status": 200,
+          "len": 47262,
+          "t": "axios"
+        },
+        {
+          "url": "https://www.dmvvv.com/play/891-1-1/",
+          "status": 200,
+          "len": 47273,
+          "t": "axios"
+        }
+      ]
+    },
+    {
+      "file": "动漫/稀饭动漫.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 755,
+          "note": {
+            "class": 4,
+            "list": 0,
+            "filters": 4,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": false,
+          "ms": 420,
+          "err": "category: empty list (type_id=1)"
+        },
+        "search": {
+          "ok": false,
+          "ms": 384,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": false,
+          "ms": 1,
+          "err": "detail: no candidate videoId (search+category both empty)"
+        },
+        "play": {
+          "ok": false,
+          "ms": 0,
+          "err": "play: no episode from detail"
+        }
+      },
+      "verdict": "broken",
+      "reqs": [
+        {
+          "url": "https://dm.xifanacg.com/",
+          "status": 200,
+          "len": 474509,
+          "t": "axios"
+        },
+        {
+          "url": "https://dm.xifanacg.com/index.php/ds_api/vod",
+          "status": 200,
+          "len": 474509,
+          "t": "axios"
+        },
+        {
+          "url": "https://dm.xifanacg.com/index.php/ajax/suggest?mid=1&wd=%E5%BA%86%E4%BD%99%E5%B9%B4",
+          "status": 200,
+          "len": 474509,
+          "t": "axios"
+        }
+      ]
+    },
+    {
+      "file": "听书/博看听书.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 1544,
+          "note": {
+            "class": 11,
+            "list": 240,
+            "filters": 0,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": true,
+          "ms": 113,
+          "note": {
+            "list": 24,
+            "pagecount": 9999,
+            "total": 999999
+          }
+        },
+        "search": {
+          "ok": false,
+          "ms": 418,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": true,
+          "ms": 4091,
+          "note": {
+            "name": "话说历史",
+            "sources": 1,
+            "episodes": 74
+          }
+        },
+        "play": {
+          "ok": true,
+          "ms": 1,
+          "note": {
+            "url": "http://audio.bookan.com.cn/video1/audio/20200706001/aache64_133068a2.m4a",
+            "n": 1,
+            "parse": 0
+          }
+        }
+      },
+      "verdict": "partial",
+      "reqs": [
+        {
+          "url": "https://api.bookan.com.cn/voice/book/list?instance_id=25304&page=2&category_id=1309&num=24",
+          "status": 200,
+          "len": 3214,
+          "t": "fetch"
+        },
+        {
+          "url": "https://api.bookan.com.cn/voice/book/list?instance_id=25304&page=1&category_id=1310&num=24",
+          "status": 200,
+          "len": 8340,
+          "t": "fetch"
+        },
+        {
+          "url": "https://api.bookan.com.cn/voice/book/list?instance_id=25304&page=2&category_id=1310&num=24",
+          "status": 200,
+          "len": 7428,
+          "t": "fetch"
+        },
+        {
+          "url": "https://api.bookan.com.cn/voice/book/list?instance_id=25304&page=3&category_id=1310&num=24",
+          "status": 200,
+          "len": 7464,
+          "t": "fetch"
+        },
+        {
+          "url": "https://api.bookan.com.cn/voice/book/list?instance_id=25304&page=4&category_id=1310&num=24",
+          "status": 200,
+          "len": 7554,
+          "t": "fetch"
+        },
+        {
+          "url": "https://api.bookan.com.cn/voice/book/list?instance_id=25304&page=5&category_id=1310&num=24",
+          "status": 200,
+          "len": 7633,
+          "t": "fetch"
+        },
+        {
+          "url": "https://api.bookan.com.cn/voice/book/list?instance_id=25304&page=1&category_id=1307&num=24",
+          "status": 200,
+          "len": 8018,
+          "t": "fetch"
+        },
+        {
+          "url": "https://api.bookan.com.cn/voice/book/list?instance_id=25304&page=2&category_id=1307&num=24",
+          "status": 200,
+          "len": 7731,
+          "t": "fetch"
+        },
+        {
+          "url": "https://api.bookan.com.cn/voice/book/list?instance_id=25304&page=3&category_id=1307&num=24",
+          "status": 200,
+          "len": 7530,
+          "t": "fetch"
+        },
+        {
+          "url": "https://api.bookan.com.cn/voice/book/list?instance_id=25304&page=4&category_id=1307&num=24",
+          "status": 200,
+          "len": 7629,
+          "t": "fetch"
+        },
+        {
+          "url": "https://api.bookan.com.cn/voice/book/list?instance_id=25304&page=5&category_id=1307&num=24",
+          "status": 200,
+          "len": 7683,
+          "t": "fetch"
+        },
+        {
+          "url": "https://api.bookan.com.cn/voice/book/list?instance_id=25304&page=1&category_id=1312&num=24",
+          "status": 200,
+          "len": 7912,
+          "t": "fetch"
+        },
+        {
+          "url": "https://api.bookan.com.cn/voice/album/get?album_id=902849",
+          "status": 200,
+          "len": 47,
+          "t": "fetch"
+        },
+        {
+          "url": "https://api.bookan.com.cn/voice/album/units?album_id=902849&page=1&num=200&order=1",
+          "status": 200,
+          "len": 26252,
+          "t": "fetch"
+        }
+      ]
+    },
+    {
+      "file": "听书/听友FM.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 1394,
+          "note": {
+            "class": 8,
+            "list": 0,
+            "filters": 0,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": false,
+          "ms": 224,
+          "err": "category: empty list (type_id=46)"
+        },
+        "search": {
+          "ok": false,
+          "ms": 167,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": false,
+          "ms": 0,
+          "err": "detail: no candidate videoId (search+category both empty)"
+        },
+        "play": {
+          "ok": false,
+          "ms": 1,
+          "err": "play: no episode from detail"
+        }
+      },
+      "verdict": "broken",
+      "reqs": [
+        {
+          "url": "https://tingyou.fm/",
+          "status": 200,
+          "len": 175233,
+          "t": "axios"
+        }
+      ]
+    },
+    {
+      "file": "听书/番茄畅听.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 213,
+          "note": {
+            "class": 10,
+            "list": 0,
+            "filters": 0,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": false,
+          "ms": 75,
+          "err": "category: empty list (type_id=899)"
+        },
+        "search": {
+          "ok": false,
+          "ms": 156,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": false,
+          "ms": 0,
+          "err": "detail: no candidate videoId (search+category both empty)"
+        },
+        "play": {
+          "ok": false,
+          "ms": 0,
+          "err": "play: no episode from detail"
+        }
+      },
+      "verdict": "broken",
+      "reqs": [
+        {
+          "url": "https://qkfqapi.vv9v.cn/api/discover?tab=%E5%90%AC%E4%B9%A6&type=899&gender=2&genre_type=1&page=1",
+          "status": 521,
+          "len": 0,
+          "t": "fetch"
+        },
+        {
+          "url": "https://qkfqapi.vv9v.cn/api/discover?tab=%E5%90%AC%E4%B9%A6&type=899&gender=2&genre_type=1&page=1",
+          "status": 404,
+          "len": 18,
+          "t": "fetch"
+        },
+        {
+          "url": "https://qkfqapi.vv9v.cn/api/search?key=%E5%BA%86%E4%BD%99%E5%B9%B4&tab_type=2&offset=0",
+          "status": 521,
+          "len": 0,
+          "t": "fetch"
+        }
+      ]
+    },
+    {
+      "file": "已失效待修复/听书/六月听书.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 5643,
+          "note": {
+            "class": 26,
+            "list": 0,
+            "filters": 0,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": false,
+          "ms": 530,
+          "err": "category: empty list (type_id=t0)"
+        },
+        "search": {
+          "ok": false,
+          "ms": 613,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": false,
+          "ms": 0,
+          "err": "detail: no candidate videoId (search+category both empty)"
+        },
+        "play": {
+          "ok": false,
+          "ms": 0,
+          "err": "play: no episode from detail"
+        }
+      },
+      "verdict": "broken",
+      "reqs": []
+    },
+    {
+      "file": "已失效待修复/影视/采集/RRSP.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 565,
+          "note": {
+            "class": 6,
+            "list": 0,
+            "filters": 0,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": false,
+          "ms": 232,
+          "err": "category: empty list (type_id=1)"
+        },
+        "search": {
+          "ok": false,
+          "ms": 255,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": false,
+          "ms": 1,
+          "err": "detail: no candidate videoId (search+category both empty)"
+        },
+        "play": {
+          "ok": false,
+          "ms": 0,
+          "err": "play: no episode from detail"
+        }
+      },
+      "verdict": "broken",
+      "reqs": []
+    },
+    {
+      "file": "影视/影视库/影视库.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 1,
+          "note": {
+            "class": 8,
+            "list": 0,
+            "filters": 0,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": false,
+          "ms": 0,
+          "err": "OmniBox.listMediaItems is not a function"
+        },
+        "search": {
+          "ok": false,
+          "ms": 0,
+          "err": "OmniBox.listMediaItems is not a function"
+        },
+        "detail": {
+          "ok": false,
+          "ms": 0,
+          "err": "detail: no candidate videoId (search+category both empty)"
+        },
+        "play": {
+          "ok": false,
+          "ms": 0,
+          "err": "play: no episode from detail"
+        }
+      },
+      "verdict": "broken",
+      "reqs": []
+    },
+    {
+      "file": "影视/磁力/不太灵.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": false,
+          "ms": 475,
+          "err": "home: empty class list"
+        },
+        "category": {
+          "ok": false,
+          "ms": 1,
+          "err": "category: empty list (type_id=1)"
+        },
+        "search": {
+          "ok": false,
+          "ms": 89,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": false,
+          "ms": 0,
+          "err": "detail: no candidate videoId (search+category both empty)"
+        },
+        "play": {
+          "ok": false,
+          "ms": 0,
+          "err": "play: no episode from detail"
+        }
+      },
+      "verdict": "broken",
+      "reqs": [
+        {
+          "url": "https://web5.mukaku.com/prod/api/v1/getVideoList?app_id=83768d9ad4&identity=23734adac0301bccdcb107c4aa21f96c&page=1",
+          "status": 200,
+          "len": 279,
+          "t": "fetch"
+        },
+        {
+          "url": "https://web5.mukaku.com/prod/api/v1/getVideoList?app_id=83768d9ad4&identity=23734adac0301bccdcb107c4aa21f96c&sb=%E5%BA%86%E4%BD%99%E5%B9%B4&page=1&limit=24",
+          "status": 200,
+          "len": 279,
+          "t": "fetch"
+        }
+      ]
+    },
+    {
+      "file": "影视/磁力/磁力熊.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 722,
+          "note": {
+            "class": 24,
+            "list": 0,
+            "filters": 2,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": false,
+          "ms": 937,
+          "err": "category: empty list (type_id=movie)"
+        },
+        "search": {
+          "ok": false,
+          "ms": 913,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": false,
+          "ms": 1,
+          "err": "detail: no candidate videoId (search+category both empty)"
+        },
+        "play": {
+          "ok": false,
+          "ms": 0,
+          "err": "play: no episode from detail"
+        }
+      },
+      "verdict": "broken",
+      "reqs": [
+        {
+          "url": "https://www.cilixiong.com/",
+          "status": 200,
+          "len": 5624,
+          "t": "curl"
+        },
+        {
+          "url": "https://www.cilixiong.com/movie/",
+          "status": 200,
+          "len": 5638,
+          "t": "curl"
+        },
+        {
+          "url": "https://www.cilixiong.com/e/search/index.php",
+          "status": 200,
+          "len": 5670,
+          "t": "curl"
+        }
+      ]
+    },
+    {
+      "file": "影视/网盘/4K指南.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 970,
+          "note": {
+            "class": 7,
+            "list": 24,
+            "filters": 0,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": true,
+          "ms": 332,
+          "note": {
+            "list": 50,
+            "pagecount": 3,
+            "total": 150
+          }
+        },
+        "search": {
+          "ok": false,
+          "ms": 856,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": true,
+          "ms": 456,
+          "note": {
+            "name": "闻香识女人",
+            "sources": 1,
+            "episodes": 1
+          }
+        },
+        "play": {
+          "ok": true,
+          "ms": 2,
+          "note": {
+            "url": "https://pan.quark.cn/s/847b1d1b612a",
+            "n": 1,
+            "parse": 1
+          }
+        }
+      },
+      "verdict": "partial",
+      "reqs": [
+        {
+          "url": "https://4kzn.cc/",
+          "status": 200,
+          "len": 117416,
+          "t": "fetch"
+        },
+        {
+          "url": "https://4kzn.cc/books/top250",
+          "status": 200,
+          "len": 68144,
+          "t": "fetch"
+        },
+        {
+          "url": "https://4kzn.cc/?s=%E5%BA%86%E4%BD%99%E5%B9%B4",
+          "status": 200,
+          "len": 18238,
+          "t": "fetch"
+        },
+        {
+          "url": "https://4kzn.cc/book/15632.html",
+          "status": 200,
+          "len": 45079,
+          "t": "fetch"
+        }
+      ]
+    },
+    {
+      "file": "影视/网盘/AListTvbox.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": false,
+          "ms": 10,
+          "err": "home: empty class list"
+        },
+        "category": {
+          "ok": false,
+          "ms": 2,
+          "err": "category: empty list (type_id=1)"
+        },
+        "search": {
+          "ok": false,
+          "ms": 2,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": false,
+          "ms": 0,
+          "err": "detail: no candidate videoId (search+category both empty)"
+        },
+        "play": {
+          "ok": false,
+          "ms": 0,
+          "err": "play: no episode from detail"
+        }
+      },
+      "verdict": "broken",
+      "reqs": []
+    },
+    {
+      "file": "影视/网盘/七味分组.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 3916,
+          "note": {
+            "class": 5,
+            "list": 0,
+            "filters": 5,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": false,
+          "ms": 3515,
+          "err": "category: empty list (type_id=1)"
+        },
+        "search": {
+          "ok": false,
+          "ms": 3405,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": false,
+          "ms": 1,
+          "err": "detail: no candidate videoId (search+category both empty)"
+        },
+        "play": {
+          "ok": false,
+          "ms": 0,
+          "err": "play: no episode from detail"
+        }
+      },
+      "verdict": "broken",
+      "reqs": [
+        {
+          "url": "https://www.qnnull.com/",
+          "status": 403,
+          "len": 0,
+          "t": "curl",
+          "retriedFrom": 403
+        },
+        {
+          "url": "https://www.qnhot.com/",
+          "status": 403,
+          "len": 0,
+          "t": "curl",
+          "retriedFrom": 403
+        },
+        {
+          "url": "https://www.pcmp4.com/ms/1--time---------.html?page=1",
+          "status": 403,
+          "len": 0,
+          "t": "curl",
+          "retriedFrom": 403
+        },
+        {
+          "url": "https://www.qwnull.com/ms/1--time---------.html?page=1",
+          "status": 403,
+          "len": 0,
+          "t": "curl",
+          "retriedFrom": 403
+        },
+        {
+          "url": "https://www.qwmkv.com/ms/1--time---------.html?page=1",
+          "status": 403,
+          "len": 0,
+          "t": "curl",
+          "retriedFrom": 403
+        },
+        {
+          "url": "https://www.qwfilm.com/ms/1--time---------.html?page=1",
+          "status": 403,
+          "len": 0,
+          "t": "curl",
+          "retriedFrom": 403
+        },
+        {
+          "url": "https://www.qnnull.com/ms/1--time---------.html?page=1",
+          "status": 403,
+          "len": 0,
+          "t": "curl",
+          "retriedFrom": 403
+        },
+        {
+          "url": "https://www.qnhot.com/ms/1--time---------.html?page=1",
+          "status": 403,
+          "len": 0,
+          "t": "curl",
+          "retriedFrom": 403
+        },
+        {
+          "url": "https://www.pcmp4.com/index.php/ajax/suggest?mid=1&limit=20&wd=%E5%BA%86%E4%BD%99%E5%B9%B4",
+          "status": 403,
+          "len": 0,
+          "t": "curl",
+          "retriedFrom": 403
+        },
+        {
+          "url": "https://www.qwnull.com/index.php/ajax/suggest?mid=1&limit=20&wd=%E5%BA%86%E4%BD%99%E5%B9%B4",
+          "status": 403,
+          "len": 0,
+          "t": "curl",
+          "retriedFrom": 403
+        },
+        {
+          "url": "https://www.qwmkv.com/index.php/ajax/suggest?mid=1&limit=20&wd=%E5%BA%86%E4%BD%99%E5%B9%B4",
+          "status": 403,
+          "len": 0,
+          "t": "curl",
+          "retriedFrom": 403
+        },
+        {
+          "url": "https://www.qwfilm.com/index.php/ajax/suggest?mid=1&limit=20&wd=%E5%BA%86%E4%BD%99%E5%B9%B4",
+          "status": 403,
+          "len": 0,
+          "t": "curl",
+          "retriedFrom": 403
+        },
+        {
+          "url": "https://www.qnnull.com/index.php/ajax/suggest?mid=1&limit=20&wd=%E5%BA%86%E4%BD%99%E5%B9%B4",
+          "status": 403,
+          "len": 0,
+          "t": "curl",
+          "retriedFrom": 403
+        },
+        {
+          "url": "https://www.qnhot.com/index.php/ajax/suggest?mid=1&limit=20&wd=%E5%BA%86%E4%BD%99%E5%B9%B4",
+          "status": 403,
+          "len": 0,
+          "t": "curl",
+          "retriedFrom": 403
+        }
+      ]
+    },
+    {
+      "file": "影视/网盘/二小.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": false,
+          "ms": 796,
+          "err": "home: empty class list"
+        },
+        "category": {
+          "ok": false,
+          "ms": 671,
+          "err": "category: empty list (type_id=1)"
+        },
+        "search": {
+          "ok": false,
+          "ms": 692,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": false,
+          "ms": 0,
+          "err": "detail: no candidate videoId (search+category both empty)"
+        },
+        "play": {
+          "ok": false,
+          "ms": 0,
+          "err": "play: no episode from detail"
+        }
+      },
+      "verdict": "broken",
+      "reqs": []
+    },
+    {
+      "file": "影视/网盘/光鸭·臻影社.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 3637,
+          "note": {
+            "class": 6,
+            "list": 0,
+            "filters": 6,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": false,
+          "ms": 3164,
+          "err": "category: empty list (type_id=film)"
+        },
+        "search": {
+          "ok": false,
+          "ms": 3175,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": false,
+          "ms": 1,
+          "err": "detail: no candidate videoId (search+category both empty)"
+        },
+        "play": {
+          "ok": false,
+          "ms": 0,
+          "err": "play: no episode from detail"
+        }
+      },
+      "verdict": "broken",
+      "reqs": []
+    },
+    {
+      "file": "影视/网盘/剧迷115.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 414,
+          "note": {
+            "class": 4,
+            "list": 0,
+            "filters": 4,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": false,
+          "ms": 124,
+          "err": "category: empty list (type_id=1)"
+        },
+        "search": {
+          "ok": false,
+          "ms": 130,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": false,
+          "ms": 0,
+          "err": "detail: no candidate videoId (search+category both empty)"
+        },
+        "play": {
+          "ok": false,
+          "ms": 0,
+          "err": "play: no episode from detail"
+        }
+      },
+      "verdict": "broken",
+      "reqs": [
+        {
+          "url": "https://www.gimy115.top/",
+          "status": 200,
+          "len": 3388,
+          "t": "fetch"
+        },
+        {
+          "url": "https://www.gimy115.top/index.php/vod/show/id/1.html",
+          "status": 200,
+          "len": 3388,
+          "t": "fetch"
+        },
+        {
+          "url": "https://www.gimy115.top/index.php/vod/search/wd/%E5%BA%86%E4%BD%99%E5%B9%B4.html",
+          "status": 200,
+          "len": 3388,
+          "t": "fetch"
+        }
+      ]
+    },
+    {
+      "file": "影视/网盘/多多.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 1031,
+          "note": {
+            "class": 6,
+            "list": 208,
+            "filters": 6,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": true,
+          "ms": 748,
+          "note": {
+            "list": 72,
+            "pagecount": 0,
+            "total": 72
+          }
+        },
+        "search": {
+          "ok": true,
+          "ms": 960,
+          "note": {
+            "list": 3,
+            "pagecount": 0
+          }
+        },
+        "detail": {
+          "ok": false,
+          "ms": 1198,
+          "err": "detail: no playable episodes (sources=0, episodes=0)"
+        },
+        "play": {
+          "ok": false,
+          "ms": 0,
+          "err": "play: no episode from detail"
+        }
+      },
+      "verdict": "broken",
+      "reqs": [
+        {
+          "url": "https://tv.yydsys.top/",
+          "status": 200,
+          "len": 495495,
+          "t": "curl"
+        },
+        {
+          "url": "https://tv.yydsys.top/index.php/vod/show/id/1/page/1.html",
+          "status": 200,
+          "len": 195833,
+          "t": "curl"
+        },
+        {
+          "url": "https://tv.yydsys.top/index.php/vod/search/page/1/wd/庆余年.html",
+          "status": 200,
+          "len": 47048,
+          "t": "curl"
+        },
+        {
+          "url": "https://tv.yydsys.top/index.php/vod/detail/id/139.html",
+          "status": 200,
+          "len": 73527,
+          "t": "curl"
+        }
+      ]
+    },
+    {
+      "file": "影视/网盘/影巢.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": false,
+          "ms": 1,
+          "err": "home: empty class list"
+        },
+        "category": {
+          "ok": false,
+          "ms": 0,
+          "err": "category: empty list (type_id=1)"
+        },
+        "search": {
+          "ok": false,
+          "ms": 0,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": false,
+          "ms": 0,
+          "err": "detail: no candidate videoId (search+category both empty)"
+        },
+        "play": {
+          "ok": false,
+          "ms": 1,
+          "err": "play: no episode from detail"
+        }
+      },
+      "verdict": "broken",
+      "reqs": []
+    },
+    {
+      "file": "影视/网盘/快映.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 581,
+          "note": {
+            "class": 6,
+            "list": 208,
+            "filters": 9,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": true,
+          "ms": 322,
+          "note": {
+            "list": 72,
+            "pagecount": 0,
+            "total": 72
+          }
+        },
+        "search": {
+          "ok": true,
+          "ms": 607,
+          "note": {
+            "list": 7,
+            "pagecount": 0
+          }
+        },
+        "detail": {
+          "ok": false,
+          "ms": 1550,
+          "err": "detail: no playable episodes (sources=0, episodes=0)"
+        },
+        "play": {
+          "ok": false,
+          "ms": 0,
+          "err": "play: no episode from detail"
+        }
+      },
+      "verdict": "broken",
+      "reqs": [
+        {
+          "url": "http://38.76.197.172:12521/",
+          "status": 200,
+          "len": 453300,
+          "t": "axios"
+        },
+        {
+          "url": "http://38.76.197.172:12521/index.php/vod/show/id/1/page/1.html",
+          "status": 200,
+          "len": 182597,
+          "t": "axios"
+        },
+        {
+          "url": "http://38.76.197.172:12521/index.php/vod/search/page/1/wd/庆余年.html",
+          "status": 200,
+          "len": 66606,
+          "t": "axios"
+        },
+        {
+          "url": "http://38.76.197.172:12521/index.php/vod/detail/id/487492.html",
+          "status": 200,
+          "len": 62580,
+          "t": "axios"
+        }
+      ]
+    },
+    {
+      "file": "影视/网盘/木偶.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 402,
+          "note": {
+            "class": 7,
+            "list": 251,
+            "filters": 6,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": true,
+          "ms": 253,
+          "note": {
+            "list": 72,
+            "pagecount": 0,
+            "total": 72
+          }
+        },
+        "search": {
+          "ok": true,
+          "ms": 136,
+          "note": {
+            "list": 4,
+            "pagecount": 0
+          }
+        },
+        "detail": {
+          "ok": false,
+          "ms": 147,
+          "err": "detail: no playable episodes (sources=0, episodes=0)"
+        },
+        "play": {
+          "ok": false,
+          "ms": 0,
+          "err": "play: no episode from detail"
+        }
+      },
+      "verdict": "broken",
+      "reqs": [
+        {
+          "url": "https://123.666291.xyz/",
+          "status": 200,
+          "len": 562948,
+          "t": "axios"
+        },
+        {
+          "url": "https://123.666291.xyz/index.php/vod/show/id/25/page/1.html",
+          "status": 200,
+          "len": 221483,
+          "t": "axios"
+        },
+        {
+          "url": "https://123.666291.xyz/index.php/vod/search/page/1/wd/庆余年.html",
+          "status": 200,
+          "len": 52673,
+          "t": "axios"
+        },
+        {
+          "url": "https://123.666291.xyz/index.php/vod/detail/id/406.html",
+          "status": 200,
+          "len": 76295,
+          "t": "axios"
+        }
+      ]
+    },
+    {
+      "file": "影视/网盘/欧哥.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 440,
+          "note": {
+            "class": 6,
+            "list": 208,
+            "filters": 6,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": false,
+          "ms": 779,
+          "err": "category: empty list (type_id=1)"
+        },
+        "search": {
+          "ok": false,
+          "ms": 574,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": false,
+          "ms": 0,
+          "err": "detail: no candidate videoId (search+category both empty)"
+        },
+        "play": {
+          "ok": false,
+          "ms": 0,
+          "err": "play: no episode from detail"
+        }
+      },
+      "verdict": "broken",
+      "reqs": [
+        {
+          "url": "https://woog.nxog.eu.org/",
+          "status": 200,
+          "len": 356515,
+          "t": "axios"
+        },
+        {
+          "url": "https://woog.nxog.eu.org/index.php/vod/show/id/1/page/1.html",
+          "status": 200,
+          "len": 0,
+          "t": "curl",
+          "retriedFrom": 403
+        },
+        {
+          "url": "https://woog.nxog.eu.org/index.php/vod/search/page/1/wd/庆余年.html",
+          "status": 200,
+          "len": 0,
+          "t": "curl",
+          "retriedFrom": 403
+        }
+      ]
+    },
+    {
+      "file": "影视/网盘/玩偶.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 1203,
+          "note": {
+            "class": 8,
+            "list": 255,
+            "filters": 8,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": true,
+          "ms": 921,
+          "note": {
+            "list": 70,
+            "pagecount": 0,
+            "total": 70
+          }
+        },
+        "search": {
+          "ok": true,
+          "ms": 978,
+          "note": {
+            "list": 6,
+            "pagecount": 0
+          }
+        },
+        "detail": {
+          "ok": false,
+          "ms": 1205,
+          "err": "detail: no playable episodes (sources=0, episodes=0)"
+        },
+        "play": {
+          "ok": false,
+          "ms": 0,
+          "err": "play: no episode from detail"
+        }
+      },
+      "verdict": "broken",
+      "reqs": [
+        {
+          "url": "https://www.wogg.net/",
+          "status": 200,
+          "len": 565266,
+          "t": "axios"
+        },
+        {
+          "url": "https://www.wogg.net/vodshow/1--------1---.html",
+          "status": 200,
+          "len": 163729,
+          "t": "axios"
+        },
+        {
+          "url": "https://www.wogg.net/vodsearch/-------------.html?wd=庆余年",
+          "status": 200,
+          "len": 40211,
+          "t": "axios"
+        },
+        {
+          "url": "https://www.wogg.net/voddetail/76340.html",
+          "status": 200,
+          "len": 63246,
+          "t": "axios"
+        }
+      ]
+    },
+    {
+      "file": "影视/网盘/玩偶聚合-非分组.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 1601,
+          "note": {
+            "class": 11,
+            "list": 8,
+            "filters": 11,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": true,
+          "ms": 844,
+          "note": {
+            "list": 70,
+            "pagecount": 2026,
+            "total": 141820
+          }
+        },
+        "search": {
+          "ok": true,
+          "ms": 6014,
+          "note": {
+            "list": 6,
+            "pagecount": 1
+          }
+        },
+        "detail": {
+          "ok": false,
+          "ms": 4349,
+          "err": "detail: no playable episodes (sources=0, episodes=0)"
+        },
+        "play": {
+          "ok": false,
+          "ms": 0,
+          "err": "play: no episode from detail"
+        }
+      },
+      "verdict": "broken",
+      "reqs": [
+        {
+          "url": "http://38.76.197.172:12521/index.php/vod/detail/id/487492.html",
+          "status": 200,
+          "len": 62580,
+          "t": "axios"
+        },
+        {
+          "url": "http://38.76.197.172:16969/index.php/vod/detail/id/489967.html",
+          "status": 200,
+          "len": 62301,
+          "t": "axios"
+        },
+        {
+          "url": "http://38.76.197.172:16969/index.php/vod/detail/id/463394.html",
+          "status": 200,
+          "len": 54158,
+          "t": "axios"
+        },
+        {
+          "url": "http://38.76.197.172:16969/index.php/vod/detail/id/478632.html",
+          "status": 200,
+          "len": 63329,
+          "t": "axios"
+        },
+        {
+          "url": "http://38.76.197.172:12521/index.php/vod/detail/id/498141.html",
+          "status": 200,
+          "len": 59775,
+          "t": "axios"
+        },
+        {
+          "url": "http://38.76.197.172:16969/index.php/vod/detail/id/479962.html",
+          "status": 200,
+          "len": 53710,
+          "t": "axios"
+        },
+        {
+          "url": "https://www.wogg.net/voddetail/84217.html",
+          "status": 200,
+          "len": 64066,
+          "t": "axios"
+        },
+        {
+          "url": "https://www.wogg.net/voddetail/76340.html",
+          "status": 200,
+          "len": 63246,
+          "t": "axios"
+        },
+        {
+          "url": "https://666.666291.xyz/index.php/vod/detail/id/405.html",
+          "status": 200,
+          "len": 76736,
+          "t": "axios"
+        },
+        {
+          "url": "https://666.666291.xyz/index.php/vod/detail/id/5515.html",
+          "status": 200,
+          "len": 82878,
+          "t": "axios"
+        },
+        {
+          "url": "https://666.666291.xyz/index.php/vod/detail/id/406.html",
+          "status": 200,
+          "len": 76295,
+          "t": "axios"
+        },
+        {
+          "url": "https://666.666291.xyz/index.php/vod/detail/id/5516.html",
+          "status": 200,
+          "len": 81370,
+          "t": "axios"
+        },
+        {
+          "url": "https://tv.214521.xyz/index.php/vod/detail/id/112.html",
+          "status": 200,
+          "len": 73440,
+          "t": "axios"
+        },
+        {
+          "url": "https://tv.214521.xyz/index.php/vod/detail/id/142.html",
+          "status": 200,
+          "len": 80405,
+          "t": "axios"
+        }
+      ]
+    },
+    {
+      "file": "影视/网盘/玩偶聚合.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 1169,
+          "note": {
+            "class": 11,
+            "list": 8,
+            "filters": 11,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": true,
+          "ms": 829,
+          "note": {
+            "list": 70,
+            "pagecount": 2026,
+            "total": 141820
+          }
+        },
+        "search": {
+          "ok": true,
+          "ms": 19533,
+          "note": {
+            "list": 34,
+            "pagecount": 1
+          }
+        },
+        "detail": {
+          "ok": false,
+          "ms": 1033,
+          "err": "detail: no playable episodes (sources=0, episodes=0)"
+        },
+        "play": {
+          "ok": false,
+          "ms": 0,
+          "err": "play: no episode from detail"
+        }
+      },
+      "verdict": "broken",
+      "reqs": [
+        {
+          "url": "https://gh-proxy.org/https://github.com/Silent1566/OmniBox-Spider/raw/refs/heads/main/%E9%85%8D%E7%BD%AE/%E7%AD%9B%E9%80%89/wogg.json",
+          "status": 200,
+          "len": 40266,
+          "t": "axios"
+        },
+        {
+          "url": "https://gh-proxy.org/https://github.com/Silent1566/OmniBox-Spider/raw/refs/heads/main/%E9%85%8D%E7%BD%AE/%E7%AD%9B%E9%80%89/ouge.json",
+          "status": 200,
+          "len": 37996,
+          "t": "axios"
+        },
+        {
+          "url": "https://666.666291.xyz/index.php/vod/show/id/1/page/1.html",
+          "status": 200,
+          "len": 210109,
+          "t": "axios"
+        },
+        {
+          "url": "https://www.wogg.net/vodshow/1--------1---.html",
+          "status": 200,
+          "len": 163729,
+          "t": "axios"
+        },
+        {
+          "url": "https://www.wogg.net/vodshow/1--------1---.html",
+          "status": 200,
+          "len": 163729,
+          "t": "axios"
+        },
+        {
+          "url": "https://woog.nxog.eu.org/index.php/vod/search/page/1/wd/%E5%BA%86%E4%BD%99%E5%B9%B4.html",
+          "status": 200,
+          "len": 44824,
+          "t": "axios"
+        },
+        {
+          "url": "http://38.76.197.172:16969/index.php/vod/search/page/1/wd/%E5%BA%86%E4%BD%99%E5%B9%B4.html",
+          "status": 200,
+          "len": 67017,
+          "t": "axios"
+        },
+        {
+          "url": "http://38.76.197.172:12521/index.php/vod/search/page/1/wd/%E5%BA%86%E4%BD%99%E5%B9%B4.html",
+          "status": 200,
+          "len": 66606,
+          "t": "axios"
+        },
+        {
+          "url": "https://666.666291.xyz/index.php/vod/search/page/1/wd/%E5%BA%86%E4%BD%99%E5%B9%B4.html",
+          "status": 200,
+          "len": 52673,
+          "t": "axios"
+        },
+        {
+          "url": "https://tv.yydsys.top/index.php/vod/search/page/1/wd/%E5%BA%86%E4%BD%99%E5%B9%B4.html",
+          "status": 200,
+          "len": 47048,
+          "t": "axios"
+        },
+        {
+          "url": "https://www.wogg.net/vodsearch/-------------.html?wd=%E5%BA%86%E4%BD%99%E5%B9%B4&page=1",
+          "status": 200,
+          "len": 40211,
+          "t": "axios"
+        },
+        {
+          "url": "https://sd.sduc.site/index.php/vod/search/page/1/wd/%E5%BA%86%E4%BD%99%E5%B9%B4.html",
+          "status": 522,
+          "len": 0,
+          "t": "axios"
+        },
+        {
+          "url": "https://zmi.kdns.fr/vodsearch/%E5%BA%86%E4%BD%99%E5%B9%B4-------------/",
+          "status": 522,
+          "len": 7221,
+          "t": "axios"
+        },
+        {
+          "url": "https://www.wogg.net/voddetail/76340.html",
+          "status": 200,
+          "len": 63246,
+          "t": "axios"
+        }
+      ]
+    },
+    {
+      "file": "影视/网盘/盘搜.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 0,
+          "note": {
+            "class": 2,
+            "list": 0,
+            "filters": 0,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": false,
+          "ms": 0,
+          "err": "category: empty list (type_id=history)"
+        },
+        "search": {
+          "ok": false,
+          "ms": 1,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": false,
+          "ms": 0,
+          "err": "detail: no candidate videoId (search+category both empty)"
+        },
+        "play": {
+          "ok": false,
+          "ms": 0,
+          "err": "play: no episode from detail"
+        }
+      },
+      "verdict": "broken",
+      "reqs": []
+    },
+    {
+      "file": "影视/网盘/盘搜分组.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 1,
+          "note": {
+            "class": 2,
+            "list": 0,
+            "filters": 0,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": false,
+          "ms": 0,
+          "err": "category: empty list (type_id=history)"
+        },
+        "search": {
+          "ok": false,
+          "ms": 0,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": false,
+          "ms": 1,
+          "err": "detail: no candidate videoId (search+category both empty)"
+        },
+        "play": {
+          "ok": false,
+          "ms": 0,
+          "err": "play: no episode from detail"
+        }
+      },
+      "verdict": "broken",
+      "reqs": []
+    },
+    {
+      "file": "影视/网盘/聚盘搜索.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 1299,
+          "note": {
+            "class": 5,
+            "list": 0,
+            "filters": 0,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": false,
+          "ms": 506,
+          "err": "category: empty list (type_id=电视剧)"
+        },
+        "search": {
+          "ok": false,
+          "ms": 469,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": false,
+          "ms": 0,
+          "err": "detail: no candidate videoId (search+category both empty)"
+        },
+        "play": {
+          "ok": false,
+          "ms": 1,
+          "err": "play: no episode from detail"
+        }
+      },
+      "verdict": "broken",
+      "reqs": [
+        {
+          "url": "https://ppan.dyuzi.com/api/frontend/home",
+          "status": 403,
+          "len": 548,
+          "t": "curl",
+          "retriedFrom": 403
+        },
+        {
+          "url": "https://ppan.dyuzi.com/api/frontend/ranking?channel=%E7%94%B5%E8%A7%86%E5%89%A7&limit=10",
+          "status": 403,
+          "len": 548,
+          "t": "curl",
+          "retriedFrom": 403
+        },
+        {
+          "url": "https://ppan.dyuzi.com/api/frontend/ranking?channel=%E7%94%B5%E8%A7%86%E5%89%A7&limit=20",
+          "status": 403,
+          "len": 548,
+          "t": "curl",
+          "retriedFrom": 403
+        },
+        {
+          "url": "https://ppan.dyuzi.com/api/frontend/search?q=%E5%BA%86%E4%BD%99%E5%B9%B4&limit=20",
+          "status": 403,
+          "len": 548,
+          "t": "curl",
+          "retriedFrom": 403
+        }
+      ]
+    },
+    {
+      "file": "影视/网盘/聚盘搜索分组.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 1294,
+          "note": {
+            "class": 5,
+            "list": 0,
+            "filters": 0,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": false,
+          "ms": 487,
+          "err": "category: empty list (type_id=电视剧)"
+        },
+        "search": {
+          "ok": false,
+          "ms": 494,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": false,
+          "ms": 0,
+          "err": "detail: no candidate videoId (search+category both empty)"
+        },
+        "play": {
+          "ok": false,
+          "ms": 1,
+          "err": "play: no episode from detail"
+        }
+      },
+      "verdict": "broken",
+      "reqs": [
+        {
+          "url": "https://ppan.dyuzi.com/api/frontend/home",
+          "status": 403,
+          "len": 548,
+          "t": "curl",
+          "retriedFrom": 403
+        },
+        {
+          "url": "https://ppan.dyuzi.com/api/frontend/ranking?channel=%E7%94%B5%E8%A7%86%E5%89%A7&limit=10",
+          "status": 403,
+          "len": 548,
+          "t": "curl",
+          "retriedFrom": 403
+        },
+        {
+          "url": "https://ppan.dyuzi.com/api/frontend/ranking?channel=%E7%94%B5%E8%A7%86%E5%89%A7&limit=20",
+          "status": 403,
+          "len": 548,
+          "t": "curl",
+          "retriedFrom": 403
+        },
+        {
+          "url": "https://ppan.dyuzi.com/api/frontend/search?q=%E5%BA%86%E4%BD%99%E5%B9%B4&limit=20",
+          "status": 403,
+          "len": 548,
+          "t": "curl",
+          "retriedFrom": 403
+        }
+      ]
+    },
+    {
+      "file": "影视/网盘/至臻.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": false,
+          "ms": 716,
+          "err": "home: empty class list"
+        },
+        "category": {
+          "ok": false,
+          "ms": 692,
+          "err": "category: empty list (type_id=1)"
+        },
+        "search": {
+          "ok": false,
+          "ms": 5269,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": false,
+          "ms": 0,
+          "err": "detail: no candidate videoId (search+category both empty)"
+        },
+        "play": {
+          "ok": false,
+          "ms": 0,
+          "err": "play: no episode from detail"
+        }
+      },
+      "verdict": "broken",
+      "reqs": []
+    },
+    {
+      "file": "影视/网盘/虎斑.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 573,
+          "note": {
+            "class": 7,
+            "list": 208,
+            "filters": 7,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": true,
+          "ms": 357,
+          "note": {
+            "list": 72,
+            "pagecount": 0,
+            "total": 72
+          }
+        },
+        "search": {
+          "ok": true,
+          "ms": 285,
+          "note": {
+            "list": 7,
+            "pagecount": 0
+          }
+        },
+        "detail": {
+          "ok": false,
+          "ms": 287,
+          "err": "detail: no playable episodes (sources=0, episodes=0)"
+        },
+        "play": {
+          "ok": false,
+          "ms": 0,
+          "err": "play: no episode from detail"
+        }
+      },
+      "verdict": "broken",
+      "reqs": [
+        {
+          "url": "http://38.76.197.172:16969/",
+          "status": 200,
+          "len": 454418,
+          "t": "axios"
+        },
+        {
+          "url": "http://38.76.197.172:16969/index.php/vod/show/id/1/page/1.html",
+          "status": 200,
+          "len": 171251,
+          "t": "axios"
+        },
+        {
+          "url": "http://38.76.197.172:16969/index.php/vod/search/page/1/wd/庆余年.html",
+          "status": 200,
+          "len": 67017,
+          "t": "axios"
+        },
+        {
+          "url": "http://38.76.197.172:16969/index.php/vod/detail/id/478632.html",
+          "status": 200,
+          "len": 63329,
+          "t": "axios"
+        }
+      ]
+    },
+    {
+      "file": "影视/网盘/蜗牛4K.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": false,
+          "ms": 40018,
+          "err": "STEP_TIMEOUT home 40000ms"
+        },
+        "category": {
+          "ok": false,
+          "ms": 19602,
+          "err": "category: empty list (type_id=1)"
+        },
+        "search": {
+          "ok": false,
+          "ms": 19459,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": false,
+          "ms": 1,
+          "err": "detail: no candidate videoId (search+category both empty)"
+        },
+        "play": {
+          "ok": false,
+          "ms": 0,
+          "err": "play: no episode from detail"
+        }
+      },
+      "verdict": "broken",
+      "reqs": [
+        {
+          "url": "https://zmi.kdns.fr/",
+          "status": 522,
+          "len": 7221,
+          "t": "axios"
+        },
+        {
+          "url": "https://zmi.kdns.fr/vodtype/1/",
+          "status": 522,
+          "len": 7221,
+          "t": "axios"
+        },
+        {
+          "url": "https://zmi.kdns.fr/index.php/vod/show/id/1.html",
+          "status": 522,
+          "len": 7221,
+          "t": "axios"
+        },
+        {
+          "url": "https://zmi.kdns.fr/vodtype/1/",
+          "status": 522,
+          "len": 7221,
+          "t": "axios"
+        },
+        {
+          "url": "https://zmi.kdns.fr/index.php/vod/type/id/1.html",
+          "status": 522,
+          "len": 7221,
+          "t": "axios"
+        },
+        {
+          "url": "https://zmi.kdns.fr/vodsearch/%E5%BA%86%E4%BD%99%E5%B9%B4-------------/",
+          "status": 522,
+          "len": 7221,
+          "t": "axios"
+        }
+      ]
+    },
+    {
+      "file": "影视/网盘/蜡笔.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": false,
+          "ms": 873,
+          "err": "home: empty class list"
+        },
+        "category": {
+          "ok": false,
+          "ms": 271,
+          "err": "category: empty list (type_id=1)"
+        },
+        "search": {
+          "ok": false,
+          "ms": 276,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": false,
+          "ms": 0,
+          "err": "detail: no candidate videoId (search+category both empty)"
+        },
+        "play": {
+          "ok": false,
+          "ms": 1,
+          "err": "play: no episode from detail"
+        }
+      },
+      "verdict": "broken",
+      "reqs": [
+        {
+          "url": "http://www.xiaocgege.shop/",
+          "status": 409,
+          "len": 894,
+          "t": "axios"
+        },
+        {
+          "url": "http://xiaocgege.shop/",
+          "status": 409,
+          "len": 890,
+          "t": "axios"
+        },
+        {
+          "url": "http://www.xiaocgege.shop/index.php/vod/show/id/1/page/1.html",
+          "status": 409,
+          "len": 894,
+          "t": "axios"
+        },
+        {
+          "url": "http://xiaocgege.shop/index.php/vod/show/id/1/page/1.html",
+          "status": 409,
+          "len": 890,
+          "t": "axios"
+        },
+        {
+          "url": "http://www.xiaocgege.shop/index.php/vod/search/page/1/wd/庆余年.html",
+          "status": 409,
+          "len": 894,
+          "t": "axios"
+        },
+        {
+          "url": "http://xiaocgege.shop/index.php/vod/search/page/1/wd/庆余年.html",
+          "status": 409,
+          "len": 890,
+          "t": "axios"
+        }
+      ]
+    },
+    {
+      "file": "影视/网盘/闪电.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": false,
+          "ms": 10350,
+          "err": "home: empty class list"
+        },
+        "category": {
+          "ok": false,
+          "ms": 10280,
+          "err": "category: empty list (type_id=1)"
+        },
+        "search": {
+          "ok": false,
+          "ms": 10298,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": false,
+          "ms": 0,
+          "err": "detail: no candidate videoId (search+category both empty)"
+        },
+        "play": {
+          "ok": false,
+          "ms": 0,
+          "err": "play: no episode from detail"
+        }
+      },
+      "verdict": "broken",
+      "reqs": [
+        {
+          "url": "https://sd.sduc.site/",
+          "status": 522,
+          "len": 0,
+          "t": "axios"
+        },
+        {
+          "url": "https://sd.sduc.site/index.php/vod/show/id/1/page/1.html",
+          "status": 522,
+          "len": 0,
+          "t": "axios"
+        },
+        {
+          "url": "https://sd.sduc.site/index.php/vod/search/page/1/wd/庆余年.html",
+          "status": 522,
+          "len": 0,
+          "t": "axios"
+        }
+      ]
+    },
+    {
+      "file": "影视/采集/4KMP.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 5516,
+          "note": {
+            "class": 2,
+            "list": 0,
+            "filters": 2,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": false,
+          "ms": 5348,
+          "err": "category: empty list (type_id=movie)"
+        },
+        "search": {
+          "ok": false,
+          "ms": 3796,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": false,
+          "ms": 0,
+          "err": "detail: no candidate videoId (search+category both empty)"
+        },
+        "play": {
+          "ok": false,
+          "ms": 0,
+          "err": "play: no episode from detail"
+        }
+      },
+      "verdict": "broken",
+      "reqs": [
+        {
+          "url": "https://4k-av.com/",
+          "status": 403,
+          "len": 871,
+          "t": "curl"
+        },
+        {
+          "url": "https://4k-av.com/",
+          "status": 403,
+          "len": 871,
+          "t": "curl"
+        },
+        {
+          "url": "https://4k-av.com/",
+          "status": 403,
+          "len": 871,
+          "t": "curl"
+        },
+        {
+          "url": "https://4k-av.com/movie/",
+          "status": 403,
+          "len": 871,
+          "t": "curl"
+        },
+        {
+          "url": "https://4k-av.com/movie/",
+          "status": 403,
+          "len": 871,
+          "t": "curl"
+        },
+        {
+          "url": "https://4k-av.com/movie/",
+          "status": 403,
+          "len": 871,
+          "t": "curl"
+        },
+        {
+          "url": "https://4k-av.com/s?y=%E5%BA%86%E4%BD%99%E5%B9%B4",
+          "status": 403,
+          "len": 871,
+          "t": "curl"
+        },
+        {
+          "url": "https://4k-av.com/s?y=%E5%BA%86%E4%BD%99%E5%B9%B4",
+          "status": 403,
+          "len": 871,
+          "t": "curl"
+        },
+        {
+          "url": "https://4k-av.com/s?y=%E5%BA%86%E4%BD%99%E5%B9%B4",
+          "status": 403,
+          "len": 871,
+          "t": "curl"
+        }
+      ]
+    },
+    {
+      "file": "影视/采集/88看球.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 1242,
+          "note": {
+            "class": 24,
+            "list": 57,
+            "filters": 0,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": true,
+          "ms": 980,
+          "note": {
+            "list": 23,
+            "pagecount": 1,
+            "total": 23
+          }
+        },
+        "search": {
+          "ok": false,
+          "ms": 1,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": true,
+          "ms": 1022,
+          "note": {
+            "name": "07:00 NBA 活塞 vs 湖人",
+            "sources": 1,
+            "episodes": 13
+          }
+        },
+        "play": {
+          "ok": true,
+          "ms": 1,
+          "note": {
+            "url": "http://play.sportsteam368.com/play/kbs/?id=10022600197&id2=",
+            "n": 0,
+            "parse": 1
+          }
+        }
+      },
+      "verdict": "partial",
+      "reqs": [
+        {
+          "url": "http://www.88kanqiu.cc",
+          "status": 200,
+          "len": 145367,
+          "t": "axios"
+        },
+        {
+          "url": "http://www.88kanqiu.cc/match/1/live",
+          "status": 200,
+          "len": 116379,
+          "t": "axios"
+        },
+        {
+          "url": "http://www.88kanqiu.cc/live/130719/source",
+          "status": 200,
+          "len": 2760,
+          "t": "axios"
+        }
+      ]
+    },
+    {
+      "file": "影视/采集/Auete影视.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 822,
+          "note": {
+            "class": 5,
+            "list": 0,
+            "filters": 1,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": false,
+          "ms": 686,
+          "err": "category: empty list (type_id=Movie)"
+        },
+        "search": {
+          "ok": false,
+          "ms": 898,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": false,
+          "ms": 0,
+          "err": "detail: no candidate videoId (search+category both empty)"
+        },
+        "play": {
+          "ok": false,
+          "ms": 0,
+          "err": "play: no episode from detail"
+        }
+      },
+      "verdict": "broken",
+      "reqs": [
+        {
+          "url": "https://auete.top/",
+          "status": 200,
+          "len": 5600,
+          "t": "curl"
+        },
+        {
+          "url": "https://auete.top/Movie/index.html",
+          "status": 200,
+          "len": 5640,
+          "t": "curl"
+        },
+        {
+          "url": "https://auete.top/mipso.php?searchword=%E5%BA%86%E4%BD%99%E5%B9%B4",
+          "status": 200,
+          "len": 5672,
+          "t": "curl"
+        }
+      ]
+    },
+    {
+      "file": "影视/采集/FKTV.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 0,
+          "note": {
+            "class": 8,
+            "list": 0,
+            "filters": 0,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": false,
+          "ms": 474,
+          "err": "category: empty list (type_id=1)"
+        },
+        "search": {
+          "ok": false,
+          "ms": 115,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": false,
+          "ms": 0,
+          "err": "detail: no candidate videoId (search+category both empty)"
+        },
+        "play": {
+          "ok": false,
+          "ms": 0,
+          "err": "play: no episode from detail"
+        }
+      },
+      "verdict": "broken",
+      "reqs": [
+        {
+          "url": "https://fktv.me/channel?page=1&cat_id=1&page_size=32&order=new",
+          "status": 200,
+          "len": 52351,
+          "t": "fetch"
+        },
+        {
+          "url": "https://fktv.me/search?keyword=%E5%BA%86%E4%BD%99%E5%B9%B4",
+          "status": 404,
+          "len": 13429,
+          "t": "fetch"
+        }
+      ]
+    },
+    {
+      "file": "影视/采集/Gimy剧迷.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 399,
+          "note": {
+            "class": 6,
+            "list": 24,
+            "filters": 6,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": true,
+          "ms": 112,
+          "note": {
+            "list": 55,
+            "pagecount": 2,
+            "total": 75
+          }
+        },
+        "search": {
+          "ok": false,
+          "ms": 355,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": false,
+          "ms": 88,
+          "err": "detail: no playable episodes (sources=0, episodes=0)"
+        },
+        "play": {
+          "ok": false,
+          "ms": 0,
+          "err": "play: no episode from detail"
+        }
+      },
+      "verdict": "broken",
+      "reqs": [
+        {
+          "url": "https://gimyai.tw/",
+          "status": 200,
+          "len": 61263,
+          "t": "fetch"
+        },
+        {
+          "url": "https://gimyai.tw/genre/1.html",
+          "status": 200,
+          "len": 46603,
+          "t": "fetch"
+        },
+        {
+          "url": "https://gimyai.tw/find/-------------.html?wd=%E5%BA%86%E4%BD%99%E5%B9%B4&page=1",
+          "status": 403,
+          "len": 5922,
+          "t": "curl"
+        },
+        {
+          "url": "https://gimyai.tw/detail/927187.html",
+          "status": 200,
+          "len": 36869,
+          "t": "fetch"
+        }
+      ]
+    },
+    {
+      "file": "影视/采集/HDmoli.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 898,
+          "note": {
+            "class": 12,
+            "list": 24,
+            "filters": 0,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": true,
+          "ms": 449,
+          "note": {
+            "list": 48,
+            "pagecount": 22,
+            "total": 1056
+          }
+        },
+        "search": {
+          "ok": false,
+          "ms": 369,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": true,
+          "ms": 410,
+          "note": {
+            "name": "可能的爱",
+            "sources": 2,
+            "episodes": 2
+          }
+        },
+        "play": {
+          "ok": true,
+          "ms": 405,
+          "note": {
+            "url": "https://www.hdmoli.me/play/3927-5-1.html",
+            "n": 1,
+            "parse": 0
+          }
+        }
+      },
+      "verdict": "partial",
+      "reqs": [
+        {
+          "url": "https://www.hdmoli.me/",
+          "status": 200,
+          "len": 63534,
+          "t": "curl"
+        },
+        {
+          "url": "https://www.hdmoli.me/show/1-----------.html",
+          "status": 200,
+          "len": 73529,
+          "t": "curl"
+        },
+        {
+          "url": "https://www.hdmoli.me/search/-------------.html?wd=%E5%BA%86%E4%BD%99%E5%B9%B4",
+          "status": 200,
+          "len": 13889,
+          "t": "curl"
+        },
+        {
+          "url": "https://www.hdmoli.me/movie/index3927.html",
+          "status": 200,
+          "len": 38998,
+          "t": "curl"
+        },
+        {
+          "url": "https://www.hdmoli.me/play/3927-5-1.html",
+          "status": 200,
+          "len": 38557,
+          "t": "curl"
+        }
+      ]
+    },
+    {
+      "file": "影视/采集/LIBVIO.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 859,
+          "note": {
+            "class": 5,
+            "list": 24,
+            "filters": 5,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": true,
+          "ms": 66,
+          "note": {
+            "list": 12,
+            "pagecount": 2,
+            "total": 24
+          }
+        },
+        "search": {
+          "ok": false,
+          "ms": 288,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": true,
+          "ms": 296,
+          "note": {
+            "name": "可能的爱",
+            "sources": 7,
+            "episodes": 7
+          }
+        },
+        "play": {
+          "ok": true,
+          "ms": 1,
+          "note": {
+            "url": "https://www.libvio.lat/play/5813927-2-1.html",
+            "n": 1,
+            "parse": 0
+          }
+        }
+      },
+      "verdict": "partial",
+      "reqs": []
+    },
+    {
+      "file": "影视/采集/NO视频.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 714,
+          "note": {
+            "class": 13,
+            "list": 0,
+            "filters": 0,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": false,
+          "ms": 437,
+          "err": "category: empty list (type_id=movie)"
+        },
+        "search": {
+          "ok": false,
+          "ms": 403,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": false,
+          "ms": 0,
+          "err": "detail: no candidate videoId (search+category both empty)"
+        },
+        "play": {
+          "ok": false,
+          "ms": 0,
+          "err": "play: no episode from detail"
+        }
+      },
+      "verdict": "broken",
+      "reqs": [
+        {
+          "url": "https://www.novipnoad.net/movie/",
+          "status": 403,
+          "len": 5628,
+          "t": "curl"
+        },
+        {
+          "url": "https://www.novipnoad.net/movie/",
+          "status": 403,
+          "len": 5628,
+          "t": "curl"
+        },
+        {
+          "url": "https://www.novipnoad.net/search/%E5%BA%86%E4%BD%99%E5%B9%B4/",
+          "status": 403,
+          "len": 5757,
+          "t": "curl"
+        }
+      ]
+    },
+    {
+      "file": "影视/采集/PPnix.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 815,
+          "note": {
+            "class": 2,
+            "list": 16,
+            "filters": 2,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": true,
+          "ms": 340,
+          "note": {
+            "list": 24,
+            "pagecount": 1,
+            "total": 24
+          }
+        },
+        "search": {
+          "ok": true,
+          "ms": 342,
+          "note": {
+            "list": 24,
+            "pagecount": 1
+          }
+        },
+        "detail": {
+          "ok": true,
+          "ms": 327,
+          "note": {
+            "name": "庆余年 第一季 (2019)  8.2",
+            "sources": 1,
+            "episodes": 46
+          }
+        },
+        "play": {
+          "ok": false,
+          "ms": 40010,
+          "err": "STEP_TIMEOUT play 40000ms"
+        }
+      },
+      "verdict": "partial",
+      "reqs": [
+        {
+          "url": "https://www.ppnix.com/cn/tv/----newstime.html",
+          "status": 200,
+          "len": 18600,
+          "t": "axios"
+        },
+        {
+          "url": "https://www.ppnix.com/cn/",
+          "status": 200,
+          "len": 35013,
+          "t": "axios"
+        },
+        {
+          "url": "https://www.ppnix.com/cn/movie/----newstime.html",
+          "status": 200,
+          "len": 25239,
+          "t": "axios"
+        },
+        {
+          "url": "https://www.ppnix.com/cn/movie/----newstime.html",
+          "status": 200,
+          "len": 25239,
+          "t": "axios"
+        },
+        {
+          "url": "https://www.ppnix.com/cn/search/%E5%BA%86%E4%BD%99%E5%B9%B4--.html",
+          "status": 200,
+          "len": 14227,
+          "t": "axios"
+        },
+        {
+          "url": "https://www.ppnix.com/cn/tv/1804.html",
+          "status": 200,
+          "len": 12767,
+          "t": "axios"
+        }
+      ]
+    },
+    {
+      "file": "影视/采集/StreamingCommunity.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": false,
+          "ms": 190,
+          "err": "home: empty class list"
+        },
+        "category": {
+          "ok": false,
+          "ms": 159,
+          "err": "category: empty list (type_id=1)"
+        },
+        "search": {
+          "ok": false,
+          "ms": 163,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": false,
+          "ms": 1,
+          "err": "detail: no candidate videoId (search+category both empty)"
+        },
+        "play": {
+          "ok": false,
+          "ms": 0,
+          "err": "play: no episode from detail"
+        }
+      },
+      "verdict": "broken",
+      "reqs": []
+    },
+    {
+      "file": "影视/采集/TVB云播.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 628,
+          "note": {
+            "class": 8,
+            "list": 0,
+            "filters": 0,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": false,
+          "ms": 605,
+          "err": "category: empty list (type_id=1)"
+        },
+        "search": {
+          "ok": false,
+          "ms": 1207,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": false,
+          "ms": 1,
+          "err": "detail: no candidate videoId (search+category both empty)"
+        },
+        "play": {
+          "ok": false,
+          "ms": 0,
+          "err": "play: no episode from detail"
+        }
+      },
+      "verdict": "broken",
+      "reqs": []
+    },
+    {
+      "file": "影视/采集/七味.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 577,
+          "note": {
+            "class": 5,
+            "list": 0,
+            "filters": 5,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": false,
+          "ms": 555,
+          "err": "category: empty list (type_id=1)"
+        },
+        "search": {
+          "ok": false,
+          "ms": 547,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": false,
+          "ms": 0,
+          "err": "detail: no candidate videoId (search+category both empty)"
+        },
+        "play": {
+          "ok": false,
+          "ms": 0,
+          "err": "play: no episode from detail"
+        }
+      },
+      "verdict": "broken",
+      "reqs": [
+        {
+          "url": "https://www.pcmp4.com/",
+          "status": 403,
+          "len": 0,
+          "t": "curl",
+          "retriedFrom": 403
+        },
+        {
+          "url": "https://www.pcmp4.com/ms/1--time---------.html?page=1",
+          "status": 403,
+          "len": 0,
+          "t": "curl",
+          "retriedFrom": 403
+        },
+        {
+          "url": "https://www.pcmp4.com/index.php/ajax/suggest?mid=1&limit=20&wd=%E5%BA%86%E4%BD%99%E5%B9%B4",
+          "status": 403,
+          "len": 0,
+          "t": "curl",
+          "retriedFrom": 403
+        }
+      ]
+    },
+    {
+      "file": "影视/采集/修罗影视.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 15021,
+          "note": {
+            "class": 4,
+            "list": 0,
+            "filters": 2,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": false,
+          "ms": 15560,
+          "err": "category: empty list (type_id=movie)"
+        },
+        "search": {
+          "ok": false,
+          "ms": 40012,
+          "err": "STEP_TIMEOUT search 40000ms"
+        },
+        "detail": {
+          "ok": false,
+          "ms": 1,
+          "err": "detail: no candidate videoId (search+category both empty)"
+        },
+        "play": {
+          "ok": false,
+          "ms": 0,
+          "err": "play: no episode from detail"
+        }
+      },
+      "verdict": "broken",
+      "reqs": [
+        {
+          "url": "https://www.xlys02.com/s/all/1?type=0",
+          "status": 0,
+          "len": 0,
+          "t": "curl",
+          "retriedFrom": 403
+        },
+        {
+          "url": "https://www.xlys02.com/search/%E5%BA%86%E4%BD%99%E5%B9%B4/1",
+          "status": 522,
+          "len": 0,
+          "t": "curl",
+          "retriedFrom": 403
+        },
+        {
+          "url": "https://www.xlys02.com/search/verifyCode?t=1794186988255",
+          "status": 522,
+          "len": 0,
+          "t": "curl",
+          "retriedFrom": 403
+        }
+      ]
+    },
+    {
+      "file": "影视/采集/剧圈圈.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 1397,
+          "note": {
+            "class": 5,
+            "list": 0,
+            "filters": 0,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": false,
+          "ms": 259,
+          "err": "category: empty list (type_id=dianying)"
+        },
+        "search": {
+          "ok": false,
+          "ms": 401,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": false,
+          "ms": 0,
+          "err": "detail: no candidate videoId (search+category both empty)"
+        },
+        "play": {
+          "ok": false,
+          "ms": 0,
+          "err": "play: no episode from detail"
+        }
+      },
+      "verdict": "broken",
+      "reqs": [
+        {
+          "url": "https://www.jqqzx.cc/",
+          "status": 404,
+          "len": 138,
+          "t": "fetch"
+        },
+        {
+          "url": "https://www.jqqzx.cc/type/dianying/page/1.html",
+          "status": 404,
+          "len": 138,
+          "t": "fetch"
+        },
+        {
+          "url": "https://www.jqqzx.cc/index.php/ajax/suggest?mid=1&wd=%E5%BA%86%E4%BD%99%E5%B9%B4",
+          "status": 404,
+          "len": 138,
+          "t": "fetch"
+        }
+      ]
+    },
+    {
+      "file": "影视/采集/卧龙.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": false,
+          "ms": 1546,
+          "err": "home: empty class list"
+        },
+        "category": {
+          "ok": false,
+          "ms": 302,
+          "err": "category: empty list (type_id=1)"
+        },
+        "search": {
+          "ok": false,
+          "ms": 300,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": false,
+          "ms": 0,
+          "err": "detail: no candidate videoId (search+category both empty)"
+        },
+        "play": {
+          "ok": false,
+          "ms": 0,
+          "err": "play: no episode from detail"
+        }
+      },
+      "verdict": "broken",
+      "reqs": [
+        {
+          "url": "https://collect.wolongzyw.com/api.php/provide/vod/?ac=list&pg=1",
+          "status": 200,
+          "len": 6990,
+          "t": "fetch"
+        },
+        {
+          "url": "https://collect.wolongzyw.com/api.php/provide/vod/?ac=videolist&t=1&pg=1",
+          "status": 200,
+          "len": 6990,
+          "t": "fetch"
+        },
+        {
+          "url": "https://collect.wolongzyw.com/api.php/provide/vod/?ac=list&wd=%E5%BA%86%E4%BD%99%E5%B9%B4&pg=1",
+          "status": 200,
+          "len": 6990,
+          "t": "fetch"
+        }
+      ]
+    },
+    {
+      "file": "影视/采集/哇哇影视.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": false,
+          "ms": 441,
+          "err": "home: empty class list"
+        },
+        "category": {
+          "ok": false,
+          "ms": 282,
+          "err": "category: empty list (type_id=1)"
+        },
+        "search": {
+          "ok": false,
+          "ms": 164,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": false,
+          "ms": 1,
+          "err": "detail: no candidate videoId (search+category both empty)"
+        },
+        "play": {
+          "ok": false,
+          "ms": 0,
+          "err": "play: no episode from detail"
+        }
+      },
+      "verdict": "broken",
+      "reqs": []
+    },
+    {
+      "file": "影视/采集/唐人街影院.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 938,
+          "note": {
+            "class": 5,
+            "list": 0,
+            "filters": 5,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": false,
+          "ms": 647,
+          "err": "category: empty list (type_id=movie)"
+        },
+        "search": {
+          "ok": false,
+          "ms": 40007,
+          "err": "STEP_TIMEOUT search 40000ms"
+        },
+        "detail": {
+          "ok": false,
+          "ms": 0,
+          "err": "detail: no candidate videoId (search+category both empty)"
+        },
+        "play": {
+          "ok": false,
+          "ms": 1,
+          "err": "play: no episode from detail"
+        }
+      },
+      "verdict": "broken",
+      "reqs": [
+        {
+          "url": "https://www.trvod.com/",
+          "status": 200,
+          "len": 0,
+          "t": "curl",
+          "retriedFrom": 403
+        },
+        {
+          "url": "https://www.trvod.com/vodtype/movie/",
+          "status": 200,
+          "len": 0,
+          "t": "curl",
+          "retriedFrom": 403
+        },
+        {
+          "url": "https://www.trvod.com/vodsearch/-------------.html?wd=%E5%BA%86%E4%BD%99%E5%B9%B4&submit=",
+          "status": 404,
+          "len": 0,
+          "t": "curl",
+          "retriedFrom": 403
+        }
+      ]
+    },
+    {
+      "file": "影视/采集/四万影视.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 1680,
+          "note": {
+            "class": 5,
+            "list": 0,
+            "filters": 0,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": false,
+          "ms": 297,
+          "err": "category: empty list (type_id=20)"
+        },
+        "search": {
+          "ok": false,
+          "ms": 297,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": false,
+          "ms": 0,
+          "err": "detail: no candidate videoId (search+category both empty)"
+        },
+        "play": {
+          "ok": false,
+          "ms": 0,
+          "err": "play: no episode from detail"
+        }
+      },
+      "verdict": "broken",
+      "reqs": [
+        {
+          "url": "https://40000.me/api/maccms?ac=detail&pg=1",
+          "status": 200,
+          "len": 6990,
+          "t": "axios"
+        },
+        {
+          "url": "https://40000.me/api/maccms?ac=detail&t=20&pg=1&by=time",
+          "status": 200,
+          "len": 6990,
+          "t": "axios"
+        },
+        {
+          "url": "https://40000.me/api/maccms?ac=detail&wd=%E5%BA%86%E4%BD%99%E5%B9%B4&pg=1",
+          "status": 200,
+          "len": 6990,
+          "t": "axios"
+        }
+      ]
+    },
+    {
+      "file": "影视/采集/在线之家.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 947,
+          "note": {
+            "class": 6,
+            "list": 84,
+            "filters": 6,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": true,
+          "ms": 559,
+          "note": {
+            "list": 12,
+            "pagecount": 2
+          }
+        },
+        "search": {
+          "ok": false,
+          "ms": 542,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": true,
+          "ms": 1109,
+          "note": {
+            "name": "铁血战士：杀戮之地",
+            "sources": 2,
+            "episodes": 2
+          }
+        },
+        "play": {
+          "ok": true,
+          "ms": 514,
+          "note": {
+            "url": "https://www.zxzjhd.com/vodplay/4601-1-1.html",
+            "n": 1,
+            "parse": 1
+          }
+        }
+      },
+      "verdict": "partial",
+      "reqs": [
+        {
+          "url": "https://www.zxzjhd.com",
+          "status": 200,
+          "len": 46013,
+          "t": "axios"
+        },
+        {
+          "url": "https://www.zxzjhd.com/vodshow/1--------1---.html",
+          "status": 200,
+          "len": 15069,
+          "t": "axios"
+        },
+        {
+          "url": "https://www.zxzjhd.com/vodsearch/%E5%BA%86%E4%BD%99%E5%B9%B4----------1---.html",
+          "status": 200,
+          "len": 4184,
+          "t": "axios"
+        },
+        {
+          "url": "https://www.zxzjhd.com/voddetail/4601.html",
+          "status": 200,
+          "len": 11553,
+          "t": "axios"
+        },
+        {
+          "url": "https://www.zxzjhd.com/vodplay/4601-2-1.html",
+          "status": 200,
+          "len": 13611,
+          "t": "axios"
+        },
+        {
+          "url": "https://www.zxzjhd.com/vodplay/4601-1-1.html",
+          "status": 200,
+          "len": 13718,
+          "t": "axios"
+        }
+      ]
+    },
+    {
+      "file": "影视/采集/太二影视.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 927,
+          "note": {
+            "class": 2,
+            "list": 39,
+            "filters": 0,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": true,
+          "ms": 367,
+          "note": {
+            "list": 32,
+            "pagecount": 1,
+            "total": 32
+          }
+        },
+        "search": {
+          "ok": false,
+          "ms": 835,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": true,
+          "ms": 331,
+          "note": {
+            "name": "今天是太阳雨",
+            "sources": 1,
+            "episodes": 10
+          }
+        },
+        "play": {
+          "ok": true,
+          "ms": 328,
+          "note": {
+            "url": "https://www.mgtv.com/b/817372/24769759.html",
+            "n": 1,
+            "parse": 0
+          }
+        }
+      },
+      "verdict": "partial",
+      "reqs": [
+        {
+          "url": "https://v.tai2.lol/",
+          "status": 200,
+          "len": 62046,
+          "t": "fetch"
+        },
+        {
+          "url": "https://v.tai2.lol/index.php/vod/type/id/21.html",
+          "status": 200,
+          "len": 42160,
+          "t": "fetch"
+        },
+        {
+          "url": "https://v.tai2.lol/index.php/vod/search.html?wd=%E5%BA%86%E4%BD%99%E5%B9%B4&page=1",
+          "status": 200,
+          "len": 16076,
+          "t": "fetch"
+        },
+        {
+          "url": "https://v.tai2.lol/vodsearch/%E5%BA%86%E4%BD%99%E5%B9%B4----------1.html",
+          "status": 404,
+          "len": 515,
+          "t": "fetch"
+        },
+        {
+          "url": "https://v.tai2.lol/search.html?wd=%E5%BA%86%E4%BD%99%E5%B9%B4&page=1",
+          "status": 500,
+          "len": 7478,
+          "t": "fetch"
+        },
+        {
+          "url": "https://v.tai2.lol/index.php/vod/detail/id/700.html",
+          "status": 200,
+          "len": 31789,
+          "t": "fetch"
+        },
+        {
+          "url": "https://v.tai2.lol/index.php/vod/play/id/700/sid/1/nid/1.html",
+          "status": 200,
+          "len": 27252,
+          "t": "fetch"
+        }
+      ]
+    },
+    {
+      "file": "影视/采集/威尔伯TV.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 6515,
+          "note": {
+            "class": 4,
+            "list": 0,
+            "filters": 4,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": false,
+          "ms": 6394,
+          "err": "category: empty list (type_id=movie)"
+        },
+        "search": {
+          "ok": false,
+          "ms": 6402,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": false,
+          "ms": 0,
+          "err": "detail: no candidate videoId (search+category both empty)"
+        },
+        "play": {
+          "ok": false,
+          "ms": 0,
+          "err": "play: no episode from detail"
+        }
+      },
+      "verdict": "broken",
+      "reqs": []
+    },
+    {
+      "file": "影视/采集/小黑米.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 590,
+          "note": {
+            "class": 6,
+            "list": 60,
+            "filters": 6,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": false,
+          "ms": 868,
+          "err": "category: empty list (type_id=7)"
+        },
+        "search": {
+          "ok": true,
+          "ms": 714,
+          "note": {
+            "list": 2,
+            "pagecount": 1
+          }
+        },
+        "detail": {
+          "ok": true,
+          "ms": 170,
+          "note": {
+            "name": "庆余年第二季",
+            "sources": 1,
+            "episodes": 36
+          }
+        },
+        "play": {
+          "ok": true,
+          "ms": 159,
+          "note": {
+            "url": "https://cdn3.ryplay3.com/20240807/5853_88295498/index.m3u8",
+            "n": 1,
+            "parse": 0
+          }
+        }
+      },
+      "verdict": "broken",
+      "reqs": [
+        {
+          "url": "https://xiaoheimi.cc/",
+          "status": 200,
+          "len": 73900,
+          "t": "fetch"
+        },
+        {
+          "url": "https://xiaoheimi.cc/index.php/vod/show/by/time/id/7.html",
+          "status": 404,
+          "len": 44736,
+          "t": "fetch"
+        },
+        {
+          "url": "https://xiaoheimi.cc/index.php/vod/search.html?wd=%E5%BA%86%E4%BD%99%E5%B9%B4",
+          "status": 200,
+          "len": 32594,
+          "t": "fetch"
+        },
+        {
+          "url": "https://xiaoheimi.cc/index.php/vod/detail/id/64107.html",
+          "status": 200,
+          "len": 78514,
+          "t": "fetch"
+        },
+        {
+          "url": "https://xiaoheimi.cc/index.php/vod/play/id/64107/sid/1/nid/1.html",
+          "status": 200,
+          "len": 86661,
+          "t": "fetch"
+        }
+      ]
+    },
+    {
+      "file": "影视/采集/布布影视.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 3764,
+          "note": {
+            "class": 4,
+            "list": 0,
+            "filters": 4,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": false,
+          "ms": 1212,
+          "err": "category: empty list (type_id=电影)"
+        },
+        "search": {
+          "ok": false,
+          "ms": 1211,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": false,
+          "ms": 0,
+          "err": "detail: no candidate videoId (search+category both empty)"
+        },
+        "play": {
+          "ok": false,
+          "ms": 0,
+          "err": "play: no episode from detail"
+        }
+      },
+      "verdict": "broken",
+      "reqs": []
+    },
+    {
+      "file": "影视/采集/影猫仓库.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 731,
+          "note": {
+            "class": 5,
+            "list": 20,
+            "filters": 5,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": true,
+          "ms": 1365,
+          "note": {
+            "list": 20,
+            "pagecount": 2704,
+            "total": 54072
+          }
+        },
+        "search": {
+          "ok": true,
+          "ms": 688,
+          "note": {
+            "list": 37,
+            "pagecount": 1
+          }
+        },
+        "detail": {
+          "ok": true,
+          "ms": 737,
+          "note": {
+            "name": "庆余年第一季",
+            "sources": 1,
+            "episodes": 50
+          }
+        },
+        "play": {
+          "ok": true,
+          "ms": 1,
+          "note": {
+            "url": "https://pan.quark.cn/s/2c2bceff8a49",
+            "n": 1,
+            "parse": 0
+          }
+        }
+      },
+      "verdict": "ok",
+      "reqs": [
+        {
+          "url": "https://www.ymck.pro/api.php/xiao/vod?page=1&limit=20",
+          "status": 200,
+          "len": 5211,
+          "t": "curl",
+          "retriedFrom": 403
+        },
+        {
+          "url": "https://www.ymck.pro/api.php/xiao/vod?type=1&page=1&limit=20",
+          "status": 200,
+          "len": 4732,
+          "t": "curl",
+          "retriedFrom": 403
+        },
+        {
+          "url": "https://www.ymck.pro/API/v2.php?q=%E5%BA%86%E4%BD%99%E5%B9%B4&size=50",
+          "status": 200,
+          "len": 11600,
+          "t": "curl",
+          "retriedFrom": 403
+        },
+        {
+          "url": "https://www.ymck.pro/API/v2.php?q=%E5%BA%86%E4%BD%99%E5%B9%B4%E7%AC%AC%E4%B8%80%E5%AD%A3&size=50",
+          "status": 200,
+          "len": 11600,
+          "t": "curl",
+          "retriedFrom": 403
+        }
+      ]
+    },
+    {
+      "file": "影视/采集/影视大全.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 6556,
+          "note": {
+            "class": 5,
+            "list": 0,
+            "filters": 0,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": false,
+          "ms": 6381,
+          "err": "category: empty list (type_id=1)"
+        },
+        "search": {
+          "ok": false,
+          "ms": 6412,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": false,
+          "ms": 0,
+          "err": "detail: no candidate videoId (search+category both empty)"
+        },
+        "play": {
+          "ok": false,
+          "ms": 1,
+          "err": "play: no episode from detail"
+        }
+      },
+      "verdict": "broken",
+      "reqs": []
+    },
+    {
+      "file": "影视/采集/新韩剧网.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 374,
+          "note": {
+            "class": 5,
+            "list": 30,
+            "filters": 0,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": true,
+          "ms": 122,
+          "note": {
+            "list": 16,
+            "pagecount": 100,
+            "total": 9999
+          }
+        },
+        "search": {
+          "ok": false,
+          "ms": 104,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": true,
+          "ms": 125,
+          "note": {
+            "name": "爱情来了",
+            "sources": 1,
+            "episodes": 29
+          }
+        },
+        "play": {
+          "ok": true,
+          "ms": 95,
+          "note": {
+            "url": "https://cdn.yzzyvip-29.com/20260726/26230_0a2f0579/index.m3u8",
+            "n": 1,
+            "parse": 0
+          }
+        }
+      },
+      "verdict": "partial",
+      "reqs": [
+        {
+          "url": "https://www.9hanju.com",
+          "status": 200,
+          "len": 24216,
+          "t": "fetch"
+        },
+        {
+          "url": "https://www.9hanju.com/list/1---0.html",
+          "status": 200,
+          "len": 15053,
+          "t": "fetch"
+        },
+        {
+          "url": "https://www.9hanju.com/search/",
+          "status": 200,
+          "len": 1417,
+          "t": "fetch"
+        },
+        {
+          "url": "https://www.9hanju.com/detail/3710.html",
+          "status": 200,
+          "len": 22136,
+          "t": "fetch"
+        },
+        {
+          "url": "https://www.9hanju.com/u/u1.php?ud=3710_1_1",
+          "status": 200,
+          "len": 108,
+          "t": "fetch"
+        }
+      ]
+    },
+    {
+      "file": "影视/采集/星辰影院.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 3195,
+          "note": {
+            "class": 4,
+            "list": 0,
+            "filters": 0,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": false,
+          "ms": 3183,
+          "err": "category: empty list (type_id=1)"
+        },
+        "search": {
+          "ok": false,
+          "ms": 3158,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": false,
+          "ms": 0,
+          "err": "detail: no candidate videoId (search+category both empty)"
+        },
+        "play": {
+          "ok": false,
+          "ms": 0,
+          "err": "play: no episode from detail"
+        }
+      },
+      "verdict": "broken",
+      "reqs": []
+    },
+    {
+      "file": "影视/采集/枝枝影视.js",
+      "loadOk": false,
+      "steps": {},
+      "verdict": "broken",
+      "loadErr": "HARD_TIMEOUT 100000ms"
+    },
+    {
+      "file": "影视/采集/枫叶.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 422,
+          "note": {
+            "class": 5,
+            "list": 0,
+            "filters": 0,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": false,
+          "ms": 390,
+          "err": "category: empty list (type_id=1)"
+        },
+        "search": {
+          "ok": false,
+          "ms": 356,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": false,
+          "ms": 1,
+          "err": "detail: no candidate videoId (search+category both empty)"
+        },
+        "play": {
+          "ok": false,
+          "ms": 0,
+          "err": "play: no episode from detail"
+        }
+      },
+      "verdict": "broken",
+      "reqs": []
+    },
+    {
+      "file": "影视/采集/枫叶4K.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 458,
+          "note": {
+            "class": 8,
+            "list": 0,
+            "filters": 4,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": false,
+          "ms": 607,
+          "err": "category: empty list (type_id=1)"
+        },
+        "search": {
+          "ok": false,
+          "ms": 369,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": false,
+          "ms": 0,
+          "err": "detail: no candidate videoId (search+category both empty)"
+        },
+        "play": {
+          "ok": false,
+          "ms": 0,
+          "err": "play: no episode from detail"
+        }
+      },
+      "verdict": "broken",
+      "reqs": []
+    },
+    {
+      "file": "影视/采集/柯南影视.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 34221,
+          "note": {
+            "class": 4,
+            "list": 0,
+            "filters": 0,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": false,
+          "ms": 9741,
+          "err": "category: empty list (type_id=1)"
+        },
+        "search": {
+          "ok": false,
+          "ms": 15200,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": false,
+          "ms": 0,
+          "err": "detail: no candidate videoId (search+category both empty)"
+        },
+        "play": {
+          "ok": false,
+          "ms": 0,
+          "err": "play: no episode from detail"
+        }
+      },
+      "verdict": "broken",
+      "reqs": [
+        {
+          "url": "https://www.knvod.com/vshow/1--------1---.html",
+          "status": 520,
+          "len": 7334,
+          "t": "fetch"
+        },
+        {
+          "url": "https://www.knvod.com/vshow/1--------1---.html",
+          "status": 520,
+          "len": 7334,
+          "t": "curl"
+        },
+        {
+          "url": "https://www.knvod.com/search/%E5%BA%86%E4%BD%99%E5%B9%B4-------------.html",
+          "status": 520,
+          "len": 7334,
+          "t": "curl"
+        },
+        {
+          "url": "https://www.knvod.com/search/%E5%BA%86%E4%BD%99%E5%B9%B4-------------.html",
+          "status": 429,
+          "len": 7459,
+          "t": "curl"
+        },
+        {
+          "url": "https://www.knvod.com/search/%E5%BA%86%E4%BD%99%E5%B9%B4-------------.html",
+          "status": 520,
+          "len": 7334,
+          "t": "curl"
+        },
+        {
+          "url": "https://www.knvod.com/search/%E5%BA%86%E4%BD%99%E5%B9%B4-------------.html",
+          "status": 429,
+          "len": 7459,
+          "t": "curl"
+        },
+        {
+          "url": "https://www.knvod.com/index.php/api/vod",
+          "status": 520,
+          "len": 958,
+          "t": "fetch"
+        },
+        {
+          "url": "https://www.knvod.com/index.php/api/vod",
+          "status": 520,
+          "len": 958,
+          "t": "fetch"
+        },
+        {
+          "url": "https://www.knvod.com/index.php/api/vod",
+          "status": 520,
+          "len": 958,
+          "t": "fetch"
+        },
+        {
+          "url": "https://www.knvod.com/index.php/api/vod",
+          "status": 520,
+          "len": 958,
+          "t": "fetch"
+        },
+        {
+          "url": "https://www.knvod.com/search/%E5%BA%86%E4%BD%99%E5%B9%B4-------------.html",
+          "status": 520,
+          "len": 7334,
+          "t": "fetch"
+        },
+        {
+          "url": "https://www.knvod.com/search/%E5%BA%86%E4%BD%99%E5%B9%B4-------------.html",
+          "status": 520,
+          "len": 7334,
+          "t": "fetch"
+        },
+        {
+          "url": "https://www.knvod.com/search/%E5%BA%86%E4%BD%99%E5%B9%B4-------------.html",
+          "status": 520,
+          "len": 7334,
+          "t": "fetch"
+        },
+        {
+          "url": "https://www.knvod.com/search/%E5%BA%86%E4%BD%99%E5%B9%B4-------------.html",
+          "status": 520,
+          "len": 7334,
+          "t": "fetch"
+        }
+      ]
+    },
+    {
+      "file": "影视/采集/歪比巴卜.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 2181,
+          "note": {
+            "class": 4,
+            "list": 40,
+            "filters": 0,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": true,
+          "ms": 454,
+          "note": {
+            "list": 72,
+            "pagecount": 2,
+            "total": 72
+          }
+        },
+        "search": {
+          "ok": false,
+          "ms": 251,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": true,
+          "ms": 304,
+          "note": {
+            "name": "我想留在你身边",
+            "sources": 3,
+            "episodes": 3
+          }
+        },
+        "play": {
+          "ok": true,
+          "ms": 2558,
+          "note": {
+            "url": "https://p3-imcloud-sign.byteimg.com/tos-cn-i-3jr8j4ixpe/564eec630239485a928895ac81e9addd~tplv-4q3nkbmfbv-image.image?a=1",
+            "n": 0,
+            "parse": 0
+          }
+        }
+      },
+      "verdict": "partial",
+      "reqs": [
+        {
+          "url": "https://wbbb1.com/",
+          "status": 403,
+          "len": 0,
+          "t": "curl",
+          "retriedFrom": 403
+        },
+        {
+          "url": "https://wbbb1.com/",
+          "status": 200,
+          "len": 87912,
+          "t": "axios"
+        },
+        {
+          "url": "https://wbbb1.com/show/1-----------.html",
+          "status": 200,
+          "len": 69556,
+          "t": "axios"
+        },
+        {
+          "url": "https://wbbb1.com/search/-------------.html?wd=%E5%BA%86%E4%BD%99%E5%B9%B4",
+          "status": 200,
+          "len": 3811,
+          "t": "axios"
+        },
+        {
+          "url": "https://wbbb1.com/detail/116358.html",
+          "status": 200,
+          "len": 46526,
+          "t": "axios"
+        },
+        {
+          "url": "https://wbbb1.com/vplay/116358-6-1.html",
+          "status": 200,
+          "len": 47033,
+          "t": "axios"
+        },
+        {
+          "url": "https://wbbb1.com/static/js/playerconfig.js",
+          "status": 200,
+          "len": 1501,
+          "t": "axios"
+        },
+        {
+          "url": "https://wbbb1.com/static/player/wbbc.js",
+          "status": 200,
+          "len": 0,
+          "t": "axios"
+        },
+        {
+          "url": "https://wbbb1.com/static/player/config.js",
+          "status": 404,
+          "len": 915,
+          "t": "axios"
+        },
+        {
+          "url": "https://wbbb1.com/js/playerconfig.js",
+          "status": 404,
+          "len": 915,
+          "t": "axios"
+        },
+        {
+          "url": "https://wbbb1.com/player/config.js",
+          "status": 404,
+          "len": 915,
+          "t": "axios"
+        },
+        {
+          "url": "https://xn--qvr2v.850088.xyz/player/?url=caNe5vXRtY9RBxQv-ugA2DCrf6LofHmGuO5SdZMig1k8_Gm9duDPfKeK_ZLwQzlvVUWI9fSQB9Si6pJYNaP2Oe5FAftIYDU7-iP6BPl_0h1K4OF7UbEhpN_6pMcrtvtDgZOfbWNOSkknGJpfq7MZFr6tys2Q4h6",
+          "status": 200,
+          "len": 3123,
+          "t": "axios"
+        },
+        {
+          "url": "https://xn--qvr2v.850088.xyz/player/api.php",
+          "status": 200,
+          "len": 1628,
+          "t": "axios"
+        }
+      ]
+    },
+    {
+      "file": "影视/采集/毒舌影视.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 911,
+          "note": {
+            "class": 6,
+            "list": 0,
+            "filters": 6,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": false,
+          "ms": 230,
+          "err": "category: empty list (type_id=1)"
+        },
+        "search": {
+          "ok": false,
+          "ms": 228,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": false,
+          "ms": 0,
+          "err": "detail: no candidate videoId (search+category both empty)"
+        },
+        "play": {
+          "ok": false,
+          "ms": 0,
+          "err": "play: no episode from detail"
+        }
+      },
+      "verdict": "broken",
+      "reqs": [
+        {
+          "url": "https://m.xnhrsb.com/",
+          "status": 408,
+          "len": 11023,
+          "t": "fetch"
+        },
+        {
+          "url": "https://m.xnhrsb.com/dsshiyisw/1--------1---.html",
+          "status": 408,
+          "len": 11023,
+          "t": "fetch"
+        },
+        {
+          "url": "https://m.xnhrsb.com/dsshiyisc/%E5%BA%86%E4%BD%99%E5%B9%B4----------1---.html",
+          "status": 408,
+          "len": 11023,
+          "t": "fetch"
+        }
+      ]
+    },
+    {
+      "file": "影视/采集/永乐视频.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 7463,
+          "note": {
+            "class": 4,
+            "list": 0,
+            "filters": 0,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": false,
+          "ms": 6296,
+          "err": "category: empty list (type_id=1)"
+        },
+        "search": {
+          "ok": false,
+          "ms": 9360,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": false,
+          "ms": 0,
+          "err": "detail: no candidate videoId (search+category both empty)"
+        },
+        "play": {
+          "ok": false,
+          "ms": 0,
+          "err": "play: no episode from detail"
+        }
+      },
+      "verdict": "broken",
+      "reqs": []
+    },
+    {
+      "file": "影视/采集/泰剧网.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 343,
+          "note": {
+            "class": 9,
+            "list": 0,
+            "filters": 9,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": false,
+          "ms": 122,
+          "err": "category: empty list (type_id=movie)"
+        },
+        "search": {
+          "ok": false,
+          "ms": 1010,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": false,
+          "ms": 0,
+          "err": "detail: no candidate videoId (search+category both empty)"
+        },
+        "play": {
+          "ok": false,
+          "ms": 0,
+          "err": "play: no episode from detail"
+        }
+      },
+      "verdict": "broken",
+      "reqs": [
+        {
+          "url": "https://zh.taijuwang.com/",
+          "status": 200,
+          "len": 4648,
+          "t": "fetch"
+        },
+        {
+          "url": "https://zh.taijuwang.com/all/3---hits/",
+          "status": 200,
+          "len": 4648,
+          "t": "fetch"
+        },
+        {
+          "url": "https://zh.taijuwang.com/",
+          "status": 200,
+          "len": 4648,
+          "t": "fetch"
+        },
+        {
+          "url": "https://zh.taijuwang.com/all/3---hits/",
+          "status": 200,
+          "len": 4648,
+          "t": "fetch"
+        },
+        {
+          "url": "https://zh.taijuwang.com/all/1---hits/",
+          "status": 200,
+          "len": 4648,
+          "t": "fetch"
+        },
+        {
+          "url": "https://zh.taijuwang.com/all/9---hits/",
+          "status": 200,
+          "len": 4648,
+          "t": "fetch"
+        },
+        {
+          "url": "https://zh.taijuwang.com/all/6---hits/",
+          "status": 200,
+          "len": 4648,
+          "t": "fetch"
+        },
+        {
+          "url": "https://zh.taijuwang.com/all/4---hits/",
+          "status": 200,
+          "len": 4648,
+          "t": "fetch"
+        },
+        {
+          "url": "https://zh.taijuwang.com/all/2---hits/",
+          "status": 200,
+          "len": 4648,
+          "t": "fetch"
+        },
+        {
+          "url": "https://zh.taijuwang.com/all/8---hits/",
+          "status": 200,
+          "len": 4648,
+          "t": "fetch"
+        },
+        {
+          "url": "https://zh.taijuwang.com/all/5---hits/",
+          "status": 200,
+          "len": 4648,
+          "t": "fetch"
+        },
+        {
+          "url": "https://zh.taijuwang.com/all/7---hits/",
+          "status": 200,
+          "len": 4648,
+          "t": "fetch"
+        }
+      ]
+    },
+    {
+      "file": "影视/采集/片库.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 596,
+          "note": {
+            "class": 5,
+            "list": 0,
+            "filters": 5,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": false,
+          "ms": 518,
+          "err": "category: empty list (type_id=1)"
+        },
+        "search": {
+          "ok": false,
+          "ms": 40014,
+          "err": "STEP_TIMEOUT search 40000ms"
+        },
+        "detail": {
+          "ok": false,
+          "ms": 1,
+          "err": "detail: no candidate videoId (search+category both empty)"
+        },
+        "play": {
+          "ok": false,
+          "ms": 0,
+          "err": "play: no episode from detail"
+        }
+      },
+      "verdict": "broken",
+      "reqs": [
+        {
+          "url": "https://pianku.pro/",
+          "status": 403,
+          "len": 0,
+          "t": "curl",
+          "retriedFrom": 403
+        },
+        {
+          "url": "https://pianku.pro/vodtype/1.html",
+          "status": 403,
+          "len": 0,
+          "t": "curl",
+          "retriedFrom": 403
+        },
+        {
+          "url": "https://pianku.pro/vs/-------------.html?wd=%E5%BA%86%E4%BD%99%E5%B9%B4",
+          "status": 403,
+          "len": 0,
+          "t": "curl",
+          "retriedFrom": 403
+        },
+        {
+          "url": "https://pianku.pro/index.php/verify/index.html?type=search&t=1794186967764",
+          "status": 403,
+          "len": 0,
+          "t": "curl",
+          "retriedFrom": 403
+        },
+        {
+          "url": "https://pianku.pro/index.php/verify/index.html?type=search&t=1794186976315",
+          "status": 403,
+          "len": 0,
+          "t": "curl",
+          "retriedFrom": 403
+        },
+        {
+          "url": "https://pianku.pro/index.php/verify/index.html?type=search&t=1794186984877",
+          "status": 403,
+          "len": 0,
+          "t": "curl",
+          "retriedFrom": 403
+        },
+        {
+          "url": "https://pianku.pro/vs/-------------.html?wd=%E5%BA%86%E4%BD%99%E5%B9%B4",
+          "status": 403,
+          "len": 0,
+          "t": "curl",
+          "retriedFrom": 403
+        },
+        {
+          "url": "https://pianku.pro/index.php/verify/index.html?type=search&t=1794186993983",
+          "status": 403,
+          "len": 0,
+          "t": "curl",
+          "retriedFrom": 403
+        },
+        {
+          "url": "https://pianku.pro/index.php/verify/index.html?type=search&t=1794187002569",
+          "status": 403,
+          "len": 0,
+          "t": "curl",
+          "retriedFrom": 403
+        }
+      ]
+    },
+    {
+      "file": "影视/采集/电影人生.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 2206,
+          "note": {
+            "class": 4,
+            "list": 0,
+            "filters": 4,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": false,
+          "ms": 2455,
+          "err": "category: empty list (type_id=dianying)"
+        },
+        "search": {
+          "ok": false,
+          "ms": 919,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": false,
+          "ms": 0,
+          "err": "detail: no candidate videoId (search+category both empty)"
+        },
+        "play": {
+          "ok": false,
+          "ms": 0,
+          "err": "play: no episode from detail"
+        }
+      },
+      "verdict": "broken",
+      "reqs": [
+        {
+          "url": "https://www.dyrsok.com/",
+          "status": 200,
+          "len": 353881,
+          "t": "fetch"
+        },
+        {
+          "url": "https://www.dyrsok.com/dianying.html",
+          "status": 200,
+          "len": 198506,
+          "t": "curl"
+        },
+        {
+          "url": "https://www.dyrsok.com/s.html?name=%E5%BA%86%E4%BD%99%E5%B9%B4",
+          "status": 200,
+          "len": 179811,
+          "t": "fetch"
+        }
+      ]
+    },
+    {
+      "file": "影视/采集/耐视点播.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 858,
+          "note": {
+            "class": 6,
+            "list": 0,
+            "filters": 0,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": false,
+          "ms": 666,
+          "err": "category: empty list (type_id=1)"
+        },
+        "search": {
+          "ok": false,
+          "ms": 356,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": false,
+          "ms": 0,
+          "err": "detail: no candidate videoId (search+category both empty)"
+        },
+        "play": {
+          "ok": false,
+          "ms": 0,
+          "err": "play: no episode from detail"
+        }
+      },
+      "verdict": "broken",
+      "reqs": [
+        {
+          "url": "https://nsvod.me/",
+          "status": 200,
+          "len": 8348,
+          "t": "fetch"
+        },
+        {
+          "url": "https://nsvod.me/index.php/vod/show/id/1.html?page=1",
+          "status": 200,
+          "len": 8348,
+          "t": "fetch"
+        },
+        {
+          "url": "https://nsvod.me/",
+          "status": 200,
+          "len": 8348,
+          "t": "fetch"
+        },
+        {
+          "url": "https://nsvod.me/index.php/vod/search.html?wd=%E5%BA%86%E4%BD%99%E5%B9%B4",
+          "status": 200,
+          "len": 8348,
+          "t": "fetch"
+        }
+      ]
+    },
+    {
+      "file": "影视/采集/茶杯狐.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 385,
+          "note": {
+            "class": 4,
+            "list": 0,
+            "filters": 0,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": false,
+          "ms": 99,
+          "err": "category: empty list (type_id=1)"
+        },
+        "search": {
+          "ok": false,
+          "ms": 337,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": false,
+          "ms": 0,
+          "err": "detail: no candidate videoId (search+category both empty)"
+        },
+        "play": {
+          "ok": false,
+          "ms": 0,
+          "err": "play: no episode from detail"
+        }
+      },
+      "verdict": "broken",
+      "reqs": [
+        {
+          "url": "https://www.cupfox.ai/",
+          "status": 200,
+          "len": 7134,
+          "t": "fetch"
+        },
+        {
+          "url": "https://www.cupfox.ai/type/1.html",
+          "status": 200,
+          "len": 7134,
+          "t": "fetch"
+        }
+      ]
+    },
+    {
+      "file": "影视/采集/蛋蛋鱼.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 644,
+          "note": {
+            "class": 4,
+            "list": 0,
+            "filters": 0,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": false,
+          "ms": 86,
+          "err": "category: empty list (type_id=1)"
+        },
+        "search": {
+          "ok": false,
+          "ms": 582,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": false,
+          "ms": 0,
+          "err": "detail: no candidate videoId (search+category both empty)"
+        },
+        "play": {
+          "ok": false,
+          "ms": 0,
+          "err": "play: no episode from detail"
+        }
+      },
+      "verdict": "broken",
+      "reqs": [
+        {
+          "url": "https://www.dandanyu.fun/",
+          "status": 404,
+          "len": 144,
+          "t": "axios"
+        },
+        {
+          "url": "https://www.dandanyu.fun/vodtype/1.html",
+          "status": 404,
+          "len": 144,
+          "t": "axios"
+        },
+        {
+          "url": "https://www.ymck.pro/API/v2.php?q=%E5%BA%86%E4%BD%99%E5%B9%B4&size=50",
+          "status": 200,
+          "len": 11600,
+          "t": "curl",
+          "retriedFrom": 403
+        }
+      ]
+    },
+    {
+      "file": "影视/采集/这片海.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 390,
+          "note": {
+            "class": 3,
+            "list": 0,
+            "filters": 3,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": false,
+          "ms": 388,
+          "err": "category: empty list (type_id=1)"
+        },
+        "search": {
+          "ok": false,
+          "ms": 462,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": false,
+          "ms": 1,
+          "err": "detail: no candidate videoId (search+category both empty)"
+        },
+        "play": {
+          "ok": false,
+          "ms": 0,
+          "err": "play: no episode from detail"
+        }
+      },
+      "verdict": "broken",
+      "reqs": []
+    },
+    {
+      "file": "影视/采集/韩小圈.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 903,
+          "note": {
+            "class": 5,
+            "list": 20,
+            "filters": 0,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": true,
+          "ms": 218,
+          "note": {
+            "list": 20,
+            "pagecount": 2,
+            "total": 21
+          }
+        },
+        "search": {
+          "ok": false,
+          "ms": 1046,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": true,
+          "ms": 199,
+          "note": {
+            "name": "解不开的我们",
+            "sources": 1,
+            "episodes": 5
+          }
+        },
+        "play": {
+          "ok": true,
+          "ms": 0,
+          "note": {
+            "url": "https://cdn.yzzy32-play.com/20261008/52415_a2a98bfc/index.m3u8",
+            "n": 1,
+            "parse": 0
+          }
+        }
+      },
+      "verdict": "partial",
+      "reqs": [
+        {
+          "url": "https://hanxiaoquan.hanju.workers.dev/api/list",
+          "status": 200,
+          "len": 59574,
+          "t": "fetch"
+        },
+        {
+          "url": "https://hanxiaoquan.hanju.workers.dev/api/list",
+          "status": 200,
+          "len": 38333,
+          "t": "fetch"
+        },
+        {
+          "url": "https://hanxiaoquan.hanju.workers.dev/api/search",
+          "status": 200,
+          "len": 46223,
+          "t": "fetch"
+        },
+        {
+          "url": "https://hanxiaoquan.hanju.workers.dev/api/detail",
+          "status": 200,
+          "len": 884,
+          "t": "fetch"
+        }
+      ]
+    },
+    {
+      "file": "教育/贝乐虎.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 217,
+          "note": {
+            "class": 11,
+            "list": 20,
+            "filters": 0,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": true,
+          "ms": 46,
+          "note": {
+            "list": 38,
+            "pagecount": 2
+          }
+        },
+        "search": {
+          "ok": false,
+          "ms": 160,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": true,
+          "ms": 0,
+          "note": {
+            "name": "小兔子乖乖",
+            "sources": 1,
+            "episodes": 1
+          }
+        },
+        "play": {
+          "ok": true,
+          "ms": 0,
+          "note": {
+            "url": "https://res1.ubestkid.com/blk/m/001_xtzgg.mp4",
+            "n": 1,
+            "parse": 0
+          }
+        }
+      },
+      "verdict": "partial",
+      "reqs": [
+        {
+          "url": "https://vd.ubestkid.com/api/v1/bv/video",
+          "status": 200,
+          "len": 42292,
+          "t": "axios"
+        },
+        {
+          "url": "https://vd.ubestkid.com/api/v1/bv/video",
+          "status": 200,
+          "len": 42292,
+          "t": "axios"
+        },
+        {
+          "url": "https://vd.ubestkid.com/api/v1/bv/video",
+          "status": 200,
+          "len": 42292,
+          "t": "axios"
+        },
+        {
+          "url": "https://vd.ubestkid.com/api/v1/bv/video",
+          "status": 200,
+          "len": 57,
+          "t": "axios"
+        },
+        {
+          "url": "https://vd.ubestkid.com/api/v1/bv/video",
+          "status": 200,
+          "len": 29210,
+          "t": "axios"
+        },
+        {
+          "url": "https://vd.ubestkid.com/api/v1/bv/video",
+          "status": 200,
+          "len": 57,
+          "t": "axios"
+        },
+        {
+          "url": "https://vd.ubestkid.com/api/v1/bv/video",
+          "status": 200,
+          "len": 67249,
+          "t": "axios"
+        },
+        {
+          "url": "https://vd.ubestkid.com/api/v1/bv/video",
+          "status": 200,
+          "len": 66854,
+          "t": "axios"
+        },
+        {
+          "url": "https://vd.ubestkid.com/api/v1/bv/video",
+          "status": 200,
+          "len": 57,
+          "t": "axios"
+        },
+        {
+          "url": "https://vd.ubestkid.com/api/v1/bv/video",
+          "status": 200,
+          "len": 23357,
+          "t": "axios"
+        },
+        {
+          "url": "https://vd.ubestkid.com/api/v1/bv/video",
+          "status": 200,
+          "len": 11259,
+          "t": "axios"
+        },
+        {
+          "url": "https://vd.ubestkid.com/api/v1/bv/video",
+          "status": 200,
+          "len": 45900,
+          "t": "axios"
+        },
+        {
+          "url": "https://vd.ubestkid.com/api/v1/bv/video",
+          "status": 200,
+          "len": 14385,
+          "t": "axios"
+        }
+      ]
+    },
+    {
+      "file": "流媒体/Jellyfin.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": false,
+          "ms": 1,
+          "err": "home: empty class list"
+        },
+        "category": {
+          "ok": false,
+          "ms": 0,
+          "err": "category: empty list (type_id=1)"
+        },
+        "search": {
+          "ok": false,
+          "ms": 0,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": false,
+          "ms": 0,
+          "err": "detail: no candidate videoId (search+category both empty)"
+        },
+        "play": {
+          "ok": false,
+          "ms": 0,
+          "err": "play: no episode from detail"
+        }
+      },
+      "verdict": "broken",
+      "reqs": []
+    },
+    {
+      "file": "流媒体/Plex.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": false,
+          "ms": 0,
+          "err": "home: empty class list"
+        },
+        "category": {
+          "ok": false,
+          "ms": 0,
+          "err": "category: empty list (type_id=1)"
+        },
+        "search": {
+          "ok": false,
+          "ms": 1,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": false,
+          "ms": 0,
+          "err": "detail: no candidate videoId (search+category both empty)"
+        },
+        "play": {
+          "ok": false,
+          "ms": 0,
+          "err": "play: no episode from detail"
+        }
+      },
+      "verdict": "broken",
+      "reqs": []
+    },
+    {
+      "file": "流媒体/飞牛.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": false,
+          "ms": 1,
+          "err": "飞牛配置缺失：请先填写 FEINIU_HOST，或提供 FEINIU_SITES 多站配置"
+        },
+        "category": {
+          "ok": false,
+          "ms": 0,
+          "err": "飞牛配置缺失：请先填写 FEINIU_HOST，或提供 FEINIU_SITES 多站配置"
+        },
+        "search": {
+          "ok": false,
+          "ms": 0,
+          "err": "飞牛配置缺失：请先填写 FEINIU_HOST，或提供 FEINIU_SITES 多站配置"
+        },
+        "detail": {
+          "ok": false,
+          "ms": 0,
+          "err": "detail: no candidate videoId (search+category both empty)"
+        },
+        "play": {
+          "ok": false,
+          "ms": 0,
+          "err": "play: no episode from detail"
+        }
+      },
+      "verdict": "broken",
+      "reqs": []
+    },
+    {
+      "file": "直播/YY轮播.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 0,
+          "note": {
+            "class": 2,
+            "list": 0,
+            "filters": 0,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": true,
+          "ms": 1551,
+          "note": {
+            "list": 20,
+            "pagecount": 5,
+            "total": 97
+          }
+        },
+        "search": {
+          "ok": false,
+          "ms": 1,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": true,
+          "ms": 0,
+          "note": {
+            "name": "【林正英经典】玄幻电影",
+            "sources": 1,
+            "episodes": 4
+          }
+        },
+        "play": {
+          "ok": true,
+          "ms": 252,
+          "note": {
+            "url": "https://sslproxy.yy.com:4443/livesystem/15013_xv_1462895099_1462895099_0_1_0-15013_xa_1462895099_1462895099_0_0_0.m3u8?o",
+            "n": 0,
+            "parse": 0
+          }
+        }
+      },
+      "verdict": "partial",
+      "reqs": [
+        {
+          "url": "https://www.yy.com/apiSearch/doSearch.json?q=%E5%BC%A0%E5%9B%BD%E8%8D%A3%E4%B8%8E%E5%91%A8%E6%B6%A6%E5%8F%91%E7%9A%84%E5%85%84%E5%BC%9F%E6%83%85&t=120&n=1&s=0",
+          "status": 200,
+          "len": 7978,
+          "t": "axios"
+        },
+        {
+          "url": "https://www.yy.com/apiSearch/doSearch.json?q=%E6%9D%8E%E8%BF%9E%E6%9D%B0%E5%8A%9F%E5%A4%AB%E7%BB%8F%E5%85%B8%E6%AD%A6%E4%BE%A0&t=120&n=1&s=0",
+          "status": 200,
+          "len": 8333,
+          "t": "axios"
+        },
+        {
+          "url": "https://www.yy.com/apiSearch/doSearch.json?q=%E7%BB%8F%E5%85%B8%E9%AC%BC%E7%89%873000%E9%83%A8&t=120&n=1&s=0",
+          "status": 200,
+          "len": 9111,
+          "t": "axios"
+        },
+        {
+          "url": "https://www.yy.com/apiSearch/doSearch.json?q=%E5%A4%8F%E6%B4%9B%E7%89%B9%E7%83%A6%E6%81%BC&t=120&n=1&s=0",
+          "status": 200,
+          "len": 8936,
+          "t": "axios"
+        },
+        {
+          "url": "https://www.yy.com/apiSearch/doSearch.json?q=%E6%88%90%E9%BE%99%E7%B3%BB%E5%88%97&t=120&n=1&s=0",
+          "status": 200,
+          "len": 6488,
+          "t": "axios"
+        },
+        {
+          "url": "https://www.yy.com/apiSearch/doSearch.json?q=%E8%B5%8C%E7%A5%9E%E6%B8%AF%E7%89%87%E5%96%9C%E5%89%A7&t=120&n=1&s=0",
+          "status": 200,
+          "len": 781,
+          "t": "axios"
+        },
+        {
+          "url": "https://www.yy.com/apiSearch/doSearch.json?q=%E6%B4%AA%E9%87%91%E5%AE%9D%E7%A6%8F%E6%98%9F%E7%B3%BB%E5%88%97&t=120&n=1&s=0",
+          "status": 200,
+          "len": 6681,
+          "t": "axios"
+        },
+        {
+          "url": "https://www.yy.com/apiSearch/doSearch.json?q=%E8%B6%85%E6%B8%85%E9%AC%BC%E7%89%87%E6%B8%AF%E7%89%87&t=120&n=1&s=0",
+          "status": 200,
+          "len": 8044,
+          "t": "axios"
+        },
+        {
+          "url": "https://www.yy.com/apiSearch/doSearch.json?q=%E6%99%BA%E5%8F%96%E5%A8%81%E8%99%8E%E5%B1%B1&t=120&n=1&s=0",
+          "status": 200,
+          "len": 8184,
+          "t": "axios"
+        },
+        {
+          "url": "https://www.yy.com/apiSearch/doSearch.json?q=%E9%9C%87%E6%92%BC%EF%BC%81%E5%9B%BD%E5%86%85%E5%8A%9F%E5%A4%AB%E5%A4%A7%E7%89%87&t=120&n=1&s=0",
+          "status": 200,
+          "len": 784,
+          "t": "axios"
+        },
+        {
+          "url": "https://www.yy.com/apiSearch/doSearch.json?q=%E5%9B%BD%E5%86%85%E7%8E%84%E5%B9%BB%E7%94%B5%E5%BD%B1&t=120&n=1&s=0",
+          "status": 200,
+          "len": 781,
+          "t": "axios"
+        },
+        {
+          "url": "https://www.yy.com/apiSearch/doSearch.json?q=%E9%80%9F%E5%BA%A6%E4%B8%8E%E6%BF%80%E6%83%85%E5%85%A8%E9%9B%86&t=120&n=1&s=0",
+          "status": 200,
+          "len": 6777,
+          "t": "axios"
+        },
+        {
+          "url": "https://www.yy.com/apiSearch/doSearch.json?q=%E6%BC%AB%E5%A8%81%E5%8D%81%E5%B9%B4%E8%80%81%E7%B2%89%E7%A6%8F%E5%88%A9%E6%9D%A5%E4%BA%86&t=120&n=1&s=0",
+          "status": 200,
+          "len": 8586,
+          "t": "axios"
+        },
+        {
+          "url": "https://interface.yy.com/hls/new/get/1462895099/1462895099/1200?source=wapyy&callback=jsonp3",
+          "status": 200,
+          "len": 349,
+          "t": "axios"
+        }
+      ]
+    },
+    {
+      "file": "直播/抖音直播.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 723,
+          "note": {
+            "class": 10,
+            "list": 0,
+            "filters": 0,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": true,
+          "ms": 679,
+          "note": {
+            "list": 15,
+            "pagecount": 2
+          }
+        },
+        "search": {
+          "ok": false,
+          "ms": 583,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": true,
+          "ms": 413,
+          "note": {
+            "name": "施工现场记录，挖机日常修路安全",
+            "sources": 2,
+            "episodes": 4
+          }
+        },
+        "play": {
+          "ok": true,
+          "ms": 0,
+          "note": {
+            "url": "http://pull-flv-t26.douyincdn.com/stage/stream-696866295049880375_or4.flv?expire=6afa5961&sign=0c8d3fc4d8b2b8db6d50fa6de",
+            "n": 1,
+            "parse": 0
+          }
+        }
+      },
+      "verdict": "partial",
+      "reqs": [
+        {
+          "url": "https://live.douyin.com",
+          "status": 200,
+          "len": 953850,
+          "t": "axios"
+        },
+        {
+          "url": "https://live.douyin.com/webcast/web/partition/detail/room/v2/?aid=6383&app_name=douyin_web&live_id=1&device_platform=web&language=zh-CN&browser_language=zh-CN&browser_platform=Win32&browser_name=Chrom",
+          "status": 200,
+          "len": 0,
+          "t": "axios"
+        },
+        {
+          "url": "https://webcast.amemv.com/webcast/web/partition/detail/room/v2/?aid=6383&app_name=douyin_web&live_id=1&device_platform=web&language=zh-CN&browser_language=zh-CN&browser_platform=Win32&browser_name=Chr",
+          "status": 200,
+          "len": 894099,
+          "t": "axios"
+        },
+        {
+          "url": "https://www.douyin.com/aweme/v1/web/live/search/?device_platform=webapp&aid=6383&channel=channel_pc_web&search_channel=aweme_live&search_source=switch_tab&query_correct_type=1&need_filter_settings=1&l",
+          "status": 200,
+          "len": 105,
+          "t": "axios"
+        },
+        {
+          "url": "https://www.douyin.com/aweme/v1/web/general/search/stream/?device_platform=webapp&aid=6383&channel=channel_pc_web&search_channel=aweme_live&keyword=%E5%BA%86%E4%BD%99%E5%B9%B4&offset=0&count=20&os_ver",
+          "status": 200,
+          "len": 81,
+          "t": "axios"
+        },
+        {
+          "url": "https://live.douyin.com/webcast/web/partition/search/?keyword=%E5%BA%86%E4%BD%99%E5%B9%B4&aid=6383",
+          "status": 200,
+          "len": 74,
+          "t": "axios"
+        },
+        {
+          "url": "https://live.douyin.com/webcast/room/web/enter/?aid=6383&app_name=douyin_web&live_id=1&device_platform=web&enter_from=web_live&browser_language=zh-CN&browser_platform=Win32&browser_name=Chrome&browser",
+          "status": 200,
+          "len": 481137,
+          "t": "axios"
+        }
+      ]
+    },
+    {
+      "file": "直播/斗鱼直播.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 0,
+          "note": {
+            "class": 9,
+            "list": 0,
+            "filters": 0,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": true,
+          "ms": 233,
+          "note": {
+            "list": 8,
+            "pagecount": 99
+          }
+        },
+        "search": {
+          "ok": false,
+          "ms": 138,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": true,
+          "ms": 0,
+          "note": {
+            "name": "直播间: 431460",
+            "sources": 1,
+            "episodes": 1
+          }
+        },
+        "play": {
+          "ok": true,
+          "ms": 264,
+          "note": {
+            "url": "https://huosa.douyucdn2.cn/live/431460rrhSOIDkva_550.flv?wsAuth=8fbc3d7aefc456d4fd964922a4bbfbd9&token=web-h5-0-431460-5",
+            "n": 1,
+            "parse": 0
+          }
+        }
+      },
+      "verdict": "partial",
+      "reqs": [
+        {
+          "url": "https://m.douyu.com/api/room/list?page=1&type=yqk",
+          "status": 200,
+          "len": 3178,
+          "t": "axios"
+        },
+        {
+          "url": "https://m.douyu.com/api/search/liveRoom?sk=%E5%BA%86%E4%BD%99%E5%B9%B4&offset=0&limit=20&did=10000000000000000000000000001501",
+          "status": 200,
+          "len": 2123,
+          "t": "axios"
+        },
+        {
+          "url": "https://www.douyu.com/wgapi/livenc/liveweb/websec/getEncryption?did=10000000000000000000000000001501",
+          "status": 200,
+          "len": 1030,
+          "t": "axios"
+        },
+        {
+          "url": "https://www.douyu.com/lapi/live/getH5PlayV1/431460",
+          "status": 200,
+          "len": 2220,
+          "t": "axios"
+        }
+      ]
+    },
+    {
+      "file": "短剧/嘟嘟短剧.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 107,
+          "note": {
+            "class": 57,
+            "list": 0,
+            "filters": 0,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": false,
+          "ms": 62,
+          "err": "category: empty list (type_id=热播)"
+        },
+        "search": {
+          "ok": false,
+          "ms": 47,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": false,
+          "ms": 0,
+          "err": "detail: no candidate videoId (search+category both empty)"
+        },
+        "play": {
+          "ok": false,
+          "ms": 0,
+          "err": "play: no episode from detail"
+        }
+      },
+      "verdict": "broken",
+      "reqs": []
+    },
+    {
+      "file": "短剧/星星短剧.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 452,
+          "note": {
+            "class": 5,
+            "list": 8,
+            "filters": 0,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": true,
+          "ms": 398,
+          "note": {
+            "list": 8,
+            "pagecount": 999,
+            "total": 8
+          }
+        },
+        "search": {
+          "ok": false,
+          "ms": 1,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": true,
+          "ms": 540,
+          "note": {
+            "name": "千金驾到",
+            "sources": 1,
+            "episodes": 80
+          }
+        },
+        "play": {
+          "ok": true,
+          "ms": 0,
+          "note": {
+            "url": "http://img.novel.wsljf.xyz/shortPlay-mp4/437424643637249/GZRfB1754881124538/2a2bf885-69ea-4aa9-80a4-1ebb782af11f/540x960",
+            "n": 1,
+            "parse": 0
+          }
+        }
+      },
+      "verdict": "partial",
+      "reqs": [
+        {
+          "url": "http://read.api.duodutek.com/novel-api/app/pageModel/getResourceById?productId=2a8c14d1-72e7-498b-af23-381028eb47c0&vestId=2be070e0-c824-4d0e-a67a-8f688890cadb&channel=oppo19&osType=android&version=20",
+          "status": 200,
+          "len": 8932,
+          "t": "fetch"
+        },
+        {
+          "url": "http://read.api.duodutek.com/novel-api/app/pageModel/getResourceById?productId=2a8c14d1-72e7-498b-af23-381028eb47c0&vestId=2be070e0-c824-4d0e-a67a-8f688890cadb&channel=oppo19&osType=android&version=20",
+          "status": 200,
+          "len": 8932,
+          "t": "fetch"
+        },
+        {
+          "url": "http://read.api.duodutek.com/novel-api/basedata/book/getChapterList?productId=2a8c14d1-72e7-498b-af23-381028eb47c0&vestId=2be070e0-c824-4d0e-a67a-8f688890cadb&channel=oppo19&osType=android&version=20&",
+          "status": 200,
+          "len": 79790,
+          "t": "fetch"
+        }
+      ]
+    },
+    {
+      "file": "短剧/短剧粉.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 584,
+          "note": {
+            "class": 6,
+            "list": 0,
+            "filters": 0,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": false,
+          "ms": 383,
+          "err": "category: empty list (type_id=21)"
+        },
+        "search": {
+          "ok": false,
+          "ms": 2637,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": false,
+          "ms": 0,
+          "err": "detail: no candidate videoId (search+category both empty)"
+        },
+        "play": {
+          "ok": false,
+          "ms": 0,
+          "err": "play: no episode from detail"
+        }
+      },
+      "verdict": "broken",
+      "reqs": [
+        {
+          "url": "https://www.djfen.cc/",
+          "status": 403,
+          "len": 5583,
+          "t": "curl"
+        },
+        {
+          "url": "https://www.djfen.cc/list/21/",
+          "status": 403,
+          "len": 5607,
+          "t": "curl"
+        },
+        {
+          "url": "https://www.djfen.cc/",
+          "status": 403,
+          "len": 5583,
+          "t": "curl"
+        },
+        {
+          "url": "https://www.djfen.cc/list/21/",
+          "status": 403,
+          "len": 5629,
+          "t": "curl"
+        },
+        {
+          "url": "https://www.djfen.cc/list/2/",
+          "status": 403,
+          "len": 5604,
+          "t": "curl"
+        },
+        {
+          "url": "https://www.djfen.cc/list/3/",
+          "status": 403,
+          "len": 5604,
+          "t": "curl"
+        },
+        {
+          "url": "https://www.djfen.cc/list/5/",
+          "status": 403,
+          "len": 5604,
+          "t": "curl"
+        },
+        {
+          "url": "https://www.djfen.cc/list/4/",
+          "status": 403,
+          "len": 5604,
+          "t": "curl"
+        },
+        {
+          "url": "https://www.djfen.cc/list/20/",
+          "status": 403,
+          "len": 5607,
+          "t": "curl"
+        }
+      ]
+    },
+    {
+      "file": "短剧/短剧网.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 799,
+          "note": {
+            "class": 2,
+            "list": 20,
+            "filters": 0,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": true,
+          "ms": 240,
+          "note": {
+            "list": 20,
+            "pagecount": 2
+          }
+        },
+        "search": {
+          "ok": false,
+          "ms": 90,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": false,
+          "ms": 367,
+          "err": "detail: no playable episodes (sources=0, episodes=0)"
+        },
+        "play": {
+          "ok": false,
+          "ms": 0,
+          "err": "play: no episode from detail"
+        }
+      },
+      "verdict": "broken",
+      "reqs": [
+        {
+          "url": "https://sm3.cc/?cate=1&page=1",
+          "status": 200,
+          "len": 22600,
+          "t": "axios"
+        },
+        {
+          "url": "https://sm3.cc/?cate=1&page=1",
+          "status": 200,
+          "len": 22600,
+          "t": "axios"
+        },
+        {
+          "url": "https://sm3.cc/?id=99744",
+          "status": 200,
+          "len": 9248,
+          "t": "axios"
+        }
+      ]
+    },
+    {
+      "file": "短剧/短剧聚合.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 214,
+          "note": {
+            "class": 4,
+            "list": 0,
+            "filters": 11,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": true,
+          "ms": 445,
+          "note": {
+            "list": 67,
+            "pagecount": 1
+          }
+        },
+        "search": {
+          "ok": false,
+          "ms": 941,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": true,
+          "ms": 281,
+          "note": {
+            "name": "抚远不远",
+            "sources": 1,
+            "episodes": 33
+          }
+        },
+        "play": {
+          "ok": true,
+          "ms": 0,
+          "note": {
+            "url": "https://cdn-vod-playlet.wtzw.com/asset/b1334fc08e4805f4c721ea188f0f8704/play_multi_video/6f7310c287644b7c813ab8e2eb7a4a0",
+            "n": 1,
+            "parse": 0
+          }
+        }
+      },
+      "verdict": "partial",
+      "reqs": [
+        {
+          "url": "https://u.shytkjgs.com/user/v1/account/login",
+          "status": 200,
+          "len": 1106,
+          "t": "axios"
+        },
+        {
+          "url": "https://api-store.qmplaylet.com/api/v1/playlet/index?tag_id=0&playlet_privacy=1&operation=1&sign=d1a22e59f0505884864c7cdfa7423186",
+          "status": 200,
+          "len": 65211,
+          "t": "axios"
+        },
+        {
+          "url": "https://api.xingzhige.com/API/playlet/?keyword=%E5%BA%86%E4%BD%99%E5%B9%B4&page=1",
+          "status": 403,
+          "len": 0,
+          "t": "curl",
+          "retriedFrom": 403
+        },
+        {
+          "url": "https://xifan-api-cn.youlishipin.com/xifan/search/getSearchList?keyword=%E5%BA%86%E4%BD%99%E5%B9%B484&pageIndex=1&version=2001001&androidVersionCode=28&requestId=1794186980ea3a14bc0317d76f&appId=drama",
+          "status": 200,
+          "len": 8476,
+          "t": "axios"
+        },
+        {
+          "url": "https://api-store.qmplaylet.com/api/v1/playlet/search?search_word=%E5%BA%86%E4%BD%99%E5%B9%B4&playlet_privacy=1&operation=2&sign=589d28d5aa70977291293ff236b6f41d",
+          "status": 200,
+          "len": 60,
+          "t": "axios"
+        },
+        {
+          "url": "https://api-read.qmplaylet.com/player/api/v1/playlet/info?playlet_id=21277&sign=94a45eec0cb878951f45cc5fee5b32e6",
+          "status": 200,
+          "len": 20803,
+          "t": "axios"
+        }
+      ]
+    },
+    {
+      "file": "音乐/DJ音乐.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 192,
+          "note": {
+            "class": 11,
+            "list": 12,
+            "filters": 0,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": true,
+          "ms": 51,
+          "note": {
+            "list": 27,
+            "pagecount": 1,
+            "total": 27
+          }
+        },
+        "search": {
+          "ok": true,
+          "ms": 84,
+          "note": {
+            "list": 109,
+            "pagecount": 1
+          }
+        },
+        "detail": {
+          "ok": true,
+          "ms": 1,
+          "note": {
+            "name": "DJ",
+            "sources": 1,
+            "episodes": 1
+          }
+        },
+        "play": {
+          "ok": false,
+          "ms": 62,
+          "err": "play: empty urls"
+        }
+      },
+      "verdict": "partial",
+      "reqs": [
+        {
+          "url": "https://www.djuu.com/djlist/1_1.html",
+          "status": 200,
+          "len": 77260,
+          "t": "fetch"
+        },
+        {
+          "url": "https://www.djuu.com/djlist/1_1.html",
+          "status": 200,
+          "len": 77260,
+          "t": "fetch"
+        },
+        {
+          "url": "https://www.djuu.com/search?musicname=%E5%BA%86%E4%BD%99%E5%B9%B4",
+          "status": 200,
+          "len": 30966,
+          "t": "fetch"
+        },
+        {
+          "url": "https://www.djuu.com/",
+          "status": 200,
+          "len": 175035,
+          "t": "fetch"
+        }
+      ]
+    },
+    {
+      "file": "音乐/世纪音乐.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": true,
+          "ms": 91,
+          "note": {
+            "class": 5,
+            "list": 0,
+            "filters": 3,
+            "banner": 0
+          }
+        },
+        "category": {
+          "ok": false,
+          "ms": 23,
+          "err": "category: empty list (type_id=home)"
+        },
+        "search": {
+          "ok": true,
+          "ms": 382,
+          "note": {
+            "list": 66,
+            "pagecount": 1
+          }
+        },
+        "detail": {
+          "ok": true,
+          "ms": 22,
+          "note": {
+            "name": "🎵 人机验证",
+            "sources": 1,
+            "episodes": 1
+          }
+        },
+        "play": {
+          "ok": true,
+          "ms": 47,
+          "note": {
+            "url": "https://www.4c44.com/data/down.php?ac=music&id=hyckwkthyn",
+            "n": 1,
+            "parse": 0
+          }
+        }
+      },
+      "verdict": "broken",
+      "reqs": [
+        {
+          "url": "https://www.4c44.com/",
+          "status": 200,
+          "len": 2533,
+          "t": "axios"
+        },
+        {
+          "url": "https://www.4c44.com/",
+          "status": 200,
+          "len": 2533,
+          "t": "axios"
+        },
+        {
+          "url": "https://www.4c44.com/so.php?wd=%E5%BA%86%E4%BD%99%E5%B9%B4&page=1",
+          "status": 200,
+          "len": 15235,
+          "t": "axios"
+        },
+        {
+          "url": "https://www.4c44.com/mp3/hyckwkthyn.html",
+          "status": 200,
+          "len": 2533,
+          "t": "axios"
+        },
+        {
+          "url": "https://www.4c44.com/down.php?ac=music&lk=txt&id=hyckwkthyn",
+          "status": 200,
+          "len": 1,
+          "t": "axios"
+        },
+        {
+          "url": "https://www.4c44.com/data/lrc/hyckwkthyn.lrc",
+          "status": 404,
+          "len": 1,
+          "t": "axios"
+        }
+      ]
+    },
+    {
+      "file": "音乐/枫叶音乐.js",
+      "loadOk": true,
+      "exports": [
+        "home",
+        "category",
+        "detail",
+        "search",
+        "play"
+      ],
+      "steps": {
+        "home": {
+          "ok": false,
+          "ms": 381,
+          "err": "home: empty class list"
+        },
+        "category": {
+          "ok": false,
+          "ms": 88,
+          "err": "category: empty list (type_id=1)"
+        },
+        "search": {
+          "ok": false,
+          "ms": 87,
+          "err": "search: empty list for keyword=庆余年"
+        },
+        "detail": {
+          "ok": false,
+          "ms": 0,
+          "err": "detail: no candidate videoId (search+category both empty)"
+        },
+        "play": {
+          "ok": false,
+          "ms": 0,
+          "err": "play: no episode from detail"
+        }
+      },
+      "verdict": "broken",
+      "reqs": []
+    }
+  ]
+}

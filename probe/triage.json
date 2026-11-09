@@ -1,0 +1,1068 @@
+[
+  {
+    "file": "Emby/模板一.js",
+    "verdict": "broken",
+    "step": null,
+    "cls": "LOAD_ERR",
+    "last": {
+      "url": ""
+    },
+    "err": "Unexpected token ':'"
+  },
+  {
+    "file": "Emby/模板二.js",
+    "verdict": "broken",
+    "step": "home",
+    "cls": "NO_REQ",
+    "last": {
+      "url": ""
+    },
+    "err": "home: empty class list"
+  },
+  {
+    "file": "动漫/girigiri爱动漫.js",
+    "verdict": "broken",
+    "step": "category",
+    "cls": "SHELL",
+    "last": {
+      "url": "https://bgm.girigirilove.com/show/2-----------/",
+      "status": 200,
+      "len": 5889
+    },
+    "err": "category: empty list (type_id=2)"
+  },
+  {
+    "file": "动漫/嗷呜动漫.js",
+    "verdict": "broken",
+    "step": "category",
+    "cls": "NO_REQ",
+    "last": {
+      "url": ""
+    },
+    "err": "category: empty list (type_id=20)"
+  },
+  {
+    "file": "动漫/樱花动漫.js",
+    "verdict": "partial",
+    "step": "search",
+    "cls": "PARSE",
+    "last": {
+      "url": "https://www.dmvvv.com/play/891-1-1/",
+      "status": 200,
+      "len": 47273
+    },
+    "err": "search: empty list for keyword=庆余年"
+  },
+  {
+    "file": "动漫/稀饭动漫.js",
+    "verdict": "broken",
+    "step": "category",
+    "cls": "PARSE",
+    "last": {
+      "url": "https://dm.xifanacg.com/index.php/ajax/suggest?mid=1&wd=%E5%BA%86%E4%B",
+      "status": 200,
+      "len": 474509
+    },
+    "err": "category: empty list (type_id=1)"
+  },
+  {
+    "file": "听书/博看听书.js",
+    "verdict": "partial",
+    "step": "search",
+    "cls": "PARSE",
+    "last": {
+      "url": "https://api.bookan.com.cn/voice/album/units?album_id=902849&page=1&num",
+      "status": 200,
+      "len": 26252
+    },
+    "err": "search: empty list for keyword=庆余年"
+  },
+  {
+    "file": "听书/听友FM.js",
+    "verdict": "broken",
+    "step": "category",
+    "cls": "PARSE",
+    "last": {
+      "url": "https://tingyou.fm/",
+      "status": 200,
+      "len": 175233
+    },
+    "err": "category: empty list (type_id=46)"
+  },
+  {
+    "file": "听书/番茄畅听.js",
+    "verdict": "broken",
+    "step": "category",
+    "cls": "SERVER_5XX",
+    "last": {
+      "url": "https://qkfqapi.vv9v.cn/api/search?key=%E5%BA%86%E4%BD%99%E5%B9%B4&tab",
+      "status": 521,
+      "len": 0
+    },
+    "err": "category: empty list (type_id=899)"
+  },
+  {
+    "file": "已失效待修复/听书/六月听书.js",
+    "verdict": "broken",
+    "step": "category",
+    "cls": "NO_REQ",
+    "last": {
+      "url": ""
+    },
+    "err": "category: empty list (type_id=t0)"
+  },
+  {
+    "file": "已失效待修复/影视/采集/RRSP.js",
+    "verdict": "broken",
+    "step": "category",
+    "cls": "NO_REQ",
+    "last": {
+      "url": ""
+    },
+    "err": "category: empty list (type_id=1)"
+  },
+  {
+    "file": "影视/影视库/影视库.js",
+    "verdict": "broken",
+    "step": "category",
+    "cls": "NO_REQ",
+    "last": {
+      "url": ""
+    },
+    "err": "OmniBox.listMediaItems is not a function"
+  },
+  {
+    "file": "影视/磁力/不太灵.js",
+    "verdict": "broken",
+    "step": "home",
+    "cls": "SHELL",
+    "last": {
+      "url": "https://web5.mukaku.com/prod/api/v1/getVideoList?app_id=83768d9ad4&ide",
+      "status": 200,
+      "len": 279
+    },
+    "err": "home: empty class list"
+  },
+  {
+    "file": "影视/磁力/磁力熊.js",
+    "verdict": "broken",
+    "step": "category",
+    "cls": "SHELL",
+    "last": {
+      "url": "https://www.cilixiong.com/e/search/index.php",
+      "status": 200,
+      "len": 5670
+    },
+    "err": "category: empty list (type_id=movie)"
+  },
+  {
+    "file": "影视/网盘/4K指南.js",
+    "verdict": "partial",
+    "step": "search",
+    "cls": "PARSE",
+    "last": {
+      "url": "https://4kzn.cc/book/15632.html",
+      "status": 200,
+      "len": 45079
+    },
+    "err": "search: empty list for keyword=庆余年"
+  },
+  {
+    "file": "影视/网盘/AListTvbox.js",
+    "verdict": "broken",
+    "step": "home",
+    "cls": "NO_REQ",
+    "last": {
+      "url": ""
+    },
+    "err": "home: empty class list"
+  },
+  {
+    "file": "影视/网盘/七味分组.js",
+    "verdict": "broken",
+    "step": "category",
+    "cls": "WAF",
+    "last": {
+      "url": "https://www.qnhot.com/index.php/ajax/suggest?mid=1&limit=20&wd=%E5%BA%",
+      "status": 403,
+      "len": 0
+    },
+    "err": "category: empty list (type_id=1)"
+  },
+  {
+    "file": "影视/网盘/二小.js",
+    "verdict": "broken",
+    "step": "home",
+    "cls": "NO_REQ",
+    "last": {
+      "url": ""
+    },
+    "err": "home: empty class list"
+  },
+  {
+    "file": "影视/网盘/光鸭·臻影社.js",
+    "verdict": "broken",
+    "step": "category",
+    "cls": "NO_REQ",
+    "last": {
+      "url": ""
+    },
+    "err": "category: empty list (type_id=film)"
+  },
+  {
+    "file": "影视/网盘/剧迷115.js",
+    "verdict": "broken",
+    "step": "category",
+    "cls": "SHELL",
+    "last": {
+      "url": "https://www.gimy115.top/index.php/vod/search/wd/%E5%BA%86%E4%BD%99%E5%",
+      "status": 200,
+      "len": 3388
+    },
+    "err": "category: empty list (type_id=1)"
+  },
+  {
+    "file": "影视/网盘/多多.js",
+    "verdict": "broken",
+    "step": "detail",
+    "cls": "PARSE",
+    "last": {
+      "url": "https://tv.yydsys.top/index.php/vod/detail/id/139.html",
+      "status": 200,
+      "len": 73527
+    },
+    "err": "detail: no playable episodes (sources=0, episodes=0)"
+  },
+  {
+    "file": "影视/网盘/影巢.js",
+    "verdict": "broken",
+    "step": "home",
+    "cls": "NO_REQ",
+    "last": {
+      "url": ""
+    },
+    "err": "home: empty class list"
+  },
+  {
+    "file": "影视/网盘/快映.js",
+    "verdict": "broken",
+    "step": "detail",
+    "cls": "PARSE",
+    "last": {
+      "url": "http://38.76.197.172:12521/index.php/vod/detail/id/487492.html",
+      "status": 200,
+      "len": 62580
+    },
+    "err": "detail: no playable episodes (sources=0, episodes=0)"
+  },
+  {
+    "file": "影视/网盘/木偶.js",
+    "verdict": "broken",
+    "step": "detail",
+    "cls": "PARSE",
+    "last": {
+      "url": "https://123.666291.xyz/index.php/vod/detail/id/406.html",
+      "status": 200,
+      "len": 76295
+    },
+    "err": "detail: no playable episodes (sources=0, episodes=0)"
+  },
+  {
+    "file": "影视/网盘/欧哥.js",
+    "verdict": "broken",
+    "step": "category",
+    "cls": "SHELL",
+    "last": {
+      "url": "https://woog.nxog.eu.org/index.php/vod/search/page/1/wd/庆余年.html",
+      "status": 200,
+      "len": 0
+    },
+    "err": "category: empty list (type_id=1)"
+  },
+  {
+    "file": "影视/网盘/玩偶.js",
+    "verdict": "broken",
+    "step": "detail",
+    "cls": "PARSE",
+    "last": {
+      "url": "https://www.wogg.net/voddetail/76340.html",
+      "status": 200,
+      "len": 63246
+    },
+    "err": "detail: no playable episodes (sources=0, episodes=0)"
+  },
+  {
+    "file": "影视/网盘/玩偶聚合-非分组.js",
+    "verdict": "broken",
+    "step": "detail",
+    "cls": "PARSE",
+    "last": {
+      "url": "https://tv.214521.xyz/index.php/vod/detail/id/142.html",
+      "status": 200,
+      "len": 80405
+    },
+    "err": "detail: no playable episodes (sources=0, episodes=0)"
+  },
+  {
+    "file": "影视/网盘/玩偶聚合.js",
+    "verdict": "broken",
+    "step": "detail",
+    "cls": "PARSE",
+    "last": {
+      "url": "https://www.wogg.net/voddetail/76340.html",
+      "status": 200,
+      "len": 63246
+    },
+    "err": "detail: no playable episodes (sources=0, episodes=0)"
+  },
+  {
+    "file": "影视/网盘/盘搜.js",
+    "verdict": "broken",
+    "step": "category",
+    "cls": "NO_REQ",
+    "last": {
+      "url": ""
+    },
+    "err": "category: empty list (type_id=history)"
+  },
+  {
+    "file": "影视/网盘/盘搜分组.js",
+    "verdict": "broken",
+    "step": "category",
+    "cls": "NO_REQ",
+    "last": {
+      "url": ""
+    },
+    "err": "category: empty list (type_id=history)"
+  },
+  {
+    "file": "影视/网盘/聚盘搜索.js",
+    "verdict": "broken",
+    "step": "category",
+    "cls": "WAF",
+    "last": {
+      "url": "https://ppan.dyuzi.com/api/frontend/search?q=%E5%BA%86%E4%BD%99%E5%B9%",
+      "status": 403,
+      "len": 548
+    },
+    "err": "category: empty list (type_id=电视剧)"
+  },
+  {
+    "file": "影视/网盘/聚盘搜索分组.js",
+    "verdict": "broken",
+    "step": "category",
+    "cls": "WAF",
+    "last": {
+      "url": "https://ppan.dyuzi.com/api/frontend/search?q=%E5%BA%86%E4%BD%99%E5%B9%",
+      "status": 403,
+      "len": 548
+    },
+    "err": "category: empty list (type_id=电视剧)"
+  },
+  {
+    "file": "影视/网盘/至臻.js",
+    "verdict": "broken",
+    "step": "home",
+    "cls": "NO_REQ",
+    "last": {
+      "url": ""
+    },
+    "err": "home: empty class list"
+  },
+  {
+    "file": "影视/网盘/虎斑.js",
+    "verdict": "broken",
+    "step": "detail",
+    "cls": "PARSE",
+    "last": {
+      "url": "http://38.76.197.172:16969/index.php/vod/detail/id/478632.html",
+      "status": 200,
+      "len": 63329
+    },
+    "err": "detail: no playable episodes (sources=0, episodes=0)"
+  },
+  {
+    "file": "影视/网盘/蜗牛4K.js",
+    "verdict": "broken",
+    "step": "home",
+    "cls": "SERVER_5XX",
+    "last": {
+      "url": "https://zmi.kdns.fr/vodsearch/%E5%BA%86%E4%BD%99%E5%B9%B4-------------",
+      "status": 522,
+      "len": 7221
+    },
+    "err": "STEP_TIMEOUT home 40000ms"
+  },
+  {
+    "file": "影视/网盘/蜡笔.js",
+    "verdict": "broken",
+    "step": "home",
+    "cls": "HTTP_409",
+    "last": {
+      "url": "http://xiaocgege.shop/index.php/vod/search/page/1/wd/庆余年.html",
+      "status": 409,
+      "len": 890
+    },
+    "err": "home: empty class list"
+  },
+  {
+    "file": "影视/网盘/闪电.js",
+    "verdict": "broken",
+    "step": "home",
+    "cls": "SERVER_5XX",
+    "last": {
+      "url": "https://sd.sduc.site/index.php/vod/search/page/1/wd/庆余年.html",
+      "status": 522,
+      "len": 0
+    },
+    "err": "home: empty class list"
+  },
+  {
+    "file": "影视/采集/4KMP.js",
+    "verdict": "broken",
+    "step": "category",
+    "cls": "WAF",
+    "last": {
+      "url": "https://4k-av.com/s?y=%E5%BA%86%E4%BD%99%E5%B9%B4",
+      "status": 403,
+      "len": 871
+    },
+    "err": "category: empty list (type_id=movie)"
+  },
+  {
+    "file": "影视/采集/88看球.js",
+    "verdict": "partial",
+    "step": "search",
+    "cls": "SHELL",
+    "last": {
+      "url": "http://www.88kanqiu.cc/live/130719/source",
+      "status": 200,
+      "len": 2760
+    },
+    "err": "search: empty list for keyword=庆余年"
+  },
+  {
+    "file": "影视/采集/Auete影视.js",
+    "verdict": "broken",
+    "step": "category",
+    "cls": "SHELL",
+    "last": {
+      "url": "https://auete.top/mipso.php?searchword=%E5%BA%86%E4%BD%99%E5%B9%B4",
+      "status": 200,
+      "len": 5672
+    },
+    "err": "category: empty list (type_id=Movie)"
+  },
+  {
+    "file": "影视/采集/FKTV.js",
+    "verdict": "broken",
+    "step": "category",
+    "cls": "404",
+    "last": {
+      "url": "https://fktv.me/search?keyword=%E5%BA%86%E4%BD%99%E5%B9%B4",
+      "status": 404,
+      "len": 13429
+    },
+    "err": "category: empty list (type_id=1)"
+  },
+  {
+    "file": "影视/采集/Gimy剧迷.js",
+    "verdict": "broken",
+    "step": "search",
+    "cls": "PARSE",
+    "last": {
+      "url": "https://gimyai.tw/detail/927187.html",
+      "status": 200,
+      "len": 36869
+    },
+    "err": "search: empty list for keyword=庆余年"
+  },
+  {
+    "file": "影视/采集/HDmoli.js",
+    "verdict": "partial",
+    "step": "search",
+    "cls": "PARSE",
+    "last": {
+      "url": "https://www.hdmoli.me/play/3927-5-1.html",
+      "status": 200,
+      "len": 38557
+    },
+    "err": "search: empty list for keyword=庆余年"
+  },
+  {
+    "file": "影视/采集/LIBVIO.js",
+    "verdict": "partial",
+    "step": "search",
+    "cls": "NO_REQ",
+    "last": {
+      "url": ""
+    },
+    "err": "search: empty list for keyword=庆余年"
+  },
+  {
+    "file": "影视/采集/NO视频.js",
+    "verdict": "broken",
+    "step": "category",
+    "cls": "WAF",
+    "last": {
+      "url": "https://www.novipnoad.net/search/%E5%BA%86%E4%BD%99%E5%B9%B4/",
+      "status": 403,
+      "len": 5757
+    },
+    "err": "category: empty list (type_id=movie)"
+  },
+  {
+    "file": "影视/采集/PPnix.js",
+    "verdict": "partial",
+    "step": "play",
+    "cls": "SHELL",
+    "last": {
+      "url": "https://www.ppnix.com/cn/tv/1804.html",
+      "status": 200,
+      "len": 12767
+    },
+    "err": "STEP_TIMEOUT play 40000ms"
+  },
+  {
+    "file": "影视/采集/StreamingCommunity.js",
+    "verdict": "broken",
+    "step": "home",
+    "cls": "NO_REQ",
+    "last": {
+      "url": ""
+    },
+    "err": "home: empty class list"
+  },
+  {
+    "file": "影视/采集/TVB云播.js",
+    "verdict": "broken",
+    "step": "category",
+    "cls": "NO_REQ",
+    "last": {
+      "url": ""
+    },
+    "err": "category: empty list (type_id=1)"
+  },
+  {
+    "file": "影视/采集/七味.js",
+    "verdict": "broken",
+    "step": "category",
+    "cls": "WAF",
+    "last": {
+      "url": "https://www.pcmp4.com/index.php/ajax/suggest?mid=1&limit=20&wd=%E5%BA%",
+      "status": 403,
+      "len": 0
+    },
+    "err": "category: empty list (type_id=1)"
+  },
+  {
+    "file": "影视/采集/修罗影视.js",
+    "verdict": "broken",
+    "step": "category",
+    "cls": "SERVER_5XX",
+    "last": {
+      "url": "https://www.xlys02.com/search/verifyCode?t=1794186988255",
+      "status": 522,
+      "len": 0
+    },
+    "err": "category: empty list (type_id=movie)"
+  },
+  {
+    "file": "影视/采集/剧圈圈.js",
+    "verdict": "broken",
+    "step": "category",
+    "cls": "404",
+    "last": {
+      "url": "https://www.jqqzx.cc/index.php/ajax/suggest?mid=1&wd=%E5%BA%86%E4%BD%9",
+      "status": 404,
+      "len": 138
+    },
+    "err": "category: empty list (type_id=dianying)"
+  },
+  {
+    "file": "影视/采集/卧龙.js",
+    "verdict": "broken",
+    "step": "home",
+    "cls": "SHELL",
+    "last": {
+      "url": "https://collect.wolongzyw.com/api.php/provide/vod/?ac=list&wd=%E5%BA%8",
+      "status": 200,
+      "len": 6990
+    },
+    "err": "home: empty class list"
+  },
+  {
+    "file": "影视/采集/哇哇影视.js",
+    "verdict": "broken",
+    "step": "home",
+    "cls": "NO_REQ",
+    "last": {
+      "url": ""
+    },
+    "err": "home: empty class list"
+  },
+  {
+    "file": "影视/采集/唐人街影院.js",
+    "verdict": "broken",
+    "step": "category",
+    "cls": "404",
+    "last": {
+      "url": "https://www.trvod.com/vodsearch/-------------.html?wd=%E5%BA%86%E4%BD%",
+      "status": 404,
+      "len": 0
+    },
+    "err": "category: empty list (type_id=movie)"
+  },
+  {
+    "file": "影视/采集/四万影视.js",
+    "verdict": "broken",
+    "step": "category",
+    "cls": "SHELL",
+    "last": {
+      "url": "https://40000.me/api/maccms?ac=detail&wd=%E5%BA%86%E4%BD%99%E5%B9%B4&p",
+      "status": 200,
+      "len": 6990
+    },
+    "err": "category: empty list (type_id=20)"
+  },
+  {
+    "file": "影视/采集/在线之家.js",
+    "verdict": "partial",
+    "step": "search",
+    "cls": "SHELL",
+    "last": {
+      "url": "https://www.zxzjhd.com/vodplay/4601-1-1.html",
+      "status": 200,
+      "len": 13718
+    },
+    "err": "search: empty list for keyword=庆余年"
+  },
+  {
+    "file": "影视/采集/太二影视.js",
+    "verdict": "partial",
+    "step": "search",
+    "cls": "PARSE",
+    "last": {
+      "url": "https://v.tai2.lol/index.php/vod/play/id/700/sid/1/nid/1.html",
+      "status": 200,
+      "len": 27252
+    },
+    "err": "search: empty list for keyword=庆余年"
+  },
+  {
+    "file": "影视/采集/威尔伯TV.js",
+    "verdict": "broken",
+    "step": "category",
+    "cls": "NO_REQ",
+    "last": {
+      "url": ""
+    },
+    "err": "category: empty list (type_id=movie)"
+  },
+  {
+    "file": "影视/采集/小黑米.js",
+    "verdict": "broken",
+    "step": "category",
+    "cls": "PARSE",
+    "last": {
+      "url": "https://xiaoheimi.cc/index.php/vod/play/id/64107/sid/1/nid/1.html",
+      "status": 200,
+      "len": 86661
+    },
+    "err": "category: empty list (type_id=7)"
+  },
+  {
+    "file": "影视/采集/布布影视.js",
+    "verdict": "broken",
+    "step": "category",
+    "cls": "NO_REQ",
+    "last": {
+      "url": ""
+    },
+    "err": "category: empty list (type_id=电影)"
+  },
+  {
+    "file": "影视/采集/影猫仓库.js",
+    "verdict": "ok",
+    "step": null,
+    "cls": "SHELL",
+    "last": {
+      "url": "https://www.ymck.pro/API/v2.php?q=%E5%BA%86%E4%BD%99%E5%B9%B4%E7%AC%AC",
+      "status": 200,
+      "len": 11600
+    },
+    "err": ""
+  },
+  {
+    "file": "影视/采集/影视大全.js",
+    "verdict": "broken",
+    "step": "category",
+    "cls": "NO_REQ",
+    "last": {
+      "url": ""
+    },
+    "err": "category: empty list (type_id=1)"
+  },
+  {
+    "file": "影视/采集/新韩剧网.js",
+    "verdict": "partial",
+    "step": "search",
+    "cls": "SHELL",
+    "last": {
+      "url": "https://www.9hanju.com/u/u1.php?ud=3710_1_1",
+      "status": 200,
+      "len": 108
+    },
+    "err": "search: empty list for keyword=庆余年"
+  },
+  {
+    "file": "影视/采集/星辰影院.js",
+    "verdict": "broken",
+    "step": "category",
+    "cls": "NO_REQ",
+    "last": {
+      "url": ""
+    },
+    "err": "category: empty list (type_id=1)"
+  },
+  {
+    "file": "影视/采集/枝枝影视.js",
+    "verdict": "broken",
+    "step": null,
+    "cls": "LOAD_ERR",
+    "last": {
+      "url": ""
+    },
+    "err": "HARD_TIMEOUT 100000ms"
+  },
+  {
+    "file": "影视/采集/枫叶.js",
+    "verdict": "broken",
+    "step": "category",
+    "cls": "NO_REQ",
+    "last": {
+      "url": ""
+    },
+    "err": "category: empty list (type_id=1)"
+  },
+  {
+    "file": "影视/采集/枫叶4K.js",
+    "verdict": "broken",
+    "step": "category",
+    "cls": "NO_REQ",
+    "last": {
+      "url": ""
+    },
+    "err": "category: empty list (type_id=1)"
+  },
+  {
+    "file": "影视/采集/柯南影视.js",
+    "verdict": "broken",
+    "step": "category",
+    "cls": "SERVER_5XX",
+    "last": {
+      "url": "https://www.knvod.com/search/%E5%BA%86%E4%BD%99%E5%B9%B4-------------.",
+      "status": 520,
+      "len": 7334
+    },
+    "err": "category: empty list (type_id=1)"
+  },
+  {
+    "file": "影视/采集/歪比巴卜.js",
+    "verdict": "partial",
+    "step": "search",
+    "cls": "SHELL",
+    "last": {
+      "url": "https://xn--qvr2v.850088.xyz/player/api.php",
+      "status": 200,
+      "len": 1628
+    },
+    "err": "search: empty list for keyword=庆余年"
+  },
+  {
+    "file": "影视/采集/毒舌影视.js",
+    "verdict": "broken",
+    "step": "category",
+    "cls": "HTTP_408",
+    "last": {
+      "url": "https://m.xnhrsb.com/dsshiyisc/%E5%BA%86%E4%BD%99%E5%B9%B4----------1-",
+      "status": 408,
+      "len": 11023
+    },
+    "err": "category: empty list (type_id=1)"
+  },
+  {
+    "file": "影视/采集/永乐视频.js",
+    "verdict": "broken",
+    "step": "category",
+    "cls": "NO_REQ",
+    "last": {
+      "url": ""
+    },
+    "err": "category: empty list (type_id=1)"
+  },
+  {
+    "file": "影视/采集/泰剧网.js",
+    "verdict": "broken",
+    "step": "category",
+    "cls": "SHELL",
+    "last": {
+      "url": "https://zh.taijuwang.com/all/7---hits/",
+      "status": 200,
+      "len": 4648
+    },
+    "err": "category: empty list (type_id=movie)"
+  },
+  {
+    "file": "影视/采集/片库.js",
+    "verdict": "broken",
+    "step": "category",
+    "cls": "WAF",
+    "last": {
+      "url": "https://pianku.pro/index.php/verify/index.html?type=search&t=179418700",
+      "status": 403,
+      "len": 0
+    },
+    "err": "category: empty list (type_id=1)"
+  },
+  {
+    "file": "影视/采集/电影人生.js",
+    "verdict": "broken",
+    "step": "category",
+    "cls": "PARSE",
+    "last": {
+      "url": "https://www.dyrsok.com/s.html?name=%E5%BA%86%E4%BD%99%E5%B9%B4",
+      "status": 200,
+      "len": 179811
+    },
+    "err": "category: empty list (type_id=dianying)"
+  },
+  {
+    "file": "影视/采集/耐视点播.js",
+    "verdict": "broken",
+    "step": "category",
+    "cls": "SHELL",
+    "last": {
+      "url": "https://nsvod.me/index.php/vod/search.html?wd=%E5%BA%86%E4%BD%99%E5%B9",
+      "status": 200,
+      "len": 8348
+    },
+    "err": "category: empty list (type_id=1)"
+  },
+  {
+    "file": "影视/采集/茶杯狐.js",
+    "verdict": "broken",
+    "step": "category",
+    "cls": "SHELL",
+    "last": {
+      "url": "https://www.cupfox.ai/type/1.html",
+      "status": 200,
+      "len": 7134
+    },
+    "err": "category: empty list (type_id=1)"
+  },
+  {
+    "file": "影视/采集/蛋蛋鱼.js",
+    "verdict": "broken",
+    "step": "category",
+    "cls": "SHELL",
+    "last": {
+      "url": "https://www.ymck.pro/API/v2.php?q=%E5%BA%86%E4%BD%99%E5%B9%B4&size=50",
+      "status": 200,
+      "len": 11600
+    },
+    "err": "category: empty list (type_id=1)"
+  },
+  {
+    "file": "影视/采集/这片海.js",
+    "verdict": "broken",
+    "step": "category",
+    "cls": "NO_REQ",
+    "last": {
+      "url": ""
+    },
+    "err": "category: empty list (type_id=1)"
+  },
+  {
+    "file": "影视/采集/韩小圈.js",
+    "verdict": "partial",
+    "step": "search",
+    "cls": "SHELL",
+    "last": {
+      "url": "https://hanxiaoquan.hanju.workers.dev/api/detail",
+      "status": 200,
+      "len": 884
+    },
+    "err": "search: empty list for keyword=庆余年"
+  },
+  {
+    "file": "教育/贝乐虎.js",
+    "verdict": "partial",
+    "step": "search",
+    "cls": "SHELL",
+    "last": {
+      "url": "https://vd.ubestkid.com/api/v1/bv/video",
+      "status": 200,
+      "len": 14385
+    },
+    "err": "search: empty list for keyword=庆余年"
+  },
+  {
+    "file": "流媒体/Jellyfin.js",
+    "verdict": "broken",
+    "step": "home",
+    "cls": "NO_REQ",
+    "last": {
+      "url": ""
+    },
+    "err": "home: empty class list"
+  },
+  {
+    "file": "流媒体/Plex.js",
+    "verdict": "broken",
+    "step": "home",
+    "cls": "NO_REQ",
+    "last": {
+      "url": ""
+    },
+    "err": "home: empty class list"
+  },
+  {
+    "file": "流媒体/飞牛.js",
+    "verdict": "broken",
+    "step": "home",
+    "cls": "NO_REQ",
+    "last": {
+      "url": ""
+    },
+    "err": "飞牛配置缺失：请先填写 FEINIU_HOST，或提供 FEINIU_SITES 多站配置"
+  },
+  {
+    "file": "直播/YY轮播.js",
+    "verdict": "partial",
+    "step": "search",
+    "cls": "SHELL",
+    "last": {
+      "url": "https://interface.yy.com/hls/new/get/1462895099/1462895099/1200?source",
+      "status": 200,
+      "len": 349
+    },
+    "err": "search: empty list for keyword=庆余年"
+  },
+  {
+    "file": "直播/抖音直播.js",
+    "verdict": "partial",
+    "step": "search",
+    "cls": "PARSE",
+    "last": {
+      "url": "https://live.douyin.com/webcast/room/web/enter/?aid=6383&app_name=douy",
+      "status": 200,
+      "len": 481137
+    },
+    "err": "search: empty list for keyword=庆余年"
+  },
+  {
+    "file": "直播/斗鱼直播.js",
+    "verdict": "partial",
+    "step": "search",
+    "cls": "SHELL",
+    "last": {
+      "url": "https://www.douyu.com/lapi/live/getH5PlayV1/431460",
+      "status": 200,
+      "len": 2220
+    },
+    "err": "search: empty list for keyword=庆余年"
+  },
+  {
+    "file": "短剧/嘟嘟短剧.js",
+    "verdict": "broken",
+    "step": "category",
+    "cls": "NO_REQ",
+    "last": {
+      "url": ""
+    },
+    "err": "category: empty list (type_id=热播)"
+  },
+  {
+    "file": "短剧/星星短剧.js",
+    "verdict": "partial",
+    "step": "search",
+    "cls": "PARSE",
+    "last": {
+      "url": "http://read.api.duodutek.com/novel-api/basedata/book/getChapterList?pr",
+      "status": 200,
+      "len": 79790
+    },
+    "err": "search: empty list for keyword=庆余年"
+  },
+  {
+    "file": "短剧/短剧粉.js",
+    "verdict": "broken",
+    "step": "category",
+    "cls": "WAF",
+    "last": {
+      "url": "https://www.djfen.cc/list/20/",
+      "status": 403,
+      "len": 5607
+    },
+    "err": "category: empty list (type_id=21)"
+  },
+  {
+    "file": "短剧/短剧网.js",
+    "verdict": "broken",
+    "step": "search",
+    "cls": "SHELL",
+    "last": {
+      "url": "https://sm3.cc/?id=99744",
+      "status": 200,
+      "len": 9248
+    },
+    "err": "search: empty list for keyword=庆余年"
+  },
+  {
+    "file": "短剧/短剧聚合.js",
+    "verdict": "partial",
+    "step": "search",
+    "cls": "PARSE",
+    "last": {
+      "url": "https://api-read.qmplaylet.com/player/api/v1/playlet/info?playlet_id=2",
+      "status": 200,
+      "len": 20803
+    },
+    "err": "search: empty list for keyword=庆余年"
+  },
+  {
+    "file": "音乐/DJ音乐.js",
+    "verdict": "partial",
+    "step": "play",
+    "cls": "PARSE",
+    "last": {
+      "url": "https://www.djuu.com/",
+      "status": 200,
+      "len": 175035
+    },
+    "err": "play: empty urls"
+  },
+  {
+    "file": "音乐/世纪音乐.js",
+    "verdict": "broken",
+    "step": "category",
+    "cls": "404",
+    "last": {
+      "url": "https://www.4c44.com/data/lrc/hyckwkthyn.lrc",
+      "status": 404,
+      "len": 1
+    },
+    "err": "category: empty list (type_id=home)"
+  },
+  {
+    "file": "音乐/枫叶音乐.js",
+    "verdict": "broken",
+    "step": "home",
+    "cls": "NO_REQ",
+    "last": {
+      "url": ""
+    },
+    "err": "home: empty class list"
+  }
+]

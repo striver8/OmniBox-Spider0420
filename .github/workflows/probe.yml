@@ -1,0 +1,59 @@
+name: probe-audit
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 20 * * 0"   # 每周一 04:00 (UTC+8)
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: windows-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install runtime deps
+        run: npm install --no-audit --no-fund
+
+      - name: Probe all spiders
+        env:
+          PROBE_CONC: "6"
+          PROBE_HARD_MS: "120000"
+        run: node probe/run.js
+
+      - name: Classify sites
+        run: node probe/classify.js
+
+      - name: Render report
+        run: node probe/gen-report.js
+
+      - name: Summary
+        shell: bash
+        run: |
+          node -e '
+            const r = require("./probe/report.json").results;
+            const by = {};
+            for (const x of r) by[x.verdict] = (by[x.verdict] || 0) + 1;
+            console.log("probe total=" + r.length + " " + JSON.stringify(by));
+            const bad = r.filter(x => x.verdict === "broken").map(x => x.file);
+            require("fs").appendFileSync(process.env.GITHUB_STEP_SUMMARY,
+              "\n### probe " + r.length + "\n\n" + Object.entries(by).map(([k,v]) => "- " + k + ": " + v).join("\n") +
+              "\n\n<details><summary>broken (" + bad.length + ")</summary>\n\n" +
+              bad.map(f => "- " + f).join("\n") + "\n</details>\n");
+          '
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: probe-report
+          path: |
+            probe/report.json
+            probe/classify.json
+            probe/drift.json
+            维护报告.md

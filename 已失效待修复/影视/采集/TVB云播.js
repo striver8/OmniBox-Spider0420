@@ -4,6 +4,7 @@
 // @dependencies: axios, cheerio, crypto
 // @version 1.2.0
 // @downloadURL https://gh-proxy.org/https://github.com/Silent1566/OmniBox-Spider/raw/refs/heads/main/影视/采集/TVB云播.js
+// @status dead | DNS_DEAD | 原域名 http://www.viptv01.com/ 已不可用（2026-11-09 探活）——换源后需重写解析
 
 
 /**

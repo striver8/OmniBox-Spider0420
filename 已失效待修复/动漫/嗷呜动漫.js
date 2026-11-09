@@ -4,6 +4,7 @@
 // @dependencies: axios, cheerio
 // @version 1.0.5
 // @downloadURL https://gh-proxy.org/https://github.com/Silent1566/OmniBox-Spider/raw/refs/heads/main/动漫/嗷呜动漫.js
+// @status dead | DNS_DEAD | 原域名 https://www.aowu.tv/ 已不可用（2026-11-09 探活）——换源后需重写解析
 /**
 * ============================================================================
 * 嗷呜动漫

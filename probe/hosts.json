@@ -1,0 +1,841 @@
+[
+  {
+    "file": "Emby/模板一.js",
+    "verdict": "broken",
+    "hosts": [],
+    "err": "Unexpected token ':'"
+  },
+  {
+    "file": "Emby/模板二.js",
+    "verdict": "broken",
+    "hosts": [],
+    "err": "home: empty class list"
+  },
+  {
+    "file": "动漫/girigiri爱动漫.js",
+    "verdict": "broken",
+    "hosts": [
+      "bgm.girigirilove.com"
+    ],
+    "err": "category: empty list (type_id=2)"
+  },
+  {
+    "file": "动漫/嗷呜动漫.js",
+    "verdict": "broken",
+    "hosts": [
+      "www.aowu.tv",
+      "image.tmdb.org"
+    ],
+    "err": "category: empty list (type_id=20)"
+  },
+  {
+    "file": "动漫/樱花动漫.js",
+    "verdict": "partial",
+    "hosts": [
+      "www.dmvvv.com",
+      "image.tmdb.org"
+    ],
+    "err": "search: empty list for keyword=庆余年"
+  },
+  {
+    "file": "动漫/稀饭动漫.js",
+    "verdict": "broken",
+    "hosts": [
+      "dm.xifanacg.com"
+    ],
+    "err": "category: empty list (type_id=1)"
+  },
+  {
+    "file": "听书/博看听书.js",
+    "verdict": "partial",
+    "hosts": [
+      "api.bookan.com.cn",
+      "es.bookan.com.cn"
+    ],
+    "err": "search: empty list for keyword=庆余年"
+  },
+  {
+    "file": "听书/听友FM.js",
+    "verdict": "broken",
+    "hosts": [
+      "tingyou.fm"
+    ],
+    "err": "category: empty list (type_id=46)"
+  },
+  {
+    "file": "听书/番茄畅听.js",
+    "verdict": "broken",
+    "hosts": [
+      "qkfqapi.vv9v.cn"
+    ],
+    "err": "category: empty list (type_id=899)"
+  },
+  {
+    "file": "已失效待修复/听书/六月听书.js",
+    "verdict": "broken",
+    "hosts": [
+      "m.5weiting.com",
+      "m.6yueting.com"
+    ],
+    "err": "category: empty list (type_id=t0)"
+  },
+  {
+    "file": "已失效待修复/影视/采集/RRSP.js",
+    "verdict": "broken",
+    "hosts": [
+      "rrsp-api.kejiqianxian.com",
+      "image.tmdb.org",
+      "docs.qq.com"
+    ],
+    "err": "category: empty list (type_id=1)"
+  },
+  {
+    "file": "影视/影视库/影视库.js",
+    "verdict": "broken",
+    "hosts": [
+      "127.0.0.1",
+      "image.tmdb.org"
+    ],
+    "err": "OmniBox.listMediaItems is not a function"
+  },
+  {
+    "file": "影视/磁力/不太灵.js",
+    "verdict": "broken",
+    "hosts": [
+      "web5.mukaku.com"
+    ],
+    "err": "home: empty class list"
+  },
+  {
+    "file": "影视/磁力/磁力熊.js",
+    "verdict": "broken",
+    "hosts": [
+      "www.cilixiong.com"
+    ],
+    "err": "category: empty list (type_id=movie)"
+  },
+  {
+    "file": "影视/网盘/4K指南.js",
+    "verdict": "partial",
+    "hosts": [
+      "4kzn.cc",
+      "image.tmdb.org"
+    ],
+    "err": "search: empty list for keyword=庆余年"
+  },
+  {
+    "file": "影视/网盘/AListTvbox.js",
+    "verdict": "broken",
+    "hosts": [
+      "127.0.0.1",
+      "image.tmdb.org"
+    ],
+    "err": "home: empty class list"
+  },
+  {
+    "file": "影视/网盘/七味分组.js",
+    "verdict": "broken",
+    "hosts": [
+      "115.com",
+      "image.tmdb.org",
+      "pan.quark.cn"
+    ],
+    "err": "category: empty list (type_id=1)"
+  },
+  {
+    "file": "影视/网盘/二小.js",
+    "verdict": "broken",
+    "hosts": [
+      "www.2xiaopan.top",
+      "www.erixaopan.fun",
+      "2xiaopan.top"
+    ],
+    "err": "home: empty class list"
+  },
+  {
+    "file": "影视/网盘/光鸭·臻影社.js",
+    "verdict": "broken",
+    "hosts": [
+      "www.guangya.net",
+      "www.guangyapan.com",
+      "api.guangyapan.com"
+    ],
+    "err": "category: empty list (type_id=film)"
+  },
+  {
+    "file": "影视/网盘/剧迷115.js",
+    "verdict": "broken",
+    "hosts": [
+      "image.tmdb.org",
+      "www.gimy115.top",
+      "115.com"
+    ],
+    "err": "category: empty list (type_id=1)"
+  },
+  {
+    "file": "影视/网盘/多多.js",
+    "verdict": "broken",
+    "hosts": [
+      "image.tmdb.org",
+      "tv.yydsys.top",
+      "tv.214521.xyz"
+    ],
+    "err": "detail: no playable episodes (sources=0, episodes=0)"
+  },
+  {
+    "file": "影视/网盘/影巢.js",
+    "verdict": "broken",
+    "hosts": [
+      "www.themoviedb.org",
+      "api.tmdb.org",
+      "image.tmdb.org"
+    ],
+    "err": "home: empty class list"
+  },
+  {
+    "file": "影视/网盘/快映.js",
+    "verdict": "broken",
+    "hosts": [
+      "38.76.197.172",
+      "154.201.83.50",
+      "xsayang.fun"
+    ],
+    "err": "detail: no playable episodes (sources=0, episodes=0)"
+  },
+  {
+    "file": "影视/网盘/木偶.js",
+    "verdict": "broken",
+    "hosts": [
+      "123.666291.xyz",
+      "www.muou.asia",
+      "666.666291.xyz"
+    ],
+    "err": "detail: no playable episodes (sources=0, episodes=0)"
+  },
+  {
+    "file": "影视/网盘/欧哥.js",
+    "verdict": "broken",
+    "hosts": [
+      "woog.nxog.eu.org",
+      "image.tmdb.org"
+    ],
+    "err": "category: empty list (type_id=1)"
+  },
+  {
+    "file": "影视/网盘/玩偶.js",
+    "verdict": "broken",
+    "hosts": [
+      "image.tmdb.org",
+      "wogg.xxooo.cf",
+      "wogg.333232.xyz"
+    ],
+    "err": "detail: no playable episodes (sources=0, episodes=0)"
+  },
+  {
+    "file": "影视/网盘/玩偶聚合-非分组.js",
+    "verdict": "broken",
+    "hosts": [
+      "38.76.197.172",
+      "115.com",
+      "image.tmdb.org"
+    ],
+    "err": "detail: no playable episodes (sources=0, episodes=0)"
+  },
+  {
+    "file": "影视/网盘/玩偶聚合.js",
+    "verdict": "broken",
+    "hosts": [
+      "38.76.197.172",
+      "115.com",
+      "image.tmdb.org"
+    ],
+    "err": "detail: no playable episodes (sources=0, episodes=0)"
+  },
+  {
+    "file": "影视/网盘/盘搜.js",
+    "verdict": "broken",
+    "hosts": [
+      "image.tmdb.org"
+    ],
+    "err": "category: empty list (type_id=history)"
+  },
+  {
+    "file": "影视/网盘/盘搜分组.js",
+    "verdict": "broken",
+    "hosts": [
+      "115.com",
+      "image.tmdb.org",
+      "webapi.115.com"
+    ],
+    "err": "category: empty list (type_id=history)"
+  },
+  {
+    "file": "影视/网盘/聚盘搜索.js",
+    "verdict": "broken",
+    "hosts": [
+      "ppan.dyuzi.com",
+      "image.tmdb.org"
+    ],
+    "err": "category: empty list (type_id=电视剧)"
+  },
+  {
+    "file": "影视/网盘/聚盘搜索分组.js",
+    "verdict": "broken",
+    "hosts": [
+      "ppan.dyuzi.com",
+      "image.tmdb.org"
+    ],
+    "err": "category: empty list (type_id=电视剧)"
+  },
+  {
+    "file": "影视/网盘/至臻.js",
+    "verdict": "broken",
+    "hosts": [
+      "www.miqk.cc",
+      "www.mihdr.top",
+      "mihdr.top"
+    ],
+    "err": "home: empty class list"
+  },
+  {
+    "file": "影视/网盘/虎斑.js",
+    "verdict": "broken",
+    "hosts": [
+      "38.76.197.172",
+      "154.222.27.33",
+      "xhban.xyz"
+    ],
+    "err": "detail: no playable episodes (sources=0, episodes=0)"
+  },
+  {
+    "file": "影视/网盘/蜗牛4K.js",
+    "verdict": "broken",
+    "hosts": [
+      "115.com",
+      "zmi.kdns.fr",
+      "image.tmdb.org"
+    ],
+    "err": "STEP_TIMEOUT home 40000ms"
+  },
+  {
+    "file": "影视/网盘/蜡笔.js",
+    "verdict": "broken",
+    "hosts": [
+      "feimo.fun",
+      "www.xiaocgege.shop",
+      "xiaocgege.shop"
+    ],
+    "err": "home: empty class list"
+  },
+  {
+    "file": "影视/网盘/闪电.js",
+    "verdict": "broken",
+    "hosts": [
+      "sd.sduc.site",
+      "image.tmdb.org"
+    ],
+    "err": "home: empty class list"
+  },
+  {
+    "file": "影视/采集/4KMP.js",
+    "verdict": "broken",
+    "hosts": [
+      "4k-av.com"
+    ],
+    "err": "category: empty list (type_id=movie)"
+  },
+  {
+    "file": "影视/采集/88看球.js",
+    "verdict": "partial",
+    "hosts": [
+      "www.88kanqiu.cc",
+      "pic.imgdb.cn"
+    ],
+    "err": "search: empty list for keyword=庆余年"
+  },
+  {
+    "file": "影视/采集/Auete影视.js",
+    "verdict": "broken",
+    "hosts": [
+      "auete.top"
+    ],
+    "err": "category: empty list (type_id=Movie)"
+  },
+  {
+    "file": "影视/采集/FKTV.js",
+    "verdict": "broken",
+    "hosts": [
+      "fktv.me"
+    ],
+    "err": "category: empty list (type_id=1)"
+  },
+  {
+    "file": "影视/采集/Gimy剧迷.js",
+    "verdict": "broken",
+    "hosts": [
+      "play.gimyai.tw",
+      "gimyai.tw"
+    ],
+    "err": "search: empty list for keyword=庆余年"
+  },
+  {
+    "file": "影视/采集/HDmoli.js",
+    "verdict": "partial",
+    "hosts": [
+      "www.hdmoli.me"
+    ],
+    "err": "search: empty list for keyword=庆余年"
+  },
+  {
+    "file": "影视/采集/LIBVIO.js",
+    "verdict": "partial",
+    "hosts": [
+      "image.tmdb.org",
+      "www.libvio.lat",
+      "www.libvios.com"
+    ],
+    "err": "search: empty list for keyword=庆余年"
+  },
+  {
+    "file": "影视/采集/NO视频.js",
+    "verdict": "broken",
+    "hosts": [
+      "www.novipnoad.net"
+    ],
+    "err": "category: empty list (type_id=movie)"
+  },
+  {
+    "file": "影视/采集/PPnix.js",
+    "verdict": "partial",
+    "hosts": [
+      "www.ppnix.com",
+      "1.ppnix.com",
+      "192.168.50.50"
+    ],
+    "err": "STEP_TIMEOUT play 40000ms"
+  },
+  {
+    "file": "影视/采集/StreamingCommunity.js",
+    "verdict": "broken",
+    "hosts": [
+      "streamingcommunityz.pink",
+      "cdn.streamingcommunityz.pink"
+    ],
+    "err": "home: empty class list"
+  },
+  {
+    "file": "影视/采集/TVB云播.js",
+    "verdict": "broken",
+    "hosts": [
+      "www.viptv01.com",
+      "image.tmdb.org"
+    ],
+    "err": "category: empty list (type_id=1)"
+  },
+  {
+    "file": "影视/采集/七味.js",
+    "verdict": "broken",
+    "hosts": [
+      "image.tmdb.org",
+      "www.pcmp4.com",
+      "www.qwnull.com"
+    ],
+    "err": "category: empty list (type_id=1)"
+  },
+  {
+    "file": "影视/采集/修罗影视.js",
+    "verdict": "broken",
+    "hosts": [
+      "www.xlys02.com",
+      "api.nn.ci",
+      "www.ymck.pro"
+    ],
+    "err": "category: empty list (type_id=movie)"
+  },
+  {
+    "file": "影视/采集/剧圈圈.js",
+    "verdict": "broken",
+    "hosts": [
+      "www.jqqzx.cc"
+    ],
+    "err": "category: empty list (type_id=dianying)"
+  },
+  {
+    "file": "影视/采集/卧龙.js",
+    "verdict": "broken",
+    "hosts": [
+      "...",
+      "collect.wolongzyw.com"
+    ],
+    "err": "home: empty class list"
+  },
+  {
+    "file": "影视/采集/哇哇影视.js",
+    "verdict": "broken",
+    "hosts": [
+      "gitee.com",
+      "image.tmdb.org"
+    ],
+    "err": "home: empty class list"
+  },
+  {
+    "file": "影视/采集/唐人街影院.js",
+    "verdict": "broken",
+    "hosts": [
+      "www.trvod.com",
+      "192.168.50.50"
+    ],
+    "err": "HARD_TIMEOUT 110000ms"
+  },
+  {
+    "file": "影视/采集/四万影视.js",
+    "verdict": "broken",
+    "hosts": [
+      "40000.me"
+    ],
+    "err": "category: empty list (type_id=20)"
+  },
+  {
+    "file": "影视/采集/在线之家.js",
+    "verdict": "partial",
+    "hosts": [
+      "www.zxzjhd.com",
+      "image.tmdb.org"
+    ],
+    "err": "search: empty list for keyword=庆余年"
+  },
+  {
+    "file": "影视/采集/太二影视.js",
+    "verdict": "partial",
+    "hosts": [
+      "v.tai2.lol"
+    ],
+    "err": "search: empty list for keyword=庆余年"
+  },
+  {
+    "file": "影视/采集/威尔伯TV.js",
+    "verdict": "broken",
+    "hosts": [
+      "wei2bo.com",
+      "api.wei2bo.com"
+    ],
+    "err": "category: empty list (type_id=movie)"
+  },
+  {
+    "file": "影视/采集/小黑米.js",
+    "verdict": "broken",
+    "hosts": [
+      "xiaoheimi.cc"
+    ],
+    "err": "category: empty list (type_id=7)"
+  },
+  {
+    "file": "影视/采集/布布影视.js",
+    "verdict": "broken",
+    "hosts": [
+      "bubuzhuiju.com",
+      "image.tmdb.org"
+    ],
+    "err": "category: empty list (type_id=电影)"
+  },
+  {
+    "file": "影视/采集/影猫仓库.js",
+    "verdict": "broken",
+    "hosts": [
+      "www.03yy.live",
+      "www.zhenlang.cc",
+      "super.playr.top"
+    ],
+    "err": "category: empty list (type_id=1)"
+  },
+  {
+    "file": "影视/采集/影视大全.js",
+    "verdict": "broken",
+    "hosts": [
+      "www.iysdq.tv"
+    ],
+    "err": "category: empty list (type_id=1)"
+  },
+  {
+    "file": "影视/采集/新韩剧网.js",
+    "verdict": "partial",
+    "hosts": [
+      "www.9hanju.com",
+      "www.hanju7.com",
+      "youke2.picui.cn"
+    ],
+    "err": "search: empty list for keyword=庆余年"
+  },
+  {
+    "file": "影视/采集/星辰影院.js",
+    "verdict": "broken",
+    "hosts": [
+      "www.xcyycn.com",
+      "image.tmdb.org"
+    ],
+    "err": "category: empty list (type_id=1)"
+  },
+  {
+    "file": "影视/采集/枝枝影视.js",
+    "verdict": "broken",
+    "hosts": [
+      "zzoc.cc",
+      "192.168.50.50",
+      "127.0.0.1"
+    ],
+    "err": "HARD_TIMEOUT 110000ms"
+  },
+  {
+    "file": "影视/采集/枫叶.js",
+    "verdict": "broken",
+    "hosts": [
+      "www.budaichuchen.net",
+      "image.tmdb.org",
+      "fgsrg.hzqingshan.com"
+    ],
+    "err": "category: empty list (type_id=1)"
+  },
+  {
+    "file": "影视/采集/枫叶4K.js",
+    "verdict": "broken",
+    "hosts": [
+      "www.cd-zj.com",
+      "image.tmdb.org",
+      "fgsrg.hzqingshan.com"
+    ],
+    "err": "category: empty list (type_id=1)"
+  },
+  {
+    "file": "影视/采集/柯南影视.js",
+    "verdict": "broken",
+    "hosts": [
+      "www.knvod.com",
+      "xn--ewr.211997.xyz",
+      "bfq.txnp.cn"
+    ],
+    "err": "category: empty list (type_id=1)"
+  },
+  {
+    "file": "影视/采集/歪比巴卜.js",
+    "verdict": "partial",
+    "hosts": [
+      "wbbb1.com"
+    ],
+    "err": "search: empty list for keyword=庆余年"
+  },
+  {
+    "file": "影视/采集/毒舌影视.js",
+    "verdict": "broken",
+    "hosts": [
+      "www.xnhrsb.com",
+      "m.xnhrsb.com"
+    ],
+    "err": "category: empty list (type_id=1)"
+  },
+  {
+    "file": "影视/采集/永乐视频.js",
+    "verdict": "broken",
+    "hosts": [
+      "placehold.co",
+      "www.ylys.tv",
+      "image.tmdb.org"
+    ],
+    "err": "category: empty list (type_id=1)"
+  },
+  {
+    "file": "影视/采集/泰剧网.js",
+    "verdict": "broken",
+    "hosts": [
+      "zh.taijuwang.com"
+    ],
+    "err": "category: empty list (type_id=movie)"
+  },
+  {
+    "file": "影视/采集/片库.js",
+    "verdict": "broken",
+    "hosts": [
+      "pianku.pro",
+      "api.nn.ci",
+      "pianku.info"
+    ],
+    "err": "category: empty list (type_id=1)"
+  },
+  {
+    "file": "影视/采集/电影人生.js",
+    "verdict": "broken",
+    "hosts": [
+      "www.dyrsok.com"
+    ],
+    "err": "category: empty list (type_id=dianying)"
+  },
+  {
+    "file": "影视/采集/耐视点播.js",
+    "verdict": "broken",
+    "hosts": [
+      "nsvod.me"
+    ],
+    "err": "category: empty list (type_id=1)"
+  },
+  {
+    "file": "影视/采集/茶杯狐.js",
+    "verdict": "broken",
+    "hosts": [
+      "image.tmdb.org",
+      "www.cupfox.ai"
+    ],
+    "err": "category: empty list (type_id=1)"
+  },
+  {
+    "file": "影视/采集/蛋蛋鱼.js",
+    "verdict": "broken",
+    "hosts": [
+      "www.dandanyu.fun",
+      "www.ymck.pro"
+    ],
+    "err": "category: empty list (type_id=1)"
+  },
+  {
+    "file": "影视/采集/这片海.js",
+    "verdict": "broken",
+    "hosts": [
+      "www.zhepianhai.com"
+    ],
+    "err": "category: empty list (type_id=1)"
+  },
+  {
+    "file": "影视/采集/韩小圈.js",
+    "verdict": "partial",
+    "hosts": [
+      "hanxiaoquan.hanju.workers.dev"
+    ],
+    "err": "search: empty list for keyword=庆余年"
+  },
+  {
+    "file": "教育/贝乐虎.js",
+    "verdict": "partial",
+    "hosts": [
+      "vd.ubestkid.com"
+    ],
+    "err": "search: empty list for keyword=庆余年"
+  },
+  {
+    "file": "流媒体/Jellyfin.js",
+    "verdict": "broken",
+    "hosts": [
+      "...",
+      "192.168.1.100"
+    ],
+    "err": "home: empty class list"
+  },
+  {
+    "file": "流媒体/Plex.js",
+    "verdict": "broken",
+    "hosts": [
+      "your-plex-host",
+      "plex.tv"
+    ],
+    "err": "home: empty class list"
+  },
+  {
+    "file": "流媒体/飞牛.js",
+    "verdict": "broken",
+    "hosts": [],
+    "err": "飞牛配置缺失：请先填写 FEINIU_HOST，或提供 FEINIU_SITES 多站配置"
+  },
+  {
+    "file": "直播/YY轮播.js",
+    "verdict": "partial",
+    "hosts": [
+      "www.yy.com",
+      "wap.yy.com",
+      "interface.yy.com"
+    ],
+    "err": "search: empty list for keyword=庆余年"
+  },
+  {
+    "file": "直播/抖音直播.js",
+    "verdict": "partial",
+    "hosts": [
+      "live.douyin.com",
+      "www.douyin.com"
+    ],
+    "err": "search: empty list for keyword=庆余年"
+  },
+  {
+    "file": "直播/斗鱼直播.js",
+    "verdict": "partial",
+    "hosts": [
+      "www.douyu.com",
+      "m.douyu.com"
+    ],
+    "err": "search: empty list for keyword=庆余年"
+  },
+  {
+    "file": "短剧/嘟嘟短剧.js",
+    "verdict": "broken",
+    "hosts": [
+      "api-v2.cenguigui.cn"
+    ],
+    "err": "category: empty list (type_id=热播)"
+  },
+  {
+    "file": "短剧/星星短剧.js",
+    "verdict": "partial",
+    "hosts": [
+      "read.api.duodutek.com"
+    ],
+    "err": "search: empty list for keyword=庆余年"
+  },
+  {
+    "file": "短剧/短剧粉.js",
+    "verdict": "broken",
+    "hosts": [
+      "www.djfen.cc"
+    ],
+    "err": "category: empty list (type_id=21)"
+  },
+  {
+    "file": "短剧/短剧网.js",
+    "verdict": "broken",
+    "hosts": [
+      "sm3.cc"
+    ],
+    "err": "search: empty list for keyword=庆余年"
+  },
+  {
+    "file": "短剧/短剧聚合.js",
+    "verdict": "partial",
+    "hosts": [
+      "speed.hiknz.com",
+      "mov.cenguigui.cn",
+      "fqgo.52dns.cc"
+    ],
+    "err": "search: empty list for keyword=庆余年"
+  },
+  {
+    "file": "音乐/DJ音乐.js",
+    "verdict": "partial",
+    "hosts": [
+      "www.djuu.com"
+    ],
+    "err": "play: empty urls"
+  },
+  {
+    "file": "音乐/世纪音乐.js",
+    "verdict": "broken",
+    "hosts": [
+      "p2.music.126.net",
+      "www.4c44.com"
+    ],
+    "err": "category: empty list (type_id=home)"
+  },
+  {
+    "file": "音乐/枫叶音乐.js",
+    "verdict": "broken",
+    "hosts": [
+      "mu-jie.cc",
+      "fy-musicbox-api.mu-jie.cc"
+    ],
+    "err": "home: empty class list"
+  }
+]
