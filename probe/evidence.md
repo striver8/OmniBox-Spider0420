@@ -339,3 +339,41 @@ window.SITE_CONFIG = { lines: [
 | 影视/采集/Auete影视.js | PARKED | `auete.top` 同一套 ParkLogic 停放页（5568 B，`parklogic: true`） |
 
 两者已移入 `已失效待修复/` 并加盖 `// @status dead | PARKED | ...` 头注。
+
+## 二十六、金牌：搜索接口瞬时失败 → 增加退避重试
+
+`https://m.jiabaide.cn` 的 `/api/mw-movie/anonymous/video/searchByWordPageable` 在高频或瞬时波动时会回 4xx / `{code:非200}`（例如 `应用签名不可为空`、`签名已过期`），单次失败会让 `search()` 落进 catch 并返回空列表。脚本原本只有一次请求，因此探针间歇性报 `search: empty list`（同一脚本连跑三次：ok / partial / ok）。
+
+改动：`fetchJson()` 拆成「重试壳 + `fetchJsonOnce()`」，最多 3 次、退避 `350ms * attempt`，失败才上抛；版本 1.1.4 → 1.1.5。连跑三次探针均 ok。
+
+## 二十七、听友FM 新站（tingyou.fm → fmfm.tingyou.fm）API 侦察（未改脚本）
+
+旧路由全部失效：`/categories/<id>`、`/albums/<id>` 均 404（home 之所以「过」探针，是因为它 catch 后回落到硬编码的 `CATEGORY_MAP`，属假阳性）。新站是 Nuxt 3，落地页 `/listening`（首页 177 KB，`window.location` 重定向到 `/listening`），另有 `/listening/filter`、`/feed`、`/cinema`、`/play`、`/me`。客户端配置：`apiBase=/api`（真实 host 由下面 bootstrap 决定），`headURL=https://toudnbbaa.tou1laopao.cc/api/startup-head/h5api.dat`，`trustedKeys[0]={key_id:"avh-3e92be7026555e08",algorithm:"Ed25519",public_key:"p2VRmQyFi67mrc_cxIw8zagpj7GSsUO9tba7vLApjNE"}`。
+
+**bootstrap 解密已打通**（`h5api.dat`）：结构是 `cipher || key(32B) || iv(16B)`，即 `(len-48)%16==0`，用 `AES-CBC(key=bytes[-48:-16], iv=bytes[-16:])` 解出 JSON（外层再用 trustedKeys 的 Ed25519 验签 `signed_payload`）。解出的关键内容：
+
+- `api_hosts` / `api_host_contracts`：`https://appp.fdhtbz.cn`（priority 1，**不带 /api，key 接口 404**）、`https://ffggewvge.dasfrvvbbhhafdgserqw.cc/api/`、`https://fsfggqwewrr.dsafasfvvaaee.cc/api/`。
+- `host_policy.probe_path = "time/seconds"`（探活用），`schema=av-api-bootstrap-v2`，`expires_at=4102444799`。
+- 后两个 host 的 `GET /web/security/key/current` 可用，返回 `{version:"bk-…", activatedAt, expiresAt, key(64hex), signKey(64hex)}`。
+
+**加密请求协议已还原**（与站点 bundle `/_nuxt/Byf80rIC.js` 一致）：
+1. 取 key → `{version, key, signKey}`（hex）。
+2. 明文 = `JSON.stringify({...params, timestamp: floor(Date.now()/1000)})`；密文 = `AES-GCM(key, iv=随机12B)`；`payload = base64(iv || ciphertext)`。
+3. 请求头：`x-gossip-browser-secure: 1`、`x-key-version`、`x-req-timestamp`（毫秒）、`x-req-nonce`（32 位 hex uuid）、`x-req-signature` = `HMAC-SHA256(signKey, `${version}.${strippedPath}.${ts}.${nonce}.${payload}`)` 的小写 hex；其中 `strippedPath` = 去掉前导 `/` 与 `web/` 前缀（如 `/web/page/bootstrap/home` → `page/bootstrap/home`）。body = `{payload}`。
+4. 响应验签 `HMAC(version, `${strippedPath}:response`, ts, nonce, payload)`，再 AES-GCM 解 `payload`。
+
+**当前卡点**：按上述协议 POST `/web/page/bootstrap/home` 等端点，服务端一律返回 **200 + 同一段固定 base64（64 B，不随请求变化）**，用 key/signKey 以 AES-GCM/AES-CBC/xchacha 各种切分均解不开 → 判定服务端在参数/设备标识不全时返回一个「固定无效响应」，需要继续在 bundle 里确认 bootstrap 系列端点的必需参数（响应头暴露的可选头有 `X-Device-Id`、`X-Listening-Timezone`、`X-Listening-Session`、`Idempotency-Key`）与响应包装格式。
+
+**已提取的新站端点清单**（签名路径去 `/web/` 前缀）：`page/bootstrap/{home,search,label,topic,actor,person,play}`、`video/{hot,batch/list,search,detail,recommend,rank/list,browse/catalog,browse/home,browse/column,new/videos,selected/list}`、`catalog.{works,work,episodes,episode,work_filters,commentary,related,collection_items,works_recent,works_recent_completed,work_share}`、`listening.home_share`、`pages.{list,tab}`、`discovery.{get,tab}`、`rankings.{list,history}`、`search.{works,suggest,hot}`、`music.{sections,albums,album,tracks}`、`actor/{search,list,video/list}`、`gossip/{list,detail,recommend,top-clicks,archives,tags,categories,site/config}`、`advert/{findAll,findByName,listByName,catalogs,catalog}`、`v1/tv/call`（走 `operation` 字段）。
+
+结论：站点存活、协议已还原、端点清单已拿到，**属可重写但工作量大**，本轮不改脚本，留给下一轮；`听友FM.js` 现状（v1.0.6）已完全失效，暂不归档。
+
+## 二十八、本轮新增站点定性（补充第二十二节）
+
+| 脚本 | 判定 | 依据 |
+| --- | --- | --- |
+| 影视/网盘/聚盘搜索.js、聚盘搜索分组.js | API 全路径 403 | `https://ppan.dyuzi.com/api/frontend/{home,search,ranking,...}` 一律 nginx `403 Forbidden`（548 B），根路径同样 403 |
+| 影视/网盘/闪电.js | 源站 522 | `https://sd.sduc.site` CF 522（origin 超时），10s 无响应 |
+| 影视/网盘/蜗牛4K.js | 源站 522 | `https://zmi.kdns.fr` CF 522 / 16 B |
+| 影视/网盘/影巢.js | 数据源停放 | 依赖 `https://hdhive.com/api/open`，该域现跳 `lander` → GoDaddy「for sale」停放；且脚本本身需 TMDB Key |
+| 影视/网盘/光鸭·臻影社.js | 需配置 token | `api.guangyapan.com` 返回 401（需用户填 token），`www.guangyapan.com` 正常 → 配置型，非缺陷 |

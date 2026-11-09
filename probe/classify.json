@@ -355,7 +355,7 @@
   },
   {
     "file": "影视/采集/布布影视.js",
-    "verdict": "ok",
+    "verdict": "partial",
     "siteCls": "NO_HOST",
     "host": "https://323433ssdfd.top/"
   },
@@ -487,7 +487,7 @@
   },
   {
     "file": "影视/采集/金牌.js",
-    "verdict": "partial",
+    "verdict": "ok",
     "siteCls": "UNKNOWN",
     "host": "https://m.jiabaide.cn/"
   },

@@ -1,7 +1,7 @@
 // @name 金牌
 // @author 梦
 // @description API 站：https://m.jiabaide.cn，支持首页、分类、搜索、详情与播放解析
-// @version 1.1.4
+// @version 1.1.5
 // @downloadURL https://gh-proxy.org/https://github.com/Silent1566/OmniBox-Spider/raw/refs/heads/main/影视/采集/金牌.js
 // @dependencies crypto-js
 
@@ -68,6 +68,24 @@ function getSignedHeaders(obj = {}) {
 }
 
 async function fetchJson(path, params = {}) {
+  // 站点接口在高频/瞬时波动时会回 4xx 或 {code:非200}（例如 "应用签名不可为空"、"签名已过期"），
+  // 单次失败会让整个 search/category 返回空列表，因此这里做 3 次退避重试。
+  let lastError = null;
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    try {
+      return await fetchJsonOnce(path, params);
+    } catch (e) {
+      lastError = e;
+      if (attempt < 3) {
+        await OmniBox.log("warn", `[金牌][request] 第 ${attempt} 次失败（${e.message}），退避重试`);
+        await new Promise((resolve) => setTimeout(resolve, 350 * attempt));
+      }
+    }
+  }
+  throw lastError || new Error("request failed");
+}
+
+async function fetchJsonOnce(path, params = {}) {
   const qs = objToForm(params);
   const url = `${BASE_URL}${path}${qs ? `?${qs}` : ""}`;
   const headers = getSignedHeaders(params);

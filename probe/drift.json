@@ -181,7 +181,7 @@
       "play"
     ],
     "err": "detail: no playable episodes (sources=0, episodes=0)",
-    "lastUrl": "https://www.wogg.net/voddetail/134043.html"
+    "lastUrl": "http://38.76.197.172:12521/index.php/vod/detail/id/513408.html"
   },
   {
     "file": "影视/网盘/玩偶聚合.js",
@@ -288,15 +288,14 @@
   {
     "file": "影视/采集/4KMP.js",
     "verdict": "broken",
-    "step": "category",
+    "step": "search",
     "steps": [
-      "category",
       "search",
       "detail",
       "play"
     ],
-    "err": "category: empty list (type_id=tv)",
-    "lastUrl": "https://4k-av.com/s?y=%E5%BA%86%E4%BD%99%E5%B9%B4"
+    "err": "search: empty list for keyword=小兵张嘎",
+    "lastUrl": "https://4k-av.com/movie/008403-zhang-ga-the-soldier-boy/"
   },
   {
     "file": "影视/采集/NO视频.js",
@@ -347,6 +346,16 @@
     ],
     "err": "search: empty list for keyword=今天是太阳雨",
     "lastUrl": "https://v.tai2.lol/index.php/vod/play/id/700/sid/1/nid/1.html"
+  },
+  {
+    "file": "影视/采集/布布影视.js",
+    "verdict": "partial",
+    "step": "play",
+    "steps": [
+      "play"
+    ],
+    "err": "play: empty urls",
+    "lastUrl": "https://323433ssdfd.top/api.php/web/vod/get_detail?vod_id=86421"
   },
   {
     "file": "影视/采集/枝枝影视.js",
@@ -408,7 +417,7 @@
     "steps": [
       "search"
     ],
-    "err": "search: empty list for keyword=敦煌英雄",
+    "err": "search: empty list for keyword=老江湖",
     "lastUrl": "https://xn--qvr2v.850088.xyz/player/api.php"
   },
   {
@@ -448,7 +457,7 @@
       "play"
     ],
     "err": "category: empty list (type_id=4)",
-    "lastUrl": "https://pianku.pro/index.php/verify/index.html?type=search&t=1794232026947"
+    "lastUrl": "https://pianku.pro/index.php/verify/index.html?type=search&t=1794233245266"
   },
   {
     "file": "影视/采集/荐片.js",
@@ -463,16 +472,6 @@
     ],
     "err": "home: empty class list",
     "lastUrl": ""
-  },
-  {
-    "file": "影视/采集/金牌.js",
-    "verdict": "partial",
-    "step": "search",
-    "steps": [
-      "search"
-    ],
-    "err": "search: empty list for keyword=杀或救",
-    "lastUrl": "https://m.jiabaide.cn/api/mw-movie/anonymous/v2/video/episode/url?clientType=3&id=147973&nid=1328642"
   },
   {
     "file": "流媒体/Jellyfin.js",
@@ -534,7 +533,7 @@
     "steps": [
       "search"
     ],
-    "err": "search: empty list for keyword=时代荣光正在直播",
+    "err": "search: empty list for keyword=开❤每一天正在直播",
     "lastUrl": "https://live.douyin.com/webcast/room/web/enter/?aid=6383&app_name=douyin_web&live_id=1&device_platform=web&enter_from=web_live&browser_language=zh-CN&browser_platform=Win32&browser_name=Chrome&browser"
   },
   {
