@@ -1,6 +1,6 @@
 // @name 太二影视
-// @description 太二追剧页面解析，支持首页、分类、搜索、详情、多线路播放和嗅探兜底
-// @version 1.0.0
+// @description 太二追剧页面解析 + macCMS JSON 接口搜索，支持首页、分类、搜索、详情、多线路播放和嗅探兜底
+// @version 1.1.0
 // @downloadURL https://gh-proxy.org/https://github.com/Silent1566/OmniBox-Spider/raw/refs/heads/main/影视/采集/太二影视.js
 
 const OmniBox = require("omnibox_sdk");
@@ -18,6 +18,57 @@ const CLASS_LIST = [
   { type_id: "21", type_name: "剧集" },
   { type_id: "22", type_name: "综艺" },
 ];
+
+// 站点同时暴露 macCMS v10 标准 JSON 接口。页面搜索被图形验证码门禁
+// （/index.php/vod/search.html 与 /index.php/vod/search/wd/<kw>.html 都只回「请输入验证码」），
+// 但 JSON 接口的 wd 搜索可用，因此搜索一律走这里。
+//   GET /api.php/provide/vod/?ac=list&t=<type_id>&pg=<n>      列表
+//   GET /api.php/provide/vod/?ac=detail&ids=<id>              详情（含 vod_play_from/vod_play_url）
+//   GET /api.php/provide/vod/?ac=detail&wd=<kw>&pg=<n>        搜索
+const API_BASE = `${HOST}/api.php/provide/vod/`;
+
+function mapApiItem(item) {
+  if (!item) return null;
+  const id = String(item.vod_id == null ? "" : item.vod_id).trim();
+  if (!id) return null;
+  const pic = String(item.vod_pic || "").trim();
+  return {
+    vod_id: id,
+    vod_name: cleanText(item.vod_name) || id,
+    vod_pic: pic ? absUrl(pic.replace(/^http:\/\//i, "https://")) : "",
+    vod_remarks: cleanText(item.vod_remarks),
+    vod_year: cleanText(item.vod_year),
+    vod_area: cleanText(item.vod_area),
+    vod_actor: cleanText(item.vod_actor),
+    vod_content: cleanText(item.vod_blurb || item.vod_content),
+    type_name: cleanText(item.type_name),
+  };
+}
+
+async function fetchApiJson(query) {
+  const search = new URLSearchParams(query).toString();
+  const url = `${API_BASE}?${search}`;
+  const text = await requestText(url, {
+    headers: { Accept: "application/json, text/plain, */*" },
+    referer: `${HOST}/`,
+  });
+  try {
+    return JSON.parse(text);
+  } catch (error) {
+    throw new Error(`接口返回非 JSON @ ${url}: ${String(text).slice(0, 80)}`);
+  }
+}
+
+async function searchViaApi(keyword, page) {
+  const json = await fetchApiJson({ ac: "detail", wd: keyword, pg: String(page) });
+  const list = (Array.isArray(json.list) ? json.list : []).map(mapApiItem).filter(Boolean);
+  return {
+    page: Number(json.page) || page,
+    pagecount: Number(json.pagecount) || (list.length ? page : 0),
+    total: Number(json.total) || list.length,
+    list,
+  };
+}
 
 module.exports = { home, category, search, detail, play };
 runner.run(module.exports);
@@ -336,6 +387,17 @@ async function search(params) {
   const page = Math.max(1, parseInt(params.page || 1, 10));
   const keyword = String(params.keyword || params.wd || params.key || "").trim();
   if (!keyword) return { page, pagecount: 0, total: 0, list: [] };
+
+  // 主路径：macCMS JSON 接口（页面搜索被验证码门禁，接口可用）
+  try {
+    const result = await searchViaApi(keyword, page);
+    if (result.list.length) return result;
+    await OmniBox.log("warn", `[太二影视][search] 接口无结果 keyword=${keyword}`);
+  } catch (error) {
+    await OmniBox.log("warn", `[太二影视][search] 接口搜索失败 ${error.message}`);
+  }
+
+  // 兜底：页面搜索路由（当前会被验证码拦截，保留以防站点放开）
   const encoded = encodeURIComponent(keyword);
   const urls = [
     `${HOST}/index.php/vod/search.html?wd=${encoded}&page=${page}`,

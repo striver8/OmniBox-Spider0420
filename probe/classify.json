@@ -337,7 +337,7 @@
   },
   {
     "file": "影视/采集/太二影视.js",
-    "verdict": "partial",
+    "verdict": "ok",
     "siteCls": "JUMP",
     "host": "https://v.tai2.lol/"
   },
@@ -403,7 +403,7 @@
   },
   {
     "file": "影视/采集/歪比巴卜.js",
-    "verdict": "partial",
+    "verdict": "broken",
     "siteCls": "UNKNOWN",
     "host": "https://xn--qvr2v.850088.xyz/"
   },
@@ -547,7 +547,7 @@
   },
   {
     "file": "直播/斗鱼直播.js",
-    "verdict": "partial",
+    "verdict": "ok",
     "siteCls": "ALIVE",
     "host": "https://www.douyu.com/"
   },

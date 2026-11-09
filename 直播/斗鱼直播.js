@@ -1,8 +1,8 @@
 // @name 斗鱼直播
 // @author 
-// @description 
+// @description 斗鱼直播：分类/详情/播放 + 桌面站 searchShow 关键词搜索
 // @dependencies: axios, crypto-js
-// @version 1.0.0
+// @version 1.0.1
 // @downloadURL https://gh-proxy.org/https://github.com/Silent1566/OmniBox-Spider/raw/refs/heads/main/直播/斗鱼直播.js
 
 /**
@@ -153,30 +153,44 @@ async function search(params) {
   const wd = params.keyword || params.wd || "";
   const pg = parseInt(params.page) || 1;
   logInfo(`搜索斗鱼关键词: ${wd}, 页码: ${pg}`);
-  
+
+  if (!String(wd).trim()) return { list: [], page: pg, pagecount: 0, total: 0 };
+
   try {
-    const offset = (pg - 1) * 20;
-    const url = `${host}/api/search/liveRoom?sk=${encodeURIComponent(wd)}&offset=${offset}&limit=20&did=${did}`;
-    const resp = await req(url);
+    const pageSize = 20;
+    // 旧接口 m.douyu.com/api/search/liveRoom 已被反爬拦截（返回提示页），
+    // 改用桌面站搜索接口 searchShow：{data:{relateShow:[{rid,roomName,roomSrc,nickName,...}],total,pageSize}}
+    const url = `https://www.douyu.com/japi/search/api/searchShow?kw=${encodeURIComponent(wd)}&page=${pg}&pageSize=${pageSize}`;
+    const resp = await req(url, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36',
+        Referer: `https://www.douyu.com/search/?kw=${encodeURIComponent(wd)}`,
+      },
+    });
+
     const json = JSON.parse(resp.content);
-    
-    logInfo("搜索接口返回数据", json);
-    
-    let list = (json.data.list || []).map(item => ({
-      "vod_id": item.rid.toString(),
-      "vod_name": item.roomName,
-      "vod_pic": item.roomSrc,
-      "vod_remarks": item.nickname
-    }));
-    
+    const rooms = (json && json.data && json.data.relateShow) || [];
+    const list = rooms
+      .filter((item) => item && item.rid)
+      .map((item) => ({
+        vod_id: String(item.rid),
+        vod_name: item.roomName || `直播间 ${item.rid}`,
+        vod_pic: item.roomSrc || item.avatar || "",
+        vod_remarks: item.nickName ? `${item.nickName}${item.cateName ? ' · ' + item.cateName : ''}` : (item.cateName || ""),
+      }));
+
+    const total = Number(json && json.data && json.data.total) || list.length;
+    logInfo("搜索接口返回数据", { count: list.length, total });
+
     return {
-      list: list,
+      list,
       page: pg,
-      pagecount: 10
+      pagecount: list.length >= pageSize ? pg + 1 : pg,
+      total,
     };
   } catch (e) {
     logError("搜索失败", e);
-    return { list: [], page: pg, pagecount: 0 };
+    return { list: [], page: pg, pagecount: 0, total: 0 };
   }
 }
 

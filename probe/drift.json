@@ -140,13 +140,12 @@
   {
     "file": "影视/网盘/欧哥.js",
     "verdict": "broken",
-    "step": "search",
+    "step": "detail",
     "steps": [
-      "search",
       "detail",
       "play"
     ],
-    "err": "search: empty list for keyword=蜂鸟行动",
+    "err": "detail: no playable episodes (sources=0, episodes=0)",
     "lastUrl": "https://woog.nxog.eu.org/index.php/vod/detail/id/33472.html"
   },
   {
@@ -158,7 +157,7 @@
       "play"
     ],
     "err": "detail: no playable episodes (sources=0, episodes=0)",
-    "lastUrl": "https://www.wogg.net/voddetail/134043.html"
+    "lastUrl": "https://www.wogg.net/voddetail/134244.html"
   },
   {
     "file": "影视/网盘/玩偶聚合-非分组.js",
@@ -169,7 +168,7 @@
       "play"
     ],
     "err": "detail: no playable episodes (sources=0, episodes=0)",
-    "lastUrl": "https://www.wogg.net/voddetail/134043.html"
+    "lastUrl": "https://www.wogg.net/voddetail/134244.html"
   },
   {
     "file": "影视/网盘/玩偶聚合.js",
@@ -180,7 +179,7 @@
       "play"
     ],
     "err": "detail: no playable episodes (sources=0, episodes=0)",
-    "lastUrl": "https://www.wogg.net/voddetail/134043.html"
+    "lastUrl": "https://www.wogg.net/voddetail/134244.html"
   },
   {
     "file": "影视/网盘/盘搜.js",
@@ -276,14 +275,15 @@
   {
     "file": "影视/采集/4KMP.js",
     "verdict": "broken",
-    "step": "search",
+    "step": "category",
     "steps": [
+      "category",
       "search",
       "detail",
       "play"
     ],
-    "err": "search: empty list for keyword=小兵张嘎",
-    "lastUrl": "https://4k-av.com/movie/008403-zhang-ga-the-soldier-boy/"
+    "err": "category: empty list (type_id=tv)",
+    "lastUrl": "https://4k-av.com/s?y=%E5%BA%86%E4%BD%99%E5%B9%B4"
   },
   {
     "file": "影视/采集/NO视频.js",
@@ -324,16 +324,6 @@
     ],
     "err": "home: empty class list",
     "lastUrl": ""
-  },
-  {
-    "file": "影视/采集/太二影视.js",
-    "verdict": "partial",
-    "step": "search",
-    "steps": [
-      "search"
-    ],
-    "err": "search: empty list for keyword=今天是太阳雨",
-    "lastUrl": "https://v.tai2.lol/index.php/vod/play/id/700/sid/1/nid/1.html"
   },
   {
     "file": "影视/采集/枝枝影视.js",
@@ -378,6 +368,20 @@
   {
     "file": "影视/采集/柯南影视.js",
     "verdict": "broken",
+    "step": "home",
+    "steps": [
+      "home",
+      "category",
+      "search",
+      "detail",
+      "play"
+    ],
+    "err": "STEP_TIMEOUT home 40000ms",
+    "lastUrl": "https://www.knvod.com/search/%E5%BA%86%E4%BD%99%E5%B9%B4-------------.html"
+  },
+  {
+    "file": "影视/采集/歪比巴卜.js",
+    "verdict": "broken",
     "step": "category",
     "steps": [
       "category",
@@ -386,17 +390,7 @@
       "play"
     ],
     "err": "category: empty list (type_id=4)",
-    "lastUrl": "https://www.knvod.com/search/%E5%BA%86%E4%BD%99%E5%B9%B4-------------.html"
-  },
-  {
-    "file": "影视/采集/歪比巴卜.js",
-    "verdict": "partial",
-    "step": "search",
-    "steps": [
-      "search"
-    ],
-    "err": "search: empty list for keyword=老江湖",
-    "lastUrl": "https://xn--qvr2v.850088.xyz/player/api.php"
+    "lastUrl": "https://wbbb1.com/search/-------------.html?wd=%E5%BA%86%E4%BD%99%E5%B9%B4"
   },
   {
     "file": "影视/采集/毒舌影视.js",
@@ -409,7 +403,7 @@
       "play"
     ],
     "err": "category: empty list (type_id=4)",
-    "lastUrl": "https://m.xnhrsb.com/dsshiyisc/%E5%BA%86%E4%BD%99%E5%B9%B4----------1---.html"
+    "lastUrl": "https://m.xnhrsb.com/dsshiyidt/292405.html"
   },
   {
     "file": "影视/采集/永乐视频.js",
@@ -435,7 +429,7 @@
       "play"
     ],
     "err": "category: empty list (type_id=4)",
-    "lastUrl": "https://pianku.pro/index.php/verify/index.html?type=search&t=1794235503094"
+    "lastUrl": "https://pianku.pro/index.php/verify/index.html?type=search&t=1794236680579"
   },
   {
     "file": "影视/采集/荐片.js",
@@ -501,7 +495,7 @@
       "search",
       "play"
     ],
-    "err": "search: empty list for keyword=玄幻电影",
+    "err": "search: empty list for tried=玄幻电影 / 超精彩武打场景 / 林正英经典电影 / 周星驰搞笑在线 / 港片喜剧动作 / 林正英经典",
     "lastUrl": "https://interface.yy.com/hls/new/get/1462895099/1462895099/1200?source=wapyy&callback=jsonp3"
   },
   {
@@ -511,18 +505,8 @@
     "steps": [
       "search"
     ],
-    "err": "search: empty list for keyword=退市老钱币知识讲解",
+    "err": "search: empty list for tried=文哥💫正在直播 / 文哥💫正在 / 文哥💫 / 滚石老炮至尊店 / 走遍大江南北 / 新人直播第一天",
     "lastUrl": "https://live.douyin.com/webcast/room/web/enter/?aid=6383&app_name=douyin_web&live_id=1&device_platform=web&enter_from=web_live&browser_language=zh-CN&browser_platform=Win32&browser_name=Chrome&browser"
-  },
-  {
-    "file": "直播/斗鱼直播.js",
-    "verdict": "partial",
-    "step": "search",
-    "steps": [
-      "search"
-    ],
-    "err": "search: empty list for keyword=平安顺遂~~~",
-    "lastUrl": "https://www.douyu.com/lapi/live/getH5PlayV1/74374"
   },
   {
     "file": "短剧/短剧粉.js",

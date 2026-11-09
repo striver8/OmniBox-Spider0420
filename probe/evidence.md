@@ -449,3 +449,55 @@ CDP 定位到的数据调用是一条**明文、免登录**的 GET，必需头�
 - 环境变量 `TINGYOU_TIMEZONE` 可覆盖时区（默认 Asia/Shanghai）。
 
 探针复验 **ok（2s）**：home class=47 / list=24（744ms）｜category `rank:latest` list=30 / pagecount=2（162ms）｜search「国民法医|蓦等等领衔刑侦」list=1（567ms）｜detail sources=1 / episodes=1667（344ms）｜play `https://file.hgeuz.cn/stream/...` n=1 / parse=0（399ms）。请求全部命中 `appp.fdhtbz.cn`（filters 1293 B、rank 14980 B、chapters 169790 B）。
+
+## 三十、太二影视：搜索接口被验证码门禁 → 改用站点自带的 macCMS JSON 接口
+
+站点 `https://v.tai2.lol`（太二追剧，页面是 macCMS/conch 风格）的**页面搜索已废**：`/index.php/vod/search.html?wd=<kw>` 与首页热搜链接用的 `/index.php/vod/search/wd/<kw>.html` 都返回 200 + 16587 B「系统提示 / 请输入验证码」页（结果区是空的「影片参数」占位块），`/vodsearch/<kw>----------1.html` 404、`/search.html?wd=` 500。
+
+但同一个站点**另外暴露了 macCMS v10 标准 JSON 接口**，且该接口的搜索可用：
+
+```
+GET /api.php/provide/vod/?ac=list&t=<type_id>&pg=<n>     列表（20/页）
+GET /api.php/provide/vod/?ac=detail&ids=<id>             详情（含 vod_play_from / vod_play_url）
+GET /api.php/provide/vod/?ac=detail&wd=<kw>&pg=<n>       搜索
+```
+
+- `ac=list` 响应里的 `class[]` 给出分类：`20 电影 / 21 剧集 / 22 综艺 / 23 动漫`。
+- `ac=list&t=21` → `total=403`、`pagecount=21`；`ac=list` → `total=644`、`pagecount=33`。
+- **搜索参数是 `wd`**，实测 `ac=detail&wd=折月亮` → `total=1`（正是站点上的真实条目）；`wd=听` → 2 条；`wd=你好时光` → 2 条。最初用「火影」测试得到 `total=0` 是**站点本来就没有该内容**，不是接口坏。
+- `ac=detail&ids=698` 返回完整记录，`vod_play_url` 形态 `第1集$https://www.iqiyi.com/v_xxx.html#第2集$...` —— 该站是**外链聚合**（跳爱奇艺/芒果），不是自建片源，因此 `play` 返回第三方页面地址（`parse:0`，与原行为一致）。
+
+改动（`影视/采集/太二影视.js` v1.0.0 → **v1.1.0**）：
+1. 新增 `API_BASE`、`mapApiItem()`（把接口记录映射成与 `parseCards` 同形的 vod 对象：`vod_id/vod_name/vod_pic/vod_remarks/vod_year/vod_area/vod_actor/vod_content/type_name`）、`fetchApiJson()`、`searchViaApi()`。
+2. `search()` 改为**接口优先**，失败或无结果时再退回原来的三条页面搜索路由（保留以防站点放开验证码）。
+
+探针复验 **ok**：home class=2 / list=37｜category `21` list=32｜search「今天是太阳雨」list=1｜detail 1 源 13 集｜play `https://www.mgtv.com/b/817372/24769759.html` parse=0。
+
+## 三十一、斗鱼直播：旧的 m 站搜索接口被反爬拦截 → 换桌面站 searchShow
+
+`直播/斗鱼直播.js` 的搜索走 `${host}/api/search/liveRoom`（`host = https://m.douyu.com`）：
+
+- `GET https://m.douyu.com/api/search/liveRoom?sk=<kw>&offset=&limit=&did=` → 返回**HTML 页面**（斗鱼提示页），不是 JSON → 搜索恒空。
+- `GET https://www.douyu.com/api/search/liveRoom?...` → 同样返回「提示信息 - 斗鱼」HTML（反爬）。
+- `GET https://www.douyu.com/japi/search/api/searchLive?...` → `{"status":404,...,"path":"/www/api/searchLive"}`（该路径不存在）。
+- **可用**：`GET https://www.douyu.com/japi/search/api/searchShow?kw=<kw>&page=<n>&pageSize=20` → `{data:{relateShow:[{rid,roomName,roomSrc,nickName,cateName,isLive,hot,...}],total,pageSize}}`，实测 `kw=王者荣耀` → 20 条 / `total=245`。
+
+改动（v1.0.0 → **v1.0.1**）：`search()` 换成 `searchShow`，按 `relateShow` 映射 `{vod_id: rid, vod_name: roomName, vod_pic: roomSrc || avatar, vod_remarks: nickName · cateName}`，`pagecount` 按 `pageSize` 推；空关键词直接返回空。探针复验 **ok**：home 9 类｜category `yqk` list=8｜search list=1｜detail 1 源 1 集｜play `https://hw3.douyucdn2.cn/live/<rid>....flv` parse=0。
+
+## 三十二、探针改进：搜索关键词多候选重试（消除"长标题歌单名"造成的假阴性）
+
+`probe/one.js` 的 search 步骤原先只用**一个**关键词（category/home 首条标题），遇到"歌单/合集"式长串必假阴性。实例：`音乐/芸芸音乐.js` 的 category 首条是「华语经典丨不容错过的神级…」，用它调网易搜索 → 0 条，脚本被判 partial；换成「华语经典」→ 30 条。
+
+现改为 `keywordVariants(base, pool)` 依次尝试最多 6 个候选：原词 → 按分隔符（`丨|｜·・•-—–_/：,。、!？~～空格引号括号`）截断后的首段 → 该段逐级缩短（6/4 字）→ 再从同一池子里挑"干净短标题"（去掉 `[...]`/`(...)`/`【...】`/`第N集` 与分隔符后长度 2~8、非纯数字）。`out.steps.search.note.tried` 会记录实际尝试过的关键词，失败时错误信息里也列出 `tried=[...]`，便于人工判断是脚本坏了还是关键词没命中。
+
+复测：`音乐/芸芸音乐.js` 由 partial 回到 **ok**（首个候选即命中 30 条）。
+
+## 三十三、判定：歪比巴卜搜索是图形验证码门禁，无法静态修（保持 partial）
+
+`影视/采集/歪比巴卜.js`（`https://wbbb1.com`）的 home/category/detail/play 都正常（脚本自带滑动验证求解器 `resolveSlideChallenge`），唯独搜索不行：
+
+- `/search/-------------.html?wd=<kw>` 返回 **200 + 3811 B** 页，`<title>系统安全验证</title>`，正文是图片验证码表单，走 `MAC.Ajax('/index.php/ajax/verify_check?type=search&verify='+v)` — 属**图形验证码**（不是脚本已能解的滑动验证），静态不可解。
+- 该站的 macCMS JSON 接口（`/api.php/provide/vod/?ac=...`）也被同一套反爬挡住：带 cookie jar 连打三次，前两次 403（JS 自跳转），第三次响应体只有 6 字节 `closed` → 接口不可用，无法像太二影视那样绕过。
+- 用同一站点分类页做"本地过滤兜底"也不可靠：实测 `category({type_id:'1'..'4'})` 结果不稳定（cat1 各页码恒为 72 条、cat2 恒 0、cat3/cat4 时有时无），期间还出现 `HTTP 520`，说明站点对翻页请求也在做风控，拿不到稳定语料。
+
+结论：保持现状（搜索空 → 探针 partial/broken 波动），不改代码；记录为**站点级图形验证码门禁**。

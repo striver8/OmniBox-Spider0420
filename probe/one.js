@@ -51,6 +51,32 @@ function pickKeyword(pool) {
   return "庆余年";
 }
 
+// 多关键词候选：原词 → 分隔符截断 → 逐级缩短；再从同一池子里挑"干净短标题"补位。
+function keywordVariants(base, pool) {
+  const out = [];
+  const push = (v) => {
+    const s = String(v || "").trim();
+    if (s.length >= 2 && s.length <= 24 && !out.includes(s)) out.push(s);
+  };
+  const raw = String(base || "").trim();
+  push(raw);
+  const parts = raw.split(/[丨|｜·・•∙\-—–_/\\:：,，。.、!！?？~～\s"'"'（）()【】\[\]]+/).filter(Boolean);
+  if (parts.length) {
+    const head = parts[0];
+    if (head.length > 6) push(head.slice(0, 6));
+    if (head.length > 4) push(head.slice(0, 4));
+    push(head);
+  }
+  for (const it of arr(pool)) {
+    const name = String(it.vod_name || it.name || it.title || "").trim();
+    if (!name) continue;
+    const clean = name.replace(/\[[^\]]*\]|\([^)]*\)|【[^】]*】|第\s*\d+\s*[集话期季]|[丨|｜·・•\-—–_]+/g, "").trim();
+    if (clean.length >= 2 && clean.length <= 8 && !/^\d+$/.test(clean)) push(clean);
+    if (out.length >= 6) break;
+  }
+  return out.slice(0, 6);
+}
+
 (async () => {
   let mod;
   try {
@@ -116,12 +142,30 @@ function pickKeyword(pool) {
   const keyword = pickKeyword(pool);
 
   if (fns.includes("search")) {
-    await step("search", async () => {
-      search = await mod.search({ keyword, page: 1, quick: false }, ctx);
-      const list = arr(search && search.list);
-      if (!list.length) throw new Error("search: empty list for keyword=" + keyword);
-      return { keyword, list: list.length, pagecount: search && search.pagecount };
-    });
+    // 站点首条标题常常是"歌单/合集"式长串（含 丨、·、~ 等分隔符），搜索索引里查不到，
+    // 会造成假阴性（实例：芸芸音乐 category 首条「华语经典丨不容错过的神级…」搜不到，
+    // 换成「华语经典」即 30 条）。因此按"原词 → 截断 → 更短"依次重试。
+    const variants = keywordVariants(keyword, pool);
+    const attempts = [];
+    let ok = false;
+    for (const kw of variants) {
+      const good = await step("search", async () => {
+        search = await mod.search({ keyword: kw, page: 1, quick: false }, ctx);
+        const list = arr(search && search.list);
+        if (!list.length) throw new Error("search: empty list for keyword=" + kw);
+        return { keyword: kw, list: list.length, pagecount: search && search.pagecount };
+      });
+      attempts.push(kw);
+      if (good) {
+        ok = true;
+        out.steps.search.note.tried = attempts;
+        break;
+      }
+    }
+    if (!ok) {
+      const ms = out.steps.search ? out.steps.search.ms : 0;
+      out.steps.search = { ok: false, ms, err: `search: empty list for tried=${attempts.join(" / ")}`, tried: attempts };
+    }
   }
 
   if (fns.includes("detail")) {
