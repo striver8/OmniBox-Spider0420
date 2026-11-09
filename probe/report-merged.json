@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-09T08:55:03.082Z",
+  "generatedAt": "2026-11-09T09:27:08.308Z",
   "keyword": "庆余年",
   "results": [
     {
@@ -24,7 +24,7 @@
       "steps": {
         "home": {
           "ok": false,
-          "ms": 0,
+          "ms": 1,
           "err": "home: empty class list",
           "unsupported": false
         },
@@ -71,7 +71,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 1691,
+          "ms": 6058,
           "note": {
             "class": 2,
             "list": 0,
@@ -81,7 +81,7 @@
         },
         "category": {
           "ok": false,
-          "ms": 1052,
+          "ms": 3139,
           "err": "category: empty list (type_id=21)",
           "tried": [
             "2",
@@ -102,13 +102,19 @@
         },
         "play": {
           "ok": false,
-          "ms": 0,
+          "ms": 1,
           "err": "play: no episode from detail",
           "unsupported": false
         }
       },
       "verdict": "broken",
       "reqs": [
+        {
+          "url": "https://bgm.girigirilove.com/",
+          "status": 200,
+          "len": 5889,
+          "t": "axios"
+        },
         {
           "url": "https://bgm.girigirilove.com/show/2-----------/",
           "status": 200,
@@ -117,12 +123,6 @@
         },
         {
           "url": "https://bgm.girigirilove.com/show/21-----------/",
-          "status": 200,
-          "len": 5889,
-          "t": "axios"
-        },
-        {
-          "url": "https://bgm.girigirilove.com/",
           "status": 200,
           "len": 5889,
           "t": "axios"
@@ -154,7 +154,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 1574,
+          "ms": 3985,
           "note": {
             "class": 4,
             "list": 20,
@@ -164,7 +164,7 @@
         },
         "category": {
           "ok": true,
-          "ms": 958,
+          "ms": 1557,
           "note": {
             "type_id": "guoman",
             "list": 36,
@@ -176,7 +176,7 @@
         },
         "search": {
           "ok": true,
-          "ms": 1039,
+          "ms": 1809,
           "note": {
             "keyword": "盲眼驭诡师",
             "list": 1,
@@ -185,7 +185,7 @@
         },
         "detail": {
           "ok": true,
-          "ms": 4794,
+          "ms": 7538,
           "note": {
             "name": "盲眼驭诡师",
             "sources": 4,
@@ -194,7 +194,7 @@
         },
         "play": {
           "ok": true,
-          "ms": 994,
+          "ms": 2228,
           "note": {
             "url": "https://v.lzcdn31.com/20260913/11372_2a81c8e3/index.m3u8",
             "n": 1,
@@ -273,81 +273,97 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 770,
+          "ms": 5313,
           "note": {
             "class": 4,
-            "list": 0,
-            "filters": 4,
+            "list": 48,
+            "filters": 0,
             "banner": 0
           }
         },
         "category": {
-          "ok": false,
-          "ms": 502,
-          "err": "category: empty list (type_id=21)",
-          "tried": [
-            "1",
-            "2",
-            "3",
-            "21"
-          ]
+          "ok": true,
+          "ms": 626,
+          "note": {
+            "type_id": "1",
+            "list": 24,
+            "pagecount": 4,
+            "total": 78,
+            "tried": [
+              "1"
+            ]
+          }
         },
         "search": {
-          "ok": false,
-          "ms": 401,
-          "err": "search: empty list for keyword=庆余年",
-          "unsupported": false
+          "ok": true,
+          "ms": 727,
+          "note": {
+            "keyword": "青之箱 第二季",
+            "list": 1
+          }
         },
         "detail": {
-          "ok": false,
-          "ms": 0,
-          "err": "detail: no candidate videoId (search+category+home all empty)",
-          "unsupported": false
+          "ok": true,
+          "ms": 1282,
+          "note": {
+            "name": "青之箱 第二季",
+            "sources": 1,
+            "episodes": 12
+          }
         },
         "play": {
-          "ok": false,
-          "ms": 0,
-          "err": "play: no episode from detail",
-          "unsupported": false
+          "ok": true,
+          "ms": 775,
+          "note": {
+            "url": "https://apn.moedot.net/d/wo/2610/%E9%9D%92%E4%B9%8B%E7%AE%B101.mp4?sign=vH1I-kt3ltpmyxaELI-f3yBzo1z59SYyLZ5uxnWTuW8%3D%3",
+            "n": 3,
+            "parse": 0
+          }
         }
       },
-      "verdict": "broken",
+      "verdict": "ok",
       "reqs": [
         {
-          "url": "https://dm.xifanacg.com/",
+          "url": "https://api.xifanacg.com/rest/v1/anime_types?select=id,legacy_type_id,name,slug,sort_order,is_active&is_active=eq.true&order=sort_order.asc",
           "status": 200,
-          "len": 474513,
-          "t": "axios"
+          "len": 372,
+          "t": "fetch"
         },
         {
-          "url": "https://dm.xifanacg.com/index.php/ds_api/vod",
+          "url": "https://api.xifanacg.com/rest/v1/animes?select=id,title,cover_url,remarks,release_year,region,total_episodes,current_episodes,is_finished,type_id,bangumi_score&is_published=eq.true&order=updated_at.de",
           "status": 200,
-          "len": 474513,
-          "t": "axios"
+          "len": 12268,
+          "t": "fetch"
         },
         {
-          "url": "https://dm.xifanacg.com/index.php/ds_api/vod",
-          "status": 200,
-          "len": 474513,
-          "t": "axios"
+          "url": "https://api.xifanacg.com/rest/v1/animes?select=id,title,cover_url,remarks,release_year,region,total_episodes,current_episodes,is_finished,type_id,bangumi_score&is_published=eq.true&order=updated_at.de",
+          "status": 206,
+          "len": 6155,
+          "t": "fetch"
         },
         {
-          "url": "https://dm.xifanacg.com/index.php/ds_api/vod",
+          "url": "https://api.xifanacg.com/rest/v1/animes?select=id,title,cover_url,remarks,release_year,region,total_episodes,is_finished,type_id,bangumi_score&is_published=eq.true&or=(title.ilike.*%E9%9D%92%E4%B9%8B%",
           "status": 200,
-          "len": 474513,
-          "t": "axios"
+          "len": 234,
+          "t": "fetch"
         },
         {
-          "url": "https://dm.xifanacg.com/index.php/ds_api/vod",
+          "url": "https://api.xifanacg.com/rest/v1/animes?select=*&id=eq.3438&limit=1",
           "status": 200,
-          "len": 474513,
-          "t": "axios"
+          "len": 1447,
+          "t": "fetch"
         },
         {
-          "url": "https://dm.xifanacg.com/index.php/ajax/suggest?mid=1&wd=%E5%BA%86%E4%BD%99%E5%B9%B4",
+          "url": "https://api.xifanacg.com/rest/v1/episodes?select=id,episode_number,title,kind,release_date&anime_id=eq.3438&order=episode_number.asc,id.asc&limit=3000",
           "status": 200,
-          "len": 474513,
-          "t": "axios"
+          "len": 1134,
+          "t": "fetch"
+        },
+        {
+          "url": "https://api.xifanacg.com/functions/v1/issue-web-playback",
+          "status": 200,
+          "len": 893,
+          "t": "fetch"
         }
       ]
     },
@@ -364,7 +380,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 994,
+          "ms": 3339,
           "note": {
             "class": 20,
             "list": 12,
@@ -374,7 +390,7 @@
         },
         "category": {
           "ok": true,
-          "ms": 454,
+          "ms": 1124,
           "note": {
             "type_id": "latest",
             "list": 12,
@@ -387,7 +403,7 @@
         },
         "search": {
           "ok": true,
-          "ms": 434,
+          "ms": 1377,
           "note": {
             "keyword": "灵境行者丨头陀渊出品",
             "list": 1,
@@ -396,7 +412,7 @@
         },
         "detail": {
           "ok": true,
-          "ms": 1048,
+          "ms": 1385,
           "note": {
             "name": "灵境行者丨头陀渊出品",
             "sources": 1,
@@ -405,7 +421,7 @@
         },
         "play": {
           "ok": true,
-          "ms": 1579,
+          "ms": 1892,
           "note": {
             "url": "https://www.i275.com/play/39454/23581985.html",
             "n": 1,
@@ -460,7 +476,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 1503,
+          "ms": 1481,
           "note": {
             "class": 11,
             "list": 240,
@@ -470,7 +486,7 @@
         },
         "category": {
           "ok": true,
-          "ms": 113,
+          "ms": 112,
           "note": {
             "type_id": "1319",
             "list": 24,
@@ -483,7 +499,7 @@
         },
         "search": {
           "ok": true,
-          "ms": 194,
+          "ms": 422,
           "note": {
             "keyword": "话说历史",
             "list": 1,
@@ -492,7 +508,7 @@
         },
         "detail": {
           "ok": true,
-          "ms": 3936,
+          "ms": 4071,
           "note": {
             "name": "话说历史",
             "sources": 1,
@@ -610,7 +626,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 1389,
+          "ms": 5463,
           "note": {
             "class": 8,
             "list": 0,
@@ -620,7 +636,7 @@
         },
         "category": {
           "ok": false,
-          "ms": 170,
+          "ms": 792,
           "err": "category: empty list (type_id=21)",
           "tried": [
             "46",
@@ -631,7 +647,7 @@
         },
         "search": {
           "ok": false,
-          "ms": 157,
+          "ms": 684,
           "err": "search: empty list for keyword=庆余年",
           "unsupported": false
         },
@@ -643,7 +659,7 @@
         },
         "play": {
           "ok": false,
-          "ms": 1,
+          "ms": 0,
           "err": "play: no episode from detail",
           "unsupported": false
         }
@@ -671,7 +687,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 341,
+          "ms": 384,
           "note": {
             "class": 4,
             "list": 48,
@@ -681,7 +697,7 @@
         },
         "category": {
           "ok": true,
-          "ms": 52,
+          "ms": 67,
           "note": {
             "type_id": "2",
             "list": 21,
@@ -694,7 +710,7 @@
         },
         "search": {
           "ok": true,
-          "ms": 111,
+          "ms": 186,
           "note": {
             "keyword": "女总裁的全能兵王|单播精",
             "list": 21,
@@ -703,7 +719,7 @@
         },
         "detail": {
           "ok": true,
-          "ms": 1294,
+          "ms": 1387,
           "note": {
             "name": "女总裁的全能兵王|单播精品|寂寞的舞者作品",
             "sources": 1,
@@ -712,9 +728,9 @@
         },
         "play": {
           "ok": true,
-          "ms": 149,
+          "ms": 157,
           "note": {
-            "url": "http://car-bj.kuwo.cn/590ce0a75fa007e73bf89f64d17b28ab/6af189d5/lu/resource/n3/85/83/624233801.ogg?bitrate$192&format$og",
+            "url": "http://car-bj.kuwo.cn/622410762923f1f55a480a3d522b311e/6af1913b/lu/resource/n3/85/83/624233801.ogg?bitrate$192&format$og",
             "n": 1,
             "parse": 0
           }
@@ -782,7 +798,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 333,
+          "ms": 3329,
           "note": {
             "class": 7,
             "list": 1,
@@ -824,7 +840,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 423,
+          "ms": 435,
           "note": {
             "class": 6,
             "list": 20,
@@ -834,7 +850,7 @@
         },
         "category": {
           "ok": true,
-          "ms": 131,
+          "ms": 136,
           "note": {
             "type_id": "movie",
             "list": 20,
@@ -851,7 +867,7 @@
         {
           "url": "https://pbaccess.video.qq.com/trpc.vector_layout.page_view.PageService/getPage?video_appid=3000010&vversion_platform=2",
           "status": 200,
-          "len": 214756,
+          "len": 217477,
           "t": "fetch"
         },
         {
@@ -935,13 +951,13 @@
       "steps": {
         "home": {
           "ok": false,
-          "ms": 857,
+          "ms": 3333,
           "err": "home: empty class list",
           "unsupported": false
         },
         "category": {
           "ok": false,
-          "ms": 0,
+          "ms": 1,
           "err": "category: empty list (type_id=1)",
           "tried": [
             "1"
@@ -949,13 +965,13 @@
         },
         "search": {
           "ok": false,
-          "ms": 232,
+          "ms": 932,
           "err": "search: empty list for keyword=庆余年",
           "unsupported": false
         },
         "detail": {
           "ok": false,
-          "ms": 0,
+          "ms": 1,
           "err": "detail: no candidate videoId (search+category+home all empty)",
           "unsupported": false
         },
@@ -995,7 +1011,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 1020,
+          "ms": 4526,
           "note": {
             "class": 24,
             "list": 0,
@@ -1005,7 +1021,7 @@
         },
         "category": {
           "ok": false,
-          "ms": 982,
+          "ms": 5730,
           "err": "category: empty list (type_id=imdbtop250)",
           "tried": [
             "movie",
@@ -1016,13 +1032,13 @@
         },
         "search": {
           "ok": false,
-          "ms": 1010,
+          "ms": 751,
           "err": "search: empty list for keyword=庆余年",
           "unsupported": false
         },
         "detail": {
           "ok": false,
-          "ms": 1,
+          "ms": 0,
           "err": "detail: no candidate videoId (search+category+home all empty)",
           "unsupported": false
         },
@@ -1038,7 +1054,7 @@
         {
           "url": "https://www.cilixiong.com/",
           "status": 200,
-          "len": 5624,
+          "len": 5632,
           "t": "curl"
         },
         {
@@ -1050,25 +1066,25 @@
         {
           "url": "https://www.cilixiong.com/drama/",
           "status": 200,
-          "len": 5638,
+          "len": 5650,
           "t": "curl"
         },
         {
           "url": "https://www.cilixiong.com/top250/",
           "status": 200,
-          "len": 5643,
+          "len": 5651,
           "t": "curl"
         },
         {
           "url": "https://www.cilixiong.com/s/imdbtop250/",
           "status": 200,
-          "len": 5665,
+          "len": 5657,
           "t": "curl"
         },
         {
           "url": "https://www.cilixiong.com/e/search/index.php",
           "status": 200,
-          "len": 5678,
+          "len": 5666,
           "t": "curl"
         }
       ]
@@ -1086,7 +1102,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 942,
+          "ms": 3380,
           "note": {
             "class": 7,
             "list": 24,
@@ -1096,7 +1112,7 @@
         },
         "category": {
           "ok": true,
-          "ms": 359,
+          "ms": 962,
           "note": {
             "type_id": "books/top250",
             "list": 50,
@@ -1109,7 +1125,7 @@
         },
         "search": {
           "ok": true,
-          "ms": 706,
+          "ms": 1311,
           "note": {
             "keyword": "闻香识女人",
             "list": 1,
@@ -1118,7 +1134,7 @@
         },
         "detail": {
           "ok": true,
-          "ms": 420,
+          "ms": 1024,
           "note": {
             "name": "闻香识女人",
             "sources": 1,
@@ -1127,7 +1143,7 @@
         },
         "play": {
           "ok": true,
-          "ms": 1,
+          "ms": 0,
           "note": {
             "url": "https://pan.quark.cn/s/847b1d1b612a",
             "n": 1,
@@ -1158,7 +1174,7 @@
         {
           "url": "https://4kzn.cc/book/15632.html",
           "status": 200,
-          "len": 45061,
+          "len": 45059,
           "t": "fetch"
         }
       ]
@@ -1190,7 +1206,7 @@
         },
         "search": {
           "ok": false,
-          "ms": 2,
+          "ms": 1,
           "err": "search: empty list for keyword=庆余年",
           "unsupported": false
         },
@@ -1223,7 +1239,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 3757,
+          "ms": 25575,
           "note": {
             "class": 5,
             "list": 0,
@@ -1233,7 +1249,7 @@
         },
         "category": {
           "ok": false,
-          "ms": 3918,
+          "ms": 3655,
           "err": "category: empty list (type_id=4)",
           "tried": [
             "1",
@@ -1244,13 +1260,13 @@
         },
         "search": {
           "ok": false,
-          "ms": 4665,
+          "ms": 4158,
           "err": "search: empty list for keyword=庆余年",
           "unsupported": false
         },
         "detail": {
           "ok": false,
-          "ms": 0,
+          "ms": 1,
           "err": "detail: no candidate videoId (search+category+home all empty)",
           "unsupported": false
         },
@@ -1264,35 +1280,14 @@
       "verdict": "broken",
       "reqs": [
         {
-          "url": "https://www.qnnull.com/ms/3--time---------.html?page=1",
+          "url": "https://www.qwnull.com/ms/3--time---------.html?page=1",
           "status": 403,
           "len": 0,
           "t": "curl",
           "retriedFrom": 403
         },
         {
-          "url": "https://www.qnhot.com/ms/3--time---------.html?page=1",
-          "status": 403,
-          "len": 0,
-          "t": "curl",
-          "retriedFrom": 403
-        },
-        {
-          "url": "https://www.pcmp4.com/ms/4--time---------.html?page=1",
-          "status": 403,
-          "len": 0,
-          "t": "curl",
-          "retriedFrom": 403
-        },
-        {
-          "url": "https://www.qwnull.com/ms/4--time---------.html?page=1",
-          "status": 403,
-          "len": 0,
-          "t": "curl",
-          "retriedFrom": 403
-        },
-        {
-          "url": "https://www.qwmkv.com/ms/4--time---------.html?page=1",
+          "url": "https://www.qwmkv.com/ms/3--time---------.html?page=1",
           "status": 403,
           "len": 0,
           "t": "curl",
@@ -1320,21 +1315,21 @@
           "retriedFrom": 403
         },
         {
-          "url": "https://www.pcmp4.com/index.php/ajax/suggest?mid=1&limit=20&wd=%E5%BA%86%E4%BD%99%E5%B9%B4",
+          "url": "https://www.pcmp4.com/ms/4--time---------.html?page=1",
           "status": 403,
           "len": 0,
           "t": "curl",
           "retriedFrom": 403
         },
         {
-          "url": "https://www.qwnull.com/index.php/ajax/suggest?mid=1&limit=20&wd=%E5%BA%86%E4%BD%99%E5%B9%B4",
+          "url": "https://www.qwnull.com/ms/4--time---------.html?page=1",
           "status": 403,
           "len": 0,
           "t": "curl",
           "retriedFrom": 403
         },
         {
-          "url": "https://www.qwmkv.com/index.php/ajax/suggest?mid=1&limit=20&wd=%E5%BA%86%E4%BD%99%E5%B9%B4",
+          "url": "https://www.qwmkv.com/ms/4--time---------.html?page=1",
           "status": 403,
           "len": 0,
           "t": "curl",
@@ -1360,6 +1355,27 @@
           "len": 0,
           "t": "curl",
           "retriedFrom": 403
+        },
+        {
+          "url": "https://www.pcmp4.com/index.php/ajax/suggest?mid=1&limit=20&wd=%E5%BA%86%E4%BD%99%E5%B9%B4",
+          "status": 403,
+          "len": 0,
+          "t": "curl",
+          "retriedFrom": 403
+        },
+        {
+          "url": "https://www.qwnull.com/index.php/ajax/suggest?mid=1&limit=20&wd=%E5%BA%86%E4%BD%99%E5%B9%B4",
+          "status": 403,
+          "len": 0,
+          "t": "curl",
+          "retriedFrom": 403
+        },
+        {
+          "url": "https://www.qwmkv.com/index.php/ajax/suggest?mid=1&limit=20&wd=%E5%BA%86%E4%BD%99%E5%B9%B4",
+          "status": 403,
+          "len": 0,
+          "t": "curl",
+          "retriedFrom": 403
         }
       ]
     },
@@ -1376,7 +1392,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 1082,
+          "ms": 4068,
           "note": {
             "class": 6,
             "list": 0,
@@ -1386,7 +1402,7 @@
         },
         "category": {
           "ok": false,
-          "ms": 492,
+          "ms": 6301,
           "err": "category: empty list (type_id=reality)",
           "tried": [
             "film",
@@ -1397,7 +1413,7 @@
         },
         "search": {
           "ok": false,
-          "ms": 527,
+          "ms": 2683,
           "err": "search: empty list for keyword=庆余年",
           "unsupported": false
         },
@@ -1446,15 +1462,8 @@
         },
         {
           "url": "https://www.guangya.net/category/reality?orderby=modified",
-          "status": 403,
-          "len": 143,
-          "t": "curl",
-          "retriedFrom": 403
-        },
-        {
-          "url": "https://www.guangya.net/?s=%E5%BA%86%E4%BD%99%E5%B9%B4&type=post",
-          "status": 403,
-          "len": 150,
+          "status": 0,
+          "len": 0,
           "t": "curl",
           "retriedFrom": 403
         }
@@ -1473,7 +1482,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 407,
+          "ms": 1859,
           "note": {
             "class": 4,
             "list": 0,
@@ -1483,7 +1492,7 @@
         },
         "category": {
           "ok": false,
-          "ms": 151,
+          "ms": 758,
           "err": "category: empty list (type_id=26)",
           "tried": [
             "1",
@@ -1494,7 +1503,7 @@
         },
         "search": {
           "ok": false,
-          "ms": 163,
+          "ms": 643,
           "err": "search: empty list for keyword=庆余年",
           "unsupported": false
         },
@@ -1564,7 +1573,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 1815,
+          "ms": 4241,
           "note": {
             "class": 6,
             "list": 208,
@@ -1574,7 +1583,7 @@
         },
         "category": {
           "ok": true,
-          "ms": 824,
+          "ms": 2828,
           "note": {
             "type_id": "1",
             "list": 72,
@@ -1587,7 +1596,7 @@
         },
         "search": {
           "ok": true,
-          "ms": 973,
+          "ms": 5686,
           "note": {
             "keyword": "我想留在你身边",
             "list": 1,
@@ -1596,13 +1605,13 @@
         },
         "detail": {
           "ok": false,
-          "ms": 656,
+          "ms": 17215,
           "err": "detail: no playable episodes (sources=0, episodes=0)",
           "unsupported": false
         },
         "play": {
           "ok": false,
-          "ms": 1,
+          "ms": 0,
           "err": "play: no episode from detail",
           "unsupported": false
         }
@@ -1628,9 +1637,9 @@
           "t": "curl"
         },
         {
-          "url": "https://tv.yydsys.top/index.php/vod/detail/id/10025.html",
+          "url": "https://tv.214521.xyz/index.php/vod/detail/id/10025.html",
           "status": 200,
-          "len": 64051,
+          "len": 64266,
           "t": "curl"
         }
       ]
@@ -1695,7 +1704,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 543,
+          "ms": 1527,
           "note": {
             "class": 6,
             "list": 208,
@@ -1705,7 +1714,7 @@
         },
         "category": {
           "ok": true,
-          "ms": 332,
+          "ms": 1220,
           "note": {
             "type_id": "1",
             "list": 72,
@@ -1718,16 +1727,16 @@
         },
         "search": {
           "ok": true,
-          "ms": 277,
+          "ms": 1185,
           "note": {
-            "keyword": "菜肉馄饨",
-            "list": 4,
+            "keyword": "猎杀游戏",
+            "list": 3,
             "pagecount": 0
           }
         },
         "detail": {
           "ok": false,
-          "ms": 707,
+          "ms": 1610,
           "err": "detail: no playable episodes (sources=0, episodes=0)",
           "unsupported": false
         },
@@ -1743,25 +1752,25 @@
         {
           "url": "http://38.76.197.172:12521/",
           "status": 200,
-          "len": 511563,
+          "len": 505104,
           "t": "axios"
         },
         {
           "url": "http://38.76.197.172:12521/index.php/vod/show/id/1/page/1.html",
           "status": 200,
-          "len": 212749,
+          "len": 229441,
           "t": "axios"
         },
         {
-          "url": "http://38.76.197.172:12521/index.php/vod/search/page/1/wd/菜肉馄饨.html",
+          "url": "http://38.76.197.172:12521/index.php/vod/search/page/1/wd/猎杀游戏.html",
           "status": 200,
-          "len": 29652,
+          "len": 26035,
           "t": "axios"
         },
         {
-          "url": "http://38.76.197.172:12521/index.php/vod/detail/id/465562.html",
+          "url": "http://38.76.197.172:12521/index.php/vod/detail/id/465933.html",
           "status": 200,
-          "len": 67292,
+          "len": 71878,
           "t": "axios"
         }
       ]
@@ -1779,7 +1788,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 367,
+          "ms": 408,
           "note": {
             "class": 7,
             "list": 251,
@@ -1789,7 +1798,7 @@
         },
         "category": {
           "ok": true,
-          "ms": 212,
+          "ms": 240,
           "note": {
             "type_id": "25",
             "list": 72,
@@ -1802,7 +1811,7 @@
         },
         "search": {
           "ok": true,
-          "ms": 151,
+          "ms": 145,
           "note": {
             "keyword": "嫁金钗",
             "list": 2,
@@ -1827,7 +1836,7 @@
         {
           "url": "https://123.666291.xyz/",
           "status": 200,
-          "len": 569028,
+          "len": 572998,
           "t": "axios"
         },
         {
@@ -1863,7 +1872,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 500,
+          "ms": 2445,
           "note": {
             "class": 6,
             "list": 208,
@@ -1873,7 +1882,7 @@
         },
         "category": {
           "ok": false,
-          "ms": 610,
+          "ms": 6628,
           "err": "category: empty list (type_id=5)",
           "tried": [
             "1",
@@ -1884,13 +1893,13 @@
         },
         "search": {
           "ok": false,
-          "ms": 763,
+          "ms": 7152,
           "err": "search: empty list for keyword=但以理",
           "unsupported": false
         },
         "detail": {
           "ok": false,
-          "ms": 763,
+          "ms": 3723,
           "err": "detail: empty list for videoId=/index.php/vod/detail/id/34597.html",
           "unsupported": false
         },
@@ -1911,13 +1920,6 @@
         },
         {
           "url": "https://woog.nxog.eu.org/index.php/vod/show/id/1/page/1.html",
-          "status": 200,
-          "len": 0,
-          "t": "curl",
-          "retriedFrom": 403
-        },
-        {
-          "url": "https://woog.nxog.eu.org/index.php/vod/show/id/2/page/1.html",
           "status": 200,
           "len": 0,
           "t": "curl",
@@ -1966,7 +1968,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 1206,
+          "ms": 1429,
           "note": {
             "class": 8,
             "list": 255,
@@ -1976,7 +1978,7 @@
         },
         "category": {
           "ok": true,
-          "ms": 960,
+          "ms": 1471,
           "note": {
             "type_id": "1",
             "list": 70,
@@ -1989,7 +1991,7 @@
         },
         "search": {
           "ok": true,
-          "ms": 961,
+          "ms": 3468,
           "note": {
             "keyword": "天堂旅行团",
             "list": 2,
@@ -1998,7 +2000,7 @@
         },
         "detail": {
           "ok": false,
-          "ms": 726,
+          "ms": 3350,
           "err": "detail: no playable episodes (sources=0, episodes=0)",
           "unsupported": false
         },
@@ -2050,17 +2052,17 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 11042,
+          "ms": 7622,
           "note": {
             "class": 11,
-            "list": 4,
+            "list": 8,
             "filters": 11,
             "banner": 0
           }
         },
         "category": {
           "ok": true,
-          "ms": 945,
+          "ms": 5708,
           "note": {
             "type_id": "site_wanou",
             "list": 70,
@@ -2082,7 +2084,7 @@
         },
         "detail": {
           "ok": false,
-          "ms": 2570,
+          "ms": 11298,
           "err": "detail: no playable episodes (sources=0, episodes=0)",
           "unsupported": false
         },
@@ -2096,39 +2098,21 @@
       "verdict": "broken",
       "reqs": [
         {
+          "url": "https://666.666291.xyz/index.php/vod/show/id/1/page/1.html",
+          "status": 200,
+          "len": 210109,
+          "t": "axios"
+        },
+        {
           "url": "https://www.wogg.net/vodshow/1--------1---.html",
           "status": 200,
           "len": 163457,
           "t": "axios"
         },
         {
-          "url": "http://38.76.197.172:16969/index.php/vod/search/page/1/wd/%E5%A4%A9%E5%A0%82%E6%97%85%E8%A1%8C%E5%9B%A2.html",
-          "status": 200,
-          "len": 15768,
-          "t": "axios"
-        },
-        {
           "url": "https://tv.yydsys.top/index.php/vod/search/page/1/wd/%E5%A4%A9%E5%A0%82%E6%97%85%E8%A1%8C%E5%9B%A2.html",
           "status": 200,
-          "len": 15018,
-          "t": "axios"
-        },
-        {
-          "url": "http://38.76.197.172:12521/index.php/vod/search/page/1/wd/%E5%A4%A9%E5%A0%82%E6%97%85%E8%A1%8C%E5%9B%A2.html",
-          "status": 200,
-          "len": 15401,
-          "t": "axios"
-        },
-        {
-          "url": "https://woog.nxog.eu.org/index.php/vod/search/page/1/wd/%E5%A4%A9%E5%A0%82%E6%97%85%E8%A1%8C%E5%9B%A2.html",
-          "status": 520,
-          "len": 7350,
-          "t": "axios"
-        },
-        {
-          "url": "https://www.wogg.net/vodsearch/-------------.html?wd=%E5%A4%A9%E5%A0%82%E6%97%85%E8%A1%8C%E5%9B%A2&page=1",
-          "status": 200,
-          "len": 15085,
+          "len": 15233,
           "t": "axios"
         },
         {
@@ -2138,22 +2122,21 @@
           "t": "axios"
         },
         {
-          "url": "https://tv.yydsys.top/index.php/vod/detail/id/8202.html",
+          "url": "http://xsayang.fun:12512/index.php/vod/search/page/1/wd/%E5%A4%A9%E5%A0%82%E6%97%85%E8%A1%8C%E5%9B%A2.html",
           "status": 200,
-          "len": 0,
-          "t": "curl",
-          "retriedFrom": 403
-        },
-        {
-          "url": "http://38.76.197.172:12521/index.php/vod/detail/id/469884.html",
-          "status": 200,
-          "len": 63215,
+          "len": 15401,
           "t": "axios"
         },
         {
-          "url": "http://38.76.197.172:16969/index.php/vod/detail/id/460800.html",
+          "url": "https://www.wogg.net/vodsearch/-------------.html?wd=%E5%A4%A9%E5%A0%82%E6%97%85%E8%A1%8C%E5%9B%A2&page=1",
           "status": 200,
-          "len": 63474,
+          "len": 15085,
+          "t": "axios"
+        },
+        {
+          "url": "http://xhban.xyz:20720/index.php/vod/search/page/1/wd/%E5%A4%A9%E5%A0%82%E6%97%85%E8%A1%8C%E5%9B%A2.html",
+          "status": 200,
+          "len": 15768,
           "t": "axios"
         },
         {
@@ -2163,16 +2146,35 @@
           "t": "axios"
         },
         {
+          "url": "https://666.666291.xyz/index.php/vod/detail/id/5150.html",
+          "status": 200,
+          "len": 70657,
+          "t": "axios"
+        },
+        {
           "url": "https://666.666291.xyz/index.php/vod/detail/id/5158.html",
           "status": 200,
           "len": 78050,
           "t": "axios"
         },
         {
-          "url": "https://666.666291.xyz/index.php/vod/detail/id/5150.html",
+          "url": "http://38.76.197.172:16969/index.php/vod/detail/id/460800.html",
           "status": 200,
-          "len": 70657,
+          "len": 70545,
           "t": "axios"
+        },
+        {
+          "url": "http://38.76.197.172:12521/index.php/vod/detail/id/469884.html",
+          "status": 200,
+          "len": 70195,
+          "t": "axios"
+        },
+        {
+          "url": "https://tv.yydsys.top/index.php/vod/detail/id/8202.html",
+          "status": 200,
+          "len": 0,
+          "t": "curl",
+          "retriedFrom": 403
         },
         {
           "url": "https://tv.214521.xyz/index.php/vod/detail/id/8202.html",
@@ -2195,17 +2197,17 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 5789,
+          "ms": 7460,
           "note": {
             "class": 11,
-            "list": 4,
+            "list": 8,
             "filters": 11,
             "banner": 0
           }
         },
         "category": {
           "ok": true,
-          "ms": 825,
+          "ms": 5707,
           "note": {
             "type_id": "site_wanou",
             "list": 70,
@@ -2218,22 +2220,22 @@
         },
         "search": {
           "ok": true,
-          "ms": 20039,
+          "ms": 15221,
           "note": {
             "keyword": "天堂旅行团",
-            "list": 7,
+            "list": 9,
             "pagecount": 1
           }
         },
         "detail": {
           "ok": false,
-          "ms": 849,
+          "ms": 1966,
           "err": "detail: no playable episodes (sources=0, episodes=0)",
           "unsupported": false
         },
         "play": {
           "ok": false,
-          "ms": 0,
+          "ms": 1,
           "err": "play: no episode from detail",
           "unsupported": false
         }
@@ -2241,21 +2243,15 @@
       "verdict": "broken",
       "reqs": [
         {
-          "url": "https://gh-proxy.org/https://github.com/Silent1566/OmniBox-Spider/raw/refs/heads/main/%E9%85%8D%E7%BD%AE/%E7%AD%9B%E9%80%89/erxiao.json",
+          "url": "https://gh-proxy.org/https://github.com/Silent1566/OmniBox-Spider/raw/refs/heads/main/%E9%85%8D%E7%BD%AE/%E7%AD%9B%E9%80%89/wogg.json",
           "status": 200,
-          "len": 28100,
+          "len": 40266,
           "t": "axios"
         },
         {
-          "url": "https://gh-proxy.org/https://github.com/Silent1566/OmniBox-Spider/raw/refs/heads/main/%E9%85%8D%E7%BD%AE/%E7%AD%9B%E9%80%89/xiaoban.json",
+          "url": "https://gh-proxy.org/https://github.com/Silent1566/OmniBox-Spider/raw/refs/heads/main/%E9%85%8D%E7%BD%AE/%E7%AD%9B%E9%80%89/labi.json",
           "status": 200,
-          "len": 53550,
-          "t": "axios"
-        },
-        {
-          "url": "https://gh-proxy.org/https://github.com/Silent1566/OmniBox-Spider/raw/refs/heads/main/%E9%85%8D%E7%BD%AE/%E7%AD%9B%E9%80%89/ouge.json",
-          "status": 200,
-          "len": 37996,
+          "len": 34107,
           "t": "axios"
         },
         {
@@ -2265,9 +2261,9 @@
           "t": "axios"
         },
         {
-          "url": "https://www.wogg.net/vodshow/1--------1---.html",
+          "url": "https://gh-proxy.org/https://github.com/Silent1566/OmniBox-Spider/raw/refs/heads/main/%E9%85%8D%E7%BD%AE/%E7%AD%9B%E9%80%89/ouge.json",
           "status": 200,
-          "len": 163457,
+          "len": 37996,
           "t": "axios"
         },
         {
@@ -2277,27 +2273,21 @@
           "t": "axios"
         },
         {
-          "url": "http://38.76.197.172:16969/index.php/vod/search/page/1/wd/%E5%A4%A9%E5%A0%82%E6%97%85%E8%A1%8C%E5%9B%A2.html",
+          "url": "https://666.666291.xyz/index.php/vod/show/id/1/page/1.html",
           "status": 200,
-          "len": 15768,
+          "len": 210109,
           "t": "axios"
         },
         {
-          "url": "http://38.76.197.172:12521/index.php/vod/search/page/1/wd/%E5%A4%A9%E5%A0%82%E6%97%85%E8%A1%8C%E5%9B%A2.html",
+          "url": "https://www.wogg.net/vodshow/1--------1---.html",
           "status": 200,
-          "len": 15401,
-          "t": "axios"
-        },
-        {
-          "url": "https://tv.yydsys.top/index.php/vod/search/page/1/wd/%E5%A4%A9%E5%A0%82%E6%97%85%E8%A1%8C%E5%9B%A2.html",
-          "status": 200,
-          "len": 15018,
+          "len": 163457,
           "t": "axios"
         },
         {
           "url": "https://woog.nxog.eu.org/index.php/vod/search/page/1/wd/%E5%A4%A9%E5%A0%82%E6%97%85%E8%A1%8C%E5%9B%A2.html",
           "status": 520,
-          "len": 7352,
+          "len": 7349,
           "t": "axios"
         },
         {
@@ -2307,15 +2297,27 @@
           "t": "axios"
         },
         {
-          "url": "https://sd.sduc.site/index.php/vod/search/page/1/wd/%E5%A4%A9%E5%A0%82%E6%97%85%E8%A1%8C%E5%9B%A2.html",
-          "status": 522,
-          "len": 0,
+          "url": "https://666.666291.xyz/index.php/vod/search/page/1/wd/%E5%A4%A9%E5%A0%82%E6%97%85%E8%A1%8C%E5%9B%A2.html",
+          "status": 200,
+          "len": 21543,
           "t": "axios"
         },
         {
-          "url": "https://zmi.kdns.fr/vodsearch/%E5%A4%A9%E5%A0%82%E6%97%85%E8%A1%8C%E5%9B%A2-------------/",
-          "status": 522,
-          "len": 7223,
+          "url": "http://xsayang.fun:12512/index.php/vod/search/page/1/wd/%E5%A4%A9%E5%A0%82%E6%97%85%E8%A1%8C%E5%9B%A2.html",
+          "status": 200,
+          "len": 15401,
+          "t": "axios"
+        },
+        {
+          "url": "http://xhban.xyz:20720/index.php/vod/search/page/1/wd/%E5%A4%A9%E5%A0%82%E6%97%85%E8%A1%8C%E5%9B%A2.html",
+          "status": 200,
+          "len": 15768,
+          "t": "axios"
+        },
+        {
+          "url": "https://tv.yydsys.cc/index.php/vod/search/page/1/wd/%E5%A4%A9%E5%A0%82%E6%97%85%E8%A1%8C%E5%9B%A2.html",
+          "status": 200,
+          "len": 15785,
           "t": "axios"
         },
         {
@@ -2339,7 +2341,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 0,
+          "ms": 1,
           "note": {
             "class": 2,
             "list": 0,
@@ -2443,7 +2445,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 1378,
+          "ms": 13017,
           "note": {
             "class": 5,
             "list": 0,
@@ -2453,7 +2455,7 @@
         },
         "category": {
           "ok": false,
-          "ms": 485,
+          "ms": 3063,
           "err": "category: empty list (type_id=动漫)",
           "tried": [
             "电视剧",
@@ -2464,7 +2466,7 @@
         },
         "search": {
           "ok": false,
-          "ms": 468,
+          "ms": 1289,
           "err": "search: empty list for keyword=庆余年",
           "unsupported": false
         },
@@ -2492,15 +2494,8 @@
         },
         {
           "url": "https://ppan.dyuzi.com/api/frontend/ranking?channel=%E7%94%B5%E8%A7%86%E5%89%A7&limit=10",
-          "status": 403,
-          "len": 548,
-          "t": "curl",
-          "retriedFrom": 403
-        },
-        {
-          "url": "https://ppan.dyuzi.com/api/frontend/ranking?channel=%E7%94%B5%E8%A7%86%E5%89%A7&limit=20",
-          "status": 403,
-          "len": 548,
+          "status": 0,
+          "len": 0,
           "t": "curl",
           "retriedFrom": 403
         },
@@ -2547,7 +2542,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 1341,
+          "ms": 13902,
           "note": {
             "class": 5,
             "list": 0,
@@ -2557,7 +2552,7 @@
         },
         "category": {
           "ok": false,
-          "ms": 487,
+          "ms": 2032,
           "err": "category: empty list (type_id=动漫)",
           "tried": [
             "电视剧",
@@ -2568,13 +2563,13 @@
         },
         "search": {
           "ok": false,
-          "ms": 522,
+          "ms": 2855,
           "err": "search: empty list for keyword=庆余年",
           "unsupported": false
         },
         "detail": {
           "ok": false,
-          "ms": 1,
+          "ms": 0,
           "err": "detail: no candidate videoId (search+category+home all empty)",
           "unsupported": false
         },
@@ -2589,15 +2584,8 @@
       "reqs": [
         {
           "url": "https://ppan.dyuzi.com/api/frontend/home",
-          "status": 403,
-          "len": 548,
-          "t": "curl",
-          "retriedFrom": 403
-        },
-        {
-          "url": "https://ppan.dyuzi.com/api/frontend/ranking?channel=%E7%94%B5%E8%A7%86%E5%89%A7&limit=10",
-          "status": 403,
-          "len": 548,
+          "status": 0,
+          "len": 0,
           "t": "curl",
           "retriedFrom": 403
         },
@@ -2651,7 +2639,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 558,
+          "ms": 3298,
           "note": {
             "class": 7,
             "list": 208,
@@ -2661,7 +2649,7 @@
         },
         "category": {
           "ok": true,
-          "ms": 341,
+          "ms": 3936,
           "note": {
             "type_id": "1",
             "list": 72,
@@ -2674,16 +2662,16 @@
         },
         "search": {
           "ok": true,
-          "ms": 289,
+          "ms": 308,
           "note": {
-            "keyword": "请求救援",
+            "keyword": "猎杀游戏",
             "list": 3,
             "pagecount": 0
           }
         },
         "detail": {
           "ok": false,
-          "ms": 291,
+          "ms": 11306,
           "err": "detail: no playable episodes (sources=0, episodes=0)",
           "unsupported": false
         },
@@ -2699,25 +2687,25 @@
         {
           "url": "http://38.76.197.172:16969/",
           "status": 200,
-          "len": 488121,
+          "len": 511020,
           "t": "axios"
         },
         {
           "url": "http://38.76.197.172:16969/index.php/vod/show/id/1/page/1.html",
           "status": 200,
-          "len": 200689,
+          "len": 230171,
           "t": "axios"
         },
         {
-          "url": "http://38.76.197.172:16969/index.php/vod/search/page/1/wd/请求救援.html",
+          "url": "http://38.76.197.172:16969/index.php/vod/search/page/1/wd/猎杀游戏.html",
           "status": 200,
-          "len": 21629,
+          "len": 26408,
           "t": "axios"
         },
         {
-          "url": "http://38.76.197.172:16969/index.php/vod/detail/id/456661.html",
+          "url": "http://xhban.xyz:20720/index.php/vod/detail/id/457236.html",
           "status": 200,
-          "len": 62978,
+          "len": 72228,
           "t": "axios"
         }
       ]
@@ -2735,13 +2723,13 @@
       "steps": {
         "home": {
           "ok": false,
-          "ms": 40024,
+          "ms": 40018,
           "err": "STEP_TIMEOUT home 40000ms",
           "unsupported": false
         },
         "category": {
           "ok": false,
-          "ms": 20066,
+          "ms": 19758,
           "err": "category: empty list (type_id=1)",
           "tried": [
             "1"
@@ -2749,7 +2737,7 @@
         },
         "search": {
           "ok": false,
-          "ms": 19863,
+          "ms": 19454,
           "err": "search: empty list for keyword=庆余年",
           "unsupported": false
         },
@@ -2761,7 +2749,7 @@
         },
         "play": {
           "ok": false,
-          "ms": 1,
+          "ms": 0,
           "err": "play: no episode from detail",
           "unsupported": false
         }
@@ -2769,33 +2757,27 @@
       "verdict": "broken",
       "reqs": [
         {
-          "url": "https://zmi.kdns.fr/",
-          "status": 522,
-          "len": 7223,
-          "t": "axios"
-        },
-        {
-          "url": "https://zmi.kdns.fr/vodtype/1/",
-          "status": 522,
-          "len": 7223,
-          "t": "axios"
-        },
-        {
           "url": "https://zmi.kdns.fr/index.php/vod/show/id/1.html",
           "status": 522,
-          "len": 7223,
-          "t": "axios"
-        },
-        {
-          "url": "https://zmi.kdns.fr/vodtype/1/",
-          "status": 522,
-          "len": 7223,
+          "len": 7220,
           "t": "axios"
         },
         {
           "url": "https://zmi.kdns.fr/index.php/vod/type/id/1.html",
           "status": 522,
+          "len": 7220,
+          "t": "axios"
+        },
+        {
+          "url": "https://zmi.kdns.fr/vodtype/1/",
+          "status": 522,
           "len": 7223,
+          "t": "axios"
+        },
+        {
+          "url": "https://zmi.kdns.fr/vodtype/2/",
+          "status": 522,
+          "len": 7220,
           "t": "axios"
         },
         {
@@ -2819,13 +2801,13 @@
       "steps": {
         "home": {
           "ok": false,
-          "ms": 10451,
+          "ms": 11108,
           "err": "home: empty class list",
           "unsupported": false
         },
         "category": {
           "ok": false,
-          "ms": 10309,
+          "ms": 13764,
           "err": "category: empty list (type_id=1)",
           "tried": [
             "1"
@@ -2833,7 +2815,7 @@
         },
         "search": {
           "ok": false,
-          "ms": 10365,
+          "ms": 10385,
           "err": "search: empty list for keyword=庆余年",
           "unsupported": false
         },
@@ -2885,7 +2867,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 175,
+          "ms": 176,
           "note": {
             "class": 4,
             "list": 8,
@@ -2895,7 +2877,7 @@
         },
         "category": {
           "ok": true,
-          "ms": 46,
+          "ms": 104,
           "note": {
             "type_id": "2",
             "list": 21,
@@ -2908,7 +2890,7 @@
         },
         "search": {
           "ok": true,
-          "ms": 1746,
+          "ms": 744,
           "note": {
             "keyword": "醒来",
             "list": 18,
@@ -2917,7 +2899,7 @@
         },
         "detail": {
           "ok": true,
-          "ms": 45,
+          "ms": 49,
           "note": {
             "name": "醒来",
             "sources": 8,
@@ -2926,7 +2908,7 @@
         },
         "play": {
           "ok": true,
-          "ms": 842,
+          "ms": 4143,
           "note": {
             "url": "https://jx.m3u8.tv/jiexi/?url=http%3A%2F%2Fwww.iqiyi.com%2Fv_o9400y1y48.html%3Fvfm%3Df_191_360y%26fv%3Dp_09_01",
             "n": 1,
@@ -2981,7 +2963,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 369,
+          "ms": 468,
           "note": {
             "class": 4,
             "list": 60,
@@ -2991,7 +2973,7 @@
         },
         "category": {
           "ok": true,
-          "ms": 282,
+          "ms": 3452,
           "note": {
             "type_id": "10",
             "list": 36,
@@ -3003,7 +2985,7 @@
         },
         "search": {
           "ok": true,
-          "ms": 269,
+          "ms": 3163,
           "note": {
             "keyword": "执法交叉点",
             "list": 1,
@@ -3012,7 +2994,7 @@
         },
         "detail": {
           "ok": true,
-          "ms": 277,
+          "ms": 3451,
           "note": {
             "name": "执法交叉点",
             "sources": 98,
@@ -3021,7 +3003,7 @@
         },
         "play": {
           "ok": true,
-          "ms": 326,
+          "ms": 3269,
           "note": {
             "url": "https://v.gsuus.com/play/e9r15mxa/index.m3u8",
             "n": 1,
@@ -3034,7 +3016,7 @@
         {
           "url": "https://a123tv.com",
           "status": 200,
-          "len": 35961,
+          "len": 35960,
           "t": "axios"
         },
         {
@@ -3076,7 +3058,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 1453,
+          "ms": 6444,
           "note": {
             "class": 4,
             "list": 24,
@@ -3086,7 +3068,7 @@
         },
         "category": {
           "ok": true,
-          "ms": 474,
+          "ms": 1650,
           "note": {
             "type_id": "电影",
             "list": 24,
@@ -3098,7 +3080,7 @@
         },
         "search": {
           "ok": true,
-          "ms": 486,
+          "ms": 2153,
           "note": {
             "keyword": "疯狂动物城2",
             "list": 50,
@@ -3107,7 +3089,7 @@
         },
         "detail": {
           "ok": true,
-          "ms": 1323,
+          "ms": 4116,
           "note": {
             "name": "疯狂动物城2",
             "sources": 12,
@@ -3116,7 +3098,7 @@
         },
         "play": {
           "ok": true,
-          "ms": 921,
+          "ms": 814,
           "note": {
             "url": "https://cambrian-video-origin.cdn.bcebos.com/8dec8bbde0eeabec88da37ecaecf295c.mp4",
             "n": 1,
@@ -3213,33 +3195,37 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 6281,
+          "ms": 4444,
           "note": {
             "class": 2,
-            "list": 0,
+            "list": 36,
             "filters": 2,
             "banner": 0
           }
         },
         "category": {
-          "ok": false,
-          "ms": 4995,
-          "err": "category: empty list (type_id=tv)",
-          "tried": [
-            "movie",
-            "tv"
-          ]
+          "ok": true,
+          "ms": 1144,
+          "note": {
+            "type_id": "movie",
+            "list": 39,
+            "pagecount": 1,
+            "total": 39,
+            "tried": [
+              "movie"
+            ]
+          }
         },
         "search": {
           "ok": false,
-          "ms": 5154,
-          "err": "search: empty list for keyword=庆余年",
+          "ms": 10319,
+          "err": "search: empty list for keyword=小兵张嘎",
           "unsupported": false
         },
         "detail": {
           "ok": false,
-          "ms": 1,
-          "err": "detail: no candidate videoId (search+category+home all empty)",
+          "ms": 6392,
+          "err": "detail: empty list for videoId=https://4k-av.com/movie/008403-zhang-ga-the-soldier-boy/",
           "unsupported": false
         },
         "play": {
@@ -3253,72 +3239,48 @@
       "reqs": [
         {
           "url": "https://4k-av.com/",
-          "status": 403,
-          "len": 871,
-          "t": "curl"
-        },
-        {
-          "url": "https://4k-av.com/",
-          "status": 403,
-          "len": 871,
-          "t": "curl"
-        },
-        {
-          "url": "https://4k-av.com/",
-          "status": 403,
-          "len": 871,
-          "t": "curl"
+          "status": 200,
+          "len": 49542,
+          "t": "fetch"
         },
         {
           "url": "https://4k-av.com/movie/",
+          "status": 200,
+          "len": 45655,
+          "t": "fetch"
+        },
+        {
+          "url": "https://4k-av.com/s?y=%E5%B0%8F%E5%85%B5%E5%BC%A0%E5%98%8E",
           "status": 403,
           "len": 871,
           "t": "curl"
         },
         {
-          "url": "https://4k-av.com/movie/",
+          "url": "https://4k-av.com/s?y=%E5%B0%8F%E5%85%B5%E5%BC%A0%E5%98%8E",
           "status": 403,
           "len": 871,
           "t": "curl"
         },
         {
-          "url": "https://4k-av.com/movie/",
+          "url": "https://4k-av.com/s?y=%E5%B0%8F%E5%85%B5%E5%BC%A0%E5%98%8E",
           "status": 403,
           "len": 871,
           "t": "curl"
         },
         {
-          "url": "https://4k-av.com/tv/",
+          "url": "https://4k-av.com/movie/008403-zhang-ga-the-soldier-boy/",
           "status": 403,
           "len": 871,
           "t": "curl"
         },
         {
-          "url": "https://4k-av.com/tv/",
+          "url": "https://4k-av.com/movie/008403-zhang-ga-the-soldier-boy/",
           "status": 403,
           "len": 871,
           "t": "curl"
         },
         {
-          "url": "https://4k-av.com/tv/",
-          "status": 403,
-          "len": 871,
-          "t": "curl"
-        },
-        {
-          "url": "https://4k-av.com/s?y=%E5%BA%86%E4%BD%99%E5%B9%B4",
-          "status": 403,
-          "len": 871,
-          "t": "curl"
-        },
-        {
-          "url": "https://4k-av.com/s?y=%E5%BA%86%E4%BD%99%E5%B9%B4",
-          "status": 403,
-          "len": 871,
-          "t": "curl"
-        },
-        {
-          "url": "https://4k-av.com/s?y=%E5%BA%86%E4%BD%99%E5%B9%B4",
+          "url": "https://4k-av.com/movie/008403-zhang-ga-the-soldier-boy/",
           "status": 403,
           "len": 871,
           "t": "curl"
@@ -3338,7 +3300,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 798,
+          "ms": 6698,
           "note": {
             "class": 3,
             "list": 112,
@@ -3348,7 +3310,7 @@
         },
         "category": {
           "ok": true,
-          "ms": 191,
+          "ms": 1386,
           "note": {
             "type_id": "https://www.4kvm.org/movie",
             "list": 72,
@@ -3360,7 +3322,7 @@
         },
         "search": {
           "ok": true,
-          "ms": 151,
+          "ms": 1024,
           "note": {
             "keyword": "了不起的盖茨比",
             "list": 1,
@@ -3369,7 +3331,7 @@
         },
         "detail": {
           "ok": true,
-          "ms": 149,
+          "ms": 1298,
           "note": {
             "name": "了不起的盖茨比",
             "sources": 1,
@@ -3378,7 +3340,7 @@
         },
         "play": {
           "ok": true,
-          "ms": 143,
+          "ms": 670,
           "note": {
             "url": "https://www.4kvm.org/play/ch4s80qvn",
             "n": 1,
@@ -3391,13 +3353,13 @@
         {
           "url": "https://www.4kvm.org",
           "status": 200,
-          "len": 676676,
+          "len": 675281,
           "t": "axios"
         },
         {
           "url": "https://www.4kvm.org/movie",
           "status": 200,
-          "len": 340331,
+          "len": 340213,
           "t": "axios"
         },
         {
@@ -3433,17 +3395,17 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 2065,
+          "ms": 5183,
           "note": {
             "class": 24,
-            "list": 59,
+            "list": 60,
             "filters": 0,
             "banner": 0
           }
         },
         "category": {
           "ok": true,
-          "ms": 1312,
+          "ms": 2727,
           "note": {
             "type_id": "1",
             "list": 17,
@@ -3462,7 +3424,7 @@
         },
         "detail": {
           "ok": true,
-          "ms": 1942,
+          "ms": 3306,
           "note": {
             "name": "08:00 NBA常规赛 老鹰 vs 湖人",
             "sources": 1,
@@ -3484,7 +3446,7 @@
         {
           "url": "http://www.88kanqiu.cc",
           "status": 200,
-          "len": 149897,
+          "len": 152112,
           "t": "axios"
         },
         {
@@ -3514,7 +3476,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 991,
+          "ms": 2666,
           "note": {
             "class": 5,
             "list": 0,
@@ -3524,7 +3486,7 @@
         },
         "category": {
           "ok": false,
-          "ms": 1098,
+          "ms": 507,
           "err": "category: empty list (type_id=Dm)",
           "tried": [
             "Movie",
@@ -3535,7 +3497,7 @@
         },
         "search": {
           "ok": false,
-          "ms": 703,
+          "ms": 891,
           "err": "search: empty list for keyword=庆余年",
           "unsupported": false
         },
@@ -3563,7 +3525,7 @@
         {
           "url": "https://auete.top/Movie/index.html",
           "status": 200,
-          "len": 5640,
+          "len": 5648,
           "t": "curl"
         },
         {
@@ -3605,7 +3567,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 1016,
+          "ms": 2508,
           "note": {
             "class": 7,
             "list": 107,
@@ -3615,7 +3577,7 @@
         },
         "category": {
           "ok": true,
-          "ms": 267,
+          "ms": 181,
           "note": {
             "type_id": "6",
             "list": 24,
@@ -3628,7 +3590,7 @@
         },
         "search": {
           "ok": true,
-          "ms": 188,
+          "ms": 160,
           "note": {
             "keyword": "误杀瞒天记3",
             "list": 1
@@ -3636,7 +3598,7 @@
         },
         "detail": {
           "ok": true,
-          "ms": 242,
+          "ms": 157,
           "note": {
             "name": "误杀瞒天记3",
             "sources": 1,
@@ -3645,7 +3607,7 @@
         },
         "play": {
           "ok": true,
-          "ms": 397,
+          "ms": 15426,
           "note": {
             "url": "https://fktv.me/m3c/f09cd4ce34d832ce7574af4a7928a2d9a26ecc54f1cff5cb73f61e94ef3f0c2e361454a717cd899072168ab65a18f330bc51",
             "n": 4,
@@ -3658,13 +3620,13 @@
         {
           "url": "https://fktv.me/ysapi/movie/home",
           "status": 200,
-          "len": 502400,
+          "len": 504300,
           "t": "fetch"
         },
         {
           "url": "https://fktv.me/ysapi/movie/search",
           "status": 200,
-          "len": 31488,
+          "len": 31424,
           "t": "fetch"
         },
         {
@@ -3700,7 +3662,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 401,
+          "ms": 1680,
           "note": {
             "class": 6,
             "list": 24,
@@ -3710,7 +3672,7 @@
         },
         "category": {
           "ok": true,
-          "ms": 113,
+          "ms": 354,
           "note": {
             "type_id": "1",
             "list": 55,
@@ -3723,13 +3685,13 @@
         },
         "search": {
           "ok": false,
-          "ms": 667,
+          "ms": 750,
           "err": "search: empty list for keyword=复活男",
           "unsupported": false
         },
         "detail": {
           "ok": false,
-          "ms": 104,
+          "ms": 108,
           "err": "detail: no playable episodes (sources=0, episodes=0)",
           "unsupported": false
         },
@@ -3745,7 +3707,7 @@
         {
           "url": "https://gimyai.tw/",
           "status": 200,
-          "len": 61285,
+          "len": 61284,
           "t": "fetch"
         },
         {
@@ -3781,7 +3743,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 1096,
+          "ms": 1424,
           "note": {
             "class": 12,
             "list": 24,
@@ -3791,7 +3753,7 @@
         },
         "category": {
           "ok": true,
-          "ms": 466,
+          "ms": 598,
           "note": {
             "type_id": "1",
             "list": 48,
@@ -3804,7 +3766,7 @@
         },
         "search": {
           "ok": true,
-          "ms": 928,
+          "ms": 604,
           "note": {
             "keyword": "可能的爱",
             "list": 1,
@@ -3813,7 +3775,7 @@
         },
         "detail": {
           "ok": true,
-          "ms": 1305,
+          "ms": 643,
           "note": {
             "name": "可能的爱",
             "sources": 2,
@@ -3822,7 +3784,7 @@
         },
         "play": {
           "ok": true,
-          "ms": 598,
+          "ms": 1215,
           "note": {
             "url": "https://www.hdmoli.me/play/3927-5-1.html",
             "n": 1,
@@ -3877,7 +3839,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 1069,
+          "ms": 1008,
           "note": {
             "class": 5,
             "list": 24,
@@ -3887,7 +3849,7 @@
         },
         "category": {
           "ok": true,
-          "ms": 302,
+          "ms": 175,
           "note": {
             "type_id": "1",
             "list": 12,
@@ -3900,7 +3862,7 @@
         },
         "search": {
           "ok": true,
-          "ms": 811,
+          "ms": 404,
           "note": {
             "keyword": "可能的爱",
             "list": 1,
@@ -3909,7 +3871,7 @@
         },
         "detail": {
           "ok": true,
-          "ms": 1114,
+          "ms": 774,
           "note": {
             "name": "可能的爱",
             "sources": 7,
@@ -3918,7 +3880,7 @@
         },
         "play": {
           "ok": true,
-          "ms": 1,
+          "ms": 2,
           "note": {
             "url": "https://www.libvio.lat/play/5813927-2-1.html",
             "n": 1,
@@ -3942,7 +3904,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 1559,
+          "ms": 808,
           "note": {
             "class": 13,
             "list": 0,
@@ -3952,7 +3914,7 @@
         },
         "category": {
           "ok": false,
-          "ms": 450,
+          "ms": 1625,
           "err": "category: empty list (type_id=tv-western)",
           "tried": [
             "movie",
@@ -3963,7 +3925,7 @@
         },
         "search": {
           "ok": false,
-          "ms": 745,
+          "ms": 587,
           "err": "search: empty list for keyword=庆余年",
           "unsupported": false
         },
@@ -3975,7 +3937,7 @@
         },
         "play": {
           "ok": false,
-          "ms": 1,
+          "ms": 0,
           "err": "play: no episode from detail",
           "unsupported": false
         }
@@ -3997,7 +3959,7 @@
         {
           "url": "https://www.novipnoad.net/tv/hongkong/",
           "status": 403,
-          "len": 5646,
+          "len": 5667,
           "t": "curl"
         },
         {
@@ -4033,7 +3995,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 1555,
+          "ms": 910,
           "note": {
             "class": 2,
             "list": 16,
@@ -4043,7 +4005,7 @@
         },
         "category": {
           "ok": true,
-          "ms": 551,
+          "ms": 535,
           "note": {
             "type_id": "movie",
             "list": 24,
@@ -4056,7 +4018,7 @@
         },
         "search": {
           "ok": true,
-          "ms": 524,
+          "ms": 682,
           "note": {
             "keyword": "无人守护：枕边杀局",
             "list": 24,
@@ -4065,7 +4027,7 @@
         },
         "detail": {
           "ok": true,
-          "ms": 691,
+          "ms": 443,
           "note": {
             "name": "无人守护：枕边杀局 Desprotexida: el crimen de Paz",
             "sources": 1,
@@ -4074,13 +4036,19 @@
         },
         "play": {
           "ok": false,
-          "ms": 40011,
+          "ms": 40002,
           "err": "STEP_TIMEOUT play 40000ms",
           "unsupported": false
         }
       },
       "verdict": "partial",
       "reqs": [
+        {
+          "url": "https://www.ppnix.com/cn/",
+          "status": 200,
+          "len": 34916,
+          "t": "axios"
+        },
         {
           "url": "https://www.ppnix.com/cn/movie/----newstime.html",
           "status": 200,
@@ -4091,12 +4059,6 @@
           "url": "https://www.ppnix.com/cn/tv/----newstime.html",
           "status": 200,
           "len": 18632,
-          "t": "axios"
-        },
-        {
-          "url": "https://www.ppnix.com/cn/",
-          "status": 200,
-          "len": 34915,
           "t": "axios"
         },
         {
@@ -4114,7 +4076,7 @@
         {
           "url": "https://www.ppnix.com/cn/movie/9117.html",
           "status": 200,
-          "len": 9786,
+          "len": 9588,
           "t": "axios"
         }
       ]
@@ -4132,7 +4094,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 640,
+          "ms": 671,
           "note": {
             "class": 2,
             "list": 20,
@@ -4142,7 +4104,7 @@
         },
         "category": {
           "ok": true,
-          "ms": 101,
+          "ms": 242,
           "note": {
             "type_id": "/hot/index-movie-热门.html",
             "list": 24,
@@ -4154,7 +4116,7 @@
         },
         "search": {
           "ok": true,
-          "ms": 107,
+          "ms": 308,
           "note": {
             "keyword": "可能的爱",
             "list": 3,
@@ -4163,7 +4125,7 @@
         },
         "detail": {
           "ok": true,
-          "ms": 214,
+          "ms": 1283,
           "note": {
             "name": "可能的爱",
             "sources": 29,
@@ -4239,7 +4201,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 839,
+          "ms": 1819,
           "note": {
             "class": 5,
             "list": 0,
@@ -4249,7 +4211,7 @@
         },
         "category": {
           "ok": false,
-          "ms": 674,
+          "ms": 622,
           "err": "category: empty list (type_id=4)",
           "tried": [
             "1",
@@ -4260,7 +4222,7 @@
         },
         "search": {
           "ok": false,
-          "ms": 757,
+          "ms": 596,
           "err": "search: empty list for keyword=庆余年",
           "unsupported": false
         },
@@ -4336,7 +4298,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 900,
+          "ms": 1426,
           "note": {
             "class": 4,
             "list": 64,
@@ -4346,7 +4308,7 @@
         },
         "category": {
           "ok": true,
-          "ms": 314,
+          "ms": 456,
           "note": {
             "type_id": "movie",
             "list": 24,
@@ -4358,7 +4320,7 @@
         },
         "search": {
           "ok": true,
-          "ms": 247,
+          "ms": 7973,
           "note": {
             "keyword": "了不起的盖茨比",
             "list": 1,
@@ -4367,7 +4329,7 @@
         },
         "detail": {
           "ok": true,
-          "ms": 305,
+          "ms": 463,
           "note": {
             "name": "了不起的盖茨比了不起的盖茨比",
             "sources": 1,
@@ -4389,7 +4351,7 @@
         {
           "url": "https://www.bttwoo.com",
           "status": 200,
-          "len": 615375,
+          "len": 613398,
           "t": "axios"
         },
         {
@@ -4425,7 +4387,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 398,
+          "ms": 1435,
           "note": {
             "class": 7,
             "list": 12,
@@ -4435,7 +4397,7 @@
         },
         "category": {
           "ok": true,
-          "ms": 111,
+          "ms": 397,
           "note": {
             "type_id": "movie",
             "list": 24,
@@ -4448,7 +4410,7 @@
         },
         "search": {
           "ok": true,
-          "ms": 93,
+          "ms": 305,
           "note": {
             "keyword": "小丑回魂：德里故事",
             "list": 8,
@@ -4457,7 +4419,7 @@
         },
         "detail": {
           "ok": true,
-          "ms": 90,
+          "ms": 218,
           "note": {
             "name": "小丑回魂：德里故事",
             "sources": 1,
@@ -4501,9 +4463,9 @@
           "t": "fetch"
         },
         {
-          "url": "https://wooyun.tv/movie/media/detail?mediaId=3344208",
+          "url": "https://wooyun.tv/movie/media/video/list?mediaId=3344208&lineName=&resolutionCode=",
           "status": 200,
-          "len": 1999,
+          "len": 895,
           "t": "fetch"
         },
         {
@@ -4513,9 +4475,9 @@
           "t": "fetch"
         },
         {
-          "url": "https://wooyun.tv/movie/media/video/list?mediaId=3344208&lineName=&resolutionCode=",
+          "url": "https://wooyun.tv/movie/media/detail?mediaId=3344208",
           "status": 200,
-          "len": 895,
+          "len": 1999,
           "t": "fetch"
         }
       ]
@@ -4533,7 +4495,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 1335,
+          "ms": 645,
           "note": {
             "class": 4,
             "list": 40,
@@ -4543,12 +4505,12 @@
         },
         "category": {
           "ok": true,
-          "ms": 445,
+          "ms": 366,
           "note": {
             "type_id": "1",
             "list": 40,
-            "pagecount": 1326,
-            "total": 26520,
+            "pagecount": 1328,
+            "total": 26560,
             "tried": [
               "1"
             ]
@@ -4556,27 +4518,27 @@
         },
         "search": {
           "ok": true,
-          "ms": 1546,
+          "ms": 2000,
           "note": {
-            "keyword": "PT-218的叛军",
-            "list": 1,
+            "keyword": "香港奇案（下集）",
+            "list": 2,
             "pagecount": 1
           }
         },
         "detail": {
           "ok": true,
-          "ms": 200,
+          "ms": 191,
           "note": {
-            "name": "PT-218的叛军",
+            "name": "香港奇案（下集）",
             "sources": 1,
             "episodes": 1
           }
         },
         "play": {
           "ok": true,
-          "ms": 139,
+          "ms": 179,
           "note": {
-            "url": "https://www.bilibili.com/bangumi/play/ep3792519?theme=movie",
+            "url": "https://www.iqiyi.com/v_1pt0pa1cyvw.html",
             "n": 1,
             "parse": 0
           }
@@ -4587,31 +4549,31 @@
         {
           "url": "https://www.qqys01.com/vodshow/1--------1---1.html",
           "status": 200,
-          "len": 42540,
+          "len": 42596,
           "t": "axios"
         },
         {
           "url": "https://www.qqys01.com/vodshow/1--------1---1.html",
           "status": 200,
-          "len": 42540,
+          "len": 42596,
           "t": "axios"
         },
         {
-          "url": "https://www.qqys01.com/vodsearch.html?wd=PT-218%E7%9A%84%E5%8F%9B%E5%86%9B",
+          "url": "https://www.qqys01.com/vodsearch.html?wd=%E9%A6%99%E6%B8%AF%E5%A5%87%E6%A1%88%EF%BC%88%E4%B8%8B%E9%9B%86%EF%BC%89",
           "status": 200,
-          "len": 12924,
+          "len": 14241,
           "t": "axios"
         },
         {
-          "url": "https://www.qqys01.com/voddetail116227.html",
+          "url": "https://www.qqys01.com/voddetail117155.html",
           "status": 200,
-          "len": 26098,
+          "len": 26752,
           "t": "axios"
         },
         {
-          "url": "https://www.qqys01.com/vodplay/116227-1-1.html",
+          "url": "https://www.qqys01.com/vodplay/117155-1-1.html",
           "status": 200,
-          "len": 26381,
+          "len": 26233,
           "t": "axios"
         }
       ]
@@ -4629,7 +4591,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 3629,
+          "ms": 3715,
           "note": {
             "class": 1,
             "list": 40,
@@ -4639,7 +4601,7 @@
         },
         "category": {
           "ok": true,
-          "ms": 275,
+          "ms": 316,
           "note": {
             "type_id": "all",
             "list": 48,
@@ -4652,7 +4614,7 @@
         },
         "search": {
           "ok": true,
-          "ms": 239,
+          "ms": 245,
           "note": {
             "keyword": "红毯热吻和祁先生热恋升温",
             "list": 1,
@@ -4661,7 +4623,7 @@
         },
         "detail": {
           "ok": true,
-          "ms": 581,
+          "ms": 632,
           "note": {
             "name": "红毯热吻和祁先生热恋升温 第1集",
             "sources": 1,
@@ -4670,7 +4632,7 @@
         },
         "play": {
           "ok": true,
-          "ms": 251,
+          "ms": 232,
           "note": {
             "url": "https://vip.ffzy-play8.com/20250202/392128_ebca4749/index.m3u8",
             "n": 1,
@@ -4731,7 +4693,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 421,
+          "ms": 456,
           "note": {
             "class": 7,
             "list": 24,
@@ -4741,7 +4703,7 @@
         },
         "category": {
           "ok": true,
-          "ms": 174,
+          "ms": 195,
           "note": {
             "type_id": "movie",
             "list": 32,
@@ -4754,7 +4716,7 @@
         },
         "search": {
           "ok": true,
-          "ms": 114,
+          "ms": 129,
           "note": {
             "keyword": "黑牢城",
             "list": 1,
@@ -4763,7 +4725,7 @@
         },
         "detail": {
           "ok": true,
-          "ms": 139,
+          "ms": 140,
           "note": {
             "name": "黑牢城",
             "sources": 1,
@@ -4772,7 +4734,7 @@
         },
         "play": {
           "ok": true,
-          "ms": 162,
+          "ms": 143,
           "note": {
             "url": "https://fktv.me/m3c/f09cd4ce34d832ce7574af4a7928a2d99cdc2cfad4d0d3cac7fc88e419a1cbc40aaae6173964221bcb9cbe74d11e608fccd6",
             "n": 2,
@@ -4796,13 +4758,13 @@
       "steps": {
         "home": {
           "ok": false,
-          "ms": 447,
+          "ms": 438,
           "err": "home: empty class list",
           "unsupported": false
         },
         "category": {
           "ok": false,
-          "ms": 281,
+          "ms": 164,
           "err": "category: empty list (type_id=1)",
           "tried": [
             "1"
@@ -4810,13 +4772,13 @@
         },
         "search": {
           "ok": false,
-          "ms": 248,
+          "ms": 160,
           "err": "search: empty list for keyword=庆余年",
           "unsupported": false
         },
         "detail": {
           "ok": false,
-          "ms": 0,
+          "ms": 1,
           "err": "detail: no candidate videoId (search+category+home all empty)",
           "unsupported": false
         },
@@ -4843,7 +4805,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 900,
+          "ms": 1039,
           "note": {
             "class": 5,
             "list": 0,
@@ -4853,7 +4815,7 @@
         },
         "category": {
           "ok": false,
-          "ms": 628,
+          "ms": 1090,
           "err": "category: empty list (type_id=animation)",
           "tried": [
             "movie",
@@ -4864,7 +4826,7 @@
         },
         "search": {
           "ok": false,
-          "ms": 40002,
+          "ms": 40004,
           "err": "STEP_TIMEOUT search 40000ms",
           "unsupported": false
         },
@@ -4876,7 +4838,7 @@
         },
         "play": {
           "ok": false,
-          "ms": 1,
+          "ms": 0,
           "err": "play: no episode from detail",
           "unsupported": false
         }
@@ -4940,7 +4902,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 974,
+          "ms": 977,
           "note": {
             "class": 6,
             "list": 84,
@@ -4950,7 +4912,7 @@
         },
         "category": {
           "ok": true,
-          "ms": 641,
+          "ms": 573,
           "note": {
             "type_id": "1",
             "list": 12,
@@ -4962,7 +4924,7 @@
         },
         "search": {
           "ok": true,
-          "ms": 567,
+          "ms": 807,
           "note": {
             "keyword": "铁血战士：杀戮之地",
             "list": 1,
@@ -4971,7 +4933,7 @@
         },
         "detail": {
           "ok": true,
-          "ms": 1248,
+          "ms": 1619,
           "note": {
             "name": "铁血战士：杀戮之地",
             "sources": 2,
@@ -4980,7 +4942,7 @@
         },
         "play": {
           "ok": true,
-          "ms": 540,
+          "ms": 1369,
           "note": {
             "url": "https://www.zxzjhd.com/vodplay/4601-1-1.html",
             "n": 1,
@@ -5041,7 +5003,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 640,
+          "ms": 717,
           "note": {
             "class": 5,
             "list": 72,
@@ -5051,7 +5013,7 @@
         },
         "category": {
           "ok": true,
-          "ms": 252,
+          "ms": 272,
           "note": {
             "type_id": "movie",
             "list": 54,
@@ -5064,7 +5026,7 @@
         },
         "search": {
           "ok": true,
-          "ms": 375,
+          "ms": 440,
           "note": {
             "keyword": "复仇者联盟5",
             "list": 1,
@@ -5073,7 +5035,7 @@
         },
         "detail": {
           "ok": true,
-          "ms": 785,
+          "ms": 1058,
           "note": {
             "name": "复仇者联盟5",
             "sources": 2,
@@ -5082,7 +5044,7 @@
         },
         "play": {
           "ok": true,
-          "ms": 947,
+          "ms": 1300,
           "note": {
             "url": "https://v1.ppqrrs.com/wjv1/202611/04/fHqMs1sNnz90/video/1000k_720/hls/index.m3u8",
             "n": 1,
@@ -5101,7 +5063,7 @@
         {
           "url": "https://dnvod.org/movie/list/",
           "status": 200,
-          "len": 59296,
+          "len": 59279,
           "t": "fetch"
         },
         {
@@ -5113,7 +5075,7 @@
         {
           "url": "https://dnvod.org/movie/detail/202618723",
           "status": 200,
-          "len": 15597,
+          "len": 15495,
           "t": "fetch"
         },
         {
@@ -5149,7 +5111,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 985,
+          "ms": 947,
           "note": {
             "class": 2,
             "list": 39,
@@ -5159,7 +5121,7 @@
         },
         "category": {
           "ok": true,
-          "ms": 363,
+          "ms": 337,
           "note": {
             "type_id": "21",
             "list": 32,
@@ -5172,13 +5134,13 @@
         },
         "search": {
           "ok": false,
-          "ms": 1166,
+          "ms": 1499,
           "err": "search: empty list for keyword=今天是太阳雨",
           "unsupported": false
         },
         "detail": {
           "ok": true,
-          "ms": 343,
+          "ms": 512,
           "note": {
             "name": "今天是太阳雨",
             "sources": 1,
@@ -5187,7 +5149,7 @@
         },
         "play": {
           "ok": true,
-          "ms": 313,
+          "ms": 520,
           "note": {
             "url": "https://www.mgtv.com/b/817372/24769759.html",
             "n": 1,
@@ -5254,7 +5216,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 1633,
+          "ms": 1651,
           "note": {
             "class": 6,
             "list": 20,
@@ -5264,7 +5226,7 @@
         },
         "category": {
           "ok": true,
-          "ms": 1562,
+          "ms": 1903,
           "note": {
             "type_id": "1",
             "list": 20,
@@ -5276,7 +5238,7 @@
         },
         "search": {
           "ok": true,
-          "ms": 1936,
+          "ms": 1875,
           "note": {
             "keyword": "留给你的所有",
             "list": 1,
@@ -5285,7 +5247,7 @@
         },
         "detail": {
           "ok": true,
-          "ms": 1967,
+          "ms": 2094,
           "note": {
             "name": "留给你的所有",
             "sources": 1,
@@ -5294,7 +5256,7 @@
         },
         "play": {
           "ok": true,
-          "ms": 1,
+          "ms": 0,
           "note": {
             "url": "https://svip.ryiplay18.com/20261017/13600_e5781d1b/index.m3u8",
             "n": 1,
@@ -5355,7 +5317,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 661,
+          "ms": 642,
           "note": {
             "class": 6,
             "list": 60,
@@ -5365,7 +5327,7 @@
         },
         "category": {
           "ok": true,
-          "ms": 545,
+          "ms": 1305,
           "note": {
             "type_id": "3",
             "list": 48,
@@ -5381,27 +5343,27 @@
         },
         "search": {
           "ok": true,
-          "ms": 800,
+          "ms": 1171,
           "note": {
-            "keyword": "开火开伙",
+            "keyword": "黑帮生存战 The Mo",
             "list": 1,
             "pagecount": 1
           }
         },
         "detail": {
           "ok": true,
-          "ms": 150,
+          "ms": 1223,
           "note": {
-            "name": "开火开伙",
+            "name": "黑帮生存战 The Mob",
             "sources": 1,
-            "episodes": 11
+            "episodes": 6
           }
         },
         "play": {
           "ok": true,
-          "ms": 130,
+          "ms": 916,
           "note": {
-            "url": "https://svip.ryiplay21.com/20261109/1716_b3d7bc79/index.m3u8",
+            "url": "https://svip.ryiplay18.com/20261026/14549_399fdf0e/index.m3u8",
             "n": 1,
             "parse": 0
           }
@@ -5412,7 +5374,7 @@
         {
           "url": "https://xiaoheimi.cc/",
           "status": 200,
-          "len": 75742,
+          "len": 75888,
           "t": "fetch"
         },
         {
@@ -5436,25 +5398,25 @@
         {
           "url": "https://xiaoheimi.cc/index.php/vod/show/by/time/id/3.html",
           "status": 200,
-          "len": 69586,
+          "len": 69646,
           "t": "fetch"
         },
         {
-          "url": "https://xiaoheimi.cc/index.php/vod/search.html?wd=%E5%BC%80%E7%81%AB%E5%BC%80%E4%BC%99",
+          "url": "https://xiaoheimi.cc/index.php/vod/search.html?wd=%E9%BB%91%E5%B8%AE%E7%94%9F%E5%AD%98%E6%88%98%20The%20Mo",
           "status": 200,
-          "len": 33095,
+          "len": 33103,
           "t": "fetch"
         },
         {
-          "url": "https://xiaoheimi.cc/index.php/vod/detail/id/80482.html",
+          "url": "https://xiaoheimi.cc/index.php/vod/detail/id/80138.html",
           "status": 200,
-          "len": 59231,
+          "len": 60650,
           "t": "fetch"
         },
         {
-          "url": "https://xiaoheimi.cc/index.php/vod/play/id/80482/sid/1/nid/1.html",
+          "url": "https://xiaoheimi.cc/index.php/vod/play/id/80138/sid/1/nid/1.html",
           "status": 200,
-          "len": 62236,
+          "len": 65898,
           "t": "fetch"
         }
       ]
@@ -5472,7 +5434,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 4683,
+          "ms": 5617,
           "note": {
             "class": 4,
             "list": 0,
@@ -5482,7 +5444,7 @@
         },
         "category": {
           "ok": false,
-          "ms": 1209,
+          "ms": 1237,
           "err": "category: empty list (type_id=综艺)",
           "tried": [
             "电影",
@@ -5493,13 +5455,13 @@
         },
         "search": {
           "ok": false,
-          "ms": 1212,
+          "ms": 1335,
           "err": "search: empty list for keyword=庆余年",
           "unsupported": false
         },
         "detail": {
           "ok": false,
-          "ms": 0,
+          "ms": 1,
           "err": "detail: no candidate videoId (search+category+home all empty)",
           "unsupported": false
         },
@@ -5526,7 +5488,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 1266,
+          "ms": 1859,
           "note": {
             "class": 4,
             "list": 24,
@@ -5536,7 +5498,7 @@
         },
         "category": {
           "ok": true,
-          "ms": 347,
+          "ms": 418,
           "note": {
             "type_id": "电影",
             "list": 24,
@@ -5548,7 +5510,7 @@
         },
         "search": {
           "ok": true,
-          "ms": 370,
+          "ms": 321,
           "note": {
             "keyword": "访问新站多多追剧",
             "list": 50,
@@ -5557,7 +5519,7 @@
         },
         "detail": {
           "ok": true,
-          "ms": 3909,
+          "ms": 3545,
           "note": {
             "name": "访问新站多多追剧",
             "sources": 1,
@@ -5566,7 +5528,7 @@
         },
         "play": {
           "ok": true,
-          "ms": 823,
+          "ms": 828,
           "note": {
             "url": "http://bubutv.top/video_close_site.mp4",
             "n": 1,
@@ -5621,7 +5583,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 1315,
+          "ms": 1268,
           "note": {
             "class": 5,
             "list": 20,
@@ -5631,7 +5593,7 @@
         },
         "category": {
           "ok": true,
-          "ms": 656,
+          "ms": 1292,
           "note": {
             "type_id": "1",
             "list": 20,
@@ -5644,7 +5606,7 @@
         },
         "search": {
           "ok": true,
-          "ms": 606,
+          "ms": 1164,
           "note": {
             "keyword": "可能的爱",
             "list": 34,
@@ -5653,7 +5615,7 @@
         },
         "detail": {
           "ok": true,
-          "ms": 601,
+          "ms": 981,
           "note": {
             "name": "可能的爱",
             "sources": 1,
@@ -5715,7 +5677,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 384,
+          "ms": 881,
           "note": {
             "class": 5,
             "list": 30,
@@ -5725,7 +5687,7 @@
         },
         "category": {
           "ok": true,
-          "ms": 124,
+          "ms": 209,
           "note": {
             "type_id": "1",
             "list": 16,
@@ -5738,13 +5700,13 @@
         },
         "search": {
           "ok": false,
-          "ms": 96,
+          "ms": 132,
           "err": "search: empty list for keyword=家庭关系证明书",
           "unsupported": false
         },
         "detail": {
           "ok": true,
-          "ms": 128,
+          "ms": 185,
           "note": {
             "name": "家庭关系证明书",
             "sources": 1,
@@ -5753,7 +5715,7 @@
         },
         "play": {
           "ok": true,
-          "ms": 96,
+          "ms": 119,
           "note": {
             "url": "https://cdn.yzzyvip-29.com/20260707/25534_f5011865/index.m3u8",
             "n": 1,
@@ -5808,13 +5770,13 @@
       "steps": {
         "home": {
           "ok": false,
-          "ms": 40016,
+          "ms": 40001,
           "err": "STEP_TIMEOUT home 40000ms",
           "unsupported": false
         },
         "category": {
           "ok": false,
-          "ms": 40022,
+          "ms": 40010,
           "err": "STEP_TIMEOUT category 40000ms",
           "tried": [
             "1"
@@ -5822,13 +5784,13 @@
         },
         "search": {
           "ok": false,
-          "ms": 40011,
+          "ms": 40006,
           "err": "STEP_TIMEOUT search 40000ms",
           "unsupported": false
         },
         "detail": {
           "ok": false,
-          "ms": 1,
+          "ms": 0,
           "err": "detail: no candidate videoId (search+category+home all empty)",
           "unsupported": false
         },
@@ -5868,7 +5830,7 @@
         {
           "url": "https://zzoc.cc/vodshow/1-----------.html",
           "status": 403,
-          "len": 5999,
+          "len": 6020,
           "t": "curl"
         },
         {
@@ -5898,7 +5860,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 448,
+          "ms": 403,
           "note": {
             "class": 5,
             "list": 0,
@@ -5908,7 +5870,7 @@
         },
         "category": {
           "ok": false,
-          "ms": 361,
+          "ms": 369,
           "err": "category: empty list (type_id=4)",
           "tried": [
             "1",
@@ -5919,7 +5881,7 @@
         },
         "search": {
           "ok": false,
-          "ms": 382,
+          "ms": 438,
           "err": "search: empty list for keyword=庆余年",
           "unsupported": false
         },
@@ -5952,7 +5914,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 460,
+          "ms": 690,
           "note": {
             "class": 8,
             "list": 0,
@@ -5962,7 +5924,7 @@
         },
         "category": {
           "ok": false,
-          "ms": 357,
+          "ms": 363,
           "err": "category: empty list (type_id=4)",
           "tried": [
             "1",
@@ -5973,7 +5935,7 @@
         },
         "search": {
           "ok": false,
-          "ms": 354,
+          "ms": 378,
           "err": "search: empty list for keyword=庆余年",
           "unsupported": false
         },
@@ -6006,7 +5968,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 30453,
+          "ms": 31896,
           "note": {
             "class": 4,
             "list": 0,
@@ -6016,7 +5978,7 @@
         },
         "category": {
           "ok": false,
-          "ms": 11359,
+          "ms": 10879,
           "err": "category: empty list (type_id=4)",
           "tried": [
             "1",
@@ -6027,7 +5989,7 @@
         },
         "search": {
           "ok": false,
-          "ms": 15731,
+          "ms": 15568,
           "err": "search: empty list for keyword=庆余年",
           "unsupported": false
         },
@@ -6050,18 +6012,12 @@
           "url": "https://www.knvod.com/vshow/4--------1---.html",
           "status": 520,
           "len": 7336,
-          "t": "fetch"
+          "t": "curl"
         },
         {
           "url": "https://www.knvod.com/vshow/4--------1---.html",
           "status": 520,
           "len": 7336,
-          "t": "fetch"
-        },
-        {
-          "url": "https://www.knvod.com/search/%E5%BA%86%E4%BD%99%E5%B9%B4-------------.html",
-          "status": 520,
-          "len": 7334,
           "t": "curl"
         },
         {
@@ -6083,6 +6039,12 @@
           "t": "curl"
         },
         {
+          "url": "https://www.knvod.com/search/%E5%BA%86%E4%BD%99%E5%B9%B4-------------.html",
+          "status": 520,
+          "len": 7334,
+          "t": "curl"
+        },
+        {
           "url": "https://www.knvod.com/index.php/api/vod",
           "status": 520,
           "len": 958,
@@ -6109,26 +6071,26 @@
         {
           "url": "https://www.knvod.com/search/%E5%BA%86%E4%BD%99%E5%B9%B4-------------.html",
           "status": 520,
-          "len": 7336,
+          "len": 7334,
+          "t": "fetch"
+        },
+        {
+          "url": "https://www.knvod.com/search/%E5%BA%86%E4%BD%99%E5%B9%B4-------------.html",
+          "status": 520,
+          "len": 7334,
+          "t": "fetch"
+        },
+        {
+          "url": "https://www.knvod.com/search/%E5%BA%86%E4%BD%99%E5%B9%B4-------------.html",
+          "status": 520,
+          "len": 7334,
           "t": "fetch"
         },
         {
           "url": "https://www.knvod.com/search/%E5%BA%86%E4%BD%99%E5%B9%B4-------------.html",
           "status": 520,
           "len": 7336,
-          "t": "fetch"
-        },
-        {
-          "url": "https://www.knvod.com/search/%E5%BA%86%E4%BD%99%E5%B9%B4-------------.html",
-          "status": 520,
-          "len": 7336,
-          "t": "fetch"
-        },
-        {
-          "url": "https://www.knvod.com/search/%E5%BA%86%E4%BD%99%E5%B9%B4-------------.html",
-          "status": 520,
-          "len": 7336,
-          "t": "fetch"
+          "t": "curl"
         }
       ]
     },
@@ -6145,7 +6107,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 1914,
+          "ms": 3045,
           "note": {
             "class": 4,
             "list": 40,
@@ -6155,7 +6117,7 @@
         },
         "category": {
           "ok": true,
-          "ms": 463,
+          "ms": 504,
           "note": {
             "type_id": "1",
             "list": 72,
@@ -6168,13 +6130,13 @@
         },
         "search": {
           "ok": false,
-          "ms": 262,
+          "ms": 283,
           "err": "search: empty list for keyword=老江湖",
           "unsupported": false
         },
         "detail": {
           "ok": true,
-          "ms": 487,
+          "ms": 305,
           "note": {
             "name": "老江湖",
             "sources": 4,
@@ -6183,9 +6145,9 @@
         },
         "play": {
           "ok": true,
-          "ms": 2122,
+          "ms": 2595,
           "note": {
-            "url": "https://szxzwxsns.video.qq.com/251/20302/stodownload?encfilekey=nLWUlAoVvyzgYny4eK2QPX1f9EJVqqO6iaFVOjuFibrkibOhJRSLM3gG",
+            "url": "https://wxsnsdy.video.qq.com/251/20302/stodownload?encfilekey=nLWUlAoVvyzgYny4eK2QPX1f9EJVqqO6iaFVOjuFibrkibOhJRSLM3gG1f",
             "n": 0,
             "parse": 0
           }
@@ -6202,8 +6164,15 @@
         },
         {
           "url": "https://wbbb1.com/",
+          "status": 403,
+          "len": 0,
+          "t": "curl",
+          "retriedFrom": 403
+        },
+        {
+          "url": "https://wbbb1.com/",
           "status": 200,
-          "len": 88042,
+          "len": 88056,
           "t": "axios"
         },
         {
@@ -6261,7 +6230,7 @@
           "t": "axios"
         },
         {
-          "url": "https://xn--qvr2v.850088.xyz/player/?url=0mHoM6TXkMjhNLTqX7--_SzQrK9VXARiJgoL1jw_6MDtOwRMM5dX8RDWaVttuzZHBreQTaaJpaO0SQ0Njn4U59-8tB6WBXc2Q26XJg6rJK1D0701DkScvReGa2g94svhGzZExvgwSRQZTpWq5ymDXt6UZrbpE-4",
+          "url": "https://xn--qvr2v.850088.xyz/player/?url=PynLLKvqwCcevmDfwnHDzsr1cSnxlKnnv9waSVIkNqL9HP84TFsHWHko7WWIJ6gs0RHKTkQQhqLGy_PcATuvc6igcrAO7eJdSPYY7xOa8dqujhTAH8bLMqMnzfBnP0maBPHPEetou3nSCE3JxwmphoRuUYvr9C5",
           "status": 200,
           "len": 3123,
           "t": "axios"
@@ -6269,7 +6238,7 @@
         {
           "url": "https://xn--qvr2v.850088.xyz/player/api.php",
           "status": 200,
-          "len": 1758,
+          "len": 1756,
           "t": "axios"
         }
       ]
@@ -6287,7 +6256,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 689,
+          "ms": 918,
           "note": {
             "class": 5,
             "list": 24,
@@ -6297,7 +6266,7 @@
         },
         "category": {
           "ok": true,
-          "ms": 133,
+          "ms": 233,
           "note": {
             "type_id": "1",
             "list": 18,
@@ -6310,7 +6279,7 @@
         },
         "search": {
           "ok": true,
-          "ms": 134,
+          "ms": 259,
           "note": {
             "keyword": "生化危机爆发夜",
             "list": 17,
@@ -6319,7 +6288,7 @@
         },
         "detail": {
           "ok": true,
-          "ms": 288,
+          "ms": 296,
           "note": {
             "name": "生化危机爆发夜",
             "sources": 18,
@@ -6328,7 +6297,7 @@
         },
         "play": {
           "ok": true,
-          "ms": 278,
+          "ms": 311,
           "note": {
             "url": "https://www.dushe03.com/play/380666-35-5774282.html",
             "n": 1,
@@ -6347,7 +6316,7 @@
         {
           "url": "https://www.dushe03.com/",
           "status": 200,
-          "len": 244076,
+          "len": 243872,
           "t": "fetch"
         },
         {
@@ -6363,13 +6332,13 @@
           "t": "fetch"
         },
         {
-          "url": "https://www.dushe03.com/search?k=%E7%94%9F%E5%8C%96%E5%8D%B1%E6%9C%BA%E7%88%86%E5%8F%91%E5%A4%9C&t=1wS0aY0SRGYUubqyWOnjrw%3D%3D",
+          "url": "https://www.dushe03.com/search?k=%E7%94%9F%E5%8C%96%E5%8D%B1%E6%9C%BA%E7%88%86%E5%8F%91%E5%A4%9C&t=TPPfGSW5MyEdwI0m2RAJkg%3D%3D",
           "status": 850,
           "len": 6499,
           "t": "fetch"
         },
         {
-          "url": "https://www.dushe03.com/search?k=%E7%94%9F%E5%8C%96%E5%8D%B1%E6%9C%BA%E7%88%86%E5%8F%91%E5%A4%9C&t=1wS0aY0SRGYUubqyWOnjrw%3D%3D",
+          "url": "https://www.dushe03.com/search?k=%E7%94%9F%E5%8C%96%E5%8D%B1%E6%9C%BA%E7%88%86%E5%8F%91%E5%A4%9C&t=TPPfGSW5MyEdwI0m2RAJkg%3D%3D",
           "status": 200,
           "len": 85479,
           "t": "fetch"
@@ -6395,7 +6364,7 @@
         {
           "url": "https://www.dushe03.com/play/380666-35-5774282.html",
           "status": 200,
-          "len": 125956,
+          "len": 125936,
           "t": "fetch"
         }
       ]
@@ -6413,7 +6382,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 2866,
+          "ms": 979,
           "note": {
             "class": 6,
             "list": 0,
@@ -6423,7 +6392,7 @@
         },
         "category": {
           "ok": false,
-          "ms": 2067,
+          "ms": 235,
           "err": "category: empty list (type_id=4)",
           "tried": [
             "1",
@@ -6434,7 +6403,7 @@
         },
         "search": {
           "ok": false,
-          "ms": 2291,
+          "ms": 235,
           "err": "search: empty list for keyword=庆余年",
           "unsupported": false
         },
@@ -6455,39 +6424,39 @@
       "reqs": [
         {
           "url": "https://m.xnhrsb.com/",
-          "status": 403,
-          "len": 150,
-          "t": "curl"
+          "status": 408,
+          "len": 11023,
+          "t": "fetch"
         },
         {
           "url": "https://m.xnhrsb.com/dsshiyisw/1--------1---.html",
           "status": 408,
           "len": 11023,
-          "t": "curl"
+          "t": "fetch"
         },
         {
           "url": "https://m.xnhrsb.com/dsshiyisw/2--------1---.html",
           "status": 408,
           "len": 11023,
-          "t": "curl"
+          "t": "fetch"
         },
         {
           "url": "https://m.xnhrsb.com/dsshiyisw/3--------1---.html",
-          "status": 403,
-          "len": 150,
-          "t": "curl"
+          "status": 408,
+          "len": 11023,
+          "t": "fetch"
         },
         {
           "url": "https://m.xnhrsb.com/dsshiyisw/4--------1---.html",
-          "status": 403,
-          "len": 150,
-          "t": "curl"
+          "status": 408,
+          "len": 11023,
+          "t": "fetch"
         },
         {
           "url": "https://m.xnhrsb.com/dsshiyisc/%E5%BA%86%E4%BD%99%E5%B9%B4----------1---.html",
-          "status": 403,
-          "len": 150,
-          "t": "curl"
+          "status": 408,
+          "len": 11023,
+          "t": "fetch"
         }
       ]
     },
@@ -6504,7 +6473,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 15028,
+          "ms": 4406,
           "note": {
             "class": 4,
             "list": 0,
@@ -6514,7 +6483,7 @@
         },
         "category": {
           "ok": false,
-          "ms": 9412,
+          "ms": 6148,
           "err": "category: empty list (type_id=4)",
           "tried": [
             "1",
@@ -6525,13 +6494,13 @@
         },
         "search": {
           "ok": false,
-          "ms": 15007,
+          "ms": 6093,
           "err": "search: empty list for keyword=庆余年",
           "unsupported": false
         },
         "detail": {
           "ok": false,
-          "ms": 1,
+          "ms": 0,
           "err": "detail: no candidate videoId (search+category+home all empty)",
           "unsupported": false
         },
@@ -6558,7 +6527,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 148,
+          "ms": 145,
           "note": {
             "class": 10,
             "list": 10,
@@ -6568,7 +6537,7 @@
         },
         "category": {
           "ok": true,
-          "ms": 35,
+          "ms": 42,
           "note": {
             "type_id": "10",
             "list": 12,
@@ -6581,7 +6550,7 @@
         },
         "search": {
           "ok": true,
-          "ms": 21,
+          "ms": 22,
           "note": {
             "keyword": "主角",
             "list": 1,
@@ -6590,7 +6559,7 @@
         },
         "detail": {
           "ok": true,
-          "ms": 113,
+          "ms": 123,
           "note": {
             "name": "主角",
             "sources": 3,
@@ -6599,9 +6568,9 @@
         },
         "play": {
           "ok": true,
-          "ms": 166,
+          "ms": 187,
           "note": {
-            "url": "http://111.170.141.203:9090/nby/m3u8/getM3u8?name=jx.91by.top&time=1794214387715&url=NBY-c6d046002ed1d767bee10e93ee7f1ff",
+            "url": "http://43.248.96.62:9090/nby/m3u8/getM3u8?name=jx.91by.top&time=1794216314681&url=NBY-c6d046002ed1d767bee10e93ee7f1ff8.m",
             "n": 1,
             "parse": 0
           }
@@ -6618,7 +6587,7 @@
         {
           "url": "http://v.rbotv.cn/v3/type/tj_vod",
           "status": 200,
-          "len": 18147,
+          "len": 18241,
           "t": "axios"
         },
         {
@@ -6636,13 +6605,13 @@
         {
           "url": "http://v.rbotv.cn/v3/home/vod_details",
           "status": 200,
-          "len": 24235,
+          "len": 24336,
           "t": "axios"
         },
         {
           "url": "https://api.nbyjson.top:7788/api/?key=tviKuMb3MlqCW1I6gE&url=NBY-XMYAES82d54ec0e5b2cd533b3671ddeddf3b850a3c84f498855959da042c32d928cb8969a7e80da0dfc57f4aa65c7088e5900a%7C84f621bd4bfac2f2072ee495d829a1",
           "status": 200,
-          "len": 546,
+          "len": 540,
           "t": "axios"
         }
       ]
@@ -6660,7 +6629,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 1358,
+          "ms": 1064,
           "note": {
             "class": 4,
             "list": 20,
@@ -6670,7 +6639,7 @@
         },
         "category": {
           "ok": true,
-          "ms": 850,
+          "ms": 987,
           "note": {
             "type_id": "7",
             "list": 330,
@@ -6683,7 +6652,7 @@
         },
         "search": {
           "ok": true,
-          "ms": 1228,
+          "ms": 1303,
           "note": {
             "keyword": "碟仙怪谈",
             "list": 1,
@@ -6692,7 +6661,7 @@
         },
         "detail": {
           "ok": true,
-          "ms": 901,
+          "ms": 803,
           "note": {
             "name": "碟仙怪谈",
             "sources": 1,
@@ -6701,7 +6670,7 @@
         },
         "play": {
           "ok": true,
-          "ms": 1,
+          "ms": 0,
           "note": {
             "url": "https://play.ly166.com:65/videos/20261101/6ae6ae27fc050207359ca7c5/3b33a6/index.m3u8",
             "n": 1,
@@ -6712,15 +6681,9 @@
       "verdict": "ok",
       "reqs": [
         {
-          "url": "https://iqiyizy.cc/api.php/provide/vod?ac=list&t=17&pg=1",
+          "url": "https://iqiyizy.cc/api.php/provide/vod?ac=list&t=21&pg=1",
           "status": 200,
-          "len": 5440,
-          "t": "axios"
-        },
-        {
-          "url": "https://iqiyizy.cc/api.php/provide/vod?ac=list&t=15&pg=1",
-          "status": 200,
-          "len": 5514,
+          "len": 5494,
           "t": "axios"
         },
         {
@@ -6730,45 +6693,15 @@
           "t": "axios"
         },
         {
-          "url": "https://iqiyizy.cc/api.php/provide/vod?ac=list&t=11&pg=1",
+          "url": "https://iqiyizy.cc/api.php/provide/vod?ac=list&t=15&pg=1",
           "status": 200,
-          "len": 5504,
+          "len": 5514,
           "t": "axios"
         },
         {
-          "url": "https://iqiyizy.cc/api.php/provide/vod?ac=list&t=14&pg=1",
+          "url": "https://iqiyizy.cc/api.php/provide/vod?ac=list&t=17&pg=1",
           "status": 200,
-          "len": 5499,
-          "t": "axios"
-        },
-        {
-          "url": "https://iqiyizy.cc/api.php/provide/vod?ac=list&t=22&pg=1",
-          "status": 200,
-          "len": 5479,
-          "t": "axios"
-        },
-        {
-          "url": "https://iqiyizy.cc/api.php/provide/vod?ac=list&t=23&pg=1",
-          "status": 200,
-          "len": 3796,
-          "t": "axios"
-        },
-        {
-          "url": "https://iqiyizy.cc/api.php/provide/vod?ac=list&t=21&pg=1",
-          "status": 200,
-          "len": 5494,
-          "t": "axios"
-        },
-        {
-          "url": "https://iqiyizy.cc/api.php/provide/vod?ac=list&t=13&pg=1",
-          "status": 200,
-          "len": 5420,
-          "t": "axios"
-        },
-        {
-          "url": "https://iqiyizy.cc/api.php/provide/vod?ac=list&t=16&pg=1",
-          "status": 200,
-          "len": 5562,
+          "len": 5440,
           "t": "axios"
         },
         {
@@ -6778,9 +6711,45 @@
           "t": "axios"
         },
         {
+          "url": "https://iqiyizy.cc/api.php/provide/vod?ac=list&t=20&pg=1",
+          "status": 200,
+          "len": 5533,
+          "t": "axios"
+        },
+        {
+          "url": "https://iqiyizy.cc/api.php/provide/vod?ac=list&t=14&pg=1",
+          "status": 200,
+          "len": 5499,
+          "t": "axios"
+        },
+        {
           "url": "https://iqiyizy.cc/api.php/provide/vod?ac=list&t=24&pg=1",
           "status": 200,
           "len": 5709,
+          "t": "axios"
+        },
+        {
+          "url": "https://iqiyizy.cc/api.php/provide/vod?ac=list&t=16&pg=1",
+          "status": 200,
+          "len": 5562,
+          "t": "axios"
+        },
+        {
+          "url": "https://iqiyizy.cc/api.php/provide/vod?ac=list&t=19&pg=1",
+          "status": 200,
+          "len": 5531,
+          "t": "axios"
+        },
+        {
+          "url": "https://iqiyizy.cc/api.php/provide/vod?ac=list&t=25&pg=1",
+          "status": 200,
+          "len": 5425,
+          "t": "axios"
+        },
+        {
+          "url": "https://iqiyizy.cc/api.php/provide/vod?ac=list&t=11&pg=1",
+          "status": 200,
+          "len": 5504,
           "t": "axios"
         },
         {
@@ -6810,7 +6779,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 593,
+          "ms": 656,
           "note": {
             "class": 5,
             "list": 0,
@@ -6820,7 +6789,7 @@
         },
         "category": {
           "ok": false,
-          "ms": 560,
+          "ms": 542,
           "err": "category: empty list (type_id=4)",
           "tried": [
             "1",
@@ -6831,7 +6800,7 @@
         },
         "search": {
           "ok": false,
-          "ms": 40007,
+          "ms": 40006,
           "err": "STEP_TIMEOUT search 40000ms",
           "unsupported": false
         },
@@ -6893,21 +6862,21 @@
           "retriedFrom": 403
         },
         {
-          "url": "https://pianku.pro/index.php/verify/index.html?type=search&t=1794214391339",
+          "url": "https://pianku.pro/index.php/verify/index.html?type=search&t=1794216318728",
           "status": 403,
           "len": 0,
           "t": "curl",
           "retriedFrom": 403
         },
         {
-          "url": "https://pianku.pro/index.php/verify/index.html?type=search&t=1794214399898",
+          "url": "https://pianku.pro/index.php/verify/index.html?type=search&t=1794216327367",
           "status": 403,
           "len": 0,
           "t": "curl",
           "retriedFrom": 403
         },
         {
-          "url": "https://pianku.pro/index.php/verify/index.html?type=search&t=1794214408566",
+          "url": "https://pianku.pro/index.php/verify/index.html?type=search&t=1794216335935",
           "status": 403,
           "len": 0,
           "t": "curl",
@@ -6921,14 +6890,14 @@
           "retriedFrom": 403
         },
         {
-          "url": "https://pianku.pro/index.php/verify/index.html?type=search&t=1794214418398",
+          "url": "https://pianku.pro/index.php/verify/index.html?type=search&t=1794216345122",
           "status": 403,
           "len": 0,
           "t": "curl",
           "retriedFrom": 403
         },
         {
-          "url": "https://pianku.pro/index.php/verify/index.html?type=search&t=1794214426989",
+          "url": "https://pianku.pro/index.php/verify/index.html?type=search&t=1794216353678",
           "status": 403,
           "len": 0,
           "t": "curl",
@@ -6949,7 +6918,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 310,
+          "ms": 331,
           "note": {
             "class": 4,
             "list": 20,
@@ -6959,7 +6928,7 @@
         },
         "category": {
           "ok": true,
-          "ms": 117,
+          "ms": 175,
           "note": {
             "type_id": "2",
             "list": 48,
@@ -6972,7 +6941,7 @@
         },
         "search": {
           "ok": true,
-          "ms": 236,
+          "ms": 95,
           "note": {
             "keyword": "走马上任",
             "list": 1,
@@ -6981,7 +6950,7 @@
         },
         "detail": {
           "ok": true,
-          "ms": 187,
+          "ms": 160,
           "note": {
             "name": "走马上任",
             "sources": 1,
@@ -6990,7 +6959,7 @@
         },
         "play": {
           "ok": true,
-          "ms": 320,
+          "ms": 166,
           "note": {
             "url": "https://vid.dbokutv.com/20261102/ppotb62-S71lT2yliZApDBSvkYzBsrmD3fpCJ4nBsnsRsGlR7XgBNfjSt8jC34jC396EKKsGK91BcrmD0/chunk",
             "n": 1,
@@ -7001,31 +6970,31 @@
       "verdict": "ok",
       "reqs": [
         {
-          "url": "https://api.dbokutv.com/home?sign=vJdjztgXY4ooS8JFgl1dTRYoebQuICKm4rBVNz6KTs8Rlbjd02LECchCN9pT&token=6OQdD7sz32OhJtlGybgXO8kA163TTkvmOmVFA4&ssid=NjE3NzE5MzQwMjYxMDQ1MzA4MzkyODY5Mzk1MA..",
+          "url": "https://api.dbokutv.com/home?sign=qwU1BPu31PfRI1sueiyqqHmfhyOXAGAySuIfb41UZrqfypLJX99FEvuhYMvu&token=D1tElnEe2XaRFZEUuwQDGHAbjrsBxSOPZumIdG&ssid=NjEzNzc5OTQ3MjExMDYwMzQxMzU2MjAyODk5Ng..",
           "status": 200,
           "len": 19771,
           "t": "axios"
         },
         {
-          "url": "https://api.dbokutv.com/vodshow/2-----------?sign=iulFi8bfZbUvQ4UrVBrpp7Zvp17sKawrZNQ1rcFBnzOKzX4VFAv289Mxmkij&token=upvfYsugBolyjZFzrcg1Oou3BFJUDeJnXWU5mA&ssid=NTE4Nzg5ODQwMjYxMDQzMzc4NDkxMTE5Mzk2Mw.",
+          "url": "https://api.dbokutv.com/vodshow/2-----------?sign=5acR3cMRCqcYUSbClITZMFOmMkQOjP0s8EybR4dqQbnYq09QZtua6QdxNiHn&token=GAJ1NnbR8zCl1p255UAHVnllsuQzg0ahPeKdXX&ssid=MzE1NzU5NzQyMjcxMzY5MzkxNjU0NDI3MjYwMQ.",
           "status": 200,
           "len": 24902,
           "t": "axios"
         },
         {
-          "url": "https://api.dbokutv.com/vodsearch?sign=XVQpFKIzUd75VGSYVOTvbuVDR55ZIJ5VrdHE8nYYMcbgDZlJS2fpnOtp5tbP&token=jmkBBrIsU0APnIx7EFmX1gnKWl2Gk4CXRdxiIf&ssid=NjE5NzE5ODQwMjQxNDQ1MzY4MzkwODE5NTU0NA..&wd=%E8%B5",
+          "url": "https://api.dbokutv.com/vodsearch?sign=JNlC6UphNjuW2RQfYjMXyG5FSpe42pC22WkGQCeS0mG7CcXhtwLkvxu2M83F&token=cavzv05FNSTLK1fSiF8C4DZ1OX4LAUXArV9Q6S&ssid=NTE0Nzg5OTQ3MjQxMzY3MzYxNDU1MTAyNTYyNA..&wd=%E8%B5",
           "status": 200,
           "len": 247,
           "t": "axios"
         },
         {
-          "url": "https://api.dbokutv.com/voddetail/150752?sign=GALjcSzh6cq5wgNilodxlTphXyjUI8EvNE51Q5ZEzQPfl7hvoitRDBPAyKOZ&token=MenXwo07gP2LKtgarXChqz2eb7TiOtyh2iLwn8&ssid=MTE0NzA5OTQzMjIxMjQyMzY4ODk1OTA2Nzc3NA..",
+          "url": "https://api.dbokutv.com/voddetail/150752?sign=7SGREgvQo1xg6exRcinoNeC7h8ZZ71oLIjp2no71Ss4pvk9U3tMkJtAAItqs&token=eCVN7XuFDcuC1yUEcbFk9vB9IqTW3AeJuWfHfL&ssid=MTE5NzA5NDQ3MjIxMDY0MzAxODYwOTUyNzk2MA..",
           "status": 200,
           "len": 3548,
           "t": "axios"
         },
         {
-          "url": "https://api.dbokutv.com/vodplay/150752-1-1?sign=eqn5Y9pMqHi58SslGYj5gIWMLT0sBWot0EoRzmBIgTJBqrDjEXVfN9MHKHfm&token=YBOGVCRkc6VUC3YCglWQbEMyhiR0cvsuOdySlq&ssid=NjE5NzY5OTQyMjkxMzQ2MzQ4MzkwMzA3MDYzNg..",
+          "url": "https://api.dbokutv.com/vodplay/150752-1-1?sign=UNh8xHTXliQNaC1NT7vwGjuYjC64zlg1yGlU5bAUGacIrZxSuGjoFv4jeZEU&token=dYIsOiovGeh2MVQ81iDbrPB1ZX7MChLKVPzsWy&ssid=MzEzNzE5OTQ2MjExNzYwMzYxNjY2ODAzODI5NA..",
           "status": 200,
           "len": 2437,
           "t": "axios"
@@ -7045,7 +7014,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 1769,
+          "ms": 1194,
           "note": {
             "class": 5,
             "list": 50,
@@ -7055,7 +7024,7 @@
         },
         "category": {
           "ok": true,
-          "ms": 607,
+          "ms": 278,
           "note": {
             "type_id": "1",
             "list": 20,
@@ -7067,7 +7036,7 @@
         },
         "search": {
           "ok": true,
-          "ms": 646,
+          "ms": 464,
           "note": {
             "keyword": "青铜护卫队",
             "list": 1,
@@ -7076,7 +7045,7 @@
         },
         "detail": {
           "ok": true,
-          "ms": 325,
+          "ms": 604,
           "note": {
             "name": "青铜护卫队",
             "sources": 1,
@@ -7085,9 +7054,9 @@
         },
         "play": {
           "ok": true,
-          "ms": 223,
+          "ms": 237,
           "note": {
-            "url": "https://vd.wmvbo.com/10781afa410f21062d9b697ce20016f4/20261109205313/6303404902bc7cbc3fb811d2/decry/vd/20260814/OGI2ZmY3",
+            "url": "https://vd.wmvbo.com/9ee52dff40ed0e6f1bd253f007320b7f/20261109212519/6303404902bc7cbc3fb811d2/decry/vd/20260814/OGI2ZmY3",
             "n": 1,
             "parse": 0
           }
@@ -7110,37 +7079,37 @@
         {
           "url": "https://apinew.uozvr.com/App/IndexList/indexList",
           "status": 200,
-          "len": 49838,
+          "len": 49291,
           "t": "axios"
         },
         {
           "url": "https://apinew.uozvr.com/App/IndexList/indexList",
           "status": 200,
-          "len": 22604,
+          "len": 22603,
           "t": "axios"
         },
         {
           "url": "https://apinew.uozvr.com/App/Index/findMoreVod",
           "status": 200,
-          "len": 32426,
+          "len": 32429,
           "t": "axios"
         },
         {
           "url": "https://apinew.uozvr.com/App/IndexPlay/playInfo",
           "status": 200,
-          "len": 5484,
+          "len": 5515,
           "t": "axios"
         },
         {
           "url": "https://apinew.uozvr.com/App/Resource/Vurl/show",
           "status": 200,
-          "len": 2339,
+          "len": 2338,
           "t": "axios"
         },
         {
           "url": "https://apinew.uozvr.com/App/Resource/VurlDetail/showOne",
           "status": 200,
-          "len": 1352,
+          "len": 1348,
           "t": "axios"
         }
       ]
@@ -7158,95 +7127,98 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 4794,
+          "ms": 768,
           "note": {
             "class": 4,
-            "list": 24,
+            "list": 36,
             "filters": 4,
             "banner": 0
           }
         },
         "category": {
           "ok": true,
-          "ms": 6163,
+          "ms": 475,
           "note": {
-            "type_id": "zongyi",
+            "type_id": "dianying",
             "list": 24,
-            "pagecount": 2,
-            "total": 48,
+            "pagecount": 678,
+            "total": 44,
             "tried": [
-              "dianying",
-              "dianshiju",
-              "dongman",
-              "zongyi"
+              "dianying"
             ]
           }
         },
         "search": {
           "ok": true,
-          "ms": 8146,
+          "ms": 1357,
           "note": {
-            "keyword": "黑帮生存战 The Mo",
-            "list": 1,
-            "pagecount": 1
+            "keyword": "城迷",
+            "list": 24,
+            "pagecount": 10274
           }
         },
         "detail": {
-          "ok": false,
-          "ms": 15598,
-          "err": "detail: empty list for videoId=tv/6adf95d4997f879a768f8201-34315.html?host=www.dyrsok.com",
-          "unsupported": false
+          "ok": true,
+          "ms": 1631,
+          "note": {
+            "name": "獨一無二的浪漫",
+            "sources": 1,
+            "episodes": 2
+          }
         },
         "play": {
-          "ok": false,
-          "ms": 0,
-          "err": "play: no episode from detail",
-          "unsupported": false
+          "ok": true,
+          "ms": 461,
+          "note": {
+            "url": "https://v.fengbao14.com/video/diyiwuerdelangman/fa95fcb1135a/index.m3u8",
+            "n": 1,
+            "parse": 0
+          }
         }
       },
-      "verdict": "broken",
+      "verdict": "ok",
       "reqs": [
         {
-          "url": "https://www.dyrsok.com/",
+          "url": "https://kingtv.vip/",
           "status": 200,
-          "len": 355538,
+          "len": 309041,
           "t": "fetch"
         },
         {
-          "url": "https://www.dyrsok.com/dianying.html",
-          "status": 429,
-          "len": 7741,
-          "t": "curl"
-        },
-        {
-          "url": "https://www.dyrsok.com/dianshiju.html",
-          "status": 429,
-          "len": 7741,
-          "t": "curl"
-        },
-        {
-          "url": "https://www.dyrsok.com/dongman.html",
-          "status": 429,
-          "len": 7741,
-          "t": "curl"
-        },
-        {
-          "url": "https://www.dyrsok.com/zongyi.html",
+          "url": "https://kingtv.vip/dianying.html",
           "status": 200,
-          "len": 195904,
-          "t": "curl"
-        },
-        {
-          "url": "https://www.dyrsok.com/s.html?name=%E9%BB%91%E5%B8%AE%E7%94%9F%E5%AD%98%E6%88%98+The+Mo",
-          "status": 200,
-          "len": 180718,
+          "len": 193110,
           "t": "fetch"
         },
         {
-          "url": "https://www.dyrsok.com/tv/6adf95d4997f879a768f8201-34315.html?host=www.dyrsok.com",
+          "url": "https://kingtv.vip/search.html?wd=%E5%9F%8E%E8%BF%B7",
           "status": 429,
-          "len": 7741,
+          "len": 8108,
           "t": "curl"
+        },
+        {
+          "url": "https://kingtv.vip/search.html?wd=%E5%9F%8E%E8%BF%B7&attack_key=56960",
+          "status": 200,
+          "len": 184656,
+          "t": "fetch"
+        },
+        {
+          "url": "https://kingtv.vip/tv/6af1901fc868b269fbb29673/65472.html",
+          "status": 429,
+          "len": 8108,
+          "t": "curl"
+        },
+        {
+          "url": "https://kingtv.vip/tv/6af1901fc868b269fbb29673/65472.html?attack_key=56960",
+          "status": 200,
+          "len": 227234,
+          "t": "fetch"
+        },
+        {
+          "url": "https://kingtv.vip/tv/6af1901fc868b269fbb29673/65472.html?origin=bfzym3u8&p=0",
+          "status": 200,
+          "len": 227210,
+          "t": "fetch"
         }
       ]
     },
@@ -7263,7 +7235,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 2312,
+          "ms": 1638,
           "note": {
             "class": 5,
             "list": 100,
@@ -7273,7 +7245,7 @@
         },
         "category": {
           "ok": true,
-          "ms": 452,
+          "ms": 532,
           "note": {
             "type_id": "1",
             "list": 20,
@@ -7286,7 +7258,7 @@
         },
         "search": {
           "ok": true,
-          "ms": 501,
+          "ms": 731,
           "note": {
             "keyword": "俏罗成",
             "list": 1,
@@ -7295,7 +7267,7 @@
         },
         "detail": {
           "ok": true,
-          "ms": 242,
+          "ms": 304,
           "note": {
             "name": "俏罗成",
             "sources": 2,
@@ -7315,21 +7287,9 @@
       "verdict": "ok",
       "reqs": [
         {
-          "url": "https://caiji.dyttzyapi.com/api.php/provide/vod?ac=videolist&t=9&pg=3&pagesize=20&limit=20",
+          "url": "https://caiji.dyttzyapi.com/api.php/provide/vod?ac=videolist&t=6&pg=1&pagesize=20&limit=20",
           "status": 200,
-          "len": 42473,
-          "t": "fetch"
-        },
-        {
-          "url": "https://caiji.dyttzyapi.com/api.php/provide/vod?ac=videolist&t=8&pg=2&pagesize=20&limit=20",
-          "status": 200,
-          "len": 41884,
-          "t": "fetch"
-        },
-        {
-          "url": "https://caiji.dyttzyapi.com/api.php/provide/vod?ac=videolist&t=37&pg=3&pagesize=20&limit=20",
-          "status": 200,
-          "len": 43516,
+          "len": 42950,
           "t": "fetch"
         },
         {
@@ -7339,33 +7299,27 @@
           "t": "fetch"
         },
         {
-          "url": "https://caiji.dyttzyapi.com/api.php/provide/vod?ac=videolist&t=10&pg=3&pagesize=20&limit=20",
+          "url": "https://caiji.dyttzyapi.com/api.php/provide/vod?ac=videolist&t=8&pg=1&pagesize=20&limit=20",
           "status": 200,
-          "len": 43359,
+          "len": 43579,
           "t": "fetch"
         },
         {
-          "url": "https://caiji.dyttzyapi.com/api.php/provide/vod?ac=videolist&t=6&pg=3&pagesize=20&limit=20",
+          "url": "https://caiji.dyttzyapi.com/api.php/provide/vod?ac=videolist&t=7&pg=3&pagesize=20&limit=20",
           "status": 200,
-          "len": 42258,
+          "len": 42893,
           "t": "fetch"
         },
         {
-          "url": "https://caiji.dyttzyapi.com/api.php/provide/vod?ac=videolist&t=20&pg=1&pagesize=20&limit=20",
+          "url": "https://caiji.dyttzyapi.com/api.php/provide/vod?ac=videolist&t=11&pg=2&pagesize=20&limit=20",
           "status": 200,
-          "len": 45060,
+          "len": 41915,
           "t": "fetch"
         },
         {
-          "url": "https://caiji.dyttzyapi.com/api.php/provide/vod?ac=videolist&t=11&pg=3&pagesize=20&limit=20",
+          "url": "https://caiji.dyttzyapi.com/api.php/provide/vod?ac=videolist&t=6&pg=2&pagesize=20&limit=20",
           "status": 200,
-          "len": 42783,
-          "t": "fetch"
-        },
-        {
-          "url": "https://caiji.dyttzyapi.com/api.php/provide/vod?ac=videolist&t=11&pg=1&pagesize=20&limit=20",
-          "status": 200,
-          "len": 43025,
+          "len": 41508,
           "t": "fetch"
         },
         {
@@ -7375,9 +7329,27 @@
           "t": "fetch"
         },
         {
-          "url": "https://caiji.dyttzyapi.com/api.php/provide/vod?ac=videolist&t=11&pg=2&pagesize=20&limit=20",
+          "url": "https://caiji.dyttzyapi.com/api.php/provide/vod?ac=videolist&t=11&pg=1&pagesize=20&limit=20",
           "status": 200,
-          "len": 41915,
+          "len": 43025,
+          "t": "fetch"
+        },
+        {
+          "url": "https://caiji.dyttzyapi.com/api.php/provide/vod?ac=videolist&t=6&pg=3&pagesize=20&limit=20",
+          "status": 200,
+          "len": 42258,
+          "t": "fetch"
+        },
+        {
+          "url": "https://caiji.dyttzyapi.com/api.php/provide/vod?ac=videolist&t=7&pg=2&pagesize=20&limit=20",
+          "status": 200,
+          "len": 43300,
+          "t": "fetch"
+        },
+        {
+          "url": "https://caiji.dyttzyapi.com/api.php/provide/vod?ac=videolist&t=11&pg=3&pagesize=20&limit=20",
+          "status": 200,
+          "len": 42783,
           "t": "fetch"
         },
         {
@@ -7412,124 +7384,40 @@
       ],
       "steps": {
         "home": {
-          "ok": true,
-          "ms": 1466,
-          "note": {
-            "class": 7,
-            "list": 337,
-            "filters": 7,
-            "banner": 0
-          }
+          "ok": false,
+          "ms": 13017,
+          "err": "home: empty class list",
+          "unsupported": false
         },
         "category": {
-          "ok": true,
-          "ms": 124,
-          "note": {
-            "type_id": "1",
-            "list": 15,
-            "pagecount": 2,
-            "tried": [
-              "1"
-            ]
-          }
+          "ok": false,
+          "ms": 6400,
+          "err": "category: empty list (type_id=1)",
+          "tried": [
+            "1"
+          ]
         },
         "search": {
-          "ok": true,
-          "ms": 175,
-          "note": {
-            "keyword": "欢迎来龙餐馆",
-            "list": 1,
-            "pagecount": 1
-          }
+          "ok": false,
+          "ms": 6394,
+          "err": "search: empty list for keyword=庆余年",
+          "unsupported": false
         },
         "detail": {
-          "ok": true,
-          "ms": 137,
-          "note": {
-            "name": "欢迎来龙餐馆",
-            "sources": 23,
-            "episodes": 25
-          }
+          "ok": false,
+          "ms": 0,
+          "err": "detail: no candidate videoId (search+category+home all empty)",
+          "unsupported": false
         },
         "play": {
-          "ok": true,
+          "ok": false,
           "ms": 1,
-          "note": {
-            "url": "https://mv.gzlcl.com/api/v2/vip/normal/1649851/index.m3u8",
-            "n": 1,
-            "parse": 0
-          }
+          "err": "play: no episode from detail",
+          "unsupported": false
         }
       },
-      "verdict": "ok",
-      "reqs": [
-        {
-          "url": "https://h5.jianpianips1.com/api/v2/settings/homeCategory",
-          "status": 200,
-          "len": 275,
-          "t": "fetch"
-        },
-        {
-          "url": "https://h5.jianpianips1.com/api/crumb/filterOptions?fcate_pid=1",
-          "status": 200,
-          "len": 1357,
-          "t": "fetch"
-        },
-        {
-          "url": "https://h5.jianpianips1.com/api/crumb/filterOptions?fcate_pid=2",
-          "status": 200,
-          "len": 1357,
-          "t": "fetch"
-        },
-        {
-          "url": "https://h5.jianpianips1.com/api/crumb/filterOptions?fcate_pid=67",
-          "status": 200,
-          "len": 925,
-          "t": "fetch"
-        },
-        {
-          "url": "https://h5.jianpianips1.com/api/crumb/filterOptions?fcate_pid=3",
-          "status": 200,
-          "len": 1357,
-          "t": "fetch"
-        },
-        {
-          "url": "https://h5.jianpianips1.com/api/crumb/filterOptions?fcate_pid=4",
-          "status": 200,
-          "len": 1357,
-          "t": "fetch"
-        },
-        {
-          "url": "https://h5.jianpianips1.com/api/crumb/filterOptions?fcate_pid=50",
-          "status": 200,
-          "len": 1036,
-          "t": "fetch"
-        },
-        {
-          "url": "https://h5.jianpianips1.com/api/dyTag/hand_data?category_id=88",
-          "status": 200,
-          "len": 123898,
-          "t": "fetch"
-        },
-        {
-          "url": "https://h5.jianpianips1.com/api/crumb/list?fcate_pid=1&page=1&category_id=&area=&year=&type=&sort=",
-          "status": 200,
-          "len": 4798,
-          "t": "fetch"
-        },
-        {
-          "url": "https://h5.jianpianips1.com/api/v2/search/videoV2?key=keyword=%E6%AC%A2%E8%BF%8E%E6%9D%A5%E9%BE%99%E9%A4%90%E9%A6%86&page=1",
-          "status": 200,
-          "len": 10293,
-          "t": "fetch"
-        },
-        {
-          "url": "https://h5.jianpianips1.com/api/video/detailv2?id=575252",
-          "status": 200,
-          "len": 14147,
-          "t": "fetch"
-        }
-      ]
+      "verdict": "broken",
+      "reqs": []
     },
     {
       "file": "影视/采集/莫小影.js",
@@ -7544,7 +7432,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 1256,
+          "ms": 1389,
           "note": {
             "class": 5,
             "list": 60,
@@ -7554,12 +7442,12 @@
         },
         "category": {
           "ok": true,
-          "ms": 406,
+          "ms": 469,
           "note": {
             "type_id": "1",
             "list": 40,
-            "pagecount": 1326,
-            "total": 53040,
+            "pagecount": 1328,
+            "total": 53120,
             "tried": [
               "1"
             ]
@@ -7567,27 +7455,27 @@
         },
         "search": {
           "ok": true,
-          "ms": 1046,
+          "ms": 1580,
           "note": {
-            "keyword": "疯狂喜剧人",
+            "keyword": "香港奇案（下集）",
             "list": 16,
             "pagecount": 1
           }
         },
         "detail": {
           "ok": true,
-          "ms": 156,
+          "ms": 459,
           "note": {
-            "name": "今夜组队，明日屠神",
+            "name": "我靠三句英语横扫九州大陆",
             "sources": 1,
-            "episodes": 12
+            "episodes": 15
           }
         },
         "play": {
           "ok": true,
-          "ms": 468,
+          "ms": 145,
           "note": {
-            "url": "https://v.qq.com/x/cover/mzc0020026skpqx/m41014txdu0.html",
+            "url": "https://www.iqiyi.com/v_ez2w64x00o.html",
             "n": 1,
             "parse": 0
           }
@@ -7598,31 +7486,31 @@
         {
           "url": "https://www.qqys01.com/",
           "status": 200,
-          "len": 292841,
+          "len": 292853,
           "t": "fetch"
         },
         {
           "url": "https://www.qqys01.com/vodshow/1-----------.html",
           "status": 200,
-          "len": 42531,
+          "len": 42563,
           "t": "fetch"
         },
         {
-          "url": "https://www.qqys01.com/vodsearch/%E7%96%AF%E7%8B%82%E5%96%9C%E5%89%A7%E4%BA%BA-------------.html",
+          "url": "https://www.qqys01.com/vodsearch/%E9%A6%99%E6%B8%AF%E5%A5%87%E6%A1%88%EF%BC%88%E4%B8%8B%E9%9B%86%EF%BC%89-------------.html",
           "status": 200,
-          "len": 36520,
+          "len": 36301,
           "t": "fetch"
         },
         {
-          "url": "https://www.qqys01.com/voddetail116242.html",
+          "url": "https://www.qqys01.com/voddetail117177.html",
           "status": 200,
-          "len": 28602,
+          "len": 28997,
           "t": "fetch"
         },
         {
-          "url": "https://www.qqys01.com/vodplay/116242-1-1.html",
+          "url": "https://www.qqys01.com/vodplay/117177-1-1.html",
           "status": 200,
-          "len": 29989,
+          "len": 30815,
           "t": "fetch"
         }
       ]
@@ -7640,17 +7528,17 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 360,
+          "ms": 372,
           "note": {
             "class": 4,
-            "list": 43,
+            "list": 42,
             "filters": 4,
             "banner": 0
           }
         },
         "category": {
           "ok": true,
-          "ms": 265,
+          "ms": 468,
           "note": {
             "type_id": "1",
             "list": 36,
@@ -7663,7 +7551,7 @@
         },
         "search": {
           "ok": true,
-          "ms": 200,
+          "ms": 926,
           "note": {
             "keyword": "越轨追击",
             "list": 1,
@@ -7672,7 +7560,7 @@
         },
         "detail": {
           "ok": true,
-          "ms": 94,
+          "ms": 132,
           "note": {
             "name": "越轨追击",
             "sources": 3,
@@ -7681,7 +7569,7 @@
         },
         "play": {
           "ok": true,
-          "ms": 108,
+          "ms": 86,
           "note": {
             "url": "https://vip.dytt-film.com/20250307/11503_74a33889/index.m3u8",
             "n": 1,
@@ -7694,7 +7582,7 @@
         {
           "url": "https://dsystv.com/",
           "status": 200,
-          "len": 103080,
+          "len": 102990,
           "t": "fetch"
         },
         {
@@ -7736,7 +7624,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 1878,
+          "ms": 3254,
           "note": {
             "class": 6,
             "list": 12,
@@ -7746,7 +7634,7 @@
         },
         "category": {
           "ok": true,
-          "ms": 217,
+          "ms": 828,
           "note": {
             "type_id": "1",
             "list": 30,
@@ -7759,7 +7647,7 @@
         },
         "search": {
           "ok": true,
-          "ms": 240,
+          "ms": 1184,
           "note": {
             "keyword": "杀或救",
             "list": 30,
@@ -7768,7 +7656,7 @@
         },
         "detail": {
           "ok": true,
-          "ms": 205,
+          "ms": 1797,
           "note": {
             "name": "杀或救",
             "sources": 1,
@@ -7777,9 +7665,9 @@
         },
         "play": {
           "ok": true,
-          "ms": 202,
+          "ms": 1985,
           "note": {
-            "url": "https://ppvod011.blbtgg.com/splitOut/20261104/1424415/V20261104190934548551424415/index.m3u8?auth_key=1794214398-e9faf5f",
+            "url": "https://ppvod011.blbtgg.com/splitOut/20261104/1424415/V20261104190934548551424415/index.m3u8?auth_key=1794216331-c5078a1",
             "n": 3,
             "parse": 0
           }
@@ -7791,43 +7679,43 @@
           "url": "https://m.jiabaide.cn/api/mw-movie/anonymous/get/filer/type",
           "status": 200,
           "len": 477,
-          "t": "fetch"
+          "t": "curl"
         },
         {
           "url": "https://m.jiabaide.cn/api/mw-movie/anonymous/v1/get/filer/list",
           "status": 200,
           "len": 16163,
-          "t": "fetch"
+          "t": "curl"
         },
         {
           "url": "https://m.jiabaide.cn/api/mw-movie/anonymous/home/hotSearch",
           "status": 200,
           "len": 6537,
-          "t": "fetch"
+          "t": "curl"
         },
         {
           "url": "https://m.jiabaide.cn/api/mw-movie/anonymous/video/list?pageNum=1&pageSize=30&sort=1&sortBy=1&type1=1",
           "status": 200,
           "len": 15896,
-          "t": "fetch"
+          "t": "curl"
         },
         {
           "url": "https://m.jiabaide.cn/api/mw-movie/anonymous/video/searchByWordPageable?keyword=杀或救&pageNum=1&pageSize=30",
           "status": 200,
-          "len": 17981,
-          "t": "fetch"
+          "len": 17944,
+          "t": "curl"
         },
         {
           "url": "https://m.jiabaide.cn/api/mw-movie/anonymous/video/detail?id=147973",
           "status": 200,
           "len": 999,
-          "t": "fetch"
+          "t": "curl"
         },
         {
           "url": "https://m.jiabaide.cn/api/mw-movie/anonymous/v2/video/episode/url?clientType=3&id=147973&nid=1328642",
           "status": 200,
           "len": 912,
-          "t": "fetch"
+          "t": "curl"
         }
       ]
     },
@@ -7844,7 +7732,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 685,
+          "ms": 990,
           "note": {
             "class": 5,
             "list": 20,
@@ -7854,7 +7742,7 @@
         },
         "category": {
           "ok": true,
-          "ms": 331,
+          "ms": 273,
           "note": {
             "type_id": "0",
             "list": 20,
@@ -7867,13 +7755,13 @@
         },
         "search": {
           "ok": false,
-          "ms": 3186,
+          "ms": 3118,
           "err": "search: empty list for keyword=末路兼职",
           "unsupported": false
         },
         "detail": {
           "ok": true,
-          "ms": 200,
+          "ms": 239,
           "note": {
             "name": "末路兼职",
             "sources": 1,
@@ -7882,7 +7770,7 @@
         },
         "play": {
           "ok": true,
-          "ms": 1,
+          "ms": 0,
           "note": {
             "url": "https://cdn.yzzy30-play.com/20261030/61005_05f283a8/index.m3u8",
             "n": 1,
@@ -7943,7 +7831,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 430,
+          "ms": 480,
           "note": {
             "class": 73,
             "list": 17,
@@ -7953,7 +7841,7 @@
         },
         "category": {
           "ok": true,
-          "ms": 317,
+          "ms": 342,
           "note": {
             "type_id": "1年级语文",
             "list": 19,
@@ -7966,7 +7854,7 @@
         },
         "search": {
           "ok": true,
-          "ms": 331,
+          "ms": 342,
           "note": {
             "keyword": "2026新版 小学语文 ",
             "list": 18,
@@ -7975,7 +7863,7 @@
         },
         "detail": {
           "ok": true,
-          "ms": 59,
+          "ms": 68,
           "note": {
             "name": "全152集 2026暑假新课超前学视频+PDF资料 人教部编版小学六年级语文上下",
             "sources": 1,
@@ -7984,7 +7872,7 @@
         },
         "play": {
           "ok": true,
-          "ms": 274,
+          "ms": 308,
           "note": {
             "url": "https://upos-sz-estgoss.bilivideo.com/upgcxcode/06/18/42149481806/42149481806_qe1-1-192.mp4?e=ig8euxZM2rNcNbRVhWdVhwdlhW",
             "n": 2,
@@ -8001,21 +7889,21 @@
           "t": "axios"
         },
         {
-          "url": "https://api.bilibili.com/x/web-interface/search/type?keyword=%E5%90%AF%E8%92%99&page=1&search_type=video&wts=1794214397&w_rid=a4c8b130a8205010edace9c9d65f907f",
+          "url": "https://api.bilibili.com/x/web-interface/search/type?keyword=%E5%90%AF%E8%92%99&page=1&search_type=video&wts=1794216323&w_rid=17be28eb991f27d4cc033b74497a6ef6",
           "status": 200,
-          "len": 27435,
+          "len": 27316,
           "t": "axios"
         },
         {
-          "url": "https://api.bilibili.com/x/web-interface/search/type?keyword=1%E5%B9%B4%E7%BA%A7%E8%AF%AD%E6%96%87&page=1&search_type=video&wts=1794214398&w_rid=6129378eaa41f8b83253c8b879eda3d6",
+          "url": "https://api.bilibili.com/x/web-interface/search/type?keyword=1%E5%B9%B4%E7%BA%A7%E8%AF%AD%E6%96%87&page=1&search_type=video&wts=1794216323&w_rid=e4015786af9ddde74ba98957e164216d",
           "status": 200,
-          "len": 29114,
+          "len": 29310,
           "t": "axios"
         },
         {
-          "url": "https://api.bilibili.com/x/web-interface/search/type?keyword=2026%E6%96%B0%E7%89%88+%E5%B0%8F%E5%AD%A6%E8%AF%AD%E6%96%87+&page=1&search_type=video&wts=1794214398&w_rid=2bdc68bef97221a8cdd5ac4d0c9f4106",
+          "url": "https://api.bilibili.com/x/web-interface/search/type?keyword=2026%E6%96%B0%E7%89%88+%E5%B0%8F%E5%AD%A6%E8%AF%AD%E6%96%87+&page=1&search_type=video&wts=1794216324&w_rid=cecee7a44b9a7cf897bdf5b3c5ef136e",
           "status": 200,
-          "len": 29197,
+          "len": 29262,
           "t": "axios"
         },
         {
@@ -8063,7 +7951,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 212,
+          "ms": 237,
           "note": {
             "class": 11,
             "list": 20,
@@ -8073,7 +7961,7 @@
         },
         "category": {
           "ok": true,
-          "ms": 45,
+          "ms": 52,
           "note": {
             "type_id": "56",
             "list": 38,
@@ -8085,7 +7973,7 @@
         },
         "search": {
           "ok": true,
-          "ms": 162,
+          "ms": 164,
           "note": {
             "keyword": "小兔子乖乖",
             "list": 2,
@@ -8094,7 +7982,7 @@
         },
         "detail": {
           "ok": true,
-          "ms": 1,
+          "ms": 0,
           "note": {
             "name": "小兔子乖乖",
             "sources": 1,
@@ -8140,43 +8028,19 @@
         {
           "url": "https://vd.ubestkid.com/api/v1/bv/video",
           "status": 200,
-          "len": 23357,
-          "t": "axios"
-        },
-        {
-          "url": "https://vd.ubestkid.com/api/v1/bv/video",
-          "status": 200,
           "len": 29210,
           "t": "axios"
         },
         {
           "url": "https://vd.ubestkid.com/api/v1/bv/video",
           "status": 200,
-          "len": 66854,
+          "len": 45900,
           "t": "axios"
         },
         {
           "url": "https://vd.ubestkid.com/api/v1/bv/video",
           "status": 200,
           "len": 57,
-          "t": "axios"
-        },
-        {
-          "url": "https://vd.ubestkid.com/api/v1/bv/video",
-          "status": 200,
-          "len": 57,
-          "t": "axios"
-        },
-        {
-          "url": "https://vd.ubestkid.com/api/v1/bv/video",
-          "status": 200,
-          "len": 11259,
-          "t": "axios"
-        },
-        {
-          "url": "https://vd.ubestkid.com/api/v1/bv/video",
-          "status": 200,
-          "len": 14385,
           "t": "axios"
         },
         {
@@ -8188,7 +8052,31 @@
         {
           "url": "https://vd.ubestkid.com/api/v1/bv/video",
           "status": 200,
-          "len": 45900,
+          "len": 66854,
+          "t": "axios"
+        },
+        {
+          "url": "https://vd.ubestkid.com/api/v1/bv/video",
+          "status": 200,
+          "len": 23357,
+          "t": "axios"
+        },
+        {
+          "url": "https://vd.ubestkid.com/api/v1/bv/video",
+          "status": 200,
+          "len": 57,
+          "t": "axios"
+        },
+        {
+          "url": "https://vd.ubestkid.com/api/v1/bv/video",
+          "status": 200,
+          "len": 14385,
+          "t": "axios"
+        },
+        {
+          "url": "https://vd.ubestkid.com/api/v1/bv/video",
+          "status": 200,
+          "len": 11259,
           "t": "axios"
         }
       ]
@@ -8206,7 +8094,7 @@
       "steps": {
         "home": {
           "ok": false,
-          "ms": 0,
+          "ms": 1,
           "err": "home: empty class list",
           "unsupported": false
         },
@@ -8220,7 +8108,7 @@
         },
         "search": {
           "ok": false,
-          "ms": 1,
+          "ms": 0,
           "err": "search: empty list for keyword=庆余年",
           "unsupported": false
         },
@@ -8267,7 +8155,7 @@
         },
         "search": {
           "ok": false,
-          "ms": 0,
+          "ms": 1,
           "err": "search: empty list for keyword=庆余年",
           "unsupported": false
         },
@@ -8300,7 +8188,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 875,
+          "ms": 659,
           "note": {
             "class": 7,
             "list": 18,
@@ -8310,7 +8198,7 @@
         },
         "category": {
           "ok": true,
-          "ms": 577,
+          "ms": 572,
           "note": {
             "type_id": "cat_cdrama",
             "list": 18,
@@ -8323,7 +8211,7 @@
         },
         "search": {
           "ok": true,
-          "ms": 556,
+          "ms": 656,
           "note": {
             "keyword": "进错门的女人 |刘佩琦 ",
             "list": 20,
@@ -8332,7 +8220,7 @@
         },
         "detail": {
           "ok": true,
-          "ms": 624,
+          "ms": 551,
           "note": {
             "name": "进错门的女人 |刘佩琦 田丽 演绎农村情缘！（刘佩琦、田丽、刘骐、赵圆圆、郭晓峰",
             "sources": 1,
@@ -8341,7 +8229,7 @@
         },
         "play": {
           "ok": true,
-          "ms": 0,
+          "ms": 1,
           "note": {
             "url": "https://www.youtube.com/playlist?list=PLepgICtcGJfk",
             "n": 1,
@@ -8354,31 +8242,31 @@
         {
           "url": "https://www.youtube.com/results?search_query=%E4%B8%AD%E5%89%A7%E7%8B%AC%E6%92%AD&gl=CN&hl=zh-CN&sp=EgIQAw%253D%253D",
           "status": 200,
-          "len": 1030766,
+          "len": 1037028,
           "t": "axios"
         },
         {
           "url": "https://www.youtube.com/results?search_query=%E4%B8%AD%E5%89%A7%E7%8B%AC%E6%92%AD&gl=CN&hl=zh-CN&sp=EgIQAw%253D%253D",
           "status": 200,
-          "len": 1031710,
+          "len": 1044936,
           "t": "axios"
         },
         {
           "url": "https://www.youtube.com/results?search_query=%E8%BF%9B%E9%94%99%E9%97%A8%E7%9A%84%E5%A5%B3%E4%BA%BA%20%7C%E5%88%98%E4%BD%A9%E7%90%A6%20&gl=CN&hl=zh-CN",
           "status": 200,
-          "len": 1133274,
+          "len": 1138418,
           "t": "axios"
         },
         {
           "url": "https://www.youtube.com/playlist?list=PLepgICtcGJfk",
           "status": 200,
-          "len": 1333597,
+          "len": 1346064,
           "t": "axios"
         },
         {
           "url": "https://www.youtube.com/playlist?list=PLepgICtcGJfk",
           "status": 200,
-          "len": 1334499,
+          "len": 1335807,
           "t": "axios"
         }
       ]
@@ -8396,13 +8284,13 @@
       "steps": {
         "home": {
           "ok": false,
-          "ms": 0,
+          "ms": 1,
           "err": "飞牛配置缺失：请先填写 FEINIU_HOST，或提供 FEINIU_SITES 多站配置",
           "unsupported": false
         },
         "category": {
           "ok": false,
-          "ms": 1,
+          "ms": 0,
           "err": "飞牛配置缺失：请先填写 FEINIU_HOST，或提供 FEINIU_SITES 多站配置",
           "tried": [
             "1"
@@ -8453,7 +8341,7 @@
         },
         "category": {
           "ok": true,
-          "ms": 1910,
+          "ms": 1909,
           "note": {
             "type_id": "电影",
             "list": 20,
@@ -8472,7 +8360,7 @@
         },
         "detail": {
           "ok": true,
-          "ms": 1,
+          "ms": 0,
           "note": {
             "name": "【林正英经典】玄幻电影",
             "sources": 1,
@@ -8481,7 +8369,7 @@
         },
         "play": {
           "ok": false,
-          "ms": 94,
+          "ms": 129,
           "err": "play: empty urls",
           "unsupported": false
         }
@@ -8489,27 +8377,27 @@
       "verdict": "partial",
       "reqs": [
         {
-          "url": "https://www.yy.com/apiSearch/doSearch.json?q=%E6%9D%8E%E8%BF%9E%E6%9D%B0%E5%8A%9F%E5%A4%AB%E7%BB%8F%E5%85%B8%E6%AD%A6%E4%BE%A0&t=120&n=1&s=0",
-          "status": 200,
-          "len": 8578,
-          "t": "axios"
-        },
-        {
           "url": "https://www.yy.com/apiSearch/doSearch.json?q=%E7%BB%8F%E5%85%B8%E9%AC%BC%E7%89%873000%E9%83%A8&t=120&n=1&s=0",
           "status": 200,
-          "len": 8635,
+          "len": 9469,
           "t": "axios"
         },
         {
           "url": "https://www.yy.com/apiSearch/doSearch.json?q=%E5%BC%A0%E5%9B%BD%E8%8D%A3%E4%B8%8E%E5%91%A8%E6%B6%A6%E5%8F%91%E7%9A%84%E5%85%84%E5%BC%9F%E6%83%85&t=120&n=1&s=0",
           "status": 200,
-          "len": 8441,
+          "len": 7626,
           "t": "axios"
         },
         {
           "url": "https://www.yy.com/apiSearch/doSearch.json?q=%E5%A4%8F%E6%B4%9B%E7%89%B9%E7%83%A6%E6%81%BC&t=120&n=1&s=0",
           "status": 200,
-          "len": 9369,
+          "len": 9288,
+          "t": "axios"
+        },
+        {
+          "url": "https://www.yy.com/apiSearch/doSearch.json?q=%E6%9D%8E%E8%BF%9E%E6%9D%B0%E5%8A%9F%E5%A4%AB%E7%BB%8F%E5%85%B8%E6%AD%A6%E4%BE%A0&t=120&n=1&s=0",
+          "status": 200,
+          "len": 8789,
           "t": "axios"
         },
         {
@@ -8519,33 +8407,27 @@
           "t": "axios"
         },
         {
-          "url": "https://www.yy.com/apiSearch/doSearch.json?q=%E8%B6%85%E6%B8%85%E9%AC%BC%E7%89%87%E6%B8%AF%E7%89%87&t=120&n=1&s=0",
+          "url": "https://www.yy.com/apiSearch/doSearch.json?q=%E6%B4%AA%E9%87%91%E5%AE%9D%E7%A6%8F%E6%98%9F%E7%B3%BB%E5%88%97&t=120&n=1&s=0",
           "status": 200,
-          "len": 7874,
-          "t": "axios"
-        },
-        {
-          "url": "https://www.yy.com/apiSearch/doSearch.json?q=%E6%88%90%E9%BE%99%E7%B3%BB%E5%88%97&t=120&n=1&s=0",
-          "status": 200,
-          "len": 6832,
+          "len": 7023,
           "t": "axios"
         },
         {
           "url": "https://www.yy.com/apiSearch/doSearch.json?q=%E6%99%BA%E5%8F%96%E5%A8%81%E8%99%8E%E5%B1%B1&t=120&n=1&s=0",
           "status": 200,
-          "len": 8418,
+          "len": 8432,
           "t": "axios"
         },
         {
-          "url": "https://www.yy.com/apiSearch/doSearch.json?q=%E6%B4%AA%E9%87%91%E5%AE%9D%E7%A6%8F%E6%98%9F%E7%B3%BB%E5%88%97&t=120&n=1&s=0",
+          "url": "https://www.yy.com/apiSearch/doSearch.json?q=%E8%B6%85%E6%B8%85%E9%AC%BC%E7%89%87%E6%B8%AF%E7%89%87&t=120&n=1&s=0",
           "status": 200,
-          "len": 6680,
+          "len": 7959,
           "t": "axios"
         },
         {
-          "url": "https://www.yy.com/apiSearch/doSearch.json?q=%E9%9C%87%E6%92%BC%EF%BC%81%E5%9B%BD%E5%86%85%E5%8A%9F%E5%A4%AB%E5%A4%A7%E7%89%87&t=120&n=1&s=0",
+          "url": "https://www.yy.com/apiSearch/doSearch.json?q=%E6%88%90%E9%BE%99%E7%B3%BB%E5%88%97&t=120&n=1&s=0",
           "status": 200,
-          "len": 784,
+          "len": 6532,
           "t": "axios"
         },
         {
@@ -8555,15 +8437,21 @@
           "t": "axios"
         },
         {
+          "url": "https://www.yy.com/apiSearch/doSearch.json?q=%E9%9C%87%E6%92%BC%EF%BC%81%E5%9B%BD%E5%86%85%E5%8A%9F%E5%A4%AB%E5%A4%A7%E7%89%87&t=120&n=1&s=0",
+          "status": 200,
+          "len": 784,
+          "t": "axios"
+        },
+        {
           "url": "https://www.yy.com/apiSearch/doSearch.json?q=%E9%80%9F%E5%BA%A6%E4%B8%8E%E6%BF%80%E6%83%85%E5%85%A8%E9%9B%86&t=120&n=1&s=0",
           "status": 200,
-          "len": 6685,
+          "len": 6549,
           "t": "axios"
         },
         {
           "url": "https://www.yy.com/apiSearch/doSearch.json?q=%E6%BC%AB%E5%A8%81%E5%8D%81%E5%B9%B4%E8%80%81%E7%B2%89%E7%A6%8F%E5%88%A9%E6%9D%A5%E4%BA%86&t=120&n=1&s=0",
           "status": 200,
-          "len": 9110,
+          "len": 8046,
           "t": "axios"
         },
         {
@@ -8587,7 +8475,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 660,
+          "ms": 774,
           "note": {
             "class": 10,
             "list": 0,
@@ -8597,7 +8485,7 @@
         },
         "category": {
           "ok": true,
-          "ms": 595,
+          "ms": 612,
           "note": {
             "type_id": "10000$3",
             "list": 15,
@@ -8609,24 +8497,24 @@
         },
         "search": {
           "ok": false,
-          "ms": 485,
-          "err": "search: empty list for keyword=唐僧唱的真好听",
+          "ms": 665,
+          "err": "search: empty list for keyword=简单舞蹈一起嗨起来",
           "unsupported": false
         },
         "detail": {
           "ok": true,
-          "ms": 363,
+          "ms": 326,
           "note": {
-            "name": "唐僧唱的真好听",
+            "name": "简单舞蹈一起嗨起来",
             "sources": 2,
-            "episodes": 8
+            "episodes": 6
           }
         },
         "play": {
           "ok": true,
           "ms": 0,
           "note": {
-            "url": "http://pull-h5.douyincdn.com/stage/stream-408637884387820377_or4.flv?expire=1794819201&sign=34aeaa44a31effcb6f4b342b5258",
+            "url": "http://pull-flv-t1.douyincdn.com/stage/stream-408637954506359607_or4.flv?keeptime=00093a80&wsSecret=2a34d57647323240e85f",
             "n": 1,
             "parse": 0
           }
@@ -8637,7 +8525,7 @@
         {
           "url": "https://live.douyin.com",
           "status": 200,
-          "len": 955669,
+          "len": 952848,
           "t": "axios"
         },
         {
@@ -8649,7 +8537,7 @@
         {
           "url": "https://webcast.amemv.com/webcast/web/partition/detail/room/v2/?aid=6383&app_name=douyin_web&live_id=1&device_platform=web&language=zh-CN&browser_language=zh-CN&browser_platform=Win32&browser_name=Chr",
           "status": 200,
-          "len": 883655,
+          "len": 871811,
           "t": "axios"
         },
         {
@@ -8659,13 +8547,13 @@
           "t": "axios"
         },
         {
-          "url": "https://www.douyin.com/aweme/v1/web/general/search/stream/?device_platform=webapp&aid=6383&channel=channel_pc_web&search_channel=aweme_live&keyword=%E5%94%90%E5%83%A7%E5%94%B1%E7%9A%84%E7%9C%9F%E5%A5%",
+          "url": "https://www.douyin.com/aweme/v1/web/general/search/stream/?device_platform=webapp&aid=6383&channel=channel_pc_web&search_channel=aweme_live&keyword=%E7%AE%80%E5%8D%95%E8%88%9E%E8%B9%88%E4%B8%80%E8%B5%",
           "status": 200,
           "len": 81,
           "t": "axios"
         },
         {
-          "url": "https://live.douyin.com/webcast/web/partition/search/?keyword=%E5%94%90%E5%83%A7%E5%94%B1%E7%9A%84%E7%9C%9F%E5%A5%BD%E5%90%AC&aid=6383",
+          "url": "https://live.douyin.com/webcast/web/partition/search/?keyword=%E7%AE%80%E5%8D%95%E8%88%9E%E8%B9%88%E4%B8%80%E8%B5%B7%E5%97%A8%E8%B5%B7%E6%9D%A5&aid=6383",
           "status": 200,
           "len": 74,
           "t": "axios"
@@ -8673,7 +8561,7 @@
         {
           "url": "https://live.douyin.com/webcast/room/web/enter/?aid=6383&app_name=douyin_web&live_id=1&device_platform=web&enter_from=web_live&browser_language=zh-CN&browser_platform=Win32&browser_name=Chrome&browser",
           "status": 200,
-          "len": 562636,
+          "len": 358847,
           "t": "axios"
         }
       ]
@@ -8701,7 +8589,7 @@
         },
         "category": {
           "ok": true,
-          "ms": 249,
+          "ms": 199,
           "note": {
             "type_id": "yqk",
             "list": 8,
@@ -8713,24 +8601,24 @@
         },
         "search": {
           "ok": false,
-          "ms": 119,
-          "err": "search: empty list for keyword=的直播间",
+          "ms": 143,
+          "err": "search: empty list for keyword=停播一天，码率不对问问客",
           "unsupported": false
         },
         "detail": {
           "ok": true,
           "ms": 1,
           "note": {
-            "name": "直播间: 3439096",
+            "name": "直播间: 4184217",
             "sources": 1,
             "episodes": 1
           }
         },
         "play": {
           "ok": true,
-          "ms": 346,
+          "ms": 367,
           "note": {
-            "url": "https://hw3a.douyucdn2.cn/live/3439096rviVJ3ZiA_550.flv?wsAuth=5bee424dfa8fd47422c1ca88afec23e7&token=web-h5-0-3439096-e",
+            "url": "https://hw3a.douyucdn2.cn/live/4184217rg3u5Rh55.flv?wsAuth=61c199a51197f40b048f63fa50af6183&token=web-h5-0-4184217-14383",
             "n": 1,
             "parse": 0
           }
@@ -8741,11 +8629,11 @@
         {
           "url": "https://m.douyu.com/api/room/list?page=1&type=yqk",
           "status": 200,
-          "len": 3184,
+          "len": 3183,
           "t": "axios"
         },
         {
-          "url": "https://m.douyu.com/api/search/liveRoom?sk=%E7%9A%84%E7%9B%B4%E6%92%AD%E9%97%B4&offset=0&limit=20&did=10000000000000000000000000001501",
+          "url": "https://m.douyu.com/api/search/liveRoom?sk=%E5%81%9C%E6%92%AD%E4%B8%80%E5%A4%A9%EF%BC%8C%E7%A0%81%E7%8E%87%E4%B8%8D%E5%AF%B9%E9%97%AE%E9%97%AE%E5%AE%A2&offset=0&limit=20&did=10000000000000000000000000",
           "status": 200,
           "len": 2123,
           "t": "axios"
@@ -8757,9 +8645,9 @@
           "t": "axios"
         },
         {
-          "url": "https://www.douyu.com/lapi/live/getH5PlayV1/3439096",
+          "url": "https://www.douyu.com/lapi/live/getH5PlayV1/4184217",
           "status": 200,
-          "len": 1070,
+          "len": 2061,
           "t": "axios"
         }
       ]
@@ -8786,7 +8674,7 @@
         },
         "category": {
           "ok": true,
-          "ms": 263,
+          "ms": 236,
           "note": {
             "type_id": "1",
             "list": 120,
@@ -8798,7 +8686,7 @@
         },
         "detail": {
           "ok": true,
-          "ms": 126,
+          "ms": 136,
           "note": {
             "name": "【预告】15日3点 GEN vs BLG S16总决赛",
             "sources": 6,
@@ -8807,9 +8695,9 @@
         },
         "play": {
           "ok": true,
-          "ms": 90,
+          "ms": 85,
           "note": {
-            "url": "https://al-game.flv.huya.com/src/78941969-2559461593-10992803837303062528-2693342886-10057-A-0-1-imgplus.flv?wsSecret=9d",
+            "url": "https://al-game.flv.huya.com/src/78941969-2559461593-10992803837303062528-2693342886-10057-A-0-1-imgplus.flv?wsSecret=1f",
             "n": 4,
             "parse": 0
           }
@@ -8820,7 +8708,7 @@
         {
           "url": "https://www.huya.com/cache.php?m=LiveList&do=getLiveListByPage&gameId=1&tagAll=0&page=1",
           "status": 200,
-          "len": 121654,
+          "len": 122425,
           "t": "axios"
         },
         {
@@ -8850,7 +8738,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 455,
+          "ms": 441,
           "note": {
             "class": 5,
             "list": 8,
@@ -8860,7 +8748,7 @@
         },
         "category": {
           "ok": true,
-          "ms": 400,
+          "ms": 430,
           "note": {
             "type_id": "1287",
             "list": 8,
@@ -8873,13 +8761,13 @@
         },
         "search": {
           "ok": false,
-          "ms": 1,
+          "ms": 0,
           "err": "search: empty list for keyword=千金驾到",
           "unsupported": false
         },
         "detail": {
           "ok": true,
-          "ms": 525,
+          "ms": 497,
           "note": {
             "name": "千金驾到",
             "sources": 1,
@@ -8888,7 +8776,7 @@
         },
         "play": {
           "ok": true,
-          "ms": 1,
+          "ms": 0,
           "note": {
             "url": "http://img.novel.wsljf.xyz/shortPlay-mp4/437424643637249/GZRfB1754881124538/2a2bf885-69ea-4aa9-80a4-1ebb782af11f/540x960",
             "n": 1,
@@ -8931,7 +8819,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 283,
+          "ms": 294,
           "note": {
             "class": 10,
             "list": 63,
@@ -8941,7 +8829,7 @@
         },
         "category": {
           "ok": true,
-          "ms": 500,
+          "ms": 521,
           "note": {
             "type_id": "462",
             "list": 10,
@@ -8954,7 +8842,7 @@
         },
         "search": {
           "ok": true,
-          "ms": 219,
+          "ms": 277,
           "note": {
             "keyword": "厉家萌宝：哑巴少爷开口了",
             "list": 10,
@@ -8963,7 +8851,7 @@
         },
         "detail": {
           "ok": true,
-          "ms": 246,
+          "ms": 321,
           "note": {
             "name": "厉家萌宝：哑巴少爷开口了",
             "sources": 1,
@@ -8972,9 +8860,9 @@
         },
         "play": {
           "ok": true,
-          "ms": 1,
+          "ms": 0,
           "note": {
-            "url": "https://dzzt-video.cbread.cn/36e5dd45a8b76c746cb2ac3a1bee94d8/6af2c0f0/16/6x2/62x0/620x6/62067400014/618502561_1/6185025",
+            "url": "https://dzzt-video.cbread.cn/310183252d72e5467802e18cf268b28a/6af2cf00/16/6x2/62x0/620x6/62067400014/618502561_1/6185025",
             "n": 1,
             "parse": 0
           }
@@ -9003,7 +8891,7 @@
         {
           "url": "https://www.kuaikaw.cn/drama/41000476026",
           "status": 200,
-          "len": 69799,
+          "len": 69580,
           "t": "axios"
         }
       ]
@@ -9021,7 +8909,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 625,
+          "ms": 640,
           "note": {
             "class": 6,
             "list": 0,
@@ -9031,7 +8919,7 @@
         },
         "category": {
           "ok": false,
-          "ms": 417,
+          "ms": 395,
           "err": "category: empty list (type_id=5)",
           "tried": [
             "21",
@@ -9042,7 +8930,7 @@
         },
         "search": {
           "ok": false,
-          "ms": 3178,
+          "ms": 2695,
           "err": "search: empty list for keyword=庆余年",
           "unsupported": false
         },
@@ -9076,13 +8964,13 @@
         {
           "url": "https://www.djfen.cc/list/2/",
           "status": 403,
-          "len": 5604,
+          "len": 5626,
           "t": "curl"
         },
         {
           "url": "https://www.djfen.cc/list/3/",
           "status": 403,
-          "len": 5604,
+          "len": 5626,
           "t": "curl"
         },
         {
@@ -9100,7 +8988,7 @@
         {
           "url": "https://www.djfen.cc/list/21/",
           "status": 403,
-          "len": 5629,
+          "len": 5607,
           "t": "curl"
         },
         {
@@ -9112,7 +9000,7 @@
         {
           "url": "https://www.djfen.cc/list/3/",
           "status": 403,
-          "len": 5626,
+          "len": 5604,
           "t": "curl"
         },
         {
@@ -9130,7 +9018,7 @@
         {
           "url": "https://www.djfen.cc/list/20/",
           "status": 403,
-          "len": 5607,
+          "len": 5629,
           "t": "curl"
         }
       ]
@@ -9148,7 +9036,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 129,
+          "ms": 135,
           "note": {
             "class": 43,
             "list": 20,
@@ -9158,7 +9046,7 @@
         },
         "category": {
           "ok": true,
-          "ms": 338,
+          "ms": 420,
           "note": {
             "type_id": "沙雕仙逆",
             "list": 20,
@@ -9171,7 +9059,7 @@
         },
         "search": {
           "ok": true,
-          "ms": 251,
+          "ms": 315,
           "note": {
             "keyword": "一口气看完《仙逆》顺为凡",
             "list": 20,
@@ -9180,7 +9068,7 @@
         },
         "detail": {
           "ok": true,
-          "ms": 275,
+          "ms": 402,
           "note": {
             "name": "【34小时仙逆同人爽文】穿越仙逆，三岁凝气五岁筑基十三结丹，我成最年轻元婴，今乘",
             "sources": 1,
@@ -9189,9 +9077,9 @@
         },
         "play": {
           "ok": true,
-          "ms": 405,
+          "ms": 367,
           "note": {
-            "url": "https://upos-sz-estghw.bilivideo.com/upgcxcode/97/60/37921296097/37921296097-1-448.mp4?e=ig8euxZM2rNcNbhznwdVhwdlhzh3hwd",
+            "url": "https://upos-sz-mirrorhw.bilivideo.com/upgcxcode/97/60/37921296097/37921296097-1-448.mp4?e=ig8euxZM2rNcNbhznwdVhwdlhzh3h",
             "n": 3,
             "parse": 0
           }
@@ -9202,7 +9090,7 @@
         {
           "url": "https://api.bilibili.com/x/web-interface/popular?ps=20&pn=1",
           "status": 200,
-          "len": 30182,
+          "len": 29972,
           "t": "axios"
         },
         {
@@ -9212,21 +9100,21 @@
           "t": "axios"
         },
         {
-          "url": "https://api.bilibili.com/x/web-interface/search/type?keyword=%E6%B2%99%E9%9B%95%E4%BB%99%E9%80%86&page=1&search_type=video&wts=1794214402&w_rid=e1f3a05496fa4217c5bb69c7b17da25e",
+          "url": "https://api.bilibili.com/x/web-interface/search/type?keyword=%E6%B2%99%E9%9B%95%E4%BB%99%E9%80%86&page=1&search_type=video&wts=1794216330&w_rid=75352744682acf433baaa66331790025",
           "status": 200,
-          "len": 26988,
+          "len": 27436,
           "t": "axios"
         },
         {
           "url": "https://api.bilibili.com/x/web-interface/search/type?keyword=%E4%B8%80%E5%8F%A3%E6%B0%94%E7%9C%8B%E5%AE%8C%E3%80%8A%E4%BB%99%E9%80%86%E3%80%8B%E9%A1%BA%E4%B8%BA%E5%87%A1&page=1&search_type=video&wts=1",
           "status": 200,
-          "len": 29128,
+          "len": 29576,
           "t": "axios"
         },
         {
           "url": "https://api.bilibili.com/x/web-interface/view?aid=116483657040488",
           "status": 200,
-          "len": 1236249,
+          "len": 1236250,
           "t": "axios"
         },
         {
@@ -9268,7 +9156,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 150,
+          "ms": 102,
           "note": {
             "class": 11,
             "list": 12,
@@ -9278,7 +9166,7 @@
         },
         "category": {
           "ok": true,
-          "ms": 46,
+          "ms": 31,
           "note": {
             "type_id": "1",
             "list": 27,
@@ -9291,7 +9179,7 @@
         },
         "search": {
           "ok": true,
-          "ms": 90,
+          "ms": 88,
           "note": {
             "keyword": "肇庆DJ小姚-全国语Ha",
             "list": 8,
@@ -9309,7 +9197,7 @@
         },
         "play": {
           "ok": true,
-          "ms": 61,
+          "ms": 33,
           "note": {
             "url": "https://mp4.djuu.com/c3/18/2026/c4360151fbc694fb.m4a",
             "n": 1,
@@ -9364,7 +9252,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 90,
+          "ms": 88,
           "note": {
             "class": 5,
             "list": 0,
@@ -9388,7 +9276,7 @@
         },
         "search": {
           "ok": true,
-          "ms": 473,
+          "ms": 423,
           "note": {
             "keyword": "🔥 音乐飙升榜",
             "list": 66,
@@ -9397,7 +9285,7 @@
         },
         "detail": {
           "ok": true,
-          "ms": 21,
+          "ms": 23,
           "note": {
             "name": "🎵 人机验证",
             "sources": 1,
@@ -9431,7 +9319,7 @@
         {
           "url": "https://www.4c44.com/so.php?wd=%F0%9F%94%A5%20%E9%9F%B3%E4%B9%90%E9%A3%99%E5%8D%87%E6%A6%9C&page=1",
           "status": 200,
-          "len": 14683,
+          "len": 14704,
           "t": "axios"
         },
         {
@@ -9467,13 +9355,13 @@
       "steps": {
         "home": {
           "ok": false,
-          "ms": 400,
+          "ms": 388,
           "err": "home: empty class list",
           "unsupported": false
         },
         "category": {
           "ok": false,
-          "ms": 92,
+          "ms": 88,
           "err": "category: empty list (type_id=1)",
           "tried": [
             "1"
@@ -9481,7 +9369,7 @@
         },
         "search": {
           "ok": false,
-          "ms": 96,
+          "ms": 93,
           "err": "search: empty list for keyword=庆余年",
           "unsupported": false
         },
@@ -9514,7 +9402,7 @@
       "steps": {
         "home": {
           "ok": true,
-          "ms": 190,
+          "ms": 380,
           "note": {
             "class": 4,
             "list": 20,
@@ -9524,7 +9412,7 @@
         },
         "category": {
           "ok": true,
-          "ms": 138,
+          "ms": 140,
           "note": {
             "type_id": "recommend",
             "list": 20,
@@ -9536,23 +9424,26 @@
           }
         },
         "search": {
-          "ok": false,
-          "ms": 160,
-          "err": "search: empty list for keyword=那些妖异的古风歌曲",
-          "unsupported": false
+          "ok": true,
+          "ms": 342,
+          "note": {
+            "keyword": "「后摇」一只孤独的巨兽在",
+            "list": 30,
+            "pagecount": 2
+          }
         },
         "detail": {
           "ok": true,
-          "ms": 121,
+          "ms": 41,
           "note": {
-            "name": "【妖气弥漫】那些妖异的古风歌曲",
+            "name": "自己的灯火 - 一只孤独的咸鱼",
             "sources": 1,
-            "episodes": 10
+            "episodes": 1
           }
         },
         "play": {
           "ok": false,
-          "ms": 2117,
+          "ms": 1878,
           "err": "play: empty urls",
           "unsupported": false
         }
@@ -9562,49 +9453,49 @@
         {
           "url": "https://music.163.com/api/personalized/playlist?limit=20",
           "status": 200,
-          "len": 5964,
+          "len": 5936,
           "t": "fetch"
         },
         {
           "url": "https://music.163.com/api/personalized/playlist?limit=20",
           "status": 200,
-          "len": 5920,
+          "len": 5911,
           "t": "fetch"
         },
         {
-          "url": "https://music.163.com/api/search/get?s=%E9%82%A3%E4%BA%9B%E5%A6%96%E5%BC%82%E7%9A%84%E5%8F%A4%E9%A3%8E%E6%AD%8C%E6%9B%B2&type=1&offset=0&limit=30",
+          "url": "https://music.163.com/api/search/get?s=%E3%80%8C%E5%90%8E%E6%91%87%E3%80%8D%E4%B8%80%E5%8F%AA%E5%AD%A4%E7%8B%AC%E7%9A%84%E5%B7%A8%E5%85%BD%E5%9C%A8&type=1&offset=0&limit=30",
           "status": 200,
-          "len": 37,
+          "len": 21296,
           "t": "fetch"
         },
         {
-          "url": "https://music.163.com/api/v6/playlist/detail?id=318112231",
+          "url": "https://music.163.com/api/song/detail?ids=[3458800820]",
           "status": 200,
-          "len": 31741,
+          "len": 2899,
           "t": "fetch"
         },
         {
-          "url": "https://music-api.gdstudio.xyz/api.php?types=url&id=404459664&source=netease&br=2000",
+          "url": "https://music-api.gdstudio.xyz/api.php?types=url&id=3458800820&source=netease&br=2000",
           "status": 521,
           "len": 7026,
           "t": "curl"
         },
         {
-          "url": "https://music-api.gdstudio.xyz/api.php?types=url&id=404459664&source=netease&br=320",
+          "url": "https://music-api.gdstudio.xyz/api.php?types=url&id=3458800820&source=netease&br=320",
           "status": 521,
           "len": 7026,
           "t": "curl"
         },
         {
-          "url": "https://music-api.gdstudio.xyz/api.php?types=url&id=404459664&source=netease&br=192",
+          "url": "https://music-api.gdstudio.xyz/api.php?types=url&id=3458800820&source=netease&br=192",
+          "status": 521,
+          "len": 7026,
+          "t": "curl"
+        },
+        {
+          "url": "https://music-api.gdstudio.xyz/api.php?types=url&id=3458800820&source=netease&br=128",
           "status": 521,
           "len": 7028,
-          "t": "curl"
-        },
-        {
-          "url": "https://music-api.gdstudio.xyz/api.php?types=url&id=404459664&source=netease&br=128",
-          "status": 521,
-          "len": 7026,
           "t": "curl"
         }
       ]

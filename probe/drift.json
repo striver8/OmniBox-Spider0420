@@ -27,19 +27,6 @@
     "lastUrl": "https://bgm.girigirilove.com/show/21-----------/"
   },
   {
-    "file": "动漫/稀饭动漫.js",
-    "verdict": "broken",
-    "step": "category",
-    "steps": [
-      "category",
-      "search",
-      "detail",
-      "play"
-    ],
-    "err": "category: empty list (type_id=21)",
-    "lastUrl": "https://dm.xifanacg.com/index.php/ajax/suggest?mid=1&wd=%E5%BA%86%E4%BD%99%E5%B9%B4"
-  },
-  {
     "file": "听书/听友FM.js",
     "verdict": "broken",
     "step": "category",
@@ -117,7 +104,7 @@
       "play"
     ],
     "err": "category: empty list (type_id=4)",
-    "lastUrl": "https://www.qnhot.com/index.php/ajax/suggest?mid=1&limit=20&wd=%E5%BA%86%E4%BD%99%E5%B9%B4"
+    "lastUrl": "https://www.qwmkv.com/index.php/ajax/suggest?mid=1&limit=20&wd=%E5%BA%86%E4%BD%99%E5%B9%B4"
   },
   {
     "file": "影视/网盘/光鸭·臻影社.js",
@@ -130,7 +117,7 @@
       "play"
     ],
     "err": "category: empty list (type_id=reality)",
-    "lastUrl": "https://www.guangya.net/?s=%E5%BA%86%E4%BD%99%E5%B9%B4&type=post"
+    "lastUrl": "https://www.guangya.net/category/reality?orderby=modified"
   },
   {
     "file": "影视/网盘/剧迷115.js",
@@ -154,7 +141,7 @@
       "play"
     ],
     "err": "detail: no playable episodes (sources=0, episodes=0)",
-    "lastUrl": "https://tv.yydsys.top/index.php/vod/detail/id/10025.html"
+    "lastUrl": "https://tv.214521.xyz/index.php/vod/detail/id/10025.html"
   },
   {
     "file": "影视/网盘/影巢.js",
@@ -179,7 +166,7 @@
       "play"
     ],
     "err": "detail: no playable episodes (sources=0, episodes=0)",
-    "lastUrl": "http://38.76.197.172:12521/index.php/vod/detail/id/465562.html"
+    "lastUrl": "http://38.76.197.172:12521/index.php/vod/detail/id/465933.html"
   },
   {
     "file": "影视/网盘/木偶.js",
@@ -299,7 +286,7 @@
       "play"
     ],
     "err": "detail: no playable episodes (sources=0, episodes=0)",
-    "lastUrl": "http://38.76.197.172:16969/index.php/vod/detail/id/456661.html"
+    "lastUrl": "http://xhban.xyz:20720/index.php/vod/detail/id/457236.html"
   },
   {
     "file": "影视/网盘/蜗牛4K.js",
@@ -332,15 +319,14 @@
   {
     "file": "影视/采集/4KMP.js",
     "verdict": "broken",
-    "step": "category",
+    "step": "search",
     "steps": [
-      "category",
       "search",
       "detail",
       "play"
     ],
-    "err": "category: empty list (type_id=tv)",
-    "lastUrl": "https://4k-av.com/s?y=%E5%BA%86%E4%BD%99%E5%B9%B4"
+    "err": "search: empty list for keyword=小兵张嘎",
+    "lastUrl": "https://4k-av.com/movie/008403-zhang-ga-the-soldier-boy/"
   },
   {
     "file": "影视/采集/88看球.js",
@@ -573,18 +559,21 @@
       "play"
     ],
     "err": "category: empty list (type_id=4)",
-    "lastUrl": "https://pianku.pro/index.php/verify/index.html?type=search&t=1794214426989"
+    "lastUrl": "https://pianku.pro/index.php/verify/index.html?type=search&t=1794216353678"
   },
   {
-    "file": "影视/采集/电影人生.js",
+    "file": "影视/采集/荐片.js",
     "verdict": "broken",
-    "step": "detail",
+    "step": "home",
     "steps": [
+      "home",
+      "category",
+      "search",
       "detail",
       "play"
     ],
-    "err": "detail: empty list for videoId=tv/6adf95d4997f879a768f8201-34315.html?host=www.dyrsok.com",
-    "lastUrl": "https://www.dyrsok.com/tv/6adf95d4997f879a768f8201-34315.html?host=www.dyrsok.com"
+    "err": "home: empty class list",
+    "lastUrl": ""
   },
   {
     "file": "影视/采集/韩小圈.js",
@@ -656,7 +645,7 @@
     "steps": [
       "search"
     ],
-    "err": "search: empty list for keyword=唐僧唱的真好听",
+    "err": "search: empty list for keyword=简单舞蹈一起嗨起来",
     "lastUrl": "https://live.douyin.com/webcast/room/web/enter/?aid=6383&app_name=douyin_web&live_id=1&device_platform=web&enter_from=web_live&browser_language=zh-CN&browser_platform=Win32&browser_name=Chrome&browser"
   },
   {
@@ -666,8 +655,8 @@
     "steps": [
       "search"
     ],
-    "err": "search: empty list for keyword=的直播间",
-    "lastUrl": "https://www.douyu.com/lapi/live/getH5PlayV1/3439096"
+    "err": "search: empty list for keyword=停播一天，码率不对问问客",
+    "lastUrl": "https://www.douyu.com/lapi/live/getH5PlayV1/4184217"
   },
   {
     "file": "短剧/星星短剧.js",
@@ -709,12 +698,11 @@
   {
     "file": "音乐/芸芸音乐.js",
     "verdict": "partial",
-    "step": "search",
+    "step": "play",
     "steps": [
-      "search",
       "play"
     ],
-    "err": "search: empty list for keyword=那些妖异的古风歌曲",
-    "lastUrl": "https://music-api.gdstudio.xyz/api.php?types=url&id=404459664&source=netease&br=128"
+    "err": "play: empty urls",
+    "lastUrl": "https://music-api.gdstudio.xyz/api.php?types=url&id=3458800820&source=netease&br=128"
   }
 ]

@@ -83,3 +83,43 @@
 复验（五步全通，ok）：home 7 类 107 条 / category type_id=6 24 条、pagecount 708、total 16978 / search 命中 1 条 / detail 1 源 1 集 / play 4 条地址 `parse=0`。另用 46 集长剧《庆余年第一季》单独验证：detail 46 集，取第 6 集 play 出 4 条地址，逐条 curl 全部 `200` 且为合法 `#EXTM3U`（m3c 51KB、m3v 143KB、ysapi/m3u8 2×20KB），说明分集切换正确。
 
 > 附带观察：`影视/采集/电影人生.js`（上轮已修至 partial）本轮全量复跑时 dyrsok.com 对该批请求返回 429（`?origin=jsm3u8` 等线路页 429），play 因此空 urls。属站点突发限流，非解析回归；隔一段时间单跑 detail 仍正常（2 源 2 集）。
+
+## 十、稀饭动漫重写（Next.js + Supabase）
+
+`动漫/稀饭动漫.js` 原为 `dm.xifanacg.com/index.php/ds_api/vod` 的 maccms 接口；站点整站迁到 `https://next.xifanacg.com`（Next.js App Router + Turbopack），旧接口 404，新站 HTML 里只有 RSC 流（`self.__next_f`），播放页 `/anime/<id>/play/<episodeId>?source=` 不含 m3u8。
+
+关键突破：新站前端直连 Supabase，anon key 明文在 bundle `4449yqwkvl18o.js`：
+
+- 后端 `https://api.xifanacg.com`，`sb_publishable_OBIVAWACIX6lPXrO98_z24_HcsmalkA`
+- 可读表（PostgREST `/rest/v1/<table>`，头带 `apikey` + `Authorization: Bearer`）：`animes`（`id/title/title_original/type_id/cover_url/description/total_episodes/current_episodes/is_finished/remarks/release_year/region/bangumi_score/format/search_title/series_id`）、`episodes`（`id/anime_id/episode_number/title/kind/release_date`）、`anime_types`（`id/name/slug/legacy_type_id`）
+- `anime_types` 实测：1 连载新番 / 2 完结旧番 / 3 剧场版 / 4 美漫；`legacy_type_id` 才等于 `animes.type_id`
+- 分页靠 `Prefer: count=exact` 读响应头 `content-range: 0-23/2877`
+- 搜索 `?or=(title.ilike.*KW*,title_original.ilike.*KW*,search_title.ilike.*KW*)`，kw 必须保留 `*(),.` 的编码，否则 400
+- 播放：`POST https://api.xifanacg.com/functions/v1/issue-web-playback`，body `{action:"fallback", episode_id}`，返回 `candidates[]`（`source_code/source_name/url`），实测每集 3 条线路
+- 无权限：`play_sources`、`danmaku` 均为 42501（anon 被 RLS 拒绝），故线路只能走 edge function
+
+v2.0.0 实现：`_rest()` 封装 PostgREST（含 content-range 解析）、`_issuePlayback()` 签发地址、`_encPlayId/_decPlayId` 传 `{e,n}`；home 用 `anime_types` 动态分类，category 用 `type_id=eq.` + limit/offset，detail 用 `vod_play_sources`，play 返回多线路并带 `flag:"xifan"`。
+
+复验（ok）：home 4 类 48 条 / category type_id=1 → 24 条、pagecount 4、total 78 / search「青之箱 第二季」1 条 / detail 12 集 / play 3 条 `parse=0`；另测第 1、6 集 URL 正确递进（`/野生01.mp4` → `/3448/main/06.mp4`）。线路可达性：`apn.moedot.net` 本机超时（12s 000），`play.xfvod.pro:8088` 206 正常——故脚本返回全部 candidates 供切换，不擅自摘除。
+
+## 十一、电影人生站点迁移（dyrsok.com → kingtv.vip）
+
+上一节末尾记录的 429 其实是迁移的前兆：`https://www.dyrsok.com/*` 现在对任何路径返回
+
+```
+HTTP/1.1 302
+Location: https://kingtv.vip/<path>?host=www.dyrsok.com
+X-Cache: BYPASS
+```
+
+新站是 Tailwind 重写版（`<title>電影_王者TV_第1頁</title>`），旧 `public-list-box / module-item / .seqlist` 之外的选择器与页面组织都被替换：
+
+- 列表卡片：`<a href="/movie/<24hex>-<id>.html" title="城迷" data-url="/movie/<hash>/<id>.html"><img data-src="/img/id/<hash>.jpg" alt="城迷"><div class="absolute top-2 right-2 ...">1080p</div>`；剧集卡片 `data-url="/tv/<hash>/<id>.html"`
+- 分类页 `/{dianying|dianshiju|dongman|zongyi}.html`，页码 **0 基**（`?page=0` 才是第 1 页，pager href 最大 460 → pagecount 461）
+- 剧集详情：`.seqlist a.episode-button[data-origin]`，href 形如 `?origin=<线路>&p=<序号>`；线路切换是整页刷新，一页只渲染当前线路的集数（所以其余线路按集序号复刻）
+- 电影详情：`<link rel="preload" href="/api/m3u8?origin=<线路>&url=<videoid>">`，命中后 302 到 `https://box.dyrs.com.de/api/super?id=<videoid>&origin=<线路>`，返回 `#EXTM3U` 主播放列表（内嵌 `/api/direct?id=&origin=vip1|cf1` 两个子流）；部分线路（如 1080zyk）页面直接内联 `.m3u8`
+- 反爬：详情/分类/搜索路径全部先回 `429` + 「正在检测」页，页面内联 SHA1 工作量证明——找 `i` 使 `sha1(hash + i) === target`，再以 `?attack_key=<i>` 重放，随后下发 `sion_id` cookie。实测 key 在 1e4~6e4 之间，Node 内 16~80ms 解出
+
+v2.0.0 重写：`solveChallenge()` + `fetchText()` 内建 PoW 与 cookie 复用；`parseVodCards` 改按 `a[title]` + `/^\/(movie|tv)\//` 取卡片（`data-src` 取图、角标取 1080p/更新等短文本）；`guessPageCount` 读 pager；detail 同时支持剧集（seqlist 分组 + 多线路复刻）与电影（api 线路）；play 先取分集/线路页内联 m3u8，取不到再退 `box.dyrs.com.de/api/super` 主列表。
+
+复验（ok）：home 36 条 / category dianshiju 24 条 pagecount 461 / detail《女帝2026》9 线路 × 24 集 / play 第 3 线路第 3 集 → `vvip.high26-playback.com/20260427/23143_*.m3u8`；电影《城迷》10 线路，`超級線路` 走 box 主列表 3 条、`xiguam3u8` 直取 `svip.xgplay3.com/...index.m3u8`，均 `parse=0`；search「女帝」24 条。

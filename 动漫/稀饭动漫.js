@@ -1,684 +1,439 @@
 // @name 稀饭动漫
 // @author 梦
-// @description 刮削：支持，弹幕：支持，嗅探：支持
-// @dependencies: axios
-// @version 1.0.0
+// @description 刮削：已接入，弹幕：未接入，嗅探：官方播放签发接口直取多线路地址（Next 站点数据源）
+// @dependencies none
+// @version 2.0.0
 // @downloadURL https://gh-proxy.org/https://github.com/Silent1566/OmniBox-Spider/raw/refs/heads/main/%E5%8A%A8%E6%BC%AB/%E7%A8%80%E9%A5%AD%E5%8A%A8%E6%BC%AB.js
 
 /**
  * ============================================================================
- * 稀饭动漫
- * 站点：https://dm.xifanacg.com/
- * 分类：连载新番 / 完结旧番 / 剧场版 / 美漫
- * 说明：
- * - 分类走 /index.php/ds_api/vod POST 接口
- * - 搜索走 /index.php/ajax/suggest
- * - 详情页资源列表为 /watch/{id}/{sid}/{nid}.html
- * - 播放页 player_aaaa.url 可能为直链，也兼容 encrypt=1/2 情况
+ * 稀饭动漫（next.xifanacg.com）
+ *
+ * 站点整站已从 dm.xifanacg.com 的 PHP 版（/index.php/ds_api/vod）迁移到
+ * Next.js App Router + Supabase 后端，旧接口全部 404。新链路：
+ *   1. 列表/详情数据：Supabase PostgREST  https://api.xifanacg.com/rest/v1/{animes,episodes,anime_types}
+ *      - anon publishable key 随前端 bundle 下发，读权限对 animes/episodes/anime_types 开放
+ *      - 分页用 limit/offset，总数取响应的 content-range: 0-23/2877
+ *   2. 播放地址：Edge Function  POST https://api.xifanacg.com/functions/v1/issue-web-playback
+ *      body {action:"fallback", episode_id}，返回 candidates[] 多条线路的签名直链（带 sign/t 过期）
+ *   3. 播放页 /anime/{id}/play/{episodeId}?source=xxx 只渲染播放器外壳，HTML 内无 m3u8/mp4
+ *
+ * 分类：1 连载新番 / 2 完结旧番 / 3 剧场版 / 4 美漫（anime_types 表可动态取）
  * ============================================================================
  */
-const axios = require('axios');
-const https = require('https');
-const OmniBox = require('omnibox_sdk');
 
-const HOST = 'https://dm.xifanacg.com';
-const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36';
-const PAGE_LIMIT = 40;
-const DANMU_API = process.env.DANMU_API || '';
+const OmniBox = require("omnibox_sdk");
+const runner = require("spider_runner");
 
-const axiosInstance = axios.create({
-  timeout: 15000,
-  httpsAgent: new https.Agent({ keepAlive: true, rejectUnauthorized: false, family: 4 }),
-  headers: {
-    'User-Agent': UA,
-    'Referer': HOST + '/',
-    'Accept-Language': 'zh-CN,zh;q=0.9',
-    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-  },
-});
+const BASE_URL = "https://next.xifanacg.com";
+const API_BASE = "https://api.xifanacg.com";
+const SB_KEY = "sb_publishable_OBIVAWACIX6lPXrO98_z24_HcsmalkA";
+const UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36";
 
-const FILTERS = {
-  '1': [
-    {
-      key: 'class',
-      name: '类型',
-      value: [
-        { n: '全部', v: '' },
-        { n: '搞笑', v: '搞笑' },
-        { n: '原创', v: '原创' },
-        { n: '轻小说改', v: '轻小说改' },
-        { n: '恋爱', v: '恋爱' },
-        { n: '百合', v: '百合' },
-        { n: '漫改', v: '漫改' },
-        { n: '校园', v: '校园' },
-        { n: '战斗', v: '战斗' },
-        { n: '治愈', v: '治愈' },
-        { n: '奇幻', v: '奇幻' },
-        { n: '日常', v: '日常' },
-        { n: '青春', v: '青春' },
-        { n: '乙女向', v: '乙女向' },
-        { n: '悬疑', v: '悬疑' },
-        { n: '后宫', v: '后宫' },
-        { n: '科幻', v: '科幻' },
-        { n: '冒险', v: '冒险' },
-        { n: '热血', v: '热血' },
-        { n: '异世界', v: '异世界' },
-        { n: '游戏改', v: '游戏改' },
-        { n: '音乐', v: '音乐' },
-        { n: '偶像', v: '偶像' },
-        { n: '美食', v: '美食' },
-        { n: '耽美', v: '耽美' },
-      ],
-    },
-    { key: 'area', name: '地区', value: [{ n: '全部', v: '' }, { n: '日本', v: '日本' }] },
-    {
-      key: 'year',
-      name: '年份',
-      value: [
-        { n: '全部', v: '' },
-        { n: '2026', v: '2026' }, { n: '2025', v: '2025' }, { n: '2024', v: '2024' },
-        { n: '2023', v: '2023' }, { n: '2022', v: '2022' }, { n: '2021', v: '2021' },
-        { n: '2020', v: '2020' }, { n: '2019', v: '2019' }, { n: '2018', v: '2018' },
-        { n: '2017', v: '2017' }, { n: '2016', v: '2016' }, { n: '2015', v: '2015' },
-        { n: '2014', v: '2014' }, { n: '2013', v: '2013' }, { n: '2012', v: '2012' },
-        { n: '2011', v: '2011' }, { n: '2010', v: '2010' }, { n: '2009', v: '2009' },
-        { n: '2008', v: '2008' }, { n: '2007', v: '2007' }, { n: '2006', v: '2006' },
-        { n: '2005', v: '2005' },
-      ],
-    },
-    { key: 'by', name: '排序', value: [{ n: '最新', v: 'time' }, { n: '最热', v: 'hits' }, { n: '评分', v: 'score' }] },
-  ],
-  '2': [
-    {
-      key: 'class',
-      name: '类型',
-      value: [
-        { n: '全部', v: '' },
-        { n: '搞笑', v: '搞笑' },
-        { n: '原创', v: '原创' },
-        { n: '轻小说改', v: '轻小说改' },
-        { n: '恋爱', v: '恋爱' },
-        { n: '百合', v: '百合' },
-        { n: '漫改', v: '漫改' },
-        { n: '校园', v: '校园' },
-        { n: '战斗', v: '战斗' },
-        { n: '治愈', v: '治愈' },
-        { n: '奇幻', v: '奇幻' },
-        { n: '日常', v: '日常' },
-        { n: '青春', v: '青春' },
-        { n: '乙女向', v: '乙女向' },
-        { n: '悬疑', v: '悬疑' },
-        { n: '后宫', v: '后宫' },
-        { n: '科幻', v: '科幻' },
-        { n: '冒险', v: '冒险' },
-        { n: '热血', v: '热血' },
-        { n: '异世界', v: '异世界' },
-        { n: '游戏改', v: '游戏改' },
-        { n: '音乐', v: '音乐' },
-        { n: '偶像', v: '偶像' },
-        { n: '美食', v: '美食' },
-        { n: '耽美', v: '耽美' },
-      ],
-    },
-    { key: 'area', name: '地区', value: [{ n: '全部', v: '' }, { n: '日本', v: '日本' }, { n: '中国', v: '中国' }, { n: '欧美', v: '欧美' }] },
-    {
-      key: 'year',
-      name: '年份',
-      value: [
-        { n: '全部', v: '' },
-        { n: '2026', v: '2026' }, { n: '2025', v: '2025' }, { n: '2024', v: '2024' },
-        { n: '2023', v: '2023' }, { n: '2022', v: '2022' }, { n: '2021', v: '2021' },
-        { n: '2020', v: '2020' }, { n: '2019', v: '2019' }, { n: '2018', v: '2018' },
-        { n: '2017', v: '2017' }, { n: '2016', v: '2016' }, { n: '2015', v: '2015' },
-        { n: '2014', v: '2014' }, { n: '2013', v: '2013' }, { n: '2012', v: '2012' },
-        { n: '2011', v: '2011' }, { n: '2010', v: '2010' }, { n: '2009', v: '2009' },
-        { n: '2008', v: '2008' }, { n: '2007', v: '2007' }, { n: '2006', v: '2006' },
-        { n: '2005', v: '2005' },
-      ],
-    },
-    { key: 'by', name: '排序', value: [{ n: '最新', v: 'time' }, { n: '最热', v: 'hits' }, { n: '评分', v: 'score' }] },
-  ],
-  '3': [
-    {
-      key: 'class',
-      name: '类型',
-      value: [
-        { n: '全部', v: '' },
-        { n: '剧场版', v: '剧场版' },
-        { n: '动画电影', v: '动画电影' },
-        { n: '奇幻', v: '奇幻' },
-        { n: '战斗', v: '战斗' },
-        { n: '恋爱', v: '恋爱' },
-        { n: '冒险', v: '冒险' },
-      ],
-    },
-    { key: 'area', name: '地区', value: [{ n: '全部', v: '' }, { n: '日本', v: '日本' }, { n: '中国', v: '中国' }, { n: '欧美', v: '欧美' }] },
-    {
-      key: 'year',
-      name: '年份',
-      value: [
-        { n: '全部', v: '' },
-        { n: '2026', v: '2026' }, { n: '2025', v: '2025' }, { n: '2024', v: '2024' },
-        { n: '2023', v: '2023' }, { n: '2022', v: '2022' }, { n: '2021', v: '2021' },
-        { n: '2020', v: '2020' }, { n: '2019', v: '2019' }, { n: '2018', v: '2018' },
-        { n: '2017', v: '2017' }, { n: '2016', v: '2016' }, { n: '2015', v: '2015' },
-        { n: '2014', v: '2014' }, { n: '2013', v: '2013' }, { n: '2012', v: '2012' },
-        { n: '2011', v: '2011' }, { n: '2010', v: '2010' },
-      ],
-    },
-    { key: 'by', name: '排序', value: [{ n: '最新', v: 'time' }, { n: '最热', v: 'hits' }, { n: '评分', v: 'score' }] },
-  ],
-  '21': [
-    {
-      key: 'class',
-      name: '类型',
-      value: [
-        { n: '全部', v: '' },
-        { n: '美漫', v: '美漫' },
-        { n: '搞笑', v: '搞笑' },
-        { n: '科幻', v: '科幻' },
-        { n: '奇幻', v: '奇幻' },
-        { n: '冒险', v: '冒险' },
-      ],
-    },
-    { key: 'area', name: '地区', value: [{ n: '全部', v: '' }, { n: '欧美', v: '欧美' }, { n: '美国', v: '美国' }] },
-    {
-      key: 'year',
-      name: '年份',
-      value: [
-        { n: '全部', v: '' },
-        { n: '2026', v: '2026' }, { n: '2025', v: '2025' }, { n: '2024', v: '2024' },
-        { n: '2023', v: '2023' }, { n: '2022', v: '2022' }, { n: '2021', v: '2021' },
-        { n: '2020', v: '2020' }, { n: '2019', v: '2019' }, { n: '2018', v: '2018' },
-        { n: '2017', v: '2017' }, { n: '2016', v: '2016' }, { n: '2015', v: '2015' },
-      ],
-    },
-    { key: 'by', name: '排序', value: [{ n: '最新', v: 'time' }, { n: '最热', v: 'hits' }, { n: '评分', v: 'score' }] },
-  ],
-};
-
-function normalizeFilters(filters) {
-  if (!filters || typeof filters !== 'object') {
-    return filters;
-  }
-
-  const normalized = {};
-  for (const key of Object.keys(filters)) {
-    const group = Array.isArray(filters[key]) ? filters[key] : [];
-    normalized[key] = group.map((item) => ({
-      ...item,
-      init: typeof item?.init === 'undefined' ? '' : item.init,
-      value: Array.isArray(item?.value)
-        ? item.value.map((entry) => {
-            if (!entry || typeof entry !== 'object') return entry;
-            if ('name' in entry || 'value' in entry) {
-              return {
-                name: entry.name ?? entry.n ?? '',
-                value: entry.value ?? entry.v ?? '',
-              };
-            }
-            return {
-              name: entry.n ?? '',
-              value: entry.v ?? '',
-            };
-          })
-        : [],
-    }));
-  }
-  return normalized;
-}
-
-const NORMALIZED_FILTERS = normalizeFilters(FILTERS);
-
-const CLASSES = [
-  { type_id: '1', type_name: '连载新番' },
-  { type_id: '2', type_name: '完结旧番' },
-  { type_id: '3', type_name: '剧场版' },
-  { type_id: '21', type_name: '美漫' },
+const PAGE_SIZE = 24;
+const FALLBACK_CLASS = [
+  { type_id: "1", type_name: "连载新番" },
+  { type_id: "2", type_name: "完结旧番" },
+  { type_id: "3", type_name: "剧场版" },
+  { type_id: "4", type_name: "美漫" }
 ];
 
-const logInfo = (message, data = null) => {
-  const output = data ? `${message}: ${JSON.stringify(data)}` : message;
-  OmniBox.log('info', `[稀饭动漫-DEBUG] ${output}`);
-};
-
-const logError = (message, error) => {
-  OmniBox.log('error', `[稀饭动漫-DEBUG] ${message}: ${error.message || error}`);
-};
-
-function stripTags(html) {
-  return String(html || '')
-    .replace(/<script[\s\S]*?<\/script>/gi, ' ')
-    .replace(/<style[\s\S]*?<\/style>/gi, ' ')
-    .replace(/<[^>]+>/g, ' ')
-    .replace(/&nbsp;/gi, ' ')
-    .replace(/&amp;/gi, '&')
-    .replace(/&#39;/g, "'")
-    .replace(/&quot;/g, '"')
-    .replace(/\s+/g, ' ')
-    .trim();
-}
-
-function safeJsonParse(text, fallback) {
+function _json(v) {
   try {
-    return JSON.parse(text);
-  } catch (_) {
-    return fallback;
+    return JSON.stringify(v);
+  } catch {
+    return String(v);
   }
 }
 
-function pickParamValue(...values) {
-  for (const value of values) {
-    if (value == null) continue;
-    if (typeof value === 'string' || typeof value === 'number') {
-      const s = String(value).trim();
-      if (s) return s;
-      continue;
-    }
-    if (typeof value === 'object') {
-      const nested = pickParamValue(
-        value.vod_id,
-        value.videoId,
-        value.play_id,
-        value.playId,
-        value.categoryId,
-        value.type_id,
-        value.tid,
-        value.id,
-        value.url,
-        value.href,
-        value.path
-      );
-      if (nested) return nested;
-    }
-  }
-  return '';
-}
-
-function absolutize(url) {
-  const value = pickParamValue(url);
-  if (!value) return '';
-  if (/^https?:\/\//i.test(value)) return value;
+async function _log(level, msg, extra) {
+  const suffix = typeof extra === "undefined" ? "" : ` | ${_json(extra)}`;
   try {
-    return new URL(value.startsWith('/') ? value : `/${value}`, HOST).toString();
+    await OmniBox.log(level, `[稀饭动漫] ${msg}${suffix}`);
   } catch (_) {
-    return '';
+    /* 无日志通道时静默 */
   }
 }
 
-function decodePlayerUrl(encoded) {
+function _bodyText(res) {
+  const body = res && res.body !== undefined ? res.body : res;
+  if (Buffer.isBuffer(body) || body instanceof Uint8Array) return Buffer.from(body).toString("utf8");
+  if (body && typeof body === "object") return JSON.stringify(body);
+  return String(body == null ? "" : body);
+}
+
+function _status(res) {
+  if (!res) return 0;
+  const n = Number(res.statusCode !== undefined ? res.statusCode : res.status);
+  return Number.isFinite(n) ? n : 0;
+}
+
+function _header(res, name) {
+  const h = res && res.headers;
+  if (!h) return "";
+  const key = String(name).toLowerCase();
+  if (typeof h.get === "function") {
+    const v = h.get(name) || h.get(key);
+    if (v) return String(v);
+  }
+  for (const k of Object.keys(h)) {
+    if (k.toLowerCase() === key) return String(h[k]);
+  }
+  return "";
+}
+
+// PostgREST 需要保留 * ( ) . , 这些操作符字符，其余可编码
+function _enc(s) {
+  return encodeURIComponent(String(s))
+    .replace(/%2A/g, "*")
+    .replace(/%28/g, "(")
+    .replace(/%29/g, ")")
+    .replace(/%2C/g, ",")
+    .replace(/%2E/g, ".");
+}
+
+async function _rest(table, params, opts) {
+  const o = opts || {};
+  const qs = Object.keys(params)
+    .filter((k) => params[k] !== undefined && params[k] !== null && params[k] !== "")
+    .map((k) => `${k}=${_enc(params[k])}`)
+    .join("&");
+  const url = `${API_BASE}/rest/v1/${table}${qs ? "?" + qs : ""}`;
+  const res = await OmniBox.request(url, {
+    method: "GET",
+    headers: {
+      "User-Agent": UA,
+      "apikey": SB_KEY,
+      "Authorization": `Bearer ${SB_KEY}`,
+      "Accept": "application/json",
+      "Prefer": o.count ? "count=exact" : "count=none"
+    },
+    timeout: 20000
+  });
+  const status = _status(res);
+  const text = _bodyText(res);
+  if (status && status !== 200 && status !== 206) {
+    throw new Error(`REST ${table} HTTP ${status}: ${text.slice(0, 120)}`);
+  }
+  let rows = [];
   try {
-    const first = Buffer.from(String(encoded || ''), 'base64').toString('utf8');
-    return decodeURIComponent(first);
-  } catch (_) {
-    return String(encoded || '');
+    rows = JSON.parse(text);
+  } catch (e) {
+    throw new Error(`REST ${table} 非 JSON 响应`);
   }
-}
-
-function preprocessTitle(title) {
-  if (!title) return '';
-  return title
-    .replace(/4[kK]|[xX]26[45]|720[pP]|1080[pP]|2160[pP]/g, ' ')
-    .replace(/[hH]\.?26[45]/g, ' ')
-    .replace(/BluRay|WEB-DL|HDR|REMUX/gi, ' ')
-    .replace(/\.mp4|\.mkv|\.avi|\.flv/gi, ' ');
-}
-
-function chineseToArabic(cn) {
-  const map = { 零: 0, 一: 1, 二: 2, 三: 3, 四: 4, 五: 5, 六: 6, 七: 7, 八: 8, 九: 9, 十: 10 };
-  if (!isNaN(cn)) return parseInt(cn, 10);
-  if (cn.length === 1) return map[cn] || cn;
-  if (cn.length === 2) {
-    if (cn[0] === '十') return 10 + map[cn[1]];
-    if (cn[1] === '十') return map[cn[0]] * 10;
+  let total = 0;
+  if (o.count) {
+    const range = _header(res, "content-range");
+    const m = String(range).match(/\/(\d+)$/);
+    if (m) total = Number(m[1]) || 0;
   }
-  if (cn.length === 3) return map[cn[0]] * 10 + map[cn[2]];
-  return cn;
+  return { rows: Array.isArray(rows) ? rows : [], total };
 }
 
-function extractEpisode(title) {
-  if (!title) return '';
-  const processedTitle = preprocessTitle(title).trim();
-  const cnMatch = processedTitle.match(/第\s*([零一二三四五六七八九十0-9]+)\s*[集话章节回期]/);
-  if (cnMatch) return String(chineseToArabic(cnMatch[1]));
-  const seMatch = processedTitle.match(/[Ss](?:\d{1,2})?[-._\s]*[Ee](\d{1,3})/i);
-  if (seMatch) return seMatch[1];
-  const epMatch = processedTitle.match(/\b(?:EP|E)[-._\s]*(\d{1,3})\b/i);
-  if (epMatch) return epMatch[1];
-  const bracketMatch = processedTitle.match(/[\[\(【(](\d{1,3})[\]\)】)]/);
-  if (bracketMatch) {
-    const num = bracketMatch[1];
-    if (!['720', '1080', '480'].includes(num)) return num;
-  }
-  return '';
-}
-
-function buildFileNameForDanmu(vodName, episodeTitle) {
-  if (!vodName) return '';
-  if (!episodeTitle || episodeTitle === '正片' || episodeTitle === '播放') return vodName;
-  const digits = extractEpisode(episodeTitle);
-  if (digits) {
-    const epNum = parseInt(digits, 10);
-    if (epNum > 0) return epNum < 10 ? `${vodName} S01E0${epNum}` : `${vodName} S01E${epNum}`;
-  }
-  return vodName;
-}
-
-async function matchDanmu(fileName) {
-  if (!DANMU_API || !fileName) return [];
+async function _issuePlayback(episodeId) {
+  const res = await OmniBox.request(`${API_BASE}/functions/v1/issue-web-playback`, {
+    method: "POST",
+    headers: {
+      "User-Agent": UA,
+      "apikey": SB_KEY,
+      "Authorization": `Bearer ${SB_KEY}`,
+      "Content-Type": "application/json",
+      "Origin": BASE_URL,
+      "Referer": BASE_URL + "/"
+    },
+    body: JSON.stringify({ action: "fallback", episode_id: Number(episodeId) || episodeId }),
+    timeout: 25000
+  });
+  const status = _status(res);
+  const text = _bodyText(res);
+  if (status && status !== 200) throw new Error(`签发接口 HTTP ${status}: ${text.slice(0, 120)}`);
+  let data = null;
   try {
-    const response = await OmniBox.request(`${DANMU_API}/api/v2/match`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'User-Agent': UA,
-      },
-      body: JSON.stringify({ fileName }),
-    });
-    if (response.statusCode !== 200) return [];
-    const matchData = safeJsonParse(response.body || '{}', {});
-    if (!matchData.isMatched) return [];
-    const firstMatch = (matchData.matches || [])[0];
-    if (!firstMatch?.episodeId) return [];
-    const danmakuURL = `${DANMU_API}/api/v2/comment/${firstMatch.episodeId}?format=xml`;
-    const danmakuName = [firstMatch.animeTitle, firstMatch.episodeTitle].filter(Boolean).join(' - ') || '弹幕';
-    return [{ name: danmakuName, url: danmakuURL }];
+    data = JSON.parse(text);
   } catch (_) {
-    return [];
+    throw new Error("签发接口返回非 JSON");
   }
+  if (!data || data.ok !== true) throw new Error(`签发失败: ${(data && data.error) || "unknown"}`);
+  return data;
 }
 
-function extractCards(html) {
-  const results = [];
-  const blocks = String(html || '').match(/<div class="public-list-box[\s\S]*?<\/div>\s*<\/div>\s*<\/div>/g) || [];
-  for (const block of blocks) {
-    const href = (block.match(/class="(?:public-list-exp|time-title)[^"]*"[^>]*href="([^"]+)"/) || [])[1] || '';
-    const title = (block.match(/class="public-list-exp"[^>]*title="([^"]+)"/) || [])[1]
-      || (block.match(/class="time-title[^"]*"[^>]*title="([^"]+)"/) || [])[1]
-      || stripTags((block.match(/class="time-title[^"]*"[^>]*>([\s\S]*?)<\/a>/) || [])[1] || '');
-    const pic = (block.match(/data-src="([^"]+)"/) || [])[1]
-      || (block.match(/src="([^"]+)"/) || [])[1]
-      || '';
-    const remarks = (block.match(/<span class="public-list-prb[^>]*>([\s\S]*?)<\/span>/) || [])[1] || '';
-    if (!href || !title) continue;
-    results.push({
-      vod_id: absolutize(href),
-      vod_name: stripTags(title),
-      vod_pic: absolutize(pic),
-      vod_remarks: stripTags(remarks),
-    });
-  }
-  return results;
+// ---------------- 数据映射 ----------------
+
+function _vodFromAnime(a) {
+  if (!a || a.id === undefined || a.id === null) return null;
+  const remarks = String(a.remarks || "").trim()
+    || (a.total_episodes ? `共${a.total_episodes}话` : (a.is_finished ? "已完结" : "连载中"));
+  return {
+    vod_id: String(a.id),
+    vod_name: String(a.title || "").trim(),
+    vod_pic: a.cover_url || "",
+    vod_remarks: remarks,
+    vod_year: a.release_year ? String(a.release_year) : "",
+    vod_area: a.region || "",
+    vod_douban_score: a.bangumi_score ? String(a.bangumi_score) : "",
+    vod_content: String(a.description || "").trim(),
+    type_id: a.type_id !== undefined && a.type_id !== null ? String(a.type_id) : "",
+    type_name: ""
+  };
 }
 
-function parseHomeSlides(html) {
-  const list = [];
-  const reg = /<div class="swiper-slide">[\s\S]*?<div class="swiper-lazy[^"]*" data-background="([^"]+)"[\s\S]*?<a class="lank" href="([^"]+)"[\s\S]*?<h3 class="slide-info-title hide">([\s\S]*?)<\/h3>[\s\S]*?<li>([^<]*)<\/li>/g;
-  let m;
-  while ((m = reg.exec(String(html || ''))) !== null) {
-    list.push({
-      vod_id: absolutize(m[2]),
-      vod_name: stripTags(m[3]),
-      vod_pic: absolutize(m[1]),
-      vod_remarks: stripTags(m[4]),
-    });
-  }
-  return list;
-}
-
-function dedupeByVodId(list) {
+function _mapList(rows) {
+  const out = [];
   const seen = new Set();
-  const result = [];
-  for (const item of list || []) {
-    const key = item?.vod_id;
-    if (!key || seen.has(key)) continue;
-    seen.add(key);
-    result.push(item);
+  for (const row of Array.isArray(rows) ? rows : []) {
+    const vod = _vodFromAnime(row);
+    if (!vod || !vod.vod_name) continue;
+    if (seen.has(vod.vod_id)) continue;
+    seen.add(vod.vod_id);
+    out.push(vod);
   }
-  return result;
+  return out;
 }
+
+function _encPlayId(episodeId, episodeName) {
+  return JSON.stringify({ e: Number(episodeId) || episodeId, n: episodeName || "" });
+}
+
+function _decPlayId(raw) {
+  let meta = null;
+  try {
+    meta = JSON.parse(raw);
+  } catch (_) {
+    meta = null;
+  }
+  if (meta && typeof meta === "object") {
+    const id = meta.e !== undefined ? meta.e : meta.episode_id !== undefined ? meta.episode_id : meta.id;
+    if (id !== undefined && id !== null && id !== "") {
+      return { episode_id: id, name: String(meta.n || meta.name || "") };
+    }
+  }
+  if (/^\d+$/.test(String(raw))) return { episode_id: Number(raw), name: "" };
+  return null;
+}
+
+function _episodeLabel(ep) {
+  const num = ep.episode_number;
+  const title = String(ep.title || "").trim();
+  if (num !== undefined && num !== null && num !== "") {
+    const n = Number(num);
+    const base = Number.isInteger(n) ? `第${n}话` : `第${n}话`;
+    return title ? `${base} ${title}` : base;
+  }
+  return title || `剧集${ep.id}`;
+}
+
+// ---------------- 五个 handler ----------------
 
 async function home() {
+  let classList = FALLBACK_CLASS;
   try {
-    const { data: html } = await axiosInstance.get(HOST + '/');
-    const list = dedupeByVodId([
-      ...parseHomeSlides(html),
-      ...extractCards(html),
-    ]).slice(0, 40);
-    logInfo('home ok', { list: list.length });
-    return {
-      class: CLASSES,
-      filters: NORMALIZED_FILTERS,
-      list,
-    };
+    const { rows } = await _rest("anime_types", {
+      select: "id,legacy_type_id,name,slug,sort_order,is_active",
+      "is_active": "eq.true",
+      order: "sort_order.asc"
+    });
+    const mapped = rows
+      .map((t) => ({ type_id: String(t.legacy_type_id || t.id || ""), type_name: String(t.name || "") }))
+      .filter((t) => t.type_id && t.type_name);
+    if (mapped.length) classList = mapped;
   } catch (e) {
-    logError('home failed', e);
-    return { class: CLASSES, filters: NORMALIZED_FILTERS, list: [] };
+    await _log("warn", "分类表读取失败，用内置分类", String(e && e.message || e));
   }
+
+  let list = [];
+  try {
+    const { rows } = await _rest("animes", {
+      select: "id,title,cover_url,remarks,release_year,region,total_episodes,current_episodes,is_finished,type_id,bangumi_score",
+      "is_published": "eq.true",
+      order: "updated_at.desc",
+      limit: PAGE_SIZE * 2
+    });
+    list = _mapList(rows);
+  } catch (e) {
+    await _log("error", "home 列表失败", String(e && e.message || e));
+  }
+
+  await _log("info", "home 完成", { classCount: classList.length, listCount: list.length });
+  return { class: classList, list };
 }
 
 async function category(params) {
-  const tid = pickParamValue(params.tid, params.type_id, params.categoryId, params.id) || '1';
-  const page = Number(params.page || params.pg || 1);
-  const extend = { ...(params.extend || {}), ...(params.filters || {}) };
-  const body = new URLSearchParams();
-  body.set('type', tid);
-  body.set('page', String(page));
-  body.set('by', String(extend.by || 'time'));
-  if (extend.class) body.set('class', String(extend.class));
-  if (extend.area) body.set('area', String(extend.area));
-  if (extend.year) body.set('year', String(extend.year));
+  const p = params || {};
+  const typeId = String(p.type_id || p.typeId || p.cat_id || p.categoryId || "").trim();
+  const page = Math.max(1, Number(p.page || p.pageNum || 1) || 1);
+  const pageSize = Math.max(1, Number(p.page_size || p.limit || PAGE_SIZE) || PAGE_SIZE);
+  const offset = (page - 1) * pageSize;
+
+  const query = {
+    select: "id,title,cover_url,remarks,release_year,region,total_episodes,current_episodes,is_finished,type_id,bangumi_score",
+    "is_published": "eq.true",
+    order: "updated_at.desc",
+    limit: pageSize,
+    offset
+  };
+  if (typeId) query["type_id"] = `eq.${typeId}`;
 
   try {
-    const { data } = await axiosInstance.post(`${HOST}/index.php/ds_api/vod`, body.toString(), {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-        'X-Requested-With': 'XMLHttpRequest',
-        'Referer': `${HOST}/type/${tid}.html`,
-      },
-    });
-    const payload = typeof data === 'string' ? safeJsonParse(data, {}) : (data || {});
-    const list = (payload.list || []).map((item) => ({
-      vod_id: absolutize(item.url || `/bangumi/${item.vod_id}.html`),
-      vod_name: item.vod_name || '',
-      vod_pic: absolutize(String(item.vod_pic || '').replace(/\\\//g, '/')),
-      vod_remarks: item.vod_remarks || '',
-    })).filter((item) => item.vod_id && item.vod_name);
-
-    return {
-      list,
-      page: Number(payload.page || page),
-      pagecount: Number(payload.pagecount || page),
-      limit: Number(payload.limit || PAGE_LIMIT),
-      total: Number(payload.total || list.length),
-      filters: NORMALIZED_FILTERS[tid] || [],
-    };
+    const { rows, total } = await _rest("animes", query, { count: true });
+    const list = _mapList(rows);
+    const pagecount = total > 0 ? Math.max(1, Math.ceil(total / pageSize)) : (list.length >= pageSize ? page + 1 : page);
+    await _log("info", "category 完成", { typeId, page, total, listCount: list.length });
+    return { page, pagecount, limit: pageSize, total: total || list.length, list };
   } catch (e) {
-    logError('category failed', e);
-    return { list: [], page, pagecount: page, limit: PAGE_LIMIT, total: 0, filters: NORMALIZED_FILTERS[tid] || [] };
-  }
-}
-
-async function search(params) {
-  const keyword = String(params.keyword || params.key || params.wd || '').trim();
-  const page = Math.max(Number(params.page || params.pg || 1) || 1, 1);
-  if (!keyword) return { page, pagecount: 0, total: 0, list: [] };
-  try {
-    const { data } = await axiosInstance.get(`${HOST}/index.php/ajax/suggest?mid=1&wd=${encodeURIComponent(keyword)}`, {
-      headers: {
-        'X-Requested-With': 'XMLHttpRequest',
-        'Referer': `${HOST}/search/wd/${encodeURIComponent(keyword)}.html`,
-      },
-    });
-    const payload = typeof data === 'string' ? safeJsonParse(data, {}) : (data || {});
-    const list = (payload.list || []).map((item) => ({
-      vod_id: absolutize(`/bangumi/${item.id}.html`),
-      vod_name: item.name || '',
-      vod_pic: absolutize(item.pic || ''),
-      vod_remarks: '',
-    })).filter((item) => item.vod_id && item.vod_name);
-    return {
-      page: Number(payload.page || page),
-      pagecount: Number(payload.pagecount || (list.length ? page : 0)),
-      limit: Number(payload.limit || list.length),
-      total: Number(payload.total || list.length),
-      list,
-      keyword,
-    };
-  } catch (e) {
-    logError('search failed', e);
-    return { page, pagecount: 0, limit: 0, total: 0, list: [], keyword };
+    await _log("error", "category 失败", { typeId, page, err: String(e && e.message || e) });
+    return { page, pagecount: page, limit: pageSize, total: 0, list: [] };
   }
 }
 
 async function detail(params) {
-  const vodId = pickParamValue(params.vod_id, params.videoId, params.id, params);
-  const url = absolutize(vodId);
-  if (!url) return { list: [] };
+  const p = params || {};
+  const id = String(p.videoId || p.vod_id || p.id || "").trim();
+  if (!id) return { list: [] };
 
   try {
-    const { data: html } = await axiosInstance.get(url);
-    const title = stripTags((html.match(/<h3>([\s\S]*?)<\/h3>/i) || [])[1] || (html.match(/<title>(.*?)<\/title>/i) || [])[1] || '').replace(/\s*-\s*免费高清动漫分享.*$/i, '');
-    const pic = absolutize((html.match(/<div class="detail-pic">[\s\S]*?<img[^>]+(?:data-src|src)="([^"]+)"/i) || [])[1] || '');
-    const remarks = stripTags((html.match(/<span class="slide-info-remarks cor5">([\s\S]*?)<\/span>/i) || [])[1] || '');
-    const year = stripTags((html.match(/<span class="slide-info-remarks"><a href="\/search\/year\/[^"]+">([\s\S]*?)<\/a>/i) || [])[1] || '');
-    const area = stripTags((html.match(/<span class="slide-info-remarks"><a href="\/search\/area\/[^"]+">([\s\S]*?)<\/a>/i) || [])[1] || '');
-    const director = stripTags((html.match(/导演\s*:<\/strong>([\s\S]*?)<\/div>/i) || [])[1] || '');
-    const actor = stripTags((html.match(/演员\s*:<\/strong>([\s\S]*?)<\/div>/i) || [])[1] || '');
-    const typeName = stripTags((html.match(/类型\s*:<\/strong>([\s\S]*?)<\/div>/i) || [])[1] || '');
-    const content = stripTags((html.match(/<div id="height_limit" class="text cor3">([\s\S]*?)<\/div>/i) || [])[1] || '');
+    const { rows } = await _rest("animes", {
+      select: "*",
+      id: `eq.${id}`,
+      limit: 1
+    });
+    const anime = rows[0];
+    if (!anime) throw new Error("anime 不存在");
 
-    const tabNames = [];
-    const tabReg = /<a class="swiper-slide">[\s\S]*?&nbsp;([^<]+)<span class="badge">(\d+)<\/span><\/a>/g;
-    let tabMatch;
-    while ((tabMatch = tabReg.exec(html)) !== null) {
-      tabNames.push(stripTags(tabMatch[1]));
+    const vod = _vodFromAnime(anime) || { vod_id: id, vod_name: id, vod_pic: "", vod_remarks: "", vod_content: "" };
+    const meta = [];
+    if (anime.release_date) meta.push(`首播 ${anime.release_date}`);
+    else if (anime.release_year) meta.push(`年份 ${anime.release_year}`);
+    if (anime.region) meta.push(anime.region);
+    if (anime.total_episodes) meta.push(`共${anime.total_episodes}话`);
+    if (anime.status === undefined && anime.is_finished) meta.push(anime.is_finished ? "已完结" : "");
+    const extras = [];
+    if (anime.director) extras.push(`导演：${anime.director}`);
+    if (Array.isArray(anime.actors) && anime.actors.length) extras.push(`声优：${anime.actors.slice(0, 6).join("、")}`);
+    if (Array.isArray(anime.aliases) && anime.aliases.length) extras.push(`别名：${anime.aliases.slice(0, 3).join(" / ")}`);
+    vod.vod_content = [meta.filter(Boolean).join(" · "), String(anime.description || "").trim(), extras.join("\n")]
+      .filter(Boolean)
+      .join("\n");
+
+    const { rows: eps } = await _rest("episodes", {
+      select: "id,episode_number,title,kind,release_date",
+      anime_id: `eq.${id}`,
+      order: "episode_number.asc,id.asc",
+      limit: 3000
+    });
+
+    const episodes = (eps || []).map((ep) => {
+      const label = _episodeLabel(ep);
+      return { name: label, playId: _encPlayId(ep.id, label) };
+    });
+    if (!episodes.length) {
+      episodes.push({ name: "正片", playId: _encPlayId("", "正片") });
     }
 
-    const vodPlaySources = [];
-    const anthBlockMatch = html.match(/<div class="anthology-list[\s\S]*?<script>\$\("\.anthology-tab a"\)\.eq\(0\)/);
-    const anthBlock = anthBlockMatch ? anthBlockMatch[0] : html;
-    const boxReg = /<div class="anthology-list-box[^>]*>[\s\S]*?<ul class="anthology-list-play size">([\s\S]*?)<\/ul>[\s\S]*?<\/div>\s*<\/div>/g;
-    let boxMatch;
-    let lineIndex = 0;
-    while ((boxMatch = boxReg.exec(anthBlock)) !== null) {
-      const episodes = [];
-      const epReg = /<a class="[^"]*" href="([^"]*\/watch[^"]+)"[^>]*>\s*(?:<span>)?([^<]+)(?:<\/span>)?\s*<\/a>/g;
-      let epMatch;
-      while ((epMatch = epReg.exec(boxMatch[1])) !== null) {
-        const playUrl = epMatch[1];
-        const epName = stripTags(epMatch[2]);
-        if (!playUrl.includes('/watch/')) continue;
-        episodes.push({
-          name: epName,
-          playId: absolutize(playUrl),
-        });
-      }
-      if (episodes.length) {
-        vodPlaySources.push({
-          name: tabNames[lineIndex] || `线路${lineIndex + 1}`,
-          episodes,
-        });
-      }
-      lineIndex += 1;
-    }
-
-    if (!vodPlaySources.length) {
-      const fallbackEpisodes = [];
-      const epReg = /href="([^"]*\/watch[^"]+)"[^>]*>\s*(?:<span>)?([^<]+)(?:<\/span>)?\s*<\/a>/g;
-      let epMatch;
-      while ((epMatch = epReg.exec(html)) !== null) {
-        const playUrl = epMatch[1];
-        if (!playUrl.includes('/watch/')) continue;
-        fallbackEpisodes.push({
-          name: stripTags(epMatch[2]),
-          playId: absolutize(playUrl),
-        });
-      }
-      if (fallbackEpisodes.length) {
-        vodPlaySources.push({ name: '默认', episodes: fallbackEpisodes });
-      }
-    }
-
+    await _log("info", "detail 完成", { id, name: vod.vod_name, episodes: episodes.length });
     return {
-      list: [{
-        vod_id: url,
-        vod_name: title,
-        vod_pic: pic,
-        vod_remarks: remarks,
-        vod_year: year,
-        vod_area: area,
-        vod_director: director,
-        vod_actor: actor,
-        type_name: typeName,
-        vod_content: content,
-        vod_play_sources: vodPlaySources,
-      }],
+      list: [
+        {
+          ...vod,
+          vod_play_from: "稀饭动漫",
+          vod_play_url: episodes.map((it) => `${it.name}$${it.playId}`).join("#"),
+          vod_play_sources: [{ name: "稀饭动漫", episodes }]
+        }
+      ]
     };
   } catch (e) {
-    logError('detail failed', e);
+    await _log("error", "detail 失败", { id, err: String(e && e.message || e) });
+    return { list: [] };
+  }
+}
+
+async function search(params) {
+  const p = params || {};
+  const wd = String(p.wd || p.keyword || p.keywords || p.searchKey || "").trim();
+  const page = Math.max(1, Number(p.page || 1) || 1);
+  const pageSize = Math.max(1, Number(p.page_size || p.limit || PAGE_SIZE) || PAGE_SIZE);
+  if (!wd) return { list: [] };
+
+  const or = `(title.ilike.*${wd}*,title_original.ilike.*${wd}*,search_title.ilike.*${wd}*)`;
+  try {
+    const { rows } = await _rest("animes", {
+      select: "id,title,cover_url,remarks,release_year,region,total_episodes,is_finished,type_id,bangumi_score",
+      "is_published": "eq.true",
+      or,
+      order: "updated_at.desc",
+      limit: pageSize,
+      offset: (page - 1) * pageSize
+    });
+    const list = _mapList(rows);
+    await _log("info", "search 完成", { wd, page, listCount: list.length });
+    return { list };
+  } catch (e) {
+    await _log("error", "search 失败", { wd, err: String(e && e.message || e) });
     return { list: [] };
   }
 }
 
 async function play(params) {
-  const playPath = pickParamValue(params.play_id, params.playId, params.id, params);
-  const url = absolutize(playPath);
-  if (!url) return { urls: [], parse: 0 };
+  const p = params || {};
+  const raw = String(p.playId || p.play_id || p.url || p.id || "").trim();
 
   try {
-    const { data: html } = await axiosInstance.get(url, {
-      headers: {
-        'User-Agent': UA,
-        'Referer': url,
-        'Origin': HOST,
-      },
-    });
-    const playerMatch = html.match(/var\s+player_aaaa\s*=\s*(\{[\s\S]*?\})<\/script>/i);
-    if (!playerMatch) throw new Error('player_aaaa not found');
-    const player = safeJsonParse(playerMatch[1], {});
-
-    let playUrl = String(player.url || '').replace(/\\\//g, '/');
-    if (Number(player.encrypt) === 2) playUrl = decodePlayerUrl(playUrl);
-    else if (Number(player.encrypt) === 1) playUrl = decodeURIComponent(playUrl);
-    if (!/^https?:\/\//i.test(playUrl)) playUrl = absolutize(playUrl);
-
-    const response = {
-      urls: [{ name: '默认线路', url: playUrl }],
-      parse: /\.(m3u8|mp4|m4a|mp3)(\?|$)/i.test(playUrl) ? 0 : 1,
-      header: {
-        'User-Agent': UA,
-        'Referer': url,
-        'Origin': HOST,
-      },
-    };
-
-    const vodName = player?.vod_data?.vod_name || '';
-    const episodeName = stripTags((html.match(/<li class="bj3 border on[\s\S]*?<span>([^<]+)<\/span>/i) || [])[1] || '');
-    if (DANMU_API && vodName) {
-      const fileName = buildFileNameForDanmu(vodName, episodeName);
-      if (fileName) {
-        const danmakuList = await matchDanmu(fileName);
-        if (danmakuList.length) response.danmaku = danmakuList;
-      }
+    if (!raw) throw new Error("播放标识为空");
+    if (/\.(m3u8|mp4|flv)(\?|$)/i.test(raw)) {
+      return {
+        parse: 0,
+        flag: "xifan",
+        url: raw,
+        urls: [{ name: "直链播放", url: raw }],
+        header: { "User-Agent": UA, "Referer": BASE_URL + "/" },
+        headers: { "User-Agent": UA, "Referer": BASE_URL + "/" }
+      };
     }
 
-    return response;
-  } catch (e) {
-    logError('play failed', e);
+    const meta = _decPlayId(raw);
+    if (!meta || !meta.episode_id) throw new Error("无法解析 episode_id");
+
+    const data = await _issuePlayback(meta.episode_id);
+    const candidates = Array.isArray(data.candidates) ? data.candidates : [];
+    const urls = [];
+    const seen = new Set();
+    for (const c of candidates) {
+      const url = String(c && c.url || "").trim();
+      if (!url || seen.has(url)) continue;
+      seen.add(url);
+      urls.push({ name: String(c.source_name || c.source_code || "线路"), url });
+    }
+    if (!urls.length && data.url) urls.push({ name: "默认线路", url: String(data.url) });
+
+    if (!urls.length) throw new Error("签发接口未返回地址");
+
+    const headers = {
+      "User-Agent": UA,
+      "Referer": BASE_URL + "/",
+      "Origin": BASE_URL
+    };
+    await _log("info", "play 完成", { episodeId: meta.episode_id, urls: urls.length, expiresAt: data.expires_at });
     return {
-      urls: [{ name: '默认线路', url }],
       parse: 0,
-      header: {
-        'User-Agent': UA,
-        'Referer': url,
-        'Origin': HOST,
-      },
+      flag: "xifan",
+      url: urls.length === 1 ? urls[0].url : undefined,
+      urls,
+      header: headers,
+      headers
+    };
+  } catch (e) {
+    await _log("error", "play 失败", { raw: String(raw).slice(0, 120), err: String(e && e.message || e) });
+    const fallbackUrl = /^https?:\/\//i.test(raw) ? raw : BASE_URL + "/";
+    const headers = { "User-Agent": UA, "Referer": BASE_URL + "/" };
+    return {
+      parse: 1,
+      flag: "xifan",
+      url: fallbackUrl,
+      urls: [{ name: "页面播放", url: fallbackUrl }],
+      header: headers,
+      headers
     };
   }
 }
 
-module.exports = { home, category, search, detail, play };
-
-const runner = require('spider_runner');
+module.exports = { home, category, detail, search, play };
 runner.run(module.exports);

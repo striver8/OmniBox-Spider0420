@@ -25,7 +25,7 @@
   },
   {
     "file": "动漫/稀饭动漫.js",
-    "verdict": "broken",
+    "verdict": "ok",
     "siteCls": "ALIVE",
     "host": "https://dm.xifanacg.com/"
   },
@@ -469,7 +469,7 @@
   },
   {
     "file": "影视/采集/电影人生.js",
-    "verdict": "broken",
+    "verdict": "ok",
     "siteCls": "ALIVE",
     "host": "https://www.dyrsok.com/"
   },
@@ -481,7 +481,7 @@
   },
   {
     "file": "影视/采集/荐片.js",
-    "verdict": "ok",
+    "verdict": "broken",
     "siteCls": "UNKNOWN",
     "host": "https://h5.jianpianips1.com/"
   },
