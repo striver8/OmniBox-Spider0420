@@ -2,7 +2,7 @@
 // @author 梦
 // @description 影视站：Gimy / gimy.now / gimyai.tw，支持首页、分类、详情、搜索与播放页嗅探
 // @dependencies cheerio,@types/opencc-js
-// @version 1.2.6
+// @version 1.2.7
 // @downloadURL https://gh-proxy.org/https://github.com/Silent1566/OmniBox-Spider/raw/refs/heads/main/影视/采集/Gimy剧迷.js
 
 const OmniBox = require("omnibox_sdk");
@@ -442,29 +442,66 @@ function collectPlaylistEpisodes($, scope) {
   return episodes;
 }
 
+function pushPlaySource(playSources, seenNames, name, episodes) {
+  if (!episodes.length) return;
+  let finalName = name || "線路";
+  let idx = 2;
+  while (seenNames.has(finalName)) finalName = `${name || "線路"}${idx++}`;
+  seenNames.add(finalName);
+  playSources.push({ name: finalName, episodes });
+}
+
 function parsePlaySources($) {
-  const tabs = [];
-  const seenTabs = new Set();
-  $("#playTab a[href^='#con_playlist_']").each((_, el) => {
-    const $el = $(el);
-    const href = $el.attr("href") || "";
-    const tabId = href.replace(/^#/, "");
-    const name = toDisplayText($el.text()) || tabId;
-    if (tabId && !seenTabs.has(tabId)) {
-      seenTabs.add(tabId);
-      tabs.push({ tabId, name });
-    }
+  const playSources = [];
+  const seenNames = new Set();
+
+  // 新版详情页：<div class="route-title">线路名</div><div class="eps episodes-route" data-route-sid="1"><a class="ep" href="/play/...">集名</a></div>
+  $(".route-title").each((_, el) => {
+    const $title = $(el);
+    const name = toDisplayText($title.text());
+    let $eps = $title.nextAll(".eps").first();
+    if (!$eps.length) $eps = $title.nextUntil(".route-title").filter(".eps").first();
+    pushPlaySource(playSources, seenNames, name, collectPlaylistEpisodes($, $eps));
   });
 
-  const playSources = [];
-  for (const tab of tabs) {
-    let episodes = [];
-    $("[id]").filter((_, el) => String($(el).attr("id") || "") === tab.tabId).each((_, playlist) => {
-      const candidate = collectPlaylistEpisodes($, playlist);
-      if (candidate.length > episodes.length) episodes = candidate;
+  // 兜底：页面上有 .eps 容器但缺 .route-title，或整体只有一个选集区。
+  if (!playSources.length && $(".eps").length) {
+    $(".eps").each((idx, el) => {
+      const $eps = $(el);
+      const name = toDisplayText($eps.attr("data-route-name") || $eps.attr("data-route-sid") || "") || `線路${idx + 1}`;
+      pushPlaySource(playSources, seenNames, name, collectPlaylistEpisodes($, $eps));
     });
-    if (episodes.length) playSources.push({ name: tab.name, episodes });
   }
+
+  // 兼容旧版页面：播放选项卡 + id 容器。
+  if (!playSources.length) {
+    const tabs = [];
+    const seenTabs = new Set();
+    $("#playTab a[href^='#con_playlist_']").each((_, el) => {
+      const $el = $(el);
+      const href = $el.attr("href") || "";
+      const tabId = href.replace(/^#/, "");
+      const name = toDisplayText($el.text()) || tabId;
+      if (tabId && !seenTabs.has(tabId)) {
+        seenTabs.add(tabId);
+        tabs.push({ tabId, name });
+      }
+    });
+    for (const tab of tabs) {
+      let episodes = [];
+      $("[id]").filter((_, el) => String($(el).attr("id") || "") === tab.tabId).each((_, playlist) => {
+        const candidate = collectPlaylistEpisodes($, playlist);
+        if (candidate.length > episodes.length) episodes = candidate;
+      });
+      pushPlaySource(playSources, seenNames, tab.name, episodes);
+    }
+  }
+
+  // 最后兜底：全页 /play/ 链接。
+  if (!playSources.length) {
+    pushPlaySource(playSources, seenNames, "Gimy", collectPlaylistEpisodes($, $.root ? $.root() : $("body")));
+  }
+
   return sortPlaySources(playSources);
 }
 
@@ -516,6 +553,46 @@ async function detail(params, context) {
   }
 }
 
+// 站内 /find 搜索被 Cloudflare 全路径拦截（403 Just a moment），改为扫描分类列表按标题匹配。
+const SEARCH_GENRES = ["1", "2", "4", "29", "34"];
+const SEARCH_SCAN_PAGES = 4;
+
+async function searchViaGenres(keyword, page) {
+  const perPage = 20;
+  const need = page * perPage;
+  const seen = new Set();
+  const hits = [];
+  for (const genre of SEARCH_GENRES) {
+    for (let p = 1; p <= SEARCH_SCAN_PAGES; p += 1) {
+      const url = `${BASE_URL}/genre/${genre}.html${p > 1 ? `?page=${p}&by=time` : ""}`;
+      let cards = [];
+      try {
+        const html = await requestText(url);
+        const $ = cheerio.load(html);
+        cards = extractCards($);
+      } catch (e) {
+        await OmniBox.log("warn", `[Gimy剧迷][search] 扫描失败 ${url} ${e.message}`);
+        break;
+      }
+      if (!cards.length) break;
+      for (const card of cards) {
+        if (!card.vod_id || seen.has(card.vod_id)) continue;
+        if (scoreSearchResult(card.vod_name, keyword) <= 0) continue;
+        seen.add(card.vod_id);
+        hits.push(card);
+      }
+      if (hits.length >= need) break;
+    }
+    if (hits.length >= need) break;
+  }
+  return {
+    page,
+    pagecount: hits.length >= need ? page + 1 : page,
+    total: hits.length,
+    list: hits.slice((page - 1) * perPage, page * perPage),
+  };
+}
+
 async function search(params, context) {
   try {
     const keyword = String(params.keyword || params.key || params.wd || "").trim();
@@ -523,17 +600,28 @@ async function search(params, context) {
     if (!keyword) return { page, pagecount: 0, total: 0, list: [] };
 
     const url = `${BASE_URL}/find/-------------.html?wd=${encodeURIComponent(keyword)}&page=${page}`;
-    const html = await requestText(url);
-    const $ = cheerio.load(html);
-    const scope = $(".box-main-content").first();
-    const list = extractCards($, scope);
-    await OmniBox.log("info", `[Gimy剧迷][search] keyword=${keyword} page=${page} scope=.box-main-content list=${list.length}`);
-    return {
-      page,
-      pagecount: page + (list.length >= 20 ? 1 : 0),
-      total: list.length,
-      list,
-    };
+    try {
+      const html = await requestText(url);
+      const $ = cheerio.load(html);
+      const scope = $(".box-main-content").first();
+      const list = extractCards($, scope);
+      await OmniBox.log("info", `[Gimy剧迷][search] keyword=${keyword} page=${page} scope=.box-main-content list=${list.length}`);
+      if (list.length) {
+        return {
+          page,
+          pagecount: page + (list.length >= 20 ? 1 : 0),
+          total: list.length,
+          list,
+        };
+      }
+      await OmniBox.log("warn", `[Gimy剧迷][search] /find 无结果（可能被 Cloudflare 拦截），改用分类扫描`);
+    } catch (e) {
+      await OmniBox.log("warn", `[Gimy剧迷][search] /find 不可用（${e.message}），改用分类扫描`);
+    }
+
+    const fallback = await searchViaGenres(keyword, page);
+    await OmniBox.log("info", `[Gimy剧迷][search] 分类扫描 keyword=${keyword} page=${page} list=${fallback.list.length}`);
+    return fallback;
   } catch (e) {
     await OmniBox.log("error", `[Gimy剧迷][search] ${e.message}`);
     return { page: 1, pagecount: 0, total: 0, list: [] };
@@ -552,7 +640,9 @@ async function play(params, context) {
     let playerData = null;
     try {
       const html = await requestText(pageUrl, { referer: pageUrl });
-      const m = html.match(/var\s+player_data\s*=\s*(\{[\s\S]*?\})\s*<\/script>/i);
+      const m =
+        html.match(/(?:var\s+)?player_aaaa\s*=\s*(\{[\s\S]*?\})\s*;\s*(?:var\s+player_data|<\/script>)/i) ||
+        html.match(/(?:var\s+)?player_data\s*=\s*(\{[\s\S]*?\})\s*;?\s*<\/script>/i);
       if (m) {
         await OmniBox.log("info", `[Gimy剧迷][play] player_data=${m[1].slice(0, 500)}`);
         playerData = JSON.parse(m[1]);
@@ -564,6 +654,19 @@ async function play(params, context) {
     if (playerData && playerData.url) {
       const rawUrl = String(playerData.url || "");
       const playFrom = String(playerData.from || "");
+
+      // 新版播放页已直接给出 m3u8（如 vip.dytt-see.com/.../index.m3u8），无需二次解析。
+      if (/\.m3u8(\?|$)/i.test(rawUrl)) {
+        const header = { "User-Agent": UA, Referer: pageUrl, Origin: BASE_URL };
+        await OmniBox.log("info", `[Gimy剧迷][play] direct m3u8=${rawUrl} from=${playFrom}`);
+        return {
+          parse: 0,
+          url: rawUrl,
+          urls: [{ name: toDisplayText(playFrom) || "Gimy", url: rawUrl }],
+          header,
+          headers: header,
+        };
+      }
       let parseBase = "https://play.gimyai.tw/v/";
       let referer = `https://play.gimyai.tw/v/?url=${encodeURIComponent(rawUrl)}`;
 

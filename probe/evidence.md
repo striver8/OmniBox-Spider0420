@@ -123,3 +123,66 @@ X-Cache: BYPASS
 v2.0.0 重写：`solveChallenge()` + `fetchText()` 内建 PoW 与 cookie 复用；`parseVodCards` 改按 `a[title]` + `/^\/(movie|tv)\//` 取卡片（`data-src` 取图、角标取 1080p/更新等短文本）；`guessPageCount` 读 pager；detail 同时支持剧集（seqlist 分组 + 多线路复刻）与电影（api 线路）；play 先取分集/线路页内联 m3u8，取不到再退 `box.dyrs.com.de/api/super` 主列表。
 
 复验（ok）：home 36 条 / category dianshiju 24 条 pagecount 461 / detail《女帝2026》9 线路 × 24 集 / play 第 3 线路第 3 集 → `vvip.high26-playback.com/20260427/23143_*.m3u8`；电影《城迷》10 线路，`超級線路` 走 box 主列表 3 条、`xiguam3u8` 直取 `svip.xgplay3.com/...index.m3u8`，均 `parse=0`；search「女帝」24 条。
+
+## 十二、Gimy 剧迷：detail 0 源与 CF 搜索兜底
+
+`gimyai.tw` 整站改版成 `.poster*` 卡片（home 24 条、`/genre/<id>.html` 55 条），但详情页的播放源容器换成了新结构：
+
+```html
+<div class="route-title">電光雲</div>
+<div class="eps episodes-route is-open" data-route-sid="1">
+  <a class="ep" href="/play/927214-1-1.html">HD中字</a>
+</div>
+<div class="route-title">曦光雲</div>
+<div class="eps episodes-route is-open" data-route-sid="4">…</div>
+```
+
+旧 `parsePlaySources()` 只认 `#playTab a[href^='#con_playlist_']` + 同名 `id` 容器，因此永远解析出 0 源（探针报 `detail: no playable episodes (sources=0, episodes=0)`）。改法：
+
+1. 优先按 `.route-title` 与紧随其后的 `.eps` 配对（`nextAll(".eps").first()`，兜底 `nextUntil(".route-title").filter(".eps")`），线路名取标题文本，重名自动加序号；
+2. 无 `.route-title` 时按 `.eps` 容器逐个收，名字退化为 `data-route-name/data-route-sid/線路N`；
+3. 都拿不到再走旧版 `#playTab` 与全页 `/play/` 兜底。
+
+播放页给的是新变量名，脚本原先只匹配 `player_data`：
+
+```js
+var player_aaaa={"flag":"play","encrypt":0, …, "url":"https://vip.dytt-see.com/20261106/46924_8de3f64f/index.m3u8","from":"dyttm8"};
+var player_data=player_aaaa;
+```
+
+正则改为先试 `player_aaaa`（到 `;var player_data`/`</script>` 截断），再退 `player_data`；若 `url` 本身以 `.m3u8` 结尾直接返回 `parse:0`，不再绕 `play.gimyai.tw` 的 `parse.php`。
+
+搜索：`/find/`、`/search/`、`/index.php/ajax/suggest`、`/vodsearch/`、`/?s=` 实测全部 403（Cloudflare 托管挑战）或 404，静态不可用。改为兜底扫描：`SEARCH_GENRES=["1","2","4","29","34"]`（电影/电视剧/动漫/综艺/短剧），每类最多 `SEARCH_SCAN_PAGES=4` 页，用现成的 `scoreSearchResult()` 按标题打分过滤并去重分页。
+
+复验（ok）：home 6 类 24 条 / category type_id=1 → 55 条 pagecount 2 total 75 / search「复活男」「折月亮」各 1 条 / detail《复活男》6 线路各 1 集 / play `vip.dytt-see.com/20261106/46924_8de3f64f/index.m3u8` `parse=0`。版本 1.2.6 → 1.2.7。
+
+## 十三、芸芸音乐：GD 接口被 CF 拦死后的播放通道
+
+`music-api.gdstudio.xyz/api.php`（`types=url`）现在返回 Cloudflare 托管挑战页（403 `Just a moment...`），`api.i-meto.com/meting` 同样被拦，`music.163.com/song/media/outer/url?id=` 对多数曲目 302 到 `/404`（版权受限）。play 因此长期 `urls: []`。
+
+可用通道：网易云自带接口无需登录即可出地址——
+
+```
+GET https://music.163.com/api/song/enhance/player/url?ids=[<songId>]&br=<br>
+→ {"data":[{"id":…,"url":"http://m802.music.126.net/…/xxx.mp3?vuutv=…","br":128008,"size":…}]}
+```
+
+改法：新增 `neteaseGetUrl(songId, br)`，`gdGetUrl()` 改为「网易优先、GD 兜底」；音质档位 `br` 由 GD 的 2000/320/192/128（kbps）改为网易的 999000/320000/192000/128000（bps），四档并发取地址后去重。
+
+复验：play 返回 4 条 `parse=0`（如 `http://m10.music.126.net/…mp3`），detail 10 集，home 20 条。探针仍报 partial 仅因 search 用歌单标题当关键词（噪声，非缺陷）。版本 1.0.2 → 1.0.3。
+
+## 十四、PPnix：播放前不再强求解 CF，40s 超时归零
+
+`play()` 原先无条件 `await ensureCfCookie(false, referer)`，而 `PPNIX_CF_AUTO` 打开时会尝试 FlareSolverr、失败再启 headless Chromium，单次 40s+，直接把探针 play 步骤拖到 STEP_TIMEOUT；返回的还是 `urls: []`。
+
+实测播放地址本身并不需要 cookie：
+
+```
+GET https://www.ppnix.com/info/m3u8/9117/1080P.m3u8
+→ 200 83892 application/vnd.apple.mpegurl  #EXTM3U …
+（耗时 <0.3s，无 cf_clearance）
+```
+
+改法：`play()` 只读缓存 cookie（`PPNIX_CF_COOKIE` / `getCachedCfCookie()`），不主动求解；仅当 `PPNIX_REWRITE_M3U8` 分支里首次取 m3u8 失败且尚未有 cookie 时，才 `ensureCfCookie(true, referer)` 并重试一次。
+
+复验：play 由 66s 返回空 → **1ms 返回 `https://www.ppnix.com/info/m3u8/9117/1080P.m3u8`（parse=0）**；整脚本探针 ok。版本 1.7.4 → 1.7.5。

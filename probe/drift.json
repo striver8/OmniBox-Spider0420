@@ -104,7 +104,7 @@
       "play"
     ],
     "err": "category: empty list (type_id=4)",
-    "lastUrl": "https://www.qwmkv.com/index.php/ajax/suggest?mid=1&limit=20&wd=%E5%BA%86%E4%BD%99%E5%B9%B4"
+    "lastUrl": "https://www.qnhot.com/index.php/ajax/suggest?mid=1&limit=20&wd=%E5%BA%86%E4%BD%99%E5%B9%B4"
   },
   {
     "file": "影视/网盘/光鸭·臻影社.js",
@@ -117,7 +117,7 @@
       "play"
     ],
     "err": "category: empty list (type_id=reality)",
-    "lastUrl": "https://www.guangya.net/category/reality?orderby=modified"
+    "lastUrl": "https://www.guangya.net/?s=%E5%BA%86%E4%BD%99%E5%B9%B4&type=post"
   },
   {
     "file": "影视/网盘/剧迷115.js",
@@ -141,7 +141,7 @@
       "play"
     ],
     "err": "detail: no playable episodes (sources=0, episodes=0)",
-    "lastUrl": "https://tv.214521.xyz/index.php/vod/detail/id/10025.html"
+    "lastUrl": "https://tv.yydsys.top/index.php/vod/detail/id/10025.html"
   },
   {
     "file": "影视/网盘/影巢.js",
@@ -212,7 +212,7 @@
       "play"
     ],
     "err": "detail: no playable episodes (sources=0, episodes=0)",
-    "lastUrl": "https://tv.214521.xyz/index.php/vod/detail/id/8202.html"
+    "lastUrl": "http://38.76.197.172:12521/index.php/vod/detail/id/469884.html"
   },
   {
     "file": "影视/网盘/玩偶聚合.js",
@@ -286,7 +286,7 @@
       "play"
     ],
     "err": "detail: no playable episodes (sources=0, episodes=0)",
-    "lastUrl": "http://xhban.xyz:20720/index.php/vod/detail/id/457236.html"
+    "lastUrl": "http://38.76.197.172:16969/index.php/vod/detail/id/457236.html"
   },
   {
     "file": "影视/网盘/蜗牛4K.js",
@@ -319,14 +319,15 @@
   {
     "file": "影视/采集/4KMP.js",
     "verdict": "broken",
-    "step": "search",
+    "step": "category",
     "steps": [
+      "category",
       "search",
       "detail",
       "play"
     ],
-    "err": "search: empty list for keyword=小兵张嘎",
-    "lastUrl": "https://4k-av.com/movie/008403-zhang-ga-the-soldier-boy/"
+    "err": "category: empty list (type_id=tv)",
+    "lastUrl": "https://4k-av.com/s?y=%E5%BA%86%E4%BD%99%E5%B9%B4"
   },
   {
     "file": "影视/采集/88看球.js",
@@ -352,18 +353,6 @@
     "lastUrl": "https://auete.top/mipso.php?searchword=%E5%BA%86%E4%BD%99%E5%B9%B4"
   },
   {
-    "file": "影视/采集/Gimy剧迷.js",
-    "verdict": "broken",
-    "step": "search",
-    "steps": [
-      "search",
-      "detail",
-      "play"
-    ],
-    "err": "search: empty list for keyword=复活男",
-    "lastUrl": "https://gimyai.tw/detail/927214.html"
-  },
-  {
     "file": "影视/采集/NO视频.js",
     "verdict": "broken",
     "step": "category",
@@ -375,16 +364,6 @@
     ],
     "err": "category: empty list (type_id=tv-western)",
     "lastUrl": "https://www.novipnoad.net/search/%E5%BA%86%E4%BD%99%E5%B9%B4/"
-  },
-  {
-    "file": "影视/采集/PPnix.js",
-    "verdict": "partial",
-    "step": "play",
-    "steps": [
-      "play"
-    ],
-    "err": "STEP_TIMEOUT play 40000ms",
-    "lastUrl": "https://www.ppnix.com/cn/movie/9117.html"
   },
   {
     "file": "影视/采集/七味.js",
@@ -559,7 +538,7 @@
       "play"
     ],
     "err": "category: empty list (type_id=4)",
-    "lastUrl": "https://pianku.pro/index.php/verify/index.html?type=search&t=1794216353678"
+    "lastUrl": "https://pianku.pro/index.php/verify/index.html?type=search&t=1794217330963"
   },
   {
     "file": "影视/采集/荐片.js",
@@ -655,8 +634,8 @@
     "steps": [
       "search"
     ],
-    "err": "search: empty list for keyword=停播一天，码率不对问问客",
-    "lastUrl": "https://www.douyu.com/lapi/live/getH5PlayV1/4184217"
+    "err": "search: empty list for keyword=弹幕天团",
+    "lastUrl": "https://www.douyu.com/lapi/live/getH5PlayV1/5908256"
   },
   {
     "file": "短剧/星星短剧.js",
@@ -694,15 +673,5 @@
     ],
     "err": "home: empty class list",
     "lastUrl": ""
-  },
-  {
-    "file": "音乐/芸芸音乐.js",
-    "verdict": "partial",
-    "step": "play",
-    "steps": [
-      "play"
-    ],
-    "err": "play: empty urls",
-    "lastUrl": "https://music-api.gdstudio.xyz/api.php?types=url&id=3458800820&source=netease&br=128"
   }
 ]

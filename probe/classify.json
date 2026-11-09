@@ -253,7 +253,7 @@
   },
   {
     "file": "影视/采集/Gimy剧迷.js",
-    "verdict": "broken",
+    "verdict": "ok",
     "siteCls": "ALIVE",
     "host": "https://gimyai.tw/"
   },
@@ -277,7 +277,7 @@
   },
   {
     "file": "影视/采集/PPnix.js",
-    "verdict": "partial",
+    "verdict": "ok",
     "siteCls": "CHALLENGE",
     "host": "https://www.ppnix.com/"
   },
@@ -613,7 +613,7 @@
   },
   {
     "file": "音乐/芸芸音乐.js",
-    "verdict": "partial",
+    "verdict": "ok",
     "siteCls": "CHALLENGE",
     "host": "https://music.163.com/"
   }

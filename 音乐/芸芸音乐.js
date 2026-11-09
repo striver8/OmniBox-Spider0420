@@ -1,5 +1,5 @@
 // @name 芸芸音乐[听]
-// @version 1.0.2
+// @version 1.0.3
 // @author Silent1566
 // @origin repo.tvshare.cn/api/files/download/[REDACTED]
 // @push 0
@@ -400,9 +400,24 @@ async function search(params, context) {
   }
 }
 
+// GDStudio 的 music-api.gdstudio.xyz 已整站套 Cloudflare 托管挑战（403 Just a moment），
+// 改为优先走网易云自带的 player/url 接口（无需登录，直出 mp3 地址），GD 仅作兜底。
+async function neteaseGetUrl(songId, br) {
+  const url = `${NETEASE_HOST}/api/song/enhance/player/url?ids=%5B${encodeURIComponent(songId)}%5D&br=${br}`;
+  const json = await requestJson(url, {});
+  const item = (Array.isArray(json?.data) ? json.data[0] : null) || {};
+  return { url: String(item.url || ""), br: item.br || 0, size: item.size || 0, code: item.code || 0 };
+}
+
 async function gdGetUrl(songId, br) {
+  try {
+    const res = await neteaseGetUrl(songId, br);
+    if (res && res.url) return res;
+  } catch (e) {
+    await logError("网易播放接口失败", e);
+  }
   const json = await requestJson(`${GD_API}?types=url&id=${encodeURIComponent(songId)}&source=netease&br=${br}`, null);
-  return json;
+  return json || {};
 }
 
 async function getLyric(songId) {
@@ -426,10 +441,10 @@ async function play(params, context) {
     if (!songId) throw new Error("songId 为空");
 
     const qualities = [
-      { name: "FLAC无损", br: 2000 },
-      { name: "HQ高品质", br: 320 },
-      { name: "标准品质", br: 192 },
-      { name: "AAC流畅", br: 128 },
+      { name: "FLAC无损", br: 999000 },
+      { name: "HQ高品质", br: 320000 },
+      { name: "标准品质", br: 192000 },
+      { name: "AAC流畅", br: 128000 },
     ];
 
     const urls = [];

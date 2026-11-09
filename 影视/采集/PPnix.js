@@ -2,7 +2,7 @@
 // @author 梦
 // @description 刮削：暂不支持，弹幕：暂不支持，分类筛选：支持，播放链：兼容 TVBox，优先返回已重写的内联 m3u8 以规避代理链路问题
 // @dependencies: axios, cheerio
-// @version 1.7.4
+// @version 1.7.5
 // @downloadURL https://gh-proxy.org/https://github.com/Silent1566/OmniBox-Spider/raw/refs/heads/main/影视/采集/PPnix.js
 
 const OmniBox = require("omnibox_sdk");
@@ -719,7 +719,8 @@ async function play(params, context) {
     const referer = text(meta.referer || `${BASE_URL}${LANG_PATH}/`);
     const from = text(context?.from || "") || "unknown";
     const shouldUseLeanHeader = from === "tvbox";
-    const cfCookie = shouldUseLeanHeader ? "" : await ensureCfCookie(false, referer);
+    // 播放地址（/info/m3u8/...）默认不需要 CF cookie，先只读缓存，避免每次播放都触发 FlareSolverr/浏览器求解而超时。
+    let cfCookie = shouldUseLeanHeader ? "" : text(PPNIX_CF_COOKIE) || (await getCachedCfCookie());
     const header = shouldUseLeanHeader ? {} : {
       Referer: referer,
       Origin: BASE_URL,
@@ -750,7 +751,19 @@ async function play(params, context) {
 
     if (PPNIX_REWRITE_M3U8) {
       try {
-        const rawM3u8 = await fetchText(sourceUrl, header);
+        let rawM3u8 = "";
+        try {
+          rawM3u8 = await fetchText(sourceUrl, header);
+        } catch (firstError) {
+          if (!cfCookie && PPNIX_CF_AUTO) {
+            OmniBox.log("warn", `[play] 直取 m3u8 失败（${firstError.message}），尝试获取 cf_clearance 后重试`);
+            cfCookie = await ensureCfCookie(true, referer);
+            Object.assign(header, buildCookieHeader(cfCookie));
+            rawM3u8 = await fetchText(sourceUrl, header);
+          } else {
+            throw firstError;
+          }
+        }
         const rewritten = rewritePpnixM3u8LikeWeb(rawM3u8);
         const finalUrl = buildM3u8DataUrl(rewritten);
         OmniBox.log("info", `[play] 返回重写 data-url: infoId=${infoId}, param=${param}, from=${from}, leanHeader=${shouldUseLeanHeader ? "yes" : "no"}, cookie=${cfCookie ? "yes" : "no"}, subtitles=${subtitles.length}`);
