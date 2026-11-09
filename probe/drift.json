@@ -179,7 +179,7 @@
       "play"
     ],
     "err": "detail: no playable episodes (sources=0, episodes=0)",
-    "lastUrl": "http://38.76.197.172:12521/index.php/vod/detail/id/471633.html"
+    "lastUrl": "http://38.76.197.172:12521/index.php/vod/detail/id/465562.html"
   },
   {
     "file": "影视/网盘/木偶.js",
@@ -190,7 +190,7 @@
       "play"
     ],
     "err": "detail: no playable episodes (sources=0, episodes=0)",
-    "lastUrl": "https://123.666291.xyz/index.php/vod/detail/id/8947.html"
+    "lastUrl": "https://123.666291.xyz/index.php/vod/detail/id/8954.html"
   },
   {
     "file": "影视/网盘/欧哥.js",
@@ -214,7 +214,7 @@
       "play"
     ],
     "err": "detail: no playable episodes (sources=0, episodes=0)",
-    "lastUrl": "https://www.wogg.net/voddetail/134196.html"
+    "lastUrl": "https://www.wogg.net/voddetail/99509.html"
   },
   {
     "file": "影视/网盘/玩偶聚合-非分组.js",
@@ -225,7 +225,7 @@
       "play"
     ],
     "err": "detail: no playable episodes (sources=0, episodes=0)",
-    "lastUrl": "https://www.wogg.net/voddetail/134196.html"
+    "lastUrl": "https://tv.214521.xyz/index.php/vod/detail/id/8202.html"
   },
   {
     "file": "影视/网盘/玩偶聚合.js",
@@ -236,7 +236,7 @@
       "play"
     ],
     "err": "detail: no playable episodes (sources=0, episodes=0)",
-    "lastUrl": "https://www.wogg.net/voddetail/134196.html"
+    "lastUrl": "https://www.wogg.net/voddetail/99509.html"
   },
   {
     "file": "影视/网盘/盘搜.js",
@@ -299,7 +299,7 @@
       "play"
     ],
     "err": "detail: no playable episodes (sources=0, episodes=0)",
-    "lastUrl": "http://38.76.197.172:16969/index.php/vod/detail/id/463313.html"
+    "lastUrl": "http://38.76.197.172:16969/index.php/vod/detail/id/456661.html"
   },
   {
     "file": "影视/网盘/蜗牛4K.js",
@@ -349,8 +349,8 @@
     "steps": [
       "search"
     ],
-    "err": "search: empty list for keyword=09:00 NBA 雄鹿",
-    "lastUrl": "http://www.88kanqiu.cc/live/130722/source"
+    "err": "search: empty list for keyword=08:00 NBA常规赛",
+    "lastUrl": "http://www.88kanqiu.cc/live/130977/source"
   },
   {
     "file": "影视/采集/Auete影视.js",
@@ -366,19 +366,6 @@
     "lastUrl": "https://auete.top/mipso.php?searchword=%E5%BA%86%E4%BD%99%E5%B9%B4"
   },
   {
-    "file": "影视/采集/FKTV.js",
-    "verdict": "broken",
-    "step": "category",
-    "steps": [
-      "category",
-      "search",
-      "detail",
-      "play"
-    ],
-    "err": "category: empty list (type_id=3)",
-    "lastUrl": "https://fktv.me/search?keyword=%E5%BA%86%E4%BD%99%E5%B9%B4"
-  },
-  {
     "file": "影视/采集/Gimy剧迷.js",
     "verdict": "broken",
     "step": "search",
@@ -387,8 +374,8 @@
       "detail",
       "play"
     ],
-    "err": "search: empty list for keyword=哥吉拉-0.0",
-    "lastUrl": "https://gimyai.tw/detail/927187.html"
+    "err": "search: empty list for keyword=复活男",
+    "lastUrl": "https://gimyai.tw/detail/927214.html"
   },
   {
     "file": "影视/采集/NO视频.js",
@@ -411,7 +398,7 @@
       "play"
     ],
     "err": "STEP_TIMEOUT play 40000ms",
-    "lastUrl": "https://www.ppnix.com/cn/movie/9095.html"
+    "lastUrl": "https://www.ppnix.com/cn/movie/9117.html"
   },
   {
     "file": "影视/采集/七味.js",
@@ -475,6 +462,16 @@
     ],
     "err": "category: empty list (type_id=综艺)",
     "lastUrl": ""
+  },
+  {
+    "file": "影视/采集/新韩剧网.js",
+    "verdict": "partial",
+    "step": "search",
+    "steps": [
+      "search"
+    ],
+    "err": "search: empty list for keyword=家庭关系证明书",
+    "lastUrl": "https://www.9hanju.com/u/u1.php?ud=3706_1_1"
   },
   {
     "file": "影视/采集/枝枝影视.js",
@@ -576,17 +573,18 @@
       "play"
     ],
     "err": "category: empty list (type_id=4)",
-    "lastUrl": "https://pianku.pro/index.php/verify/index.html?type=search&t=1794196674702"
+    "lastUrl": "https://pianku.pro/index.php/verify/index.html?type=search&t=1794214426989"
   },
   {
     "file": "影视/采集/电影人生.js",
-    "verdict": "partial",
-    "step": "search",
+    "verdict": "broken",
+    "step": "detail",
     "steps": [
-      "search"
+      "detail",
+      "play"
     ],
-    "err": "search: empty list for keyword=狱前教育",
-    "lastUrl": "https://www.dyrsok.com/api/m3u8?origin=%E8%B6%85%E7%BA%A7%E7%BA%BF%E8%B7%AF&url=6af13e27115817b262d16341"
+    "err": "detail: empty list for videoId=tv/6adf95d4997f879a768f8201-34315.html?host=www.dyrsok.com",
+    "lastUrl": "https://www.dyrsok.com/tv/6adf95d4997f879a768f8201-34315.html?host=www.dyrsok.com"
   },
   {
     "file": "影视/采集/韩小圈.js",
@@ -595,7 +593,7 @@
     "steps": [
       "search"
     ],
-    "err": "search: empty list for keyword=解不开的我们",
+    "err": "search: empty list for keyword=末路兼职",
     "lastUrl": "https://hanxiaoquan.hanju.workers.dev/api/detail"
   },
   {
@@ -645,7 +643,8 @@
     "verdict": "partial",
     "step": "search",
     "steps": [
-      "search"
+      "search",
+      "play"
     ],
     "err": "search: empty list for keyword=玄幻电影",
     "lastUrl": "https://interface.yy.com/hls/new/get/1462895099/1462895099/1200?source=wapyy&callback=jsonp3"
@@ -657,7 +656,7 @@
     "steps": [
       "search"
     ],
-    "err": "search: empty list for keyword=都是韩国货 秋款上新",
+    "err": "search: empty list for keyword=唐僧唱的真好听",
     "lastUrl": "https://live.douyin.com/webcast/room/web/enter/?aid=6383&app_name=douyin_web&live_id=1&device_platform=web&enter_from=web_live&browser_language=zh-CN&browser_platform=Win32&browser_name=Chrome&browser"
   },
   {
@@ -667,8 +666,8 @@
     "steps": [
       "search"
     ],
-    "err": "search: empty list for keyword=幸福的童年治愈一生，不幸",
-    "lastUrl": "https://www.douyu.com/lapi/live/getH5PlayV1/1487654"
+    "err": "search: empty list for keyword=的直播间",
+    "lastUrl": "https://www.douyu.com/lapi/live/getH5PlayV1/3439096"
   },
   {
     "file": "短剧/星星短剧.js",
@@ -706,5 +705,16 @@
     ],
     "err": "home: empty class list",
     "lastUrl": ""
+  },
+  {
+    "file": "音乐/芸芸音乐.js",
+    "verdict": "partial",
+    "step": "search",
+    "steps": [
+      "search",
+      "play"
+    ],
+    "err": "search: empty list for keyword=那些妖异的古风歌曲",
+    "lastUrl": "https://music-api.gdstudio.xyz/api.php?types=url&id=404459664&source=netease&br=128"
   }
 ]

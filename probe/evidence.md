@@ -60,3 +60,26 @@
 3. **专辑页无 music 对象**：搜索结果含 `/hot/<id>.html` 专辑页，取不到 `music` → play 里加一次降级：解析失败时抓该页第一个 `/play/\d+\.html` 再解析。
 
 复验：home 11 类 12 条 / category 27 条 / search 8 条 / detail 1 源 1 集 / play `https://mp4.djuu.com/c3/18/2026/xxx.m4a` → **ok**。
+
+## 九、FKTV 重写（v1.2.5 → 2.0.0，ok）
+
+站点整站换成 Next.js App Router（Turbopack 产物），旧的 `POST /movie/detail/<id>`（表单 `link_id` + `is_switch`）与 `.meta-wrap/.hover-wrap` 卡片结构全部失效，列表/详情改为 SSR，播放地址由前端加密接口动态取。逆向结论：
+
+- 接口基址 `/ysapi`；请求体 = `AES-128-ECB(JSON, Pkcs7)` 的 base64 串，密钥 `9ed1a661a6ab787a`，明文躺在 `/_next/static/chunks/2ekcddva4wvjy.js` 的 `fankeClientConfig` 里。
+- 请求头：`version: 1.0`、`deviceType: pc`、`time: YYYY-MM-DD HH:mm:ss`、`Content-Type: application/octet-stream`。
+- 明文结构：`{deviceId, token, domain, referer, user_agent, shareCode, channel, ip, data}`；响应同样是 AES-ECB 密文，解出 `{status:"y"|"n", data}`（`status!=="y"` 即业务失败）。
+- 可用端点：`movie/home`（banner / main_block / other_block / new_items / rank_updated_items）、`movie/search`（同时充当分类列表：`cat_id` + `page` + `page_size`，返回 `{total,current_page,page_size,data}`）、`movie/detail`（`{id}` 或 `{id, link_id}`）、`movie/smartSearch`（`{keywords}` 联想）。
+- 剧目字段：`id`（16 位 hex）、`canonical_path`、`img_x_source`（png，`img_x` 是 .bnc 不适合直连）、`links[]`（每集 `{id,name,type}`）、`play_links[]`（`{name,m3u8_url,max_preview_time}`）、`playback_v2.video_lines[]`（`{name,line,h264:{url}}`）、`m3u8_url_source`（缺 sign/time/uid 参数，直连 403）。
+- 分类 cat_id：6 电影 / 5 电视剧 / 4 综艺 / 7 动漫 / 9 短剧 / 10 音乐 / 11 电影解说。
+
+重写实现：删掉全部 cheerio 页面解析与 `_did` 硬编码 cookie，改为 `_encryptEnvelope/_decryptResponse/_apiPost` 加密客户端 + 五个 handler：
+
+- `home` → `movie/home`；class 取 main_block+other_block 的 cat_id/cat_name，list 合并三组 items 并去重
+- `category` → `movie/search` `{cat_id, keywords:"", order:"last_update", page, page_size:24}`，pagecount = ceil(total/24)
+- `detail` → `movie/detail {id}`；episodes 由 `links[]` 生成，返回 `vod_play_sources:[{name:"FKTV", episodes:[{name, playId}]}]`，playId = `{"m":<id>,"l":<link_id>,"n":<集名>}`
+- `play` → 解 playId → `movie/detail {id, link_id}` → 依次收 `play_links[].m3u8_url`（`max_preview_time>0` 的预览线路排到最后）、`playback_v2.video_lines[].h264.url`、带 sign 的源站地址，去重后返回 `{parse:0, flag:"fktv", urls, header}`；一条地址都没有时回退页面 `parse:1`
+- `search` → `movie/search {keywords, page, page_size}`
+
+复验（五步全通，ok）：home 7 类 107 条 / category type_id=6 24 条、pagecount 708、total 16978 / search 命中 1 条 / detail 1 源 1 集 / play 4 条地址 `parse=0`。另用 46 集长剧《庆余年第一季》单独验证：detail 46 集，取第 6 集 play 出 4 条地址，逐条 curl 全部 `200` 且为合法 `#EXTM3U`（m3c 51KB、m3v 143KB、ysapi/m3u8 2×20KB），说明分集切换正确。
+
+> 附带观察：`影视/采集/电影人生.js`（上轮已修至 partial）本轮全量复跑时 dyrsok.com 对该批请求返回 429（`?origin=jsm3u8` 等线路页 429），play 因此空 urls。属站点突发限流，非解析回归；隔一段时间单跑 detail 仍正常（2 源 2 集）。

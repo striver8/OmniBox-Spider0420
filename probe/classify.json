@@ -20,7 +20,7 @@
   {
     "file": "动漫/樱花动漫.js",
     "verdict": "ok",
-    "siteCls": "ALIVE",
+    "siteCls": "UNKNOWN",
     "host": "https://www.dmvvv.com/"
   },
   {
@@ -38,7 +38,7 @@
   {
     "file": "听书/博看听书.js",
     "verdict": "ok",
-    "siteCls": "ALIVE",
+    "siteCls": "UNKNOWN",
     "host": "https://api.bookan.com.cn/"
   },
   {
@@ -86,7 +86,7 @@
   {
     "file": "影视/网盘/4K指南.js",
     "verdict": "ok",
-    "siteCls": "ALIVE",
+    "siteCls": "UNKNOWN",
     "host": "https://4kzn.cc/"
   },
   {
@@ -247,7 +247,7 @@
   },
   {
     "file": "影视/采集/FKTV.js",
-    "verdict": "broken",
+    "verdict": "ok",
     "siteCls": "UNKNOWN",
     "host": "https://fktv.me/"
   },
@@ -260,14 +260,14 @@
   {
     "file": "影视/采集/HDmoli.js",
     "verdict": "ok",
-    "siteCls": "ALIVE",
+    "siteCls": "UNKNOWN",
     "host": "https://www.hdmoli.me/"
   },
   {
     "file": "影视/采集/LIBVIO.js",
     "verdict": "ok",
-    "siteCls": "ALIVE",
-    "host": "https://www.libvio.lat/"
+    "siteCls": "UNKNOWN",
+    "host": ""
   },
   {
     "file": "影视/采集/NO视频.js",
@@ -338,7 +338,7 @@
   {
     "file": "影视/采集/在线之家.js",
     "verdict": "ok",
-    "siteCls": "ALIVE",
+    "siteCls": "UNKNOWN",
     "host": "https://www.zxzjhd.com/"
   },
   {
@@ -362,7 +362,7 @@
   {
     "file": "影视/采集/小黑米.js",
     "verdict": "ok",
-    "siteCls": "ALIVE",
+    "siteCls": "UNKNOWN",
     "host": "https://xiaoheimi.cc/"
   },
   {
@@ -380,13 +380,13 @@
   {
     "file": "影视/采集/影猫仓库.js",
     "verdict": "ok",
-    "siteCls": "ALIVE",
+    "siteCls": "UNKNOWN",
     "host": "https://www.ymck.pro/"
   },
   {
     "file": "影视/采集/新韩剧网.js",
-    "verdict": "ok",
-    "siteCls": "ALIVE",
+    "verdict": "partial",
+    "siteCls": "UNKNOWN",
     "host": "https://www.9hanju.com/"
   },
   {
@@ -469,7 +469,7 @@
   },
   {
     "file": "影视/采集/电影人生.js",
-    "verdict": "partial",
+    "verdict": "broken",
     "siteCls": "ALIVE",
     "host": "https://www.dyrsok.com/"
   },
@@ -518,7 +518,7 @@
   {
     "file": "教育/贝乐虎.js",
     "verdict": "ok",
-    "siteCls": "HTTP_404",
+    "siteCls": "UNKNOWN",
     "host": "https://vd.ubestkid.com/"
   },
   {
@@ -602,7 +602,7 @@
   {
     "file": "音乐/世纪音乐.js",
     "verdict": "ok",
-    "siteCls": "ALIVE",
+    "siteCls": "UNKNOWN",
     "host": "https://www.4c44.com/"
   },
   {
@@ -613,7 +613,7 @@
   },
   {
     "file": "音乐/芸芸音乐.js",
-    "verdict": "ok",
+    "verdict": "partial",
     "siteCls": "CHALLENGE",
     "host": "https://music.163.com/"
   }
