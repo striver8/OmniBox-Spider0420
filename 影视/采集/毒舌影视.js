@@ -1,21 +1,37 @@
 // @name 毒舌影视
 // @author 梦
-// @description 影视站：https://www.xnhrsb.com/ ，支持首页、分类、详情、搜索与播放
+// @description 影视站：https://www.xnhrsb.com/ ，支持首页、分类、详情、搜索与播放；已适配 2026-11 改版（Xcdn 人机验证 sha256 工作量证明 + 分类/搜索路由双方案）
 // @dependencies cheerio
-// @version 1.0.3
+// @version 1.1.0
 // @downloadURL https://gh-proxy.org/https://github.com/Silent1566/OmniBox-Spider/raw/refs/heads/main/影视/采集/毒舌影视.js
 
 const OmniBox = require("omnibox_sdk");
 const runner = require("spider_runner");
 const cheerio = require("cheerio");
+const crypto = require("crypto");
 
 const BASE_URL = (process.env.DUSHE_HOST || "https://m.xnhrsb.com").replace(/\/$/, "");
-const UA = process.env.DUSHE_UA || "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1";
+// 实测：站点前端的 Xcdn 中间件对 iPhone/Safari UA 直接 403（150 B「403 Forbidden」），
+// 对桌面 Chrome UA 才回 408 + 人机验证页（可解），所以默认改用桌面 UA。
+const UA = process.env.DUSHE_UA || "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36";
 const HOME_CACHE_TTL = Number(process.env.DUSHE_HOME_CACHE_TTL || 900);
 const CATEGORY_CACHE_TTL = Number(process.env.DUSHE_CATEGORY_CACHE_TTL || 900);
 const DETAIL_CACHE_TTL = Number(process.env.DUSHE_DETAIL_CACHE_TTL || 1800);
 const SEARCH_CACHE_TTL = Number(process.env.DUSHE_SEARCH_CACHE_TTL || 600);
 const PLAY_CACHE_TTL = Number(process.env.DUSHE_PLAY_CACHE_TTL || 900);
+// 站点自 2026-11 起接入 Xcdn 人机验证（HTTP 408 + <title>Bot detection</title>）：
+// 需要先解一道 sha256 的工作量证明，再把 __xcdn_captcha 与 __xcdn_captcha_verified 两个 cookie 一起回放。
+const XCDN_COOKIE_CACHE_KEY = "dushe:xcdn:cookies";
+const XCDN_COOKIE_TTL = Number(process.env.DUSHE_XCDN_TTL || 1800);
+const XCDN_MIN_SOLVE_INTERVAL = Number(process.env.DUSHE_XCDN_MIN_INTERVAL || 1200);
+const XCDN_MAX_ATTEMPTS = Number(process.env.DUSHE_XCDN_ATTEMPTS || 4);
+const XCDN_MAX_ROUNDS = Number(process.env.DUSHE_XCDN_MAX_ROUNDS || 2000000);
+// 单次 requestText 的总时间预算：站点被 WAF 连续拦截时必须快速失败，
+// 否则 5 个 handler 串行重试会把调用方（探针/宿主）拖到超时。
+const XCDN_TOTAL_BUDGET_MS = Number(process.env.DUSHE_XCDN_BUDGET_MS || 9000);
+
+let cookieJar = "";
+let lastSolveAt = 0;
 
 const CATEGORY_CONFIG = [
   { id: "1", name: "电影" },
@@ -79,27 +95,183 @@ function dedupeVodList(list) {
   return out;
 }
 
+function getHeader(res, name) {
+  const headers = res?.headers || {};
+  const raw = headers[name] ?? headers[String(name).toLowerCase()] ?? headers[String(name).toUpperCase()];
+  return raw === undefined || raw === null ? "" : raw;
+}
+
+function cookiePairs(res) {
+  const raw = getHeader(res, "set-cookie");
+  if (!raw) return [];
+  const parts = Array.isArray(raw) ? raw : String(raw).split(/,(?=[^;,\s]+=)/);
+  const out = [];
+  for (const part of parts) {
+    const pair = String(part).trim().split(";")[0];
+    const index = pair.indexOf("=");
+    if (index <= 0) continue;
+    const name = pair.slice(0, index).trim();
+    const value = pair.slice(index + 1).trim();
+    // 服务端会用空值下发"删除"指令（例如 verify 之后要求删掉 __xcdn_captcha）。
+    // 但站点实际校验时必须两个 cookie 同时存在，所以这里忽略空值，不做删除。
+    if (!name || !value) continue;
+    out.push({ name, value });
+  }
+  return out;
+}
+
+function applyCookies(res) {
+  for (const { name, value } of cookiePairs(res)) {
+    cookieJar = cookieJar
+      .split(";")
+      .map((item) => item.trim())
+      .filter((item) => item && !item.startsWith(`${name}=`));
+    cookieJar.push(`${name}=${value}`);
+    cookieJar = cookieJar.join("; ");
+  }
+}
+
+function sha256Hex(text) {
+  return crypto.createHash("sha256").update(String(text)).digest("hex");
+}
+
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+function isCaptchaPage(text) {
+  const sample = String(text || "").slice(0, 4000);
+  return /Bot detection|pow-page|__xcdn\/captcha|__xcdn_captcha/i.test(sample);
+}
+
+async function loadCachedCookies() {
+  if (cookieJar) return;
+  try {
+    const cached = await OmniBox.getCache(XCDN_COOKIE_CACHE_KEY);
+    if (cached && typeof cached === "string" && cached.includes("__xcdn_captcha")) {
+      cookieJar = cached;
+    }
+  } catch (_) {}
+}
+
+async function solveXcdn() {
+  const now = Date.now();
+  if (now - lastSolveAt < XCDN_MIN_SOLVE_INTERVAL) {
+    await sleep(XCDN_MIN_SOLVE_INTERVAL - (now - lastSolveAt));
+  }
+  lastSolveAt = Date.now();
+
+  const headers = {
+    "User-Agent": UA,
+    Accept: "application/json, text/plain, */*",
+    "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
+    Referer: `${BASE_URL}/`,
+  };
+  if (cookieJar) headers.Cookie = cookieJar;
+
+  const initRes = await OmniBox.request(`${BASE_URL}/__xcdn/captcha/api/init`, { method: "GET", headers, timeout: 15000 });
+  applyCookies(initRes);
+  let payload = null;
+  try {
+    payload = JSON.parse(typeof initRes?.body === "string" ? initRes.body : String(initRes?.body || ""));
+  } catch (_) {
+    payload = null;
+  }
+  if (!payload || !payload.challenge) {
+    throw new Error(`xcdn init failed: HTTP ${initRes?.statusCode} @ ${BASE_URL}`);
+  }
+
+  const challenge = String(payload.challenge);
+  const difficulty = Math.max(1, Number(payload.difficulty) || 4);
+  const target = "0".repeat(difficulty);
+  let nonce = 0;
+  let hash = "";
+  do {
+    nonce += 1;
+    hash = sha256Hex(challenge + nonce);
+  } while (!hash.startsWith(target) && nonce < XCDN_MAX_ROUNDS);
+  if (!hash.startsWith(target)) {
+    throw new Error("xcdn proof-of-work not solved");
+  }
+
+  const verifyHeaders = {
+    ...headers,
+    Referer: `${BASE_URL}/__xcdn/`,
+    "X-CDN-VERIFY-NONCE": String(nonce),
+    "X-CDN-VERIFY-RESULT": hash,
+  };
+  if (cookieJar) verifyHeaders.Cookie = cookieJar;
+
+  const verifyRes = await OmniBox.request(`${BASE_URL}/__xcdn/captcha/api/verify`, {
+    method: "GET",
+    headers: verifyHeaders,
+    timeout: 15000,
+  });
+  applyCookies(verifyRes);
+  if (!/__xcdn_captcha_verified=/.test(cookieJar)) {
+    throw new Error(`xcdn verify failed: HTTP ${verifyRes?.statusCode}`);
+  }
+  await OmniBox.log("info", `[毒舌影视][xcdn] 验证通过 nonce=${nonce} difficulty=${difficulty}`);
+  try {
+    await OmniBox.setCache(XCDN_COOKIE_CACHE_KEY, cookieJar, XCDN_COOKIE_TTL);
+  } catch (_) {}
+  return cookieJar;
+}
+
 async function requestText(url, options = {}) {
   const method = options.method || "GET";
-  await OmniBox.log("info", `[毒舌影视][request] ${method} ${url}`);
-  const res = await OmniBox.request(url, {
-    method,
-    headers: {
+  const maxAttempts = Number(options.attempts || XCDN_MAX_ATTEMPTS);
+  const startedAt = Date.now();
+  await loadCachedCookies();
+  let lastError = null;
+
+  for (let attempt = 1; attempt <= maxAttempts; attempt += 1) {
+    const elapsed = Date.now() - startedAt;
+    if (attempt > 1 && elapsed >= XCDN_TOTAL_BUDGET_MS) {
+      await OmniBox.log("warn", `[毒舌影视][request] 超出时间预算 ${elapsed}ms，放弃重试 @ ${url}`);
+      break;
+    }
+    const remaining = Math.max(4000, XCDN_TOTAL_BUDGET_MS - elapsed);
+    const headers = {
       "User-Agent": UA,
+      Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
       "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
       Referer: options.referer || `${BASE_URL}/`,
       ...(options.headers || {}),
-    },
-    body: options.body,
-    timeout: options.timeout || 20000,
-  });
-  const statusCode = Number(res?.statusCode || 0);
-  const body = res?.body;
-  const text = typeof body === "string" ? body : String(body || "");
-  if (statusCode !== 200) {
-    throw new Error(`HTTP ${statusCode || "unknown"} @ ${url}`);
+    };
+    if (cookieJar) headers.Cookie = cookieJar;
+
+    const res = await OmniBox.request(url, {
+      method,
+      headers,
+      body: options.body,
+      timeout: Math.min(Number(options.timeout || 20000), remaining),
+    });
+    applyCookies(res);
+
+    const statusCode = Number(res?.statusCode || 0);
+    const body = res?.body;
+    const text = typeof body === "string" ? body : String(body || "");
+
+    if (statusCode === 200 && !isCaptchaPage(text)) {
+      if (attempt > 1) {
+        await OmniBox.log("info", `[毒舌影视][request] 第 ${attempt} 次尝试成功 ${method} ${url}`);
+      }
+      return text;
+    }
+
+    lastError = new Error(`HTTP ${statusCode || "unknown"}${isCaptchaPage(text) ? " (人机验证)" : ""} @ ${url}`);
+    await OmniBox.log("warn", `[毒舌影视][request] ${lastError.message}，尝试解验证码后重试 (${attempt}/${maxAttempts})`);
+    if (attempt === maxAttempts) break;
+    try {
+      await solveXcdn();
+    } catch (err) {
+      await OmniBox.log("warn", `[毒舌影视][xcdn] 解验证码失败：${err?.message || err}`);
+    }
+    await sleep(Math.min(700 * attempt, Math.max(0, XCDN_TOTAL_BUDGET_MS - (Date.now() - startedAt))));
   }
-  return text;
+
+  throw lastError || new Error(`request failed @ ${url}`);
 }
 
 async function getCachedText(cacheKey, ttl, producer) {
@@ -148,9 +320,21 @@ function parseCategoryList(html) {
   let pagecount = 1;
   $("a[href]").each((_, a) => {
     const href = $(a).attr("href") || "";
+    // 旧路由：/dsshiyisw/<tid>--------<page>---.html
     const matches = [...href.matchAll(/-(\d+)---\.html/g)];
     for (const m of matches) {
       const n = Number(m[1] || 1);
+      if (Number.isFinite(n)) pagecount = Math.max(pagecount, n);
+    }
+    // 新路由：/dsshiyitp/<tid>-<page>.html 或 ?page=N
+    const tp = href.match(/\/dsshiyitp\/\d+-(\d+)\.html/i);
+    if (tp) {
+      const n = Number(tp[1]);
+      if (Number.isFinite(n)) pagecount = Math.max(pagecount, n);
+    }
+    const qs = href.match(/[?&]page=(\d+)/i);
+    if (qs) {
+      const n = Number(qs[1]);
       if (Number.isFinite(n)) pagecount = Math.max(pagecount, n);
     }
   });
@@ -365,33 +549,57 @@ async function home() {
   }
 }
 
-async function category(params = {}) {
-  try {
-    const tid = String(params.type_id || params.categoryId || params.tid || "1");
-    const page = Math.max(1, Number(params.page || params.pg || 1));
-    const url = `${BASE_URL}/dsshiyisw/${encodeURIComponent(tid)}--------${page}---.html`;
-    const html = await getCachedText(`dushe:category:${tid}:${page}`, CATEGORY_CACHE_TTL, () => requestText(url));
-    const parsed = parseCategoryList(html);
-    await OmniBox.log("info", `[毒舌影视][category] tid=${tid} page=${page} count=${parsed.list.length} pagecount=${parsed.pagecount}`);
-    return {
-      page,
-      pagecount: parsed.pagecount || page,
-      limit: parsed.list.length,
-      total: parsed.list.length,
-      filters: FILTERS[tid] || {},
-      list: parsed.list,
-    };
-  } catch (e) {
-    await OmniBox.log("error", `[毒舌影视][category] failed: ${e.message || e}`);
-    return {
-      page: Number(params.page || params.pg || 1) || 1,
-      pagecount: 1,
-      limit: 0,
-      total: 0,
-      filters: FILTERS[String(params.type_id || params.categoryId || params.tid || "1")] || {},
-      list: [],
-    };
+// 站点在 2026-11 改版后首页导航改为 /dsshiyitp/<tid>.html（tid: 1 电影 / 2 电视剧 / 3 综艺 / 4 动漫 / 5 短剧），
+// 旧路由 /dsshiyisw/<tid>--------<page>---.html 是否仍可用未知，因此两种都试，谁先出卡片用谁。
+function buildCategoryUrls(tid, page) {
+  const id = encodeURIComponent(String(tid));
+  const urls = [];
+  if (page <= 1) {
+    urls.push(`${BASE_URL}/dsshiyitp/${id}.html`);
+  } else {
+    urls.push(`${BASE_URL}/dsshiyitp/${id}-${page}.html`);
+    urls.push(`${BASE_URL}/dsshiyitp/${id}/${page}.html`);
   }
+  urls.push(`${BASE_URL}/dsshiyisw/${id}--------${page}---.html`);
+  return urls;
+}
+
+async function category(params = {}) {
+  const tid = String(params.type_id || params.categoryId || params.tid || "1");
+  const page = Math.max(1, Number(params.page || params.pg || 1));
+  const emptyResult = {
+    page,
+    pagecount: 1,
+    limit: 0,
+    total: 0,
+    filters: FILTERS[tid] || {},
+    list: [],
+  };
+
+  for (const url of buildCategoryUrls(tid, page)) {
+    try {
+      const html = await getCachedText(`dushe:category:${tid}:${page}:${url}`, CATEGORY_CACHE_TTL, () => requestText(url));
+      const parsed = parseCategoryList(html);
+      if (!parsed.list.length && url !== buildCategoryUrls(tid, page).slice(-1)[0]) {
+        await OmniBox.log("warn", `[毒舌影视][category] ${url} 无条目，尝试下一个路由`);
+        continue;
+      }
+      await OmniBox.log("info", `[毒舌影视][category] tid=${tid} page=${page} url=${url} count=${parsed.list.length} pagecount=${parsed.pagecount}`);
+      return {
+        page,
+        pagecount: parsed.pagecount || page,
+        limit: parsed.list.length,
+        total: parsed.list.length,
+        filters: FILTERS[tid] || {},
+        list: parsed.list,
+      };
+    } catch (e) {
+      await OmniBox.log("warn", `[毒舌影视][category] ${url} 失败：${e.message || e}`);
+    }
+  }
+
+  await OmniBox.log("error", `[毒舌影视][category] 所有候选路由均失败 tid=${tid} page=${page}`);
+  return emptyResult;
 }
 
 async function detail(params = {}) {
@@ -411,34 +619,51 @@ async function detail(params = {}) {
   }
 }
 
+// 站点首页搜索表单是 GET /dsshiyisc/-------------.html?wd=<kw>（改版后的真实用法），
+// 旧脚本用的是把关键词拼进路径的 /dsshiyisc/<kw>----------<page>---.html，两种都试。
+function buildSearchUrls(wd, page) {
+  const kw = encodeURIComponent(String(wd));
+  const urls = [`${BASE_URL}/dsshiyisc/-------------.html?wd=${kw}${page > 1 ? `&page=${page}` : ""}`];
+  urls.push(`${BASE_URL}/dsshiyisc/${kw}----------${page}---.html`);
+  return urls;
+}
+
 async function search(params = {}) {
-  try {
-    const wd = String(params.wd || params.keyword || "").trim();
-    const page = Math.max(1, Number(params.page || 1));
-    if (!wd) {
-      return { page, pagecount: 1, limit: 0, total: 0, list: [] };
-    }
-    const url = `${BASE_URL}/dsshiyisc/${encodeURIComponent(wd)}----------${page}---.html`;
-    const html = await getCachedText(`dushe:search:${wd}:${page}`, SEARCH_CACHE_TTL, () => requestText(url, { referer: `${BASE_URL}/` }));
-    const parsed = parseCategoryList(html);
-    await OmniBox.log("info", `[毒舌影视][search] wd=${wd} page=${page} count=${parsed.list.length}`);
-    return {
-      page,
-      pagecount: parsed.pagecount || page,
-      limit: parsed.list.length,
-      total: parsed.list.length,
-      list: parsed.list,
-    };
-  } catch (e) {
-    await OmniBox.log("error", `[毒舌影视][search] failed: ${e.message || e}`);
-    return {
-      page: Number(params.page || 1) || 1,
-      pagecount: 1,
-      limit: 0,
-      total: 0,
-      list: [],
-    };
+  const wd = String(params.wd || params.keyword || "").trim();
+  const page = Math.max(1, Number(params.page || 1));
+  if (!wd) {
+    return { page, pagecount: 1, limit: 0, total: 0, list: [] };
   }
+
+  for (const url of buildSearchUrls(wd, page)) {
+    try {
+      const html = await getCachedText(`dushe:search:${wd}:${page}:${url}`, SEARCH_CACHE_TTL, () => requestText(url, { referer: `${BASE_URL}/` }));
+      const parsed = parseCategoryList(html);
+      if (!parsed.list.length) {
+        await OmniBox.log("warn", `[毒舌影视][search] ${url} 无结果，尝试下一个路由`);
+        continue;
+      }
+      await OmniBox.log("info", `[毒舌影视][search] wd=${wd} page=${page} url=${url} count=${parsed.list.length}`);
+      return {
+        page,
+        pagecount: parsed.pagecount || page,
+        limit: parsed.list.length,
+        total: parsed.list.length,
+        list: parsed.list,
+      };
+    } catch (e) {
+      await OmniBox.log("warn", `[毒舌影视][search] ${url} 失败：${e.message || e}`);
+    }
+  }
+
+  await OmniBox.log("error", `[毒舌影视][search] 所有候选路由均失败 wd=${wd} page=${page}`);
+  return {
+    page,
+    pagecount: 1,
+    limit: 0,
+    total: 0,
+    list: [],
+  };
 }
 
 async function play(params = {}) {

@@ -8,7 +8,9 @@ const LOGS = [];
 const REQS = [];
 const CACHE = new Map();
 const CURL = process.env.PROBE_CURL || "C:/Windows/System32/curl.exe";
-const BLOCK_CODES = new Set([403, 429, 451, 503]);
+// 408 多见于 Xcdn 之类的人机验证中间件（Node TLS 被判为机器人时回 408 + Bot detection，
+// 而 curl/Schannel 握手可通过），所以一并纳入 curl 降级触发条件。
+const BLOCK_CODES = new Set([403, 408, 429, 451, 503]);
 let curlSeq = 0;
 
 function normHeaders(h) {
@@ -16,6 +18,17 @@ function normHeaders(h) {
   if (!h) return out;
   if (typeof h.forEach === "function" && typeof h.get === "function") {
     h.forEach((v, k) => { out[k] = v; out[k.toLowerCase()] = v; });
+    // forEach 会把多个 set-cookie 逐个回放，对象赋值只剩最后一个（曾导致 Xcdn 的
+    // __xcdn_captcha_verified 被后续的删除指令覆盖）。这里补上完整列表。
+    if (typeof h.getSetCookie === "function") {
+      try {
+        const list = h.getSetCookie();
+        if (Array.isArray(list) && list.length > 1) {
+          out["set-cookie"] = list.slice();
+          out["Set-Cookie"] = list.slice();
+        }
+      } catch (_) {}
+    }
     return out;
   }
   for (const [k, v] of Object.entries(h)) { out[k] = v; out[k.toLowerCase()] = v; }
@@ -24,14 +37,23 @@ function normHeaders(h) {
 
 function parseRawHeaders(raw) {
   const out = {};
+  const setCookies = [];
   for (const line of String(raw || "").split(/\r?\n/)) {
     const i = line.indexOf(":");
     if (i < 1) continue;
     const k = line.slice(0, i).trim();
     const v = line.slice(i + 1).trim();
     if (/^HTTP\//i.test(k)) continue;
+    if (/^set-cookie$/i.test(k)) { setCookies.push(v); continue; }
     out[k] = v;
     out[k.toLowerCase()] = v;
+  }
+  if (setCookies.length === 1) {
+    out["set-cookie"] = setCookies[0];
+    out["Set-Cookie"] = setCookies[0];
+  } else if (setCookies.length > 1) {
+    out["set-cookie"] = setCookies.slice();
+    out["Set-Cookie"] = setCookies.slice();
   }
   return out;
 }

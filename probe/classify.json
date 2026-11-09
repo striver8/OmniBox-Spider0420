@@ -547,7 +547,7 @@
   },
   {
     "file": "直播/斗鱼直播.js",
-    "verdict": "ok",
+    "verdict": "partial",
     "siteCls": "ALIVE",
     "host": "https://www.douyu.com/"
   },

@@ -168,7 +168,7 @@
       "play"
     ],
     "err": "detail: no playable episodes (sources=0, episodes=0)",
-    "lastUrl": "https://www.wogg.net/voddetail/134244.html"
+    "lastUrl": "http://38.76.197.172:12521/index.php/vod/detail/id/513488.html"
   },
   {
     "file": "影视/网盘/玩偶聚合.js",
@@ -242,7 +242,7 @@
       "play"
     ],
     "err": "detail: no playable episodes (sources=0, episodes=0)",
-    "lastUrl": "http://38.76.197.172:16969/index.php/vod/detail/id/457236.html"
+    "lastUrl": "http://38.76.197.172:16969/index.php/vod/detail/id/504633.html"
   },
   {
     "file": "影视/网盘/蜗牛4K.js",
@@ -381,14 +381,15 @@
   {
     "file": "影视/采集/歪比巴卜.js",
     "verdict": "broken",
-    "step": "search",
+    "step": "category",
     "steps": [
+      "category",
       "search",
       "detail",
       "play"
     ],
-    "err": "search: empty list for tried=老江湖 / 敦煌英雄 / 空枪 / 痴迷 / 一英里 / 双妻之劫",
-    "lastUrl": "https://wbbb1.com/detail/116031.html"
+    "err": "category: empty list (type_id=4)",
+    "lastUrl": "https://wbbb1.com/search/-------------.html?wd=%E5%BA%86%E4%BD%99%E5%B9%B4"
   },
   {
     "file": "影视/采集/毒舌影视.js",
@@ -401,7 +402,7 @@
       "play"
     ],
     "err": "category: empty list (type_id=4)",
-    "lastUrl": "https://m.xnhrsb.com/dsshiyidt/292405.html"
+    "lastUrl": "https://m.xnhrsb.com/__xcdn/captcha/api/verify"
   },
   {
     "file": "影视/采集/永乐视频.js",
@@ -427,7 +428,7 @@
       "play"
     ],
     "err": "category: empty list (type_id=4)",
-    "lastUrl": "https://pianku.pro/index.php/verify/index.html?type=search&t=1794237389697"
+    "lastUrl": "https://pianku.pro/index.php/verify/index.html?type=search&t=1794240633525"
   },
   {
     "file": "影视/采集/荐片.js",
@@ -484,6 +485,16 @@
     ],
     "err": "飞牛配置缺失：请先填写 FEINIU_HOST，或提供 FEINIU_SITES 多站配置",
     "lastUrl": ""
+  },
+  {
+    "file": "直播/斗鱼直播.js",
+    "verdict": "partial",
+    "step": "search",
+    "steps": [
+      "search"
+    ],
+    "err": "search: empty list for tried=平安顺遂~~~ / 平安顺遂 / 粤语学习 / 弹幕天团 / 一起来看剧啦！",
+    "lastUrl": "https://www.douyu.com/lapi/live/getH5PlayV1/74374"
   },
   {
     "file": "短剧/短剧粉.js",

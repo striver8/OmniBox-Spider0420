@@ -562,3 +562,42 @@ GET https://interface.yy.com/hls/new/get/<rid>/<rid>/<quality>?source=wapyy&call
 探针复验 **ok**：home 10 类｜category `10000$3` list=15｜search「滚石老炮至尊店」list=1｜detail 2 源 8 集｜play `http://pull-h5.douyincdn.com/stage/stream-408639466006381401_or4.flv?expire=...&sign=...` parse=0。
 
 **本轮全量结果**：`PROBE_CONC=12 node probe/run.js`（143s）→ **ok=60 / partial=0 / broken=41**（本轮起点 58/2/41，三个 partial 全部清零）。剩余 41 条 broken 的构成：站点级死/墙 20 余个、配置/模板型 6 个、网盘 SDK 不可验证 9 个、异常见 2 个（Emby 模板语法）。
+
+## 三十六、毒舌影视：Xcdn 人机验证（sha256 工作量证明）解锁 + 分类/搜索路由双方案
+
+`影视/采集/毒舌影视.js`（`BASE_URL` 默认 `https://m.xnhrsb.com`）此前被判为「站点级 TLS 指纹墙、不可解」。本轮证明**该判断不成立**：站点用的是 Xcdn 中间件的人机验证，协议完全可以静态复现。
+
+**验证协议（已完整还原并实测）**
+
+1. `GET {BASE}/__xcdn/captcha/api/init` → 200 `{challenge, difficulty:4}`，并 `Set-Cookie: __xcdn_captcha=<JWT(challenge,difficulty,sub,exp)>`。
+2. 客户端工作量证明：找最小的 `nonce` 使 `sha256(challenge + String(nonce))` 以 `difficulty` 个 `0` 开头（difficulty=4 时实测 5k~4 万次，Node 约 42ms）。
+3. `GET {BASE}/__xcdn/captcha/api/verify`，请求头 `X-CDN-VERIFY-NONCE`、`X-CDN-VERIFY-RESULT`，`Referer: {BASE}/__xcdn/` → 200，`Set-Cookie: __xcdn_captcha_verified=<JWT(challenge_passed:true,sub,exp)>`，**同时下发删除 `__xcdn_captcha` 的空值 Set-Cookie**。
+4. **关键**：请求正文页时必须**两个 cookie 一起回放**（`__xcdn_captcha` + `__xcdn_captcha_verified`），不能因为服务端下发删除指令就丢掉 `__xcdn_captcha`。只带 verified 时约半数 408。
+5. **UA 决定生死**：iPhone/Safari UA 直接吃 `403` + 150 B openresty 错误页；桌面 Chrome UA 才回 `408` + `11385 B <title>Bot detection</title>`（可解）。脚本默认 UA 已从 iPhone 改为桌面 Chrome。
+
+实测（站点放行窗口内）：带双 cookie 请求 `/` → **200 / 73145 B / `<title>毒舌影视 - 2026最新高清电影_热门电视剧短剧在线免费观看</title>`**；用脚本自身的 `home()` 走完整链路 → `class=6 / list=24`，耗时 2.5s（第 1 次 408，解验证码后第 2 次成功）。
+
+**改版后的路由（据放行时抓到的首页 HTML）**
+
+- 首页卡片：`li > a[href^="/dsshiyidt/"] > img.thumb.lazy[data-original]`，标题 `h3.dytit a`，主演 `p.inzhuy`，状态 `div.hdinfo > span.qb`，评分 `div.rating`（脚本原有 `.bt_img ul li` / `.dytit` / `.inzhuy` / `.hdinfo` 选择器**仍然匹配**，无需改动）。
+- 分类导航：`/dsshiyitp/<tid>.html`（`1 电影 / 2 电视剧 / 3 综艺 / 4 动漫 / 5 短剧`），另有 `/label/duoban.html` 与区块入口 `/label/<type>/by/<sort>.html`（如 `/label/movie/by/hits_week.html`、`/label/movie/by/time.html`）。旧脚本用的 `/dsshiyisw/<tid>--------<page>---.html` 与之不同，是否仍可用未验证。
+- 搜索表单：`form#search`（`method=get`、`name=search`）→ `action="/dsshiyisc/-------------.html"` + `input name="wd"`，即 **`/dsshiyisc/-------------.html?wd=<kw>`**；旧脚本用的是把关键词拼进路径的 `/dsshiyisc/<kw>----------<page>---.html`。
+
+**代码改动（v1.0.3 → v1.1.0）**
+
+- 新增 Xcdn 求解链路：`getHeader` / `cookiePairs` / `applyCookies`（**忽略空值，不执行删除**，保住双 cookie）/ `sha256Hex` / `isCaptchaPage` / `loadCachedCookies`（`dushe:xcdn:cookies`，TTL 1800）/ `solveXcdn`（含 1.2s 节流、PoW 上限 200 万次）。
+- `requestText()` 改成最多 4 次尝试的循环：命中 408/验证页 → 解验证码 → 带双 cookie 重试；**总时间预算 16s**（`DUSHE_XCDN_BUDGET_MS`），避免被 WAF 连续拦截时把 5 个 handler 拖到调用方超时（此前会造成探针 HARD_TIMEOUT）。
+- `category()` 改为**双路由**：先试 `/dsshiyitp/<tid>.html`（分页试 `-<page>.html`、`/<page>.html`），无卡片再回退旧 `/dsshiyisw/...`；`parseCategoryList` 的分页识别同步支持 `/dsshiyitp/<tid>-<n>.html` 与 `?page=N`。
+- `search()` 改为**双路由**：先试 `?wd=` 查询式（站点表单真实用法），无结果再回退旧路径式。
+- 环境变量：`DUSHE_XCDN_TTL` / `DUSHE_XCDN_MIN_INTERVAL` / `DUSHE_XCDN_ATTEMPTS` / `DUSHE_XCDN_MAX_ROUNDS` / `DUSHE_XCDN_BUDGET_MS`。
+
+**未完成的验证（诚实记录）**：本轮对站点做了较多探测后，本机出口 IP 被中间件连续拦截（对任意路径回 `403` + 150 B openresty 页，或 `408` + 验证页且解出后仍不放行），因此**分类/详情/搜索的端到端探针复验未能完成**，脚本目前仍被探针判为 broken。待站点对本机放行后需补做一次 `node probe/run.js "影视/采集/毒舌影视.js"` 复验（预期 category 走新路由出卡片、search 出结果）。
+
+## 三十七、探针工具两处缺陷修复：set-cookie 数组丢失 与 408 未触发 curl 降级
+
+本轮为 36 节的排查顺带修好两个**影响全仓判读**的探针缺陷（`probe/shims/omnibox_sdk/index.js`）：
+
+1. **多个 `Set-Cookie` 只保留最后一个**：`normHeaders()` 用 `Headers.forEach` 回放头部，而同一响应里多条 `set-cookie` 会逐条回调同一个 key，对象赋值后只剩最后一条 —— 毒舌影视的 `verify` 响应正是「先发 `__xcdn_captcha_verified`，再发删除 `__xcdn_captcha`」，结果验证 cookie 被覆盖丢失，脚本永远解不开。现在改为优先读取 `h.getSetCookie()`，多条时以**数组**形式返回（同时保留大小写两种键名）；curl 通道的 `parseRawHeaders()` 同样把多条 `Set-Cookie` 收集成数组。凡依赖 `set-cookie` 的脚本（登录型、云盘型、验证型）此前都可能被这条假阴性影响。
+2. **408 不触发 curl 降级**：`BLOCK_CODES` 原本是 `[403,429,451,503]`，而 Xcdn 类中间件对 Node TLS 回的是 **408 + Bot detection**，于是探针一直走 fetch 通道、拿不到 curl/Schannel 能过的响应。现已把 408 纳入降级条件。
+
+两处改动后全量复跑（`PROBE_CONC=12 node probe/run.js`，187s）：**ok=60 / partial=0 / broken=41**，与改动前一致（无回归）。
