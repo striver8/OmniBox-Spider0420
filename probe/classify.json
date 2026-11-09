@@ -78,12 +78,6 @@
     "host": "https://web5.mukaku.com/"
   },
   {
-    "file": "影视/磁力/磁力熊.js",
-    "verdict": "broken",
-    "siteCls": "ALIVE",
-    "host": "https://www.cilixiong.com/"
-  },
-  {
     "file": "影视/网盘/4K指南.js",
     "verdict": "ok",
     "siteCls": "UNKNOWN",
@@ -240,12 +234,6 @@
     "host": "http://www.88kanqiu.cc/"
   },
   {
-    "file": "影视/采集/Auete影视.js",
-    "verdict": "broken",
-    "siteCls": "ALIVE",
-    "host": "https://auete.top/"
-  },
-  {
     "file": "影视/采集/FKTV.js",
     "verdict": "ok",
     "siteCls": "UNKNOWN",
@@ -331,7 +319,7 @@
   },
   {
     "file": "影视/采集/唐人街影院.js",
-    "verdict": "broken",
+    "verdict": "ok",
     "siteCls": "CHALLENGE",
     "host": "https://www.trvod.com/"
   },
@@ -415,7 +403,7 @@
   },
   {
     "file": "影视/采集/歪比巴卜.js",
-    "verdict": "broken",
+    "verdict": "partial",
     "siteCls": "UNKNOWN",
     "host": "https://xn--qvr2v.850088.xyz/"
   },
@@ -499,7 +487,7 @@
   },
   {
     "file": "影视/采集/金牌.js",
-    "verdict": "ok",
+    "verdict": "partial",
     "siteCls": "UNKNOWN",
     "host": "https://m.jiabaide.cn/"
   },

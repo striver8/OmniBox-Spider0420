@@ -45,7 +45,15 @@ function curlRequest(url, opts) {
   const htmp = path.join(os.tmpdir(), "probe-curl-" + process.pid + "-" + curlSeq + ".hdr");
   const args = ["-sS", "-L", "--compressed", "--max-time", String(Math.ceil(timeout / 1000)), "-o", tmp, "-D", htmp, "-w", "%{http_code}"];
   if (method !== "GET") { args.push("-X", method); }
-  for (const [k, v] of Object.entries(hdrs)) { if (v != null) args.push("-H", k + ": " + v); }
+  // Windows 自带 curl 多半没有 brotli：声明 Accept-Encoding: br 会让 Cloudflare 回 br 正文，
+  // curl 报 "Unrecognized content encoding type" 且正文 0 字节（-w 却仍是 200）。统一改写。
+  const sendHdrs = {};
+  for (const [k, v] of Object.entries(hdrs)) {
+    if (v == null || /^accept-encoding$/i.test(k)) continue;
+    sendHdrs[k] = v;
+  }
+  sendHdrs["Accept-Encoding"] = "gzip, deflate";
+  for (const [k, v] of Object.entries(sendHdrs)) { if (v != null) args.push("-H", k + ": " + v); }
   if (opts.body != null) args.push("--data-raw", typeof opts.body === "string" ? opts.body : JSON.stringify(opts.body));
   args.push(url);
   const r = spawnSync(CURL, args, { encoding: "utf8", timeout: timeout + 5000, maxBuffer: 64 * 1024 * 1024 });

@@ -308,3 +308,34 @@ window.SITE_CONFIG = { lines: [
 | 影视/采集/荐片.js | 域名不可达 | `h5.jianpianips1.com` 连接 000 |
 | 影视/采集/哇哇影视.js | 脚本配置异常 | 脚本内唯一 URL 是 `gitee.com` |
 | 音乐/枫叶音乐.js | 后端 502 | `fy-musicbox-api.mu-jie.cc` 全路径 502（openresty），`mu-jie.cc` 子域全部无解析；不归档，等站点恢复 |
+
+## 二十三、唐人街影院：站点改版（conch 模板）适配
+
+`https://www.trvod.com/` 仍是海螺（conch tpl `surl=/vod-search.html`，ver 3.1.5）多线路站，但 2026-11 前后改了三处结构，旧脚本五步里 category 与 search 全废：
+
+1. **分类路径改为 slug 型**：`/vodtype/<slug>/`（`movie` / `tv-series` / `show` / `animation` / `ethical`，子类本身也是 slug，如 `cn`、`action`，综艺子类带 `show-` 前缀如 `show-jpkr`）。旧的 `/vodshow/1-....html` 一律 404（`<title>页面不存在</title>`）——这是 `category: empty list` 的根因。
+2. **列表页只有第一页**：`/vodtype/movie/page/2/`、`/vodtype/animation/index-2.html` 都返回 200 / 25531 B 的 `<title>系统提示......</title>` 占位页，页内没有任何分页标记（无 `hl-page`、无「下一页」、无「共 N 页」）。因此 `category()` 改为单页语义：`pagecount = list.length ? 1 : 0`，命中占位页时返回体附 `notice`。
+3. **剧集链接换了路径**：`/vod-play/<vodid>-<sid>-<nid>.html`（旧脚本正则找的是 `/vodplay/`）。详情页结构是 `.hl-plays-from a.hl-tabs-btn[data-from]`（线路名在 `alt` 属性里）+ 每条线路一个 `.hl-tabs-box[data-from]` 容器，容器内 `ul.hl-plays-list a[href*="/vod-play/"]`。解析改为按 `data-from` 逐线路取集，线路名取 `alt`，重名/缺失时退化用线路代码。
+4. **`/vod-play/*` 与 `/vod/player/*` 要求移动 UA**：桌面 Chrome UA 一律 403 + 29 B `Forbidden`，换 iPhone Safari UA 立刻 200。新增 `MOBILE_USER_AGENT` 与 `pickUserAgent(url)`，只对这两类路由切 UA（分类页/详情页仍用桌面 UA）。
+5. **搜索被 WAF 拦死**：`/vod-search.html?wd=` 对 curl 是 403 + 9 B `Forbidden`，对 Node TLS 是 CF 挑战页。原 `requestText()` 把任何 403 都当 CF 挑战 → 触发 FlareSolverr，而本机 `192.168.50.50:8191` 不可达，白等 40 s+ 把 search 步拖超时。改为：挑战判定必须是正文命中 CF 特征（`Just a moment|cf_chl_opt|Enable JavaScript and cookies to continue|_cf_chl_`），且搜索路由显式传 `{ skipCf: true }`；搜索失败后兜底为「并发抓 5 个分类页 + 本地标题匹配」（串行 12 s → 并发 7 s）。
+
+播放链路（实证）：播放页 iframe 指向 `/vod/player/id/<vodid>/nid/<nid>/sid/<sid>.html`（注意 nid/sid 顺序与播放页 URL 相反），iframe 内 `var player_aaaa={"url":"https://xxx/index.m3u8","encrypt":0,...}` 即直链。整季第一集 9 条线路全部拿到直链。
+
+复验 ok（17 s）：home 5 类 36 条 / category movie 96 条（`pagecount=1`）/ search「天使与恶徒」1 条 / detail 9 源 9 集 / play `parse=0`。版本 1.0.0 → 1.1.0。
+
+## 二十四、探针工具缺陷修复：curl 降级遇 brotli 导致「200 但空正文」
+
+`probe/axios-patch.js` 的 curl 降级与 `probe/shims/omnibox_sdk` 的 `curlRequest` 会把 axios 的请求头原样转发给 curl；axios 默认带 `Accept-Encoding: gzip, deflate, br`，于是站点/CDN 回 `Content-Encoding: br`，而 Windows 自带 curl（Schannel 构建）**不带 brotli**，报 `curl: (61) Unrecognized content encoding type`、正文文件 0 字节，但 `-w %{http_code}` 依旧输出 200 → 表现为「HTTP 200 但页面为空」。
+
+两处统一改为只声明 `Accept-Encoding: gzip, deflate`。修复前后同一 URL 的正文长度 0 → 139248。
+
+影响评估：历史报告里「HTTP 200 但解析为空（SHELL/PARSE）」一类结论可能混入该假阴性；本轮全量复跑已用修好的探针重测。修正后总体：**ok=54 / partial=6 / broken=41**（共 101 个 active 脚本）。
+
+## 二十五、本轮归档（ParkLogic 停放）
+
+| 脚本 | 判定 | 依据 |
+| --- | --- | --- |
+| 影视/磁力/磁力熊.js | PARKED | `www.cilixiong.com` 根 200 / 5568 B `<title>Redirecting...</title>`，混淆 JS `POST https://router.parklogic.com/`，内嵌 base64 载荷解出 `{"domainFull":"www.cilixiong.com","country":"SG"}` |
+| 影视/采集/Auete影视.js | PARKED | `auete.top` 同一套 ParkLogic 停放页（5568 B，`parklogic: true`） |
+
+两者已移入 `已失效待修复/` 并加盖 `// @status dead | PARKED | ...` 头注。

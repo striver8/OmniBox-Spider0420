@@ -1,8 +1,8 @@
 // @name 唐人街影院
 // @author 梦
-// @description 刮削：支持，弹幕：暂不支持，嗅探：支持，CF：支持 FlareSolverr / cf_clearance 自动缓存
+// @description 刮削：支持，弹幕：暂不支持，嗅探：支持，CF：支持 FlareSolverr / cf_clearance 自动缓存；适配 2026-11 站点改版（分类改 slug 型 /vodtype/<slug>/，列表单页，搜索被 WAF 拦时改本地过滤）
 // @dependencies: axios, cheerio
-// @version 1.0.0
+// @version 1.1.0
 // @downloadURL https://gh-proxy.org/https://github.com/Silent1566/OmniBox-Spider/raw/refs/heads/main/%E5%BD%B1%E8%A7%86/%E9%87%87%E9%9B%86/%E5%94%90%E4%BA%BA%E8%A1%97%E5%BD%B1%E9%99%A2.js
 
 const OmniBox = require('omnibox_sdk');
@@ -12,6 +12,14 @@ const runner = require('spider_runner');
 
 const BASE_URL = process.env.TRVOD_HOST || 'https://www.trvod.com';
 const USER_AGENT = process.env.TRVOD_USER_AGENT || 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36';
+// 站点对 /vod-play/ 与 /vod/player/ 这两类路由做了 UA 门禁：桌面 UA 直接 403（29 字节 Forbidden），
+// 移动端 UA 才返回正常页面与 player_aaaa（内含直链）。列表/详情页仍用桌面 UA。
+const MOBILE_USER_AGENT = process.env.TRVOD_MOBILE_USER_AGENT || 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1';
+
+function pickUserAgent(url = '') {
+  return /\/(vod-play|vodplay|vod\/player)\//i.test(text(url)) ? MOBILE_USER_AGENT : USER_AGENT;
+}
+
 const PAGE_SIZE = 24;
 
 const TRVOD_CF_COOKIE = process.env.TRVOD_CF_COOKIE || process.env.TRVOD_COOKIE || '';
@@ -369,13 +377,14 @@ async function ensureCfCookie(forceRefresh = false, targetUrl = BASE_URL + '/') 
   return cookie;
 }
 
-async function requestText(url, referer = BASE_URL + '/') {
+async function requestText(url, referer = BASE_URL + '/', options = {}) {
+  const skipCf = !!(options && options.skipCf);
   await OmniBox.log('info', `[唐人街影院][request] start url=${url} referer=${referer}`);
   let cookie = await getCachedCfCookie();
   await OmniBox.log('info', `[唐人街影院][request] cachedCookie=${cookie ? 'yes' : 'no'}`);
   let res = await axiosInstance.get(url, {
     headers: {
-      'User-Agent': USER_AGENT,
+      'User-Agent': pickUserAgent(url),
       'Referer': referer,
       'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
       ...buildCookieHeader(cookie),
@@ -384,9 +393,14 @@ async function requestText(url, referer = BASE_URL + '/') {
 
   let html = typeof res.data === 'string' ? res.data : String(res.data || '');
   await OmniBox.log('info', `[唐人街影院][request] firstResponse status=${res.status} htmlLen=${html.length}`);
-  const challenged = (res.status === 403 || res.status === 503 || /Just a moment|cf_chl_opt|Enable JavaScript and cookies to continue/i.test(html));
+  // 只有「确实是 CF 挑战」才值得走解析流程：站点的搜索路由会直接返回 9 字节的
+  // Forbidden（WAF 规则，不是 CF），盲目跑一次 FlareSolverr 只会白等 45~60s 并把上层步骤拖超时。
+  const cfMarkers = /Just a moment|cf_chl_opt|Enable JavaScript and cookies to continue|_cf_chl_/i;
+  const challenged = (res.status === 403 && cfMarkers.test(html))
+    || (res.status === 503 && cfMarkers.test(html))
+    || cfMarkers.test(html);
   await OmniBox.log('info', `[唐人街影院][request] challenged=${challenged ? 'yes' : 'no'}`);
-  if (challenged && TRVOD_CF_AUTO) {
+  if (challenged && TRVOD_CF_AUTO && !skipCf) {
     try {
       const solved = await requestWithFlareSolverr(url);
       if (solved.cookie) {
@@ -405,7 +419,7 @@ async function requestText(url, referer = BASE_URL + '/') {
     await OmniBox.log('info', `[唐人街影院][request] refreshedCookie=${cookie ? 'yes' : 'no'}`);
     res = await axiosInstance.get(url, {
       headers: {
-        'User-Agent': USER_AGENT,
+        'User-Agent': pickUserAgent(url),
         'Referer': referer,
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
         ...buildCookieHeader(cookie),
@@ -439,7 +453,9 @@ function decodePlayerUrl(url = '', encrypt = 0) {
 
 function deriveIframeUrlFromPlayUrl(playUrl = '') {
   const raw = text(playUrl);
-  const m = raw.match(/\/vodplay\/(\d+)-(\d+)-(\d+)\.html/i);
+  // 2026-11 改版后播放页路径是 /vod-play/<id>-<sid>-<nid>.html（旧版是 /vodplay/…），
+  // 播放器 iframe 形如 /vod/player/id/<vodid>/nid/<nid>/sid/<sid>.html（注意 nid/sid 与播放页顺序相反）。
+  const m = raw.match(/\/vod-?play\/(\d+)-(\d+)-(\d+)\.html/i);
   if (!m) return '';
   const [, id, sid, nid] = m;
   return absUrl(`/vod/player/id/${id}/nid/${nid}/sid/${sid}.html`);
@@ -537,39 +553,22 @@ function fallbackCardsByRegex(html = '') {
 }
 
 function buildCategoryUrl(typeId, page = 1, filters = {}) {
-  const by = text(filters.by || '');
   const subclass = text(filters.subclass || '');
   const genre = text(filters.type || '');
-  const area = text(filters.area || '');
-  const year = text(filters.year || '');
-  const letter = text(filters.letter || '');
 
-  const typeIdMap = {
-    movie: '1',
-    'tv-series': '2',
-    show: '3',
-    animation: '4',
-    ethical: '5',
-  };
-
-  if (typeId === 'tv-series' && (subclass || genre || area || year || letter || by || page > 1)) {
-    const cls = genre || subclass || '';
-    return absUrl(`/vodshow/2-${area}-${by}-${cls}-----${letter}---${page}---${year}.html`);
+  // 站点已改成 slug 型分类路径：/vodtype/<slug>/（旧的 /vodshow/N-...-html 一律 404）
+  // 题材（动作/喜剧…）直接用题材 slug；子类在综艺下需要带前缀（show-jpkr），剧集/电影下是裸 slug（cn、jpkr…）。
+  let slug = '';
+  if (genre) {
+    slug = genre;
+  } else if (subclass) {
+    slug = typeId === 'show' ? `show-${subclass}` : subclass;
+  } else {
+    slug = typeId || 'movie';
   }
 
-  const numeric = typeIdMap[typeId] || '';
-  if (numeric && (genre || area || year || letter || by || page > 1)) {
-    return absUrl(`/vodshow/${numeric}-${area}-${by}-${genre}-----${letter}---${page}---${year}.html`);
-  }
-
-  const typePath = subclass || typeId;
-  let url = absUrl(`/vodtype/${typePath}/`);
-  const query = new URLSearchParams();
-  if (by) query.set('by', by);
-  if (page > 1) query.set('page', String(page));
-  const qs = query.toString();
-  if (qs) url += `?${qs}`;
-  return url;
+  // 该站列表页为单页（/vodtype/<slug>/page/2/ 起返回「系统提示」占位页），翻页参数不生效
+  return absUrl(`/vodtype/${slug}/`);
 }
 
 async function home() {
@@ -603,13 +602,15 @@ async function category(params) {
     if (!list.length) {
       list = fallbackCardsByRegex(html);
     }
-    const hasNext = /下一页|下页|尾页|page=(\d+)/i.test(html) || list.length >= PAGE_SIZE;
+    // 站点列表为单页：/vodtype/<slug>/page/2/ 起返回「系统提示」占位页，因此不提供下一页
+    const noticePage = /系统提示/.test(html) && !list.length;
     return {
       page,
-      pagecount: hasNext ? page + 1 : page,
-      total: page * PAGE_SIZE + list.length,
+      pagecount: list.length ? 1 : 0,
+      total: list.length,
       filters: FILTERS[typeId] || [],
       list,
+      ...(noticePage ? { notice: '站点列表页仅首页可用' } : {}),
     };
   } catch (e) {
     await OmniBox.log('error', `[唐人街影院][category] ${e.message}`);
@@ -617,13 +618,46 @@ async function category(params) {
   }
 }
 
+// 站点搜索接口 /vod-search.html?wd= 已被 WAF 规则拦死（返回 9 字节 Forbidden），
+// 因此兜底方案改为抓取各分类列表页（/vodtype/<slug>/，单页约 40~110 条）并本地按标题过滤。
+const FALLBACK_SEARCH_SLUGS = ['movie', 'tv-series', 'show', 'animation', 'ethical'];
+
+function buildLocalMatchList(keyword, pagesHtml) {
+  const kw = text(keyword).toLowerCase().replace(/\s+/g, '');
+  const hits = [];
+  const seen = new Set();
+  pagesHtml.forEach((html) => {
+    const $ = cheerio.load(html);
+    let list = extractCards($, '.hl-vod-list li, .hl-list-item, .hl-item-wrap');
+    if (!list.length) {
+      list = fallbackCardsByRegex(html);
+    }
+    list.forEach((item) => {
+      const name = text(item.vod_name).toLowerCase().replace(/\s+/g, '');
+      if (!name || !name.includes(kw)) {
+        return;
+      }
+      if (seen.has(item.vod_id)) {
+        return;
+      }
+      seen.add(item.vod_id);
+      hits.push(item);
+    });
+  });
+  return hits;
+}
+
 async function search(params) {
   const keyword = text(params.keyword || params.key || params.wd || '');
   const page = Math.max(1, Number(params.page || params.pg || 1) || 1);
   if (!keyword) return { page, pagecount: 0, total: 0, list: [] };
+
+  // 先试站点自带搜索（表单 action 是 /vod-search.html，name=wd）
+  // 该路由被 WAF 拦死（curl 直接 403 Forbidden，Node TLS 命中的是 CF 挑战页），
+  // 因此跳过 FlareSolverr（solvers 通常也不可达，白等 40s+），失败就用下面的本地过滤兜底。
   try {
-    const url = absUrl(`/vodsearch/-------------.html?wd=${encodeURIComponent(keyword)}&submit=` + (page > 1 ? `&page=${page}` : ''));
-    const html = await requestText(url, BASE_URL + '/');
+    const url = absUrl(`/vod-search.html?wd=${encodeURIComponent(keyword)}`);
+    const html = await requestText(url, BASE_URL + '/', { skipCf: true });
     const $ = cheerio.load(html);
     const searchScope = $('div.hl-rb-search').first();
     let list = [];
@@ -633,13 +667,42 @@ async function search(params) {
         list = fallbackCardsByRegex(searchScope.html() || '');
       }
     }
-    const hasNext = /下一页|下页|尾页|page=(\d+)/i.test(searchScope.html() || html) || list.length >= PAGE_SIZE;
-    return {
-      page,
-      pagecount: hasNext ? page + 1 : page,
-      total: page * PAGE_SIZE + list.length,
-      list,
-    };
+    if (!list.length) {
+      list = fallbackCardsByRegex(html);
+    }
+    if (list.length) {
+      return {
+        page,
+        pagecount: list.length >= PAGE_SIZE ? page + 1 : page,
+        total: page * PAGE_SIZE + list.length,
+        list,
+      };
+    }
+    await OmniBox.log('info', `[唐人街影院][search] 站点搜索无结果，改用本地过滤 keyword=${keyword}`);
+  } catch (e) {
+    await OmniBox.log('warn', `[唐人街影院][search] 站点搜索不可用（${e.message}），改用本地过滤 keyword=${keyword}`);
+  }
+
+  // 兜底：并发抓各分类列表页并本地匹配标题（串行 5 页要 12s+，会顶到上层步骤超时）
+  try {
+    const settled = await Promise.allSettled(
+      FALLBACK_SEARCH_SLUGS.map((slug) => requestText(absUrl(`/vodtype/${slug}/`), BASE_URL + '/'))
+    );
+    const pages = [];
+    const failed = [];
+    settled.forEach((item, index) => {
+      if (item.status === 'fulfilled' && item.value) {
+        pages.push(item.value);
+      } else {
+        failed.push(`${FALLBACK_SEARCH_SLUGS[index]}:${item.reason ? item.reason.message : 'empty'}`);
+      }
+    });
+    if (failed.length) {
+      await OmniBox.log('warn', `[唐人街影院][search] 兜底抓取失败 ${failed.join(', ')}`);
+    }
+    const list = buildLocalMatchList(keyword, pages);
+    await OmniBox.log('info', `[唐人街影院][search] 本地过滤命中 ${list.length} 条（扫描 ${pages.length} 个分类页）`);
+    return { page: 1, pagecount: 1, total: list.length, list };
   } catch (e) {
     await OmniBox.log('error', `[唐人街影院][search] ${e.message}`);
     return { page, pagecount: 0, total: 0, list: [] };
@@ -648,25 +711,42 @@ async function search(params) {
 
 function parsePlaySources($, html, detailUrl) {
   const playSources = [];
-  const tabs = [];
-  $('.hl-plays-from a, .hl-tabs-btn a, .hl-plays-list .hl-tabs a').each((_, el) => {
-    const $el = $(el);
-    const name = stripTags($el.text()) || stripTags($el.attr('title') || '') || `线路${tabs.length + 1}`;
-    const target = text($el.attr('href') || $el.attr('data-target') || $el.attr('data-href') || '');
-    tabs.push({ name, target });
+  const episodesFrom = ($scope, lineName) => {
+    const episodes = [];
+    $scope.find('a[href*="/vod-play/"], a[href*="/vodplay/"]').each((__, a) => {
+      const $a = $(a);
+      const href = text($a.attr('href') || '');
+      const name = stripTags($a.text()) || stripTags($a.attr('title') || '') || '正片';
+      if (!href) return;
+      if ($a.closest('.hl-plays-from').length) return; // 线路切换按钮不是剧集
+      episodes.push({ name, playId: JSON.stringify({ url: absUrl(href), referer: detailUrl }) });
+    });
+    return episodes;
+  };
+
+  // 新版（2026-11）：线路名在 .hl-plays-from a[data-from]（alt 或文本），
+  // 每条线路一集列表在 .hl-tabs-box[data-from="<key>"] 里，链接是 /vod-play/<id>-<sid>-<nid>.html
+  $('.hl-tabs-box[data-from]').each((idx, box) => {
+    const $box = $(box);
+    const key = text($box.attr('data-from') || '');
+    const episodes = episodesFrom($box, key);
+    if (!episodes.length) return;
+    const $btn = $(`.hl-plays-from a[data-from="${key}"]`).first();
+    const name = stripTags($btn.attr('alt') || '') || stripTags($btn.text() || '') || key || `线路${idx + 1}`;
+    playSources.push({ name, episodes });
   });
 
-  const groups = $('.hl-plays-list, .hl-play-list, .hl-plays-wrap .hl-list-wrap, .hl-tabs-box');
-  if (groups.length) {
+  // 旧版兜底：.hl-plays-list / .hl-tabs-box 顺序与 .hl-plays-from 里的按钮一一对应
+  if (!playSources.length) {
+    const tabs = [];
+    $('.hl-plays-from a.hl-tabs-btn, .hl-plays-from a.hl-slide-swiper, .hl-plays-from a').each((_, el) => {
+      const $el = $(el);
+      const name = stripTags($el.attr('alt') || '') || stripTags($el.text() || '') || `线路${tabs.length + 1}`;
+      tabs.push({ name });
+    });
+    const groups = $('.hl-play-source .hl-tabs-box, .hl-plays-list, .hl-play-list, .hl-plays-wrap .hl-list-wrap');
     groups.each((idx, box) => {
-      const episodes = [];
-      $(box).find('a[href*="/vodplay/"]').each((__, a) => {
-        const $a = $(a);
-        const href = text($a.attr('href') || '');
-        const name = stripTags($a.text()) || stripTags($a.attr('title') || '') || '正片';
-        if (!href) return;
-        episodes.push({ name, playId: JSON.stringify({ url: absUrl(href), referer: detailUrl }) });
-      });
+      const episodes = episodesFrom($(box), '');
       if (episodes.length) {
         playSources.push({ name: tabs[idx]?.name || `线路${idx + 1}`, episodes });
       }
@@ -674,16 +754,12 @@ function parsePlaySources($, html, detailUrl) {
   }
 
   if (!playSources.length) {
-    const episodes = [];
-    $('a[href*="/vodplay/"]').each((_, a) => {
-      const $a = $(a);
-      const href = text($a.attr('href') || '');
-      const name = stripTags($a.text()) || stripTags($a.attr('title') || '') || '正片';
-      if (!href || href === detailUrl) return;
-      episodes.push({ name, playId: JSON.stringify({ url: absUrl(href), referer: detailUrl }) });
+    const episodes = episodesFrom($('body'), '');
+    const filtered = episodes.filter((item) => {
+      try { return JSON.parse(item.playId).url !== detailUrl; } catch (_) { return true; }
     });
-    if (episodes.length) {
-      playSources.push({ name: '默认', episodes });
+    if (filtered.length) {
+      playSources.push({ name: '默认', episodes: filtered });
     }
   }
 
@@ -747,7 +823,7 @@ async function play(params) {
     await OmniBox.log('info', `[唐人街影院][play] playUrl=${playUrl} referer=${referer}`);
     if (!playUrl) return { urls: [], parse: 0 };
     const sniffHeaders = {
-      'User-Agent': USER_AGENT,
+      'User-Agent': pickUserAgent(playUrl),
       'Referer': referer || playUrl,
       'Origin': BASE_URL,
     };

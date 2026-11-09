@@ -51,19 +51,6 @@
     "lastUrl": "https://web5.mukaku.com/prod/api/v1/getVideoDetail?app_id=83768d9ad4&identity=23734adac0301bccdcb107c4aa21f96c&id=38242428"
   },
   {
-    "file": "影视/磁力/磁力熊.js",
-    "verdict": "broken",
-    "step": "category",
-    "steps": [
-      "category",
-      "search",
-      "detail",
-      "play"
-    ],
-    "err": "category: empty list (type_id=imdbtop250)",
-    "lastUrl": "https://www.cilixiong.com/e/search/index.php"
-  },
-  {
     "file": "影视/网盘/AListTvbox.js",
     "verdict": "broken",
     "step": "home",
@@ -166,15 +153,13 @@
   {
     "file": "影视/网盘/欧哥.js",
     "verdict": "broken",
-    "step": "category",
+    "step": "detail",
     "steps": [
-      "category",
-      "search",
       "detail",
       "play"
     ],
-    "err": "category: empty list (type_id=5)",
-    "lastUrl": "https://woog.nxog.eu.org/index.php/vod/detail/id/34597.html"
+    "err": "detail: no playable episodes (sources=0, episodes=0)",
+    "lastUrl": "https://woog.nxog.eu.org/index.php/vod/detail/id/33472.html"
   },
   {
     "file": "影视/网盘/玩偶.js",
@@ -196,7 +181,7 @@
       "play"
     ],
     "err": "detail: no playable episodes (sources=0, episodes=0)",
-    "lastUrl": "http://38.76.197.172:16969/index.php/vod/detail/id/504552.html"
+    "lastUrl": "https://www.wogg.net/voddetail/134043.html"
   },
   {
     "file": "影视/网盘/玩偶聚合.js",
@@ -303,18 +288,6 @@
   {
     "file": "影视/采集/4KMP.js",
     "verdict": "broken",
-    "step": "search",
-    "steps": [
-      "search",
-      "detail",
-      "play"
-    ],
-    "err": "search: empty list for keyword=小兵张嘎",
-    "lastUrl": "https://4k-av.com/movie/008403-zhang-ga-the-soldier-boy/"
-  },
-  {
-    "file": "影视/采集/Auete影视.js",
-    "verdict": "broken",
     "step": "category",
     "steps": [
       "category",
@@ -322,8 +295,8 @@
       "detail",
       "play"
     ],
-    "err": "category: empty list (type_id=Dm)",
-    "lastUrl": "https://auete.top/mipso.php?searchword=%E5%BA%86%E4%BD%99%E5%B9%B4"
+    "err": "category: empty list (type_id=tv)",
+    "lastUrl": "https://4k-av.com/s?y=%E5%BA%86%E4%BD%99%E5%B9%B4"
   },
   {
     "file": "影视/采集/NO视频.js",
@@ -364,19 +337,6 @@
     ],
     "err": "home: empty class list",
     "lastUrl": ""
-  },
-  {
-    "file": "影视/采集/唐人街影院.js",
-    "verdict": "broken",
-    "step": "category",
-    "steps": [
-      "category",
-      "search",
-      "detail",
-      "play"
-    ],
-    "err": "category: empty list (type_id=animation)",
-    "lastUrl": "https://www.trvod.com/vodsearch/-------------.html?wd=%E5%BA%86%E4%BD%99%E5%B9%B4&submit="
   },
   {
     "file": "影视/采集/太二影视.js",
@@ -443,15 +403,13 @@
   },
   {
     "file": "影视/采集/歪比巴卜.js",
-    "verdict": "broken",
+    "verdict": "partial",
     "step": "search",
     "steps": [
-      "search",
-      "detail",
-      "play"
+      "search"
     ],
-    "err": "search: empty list for keyword=老江湖",
-    "lastUrl": "https://wbbb1.com/detail/116031.html"
+    "err": "search: empty list for keyword=敦煌英雄",
+    "lastUrl": "https://xn--qvr2v.850088.xyz/player/api.php"
   },
   {
     "file": "影视/采集/毒舌影视.js",
@@ -490,7 +448,7 @@
       "play"
     ],
     "err": "category: empty list (type_id=4)",
-    "lastUrl": "https://pianku.pro/index.php/verify/index.html?type=search&t=1794230445323"
+    "lastUrl": "https://pianku.pro/index.php/verify/index.html?type=search&t=1794232026947"
   },
   {
     "file": "影视/采集/荐片.js",
@@ -505,6 +463,16 @@
     ],
     "err": "home: empty class list",
     "lastUrl": ""
+  },
+  {
+    "file": "影视/采集/金牌.js",
+    "verdict": "partial",
+    "step": "search",
+    "steps": [
+      "search"
+    ],
+    "err": "search: empty list for keyword=杀或救",
+    "lastUrl": "https://m.jiabaide.cn/api/mw-movie/anonymous/v2/video/episode/url?clientType=3&id=147973&nid=1328642"
   },
   {
     "file": "流媒体/Jellyfin.js",
@@ -566,7 +534,7 @@
     "steps": [
       "search"
     ],
-    "err": "search: empty list for keyword=森亿家居正在直播",
+    "err": "search: empty list for keyword=时代荣光正在直播",
     "lastUrl": "https://live.douyin.com/webcast/room/web/enter/?aid=6383&app_name=douyin_web&live_id=1&device_platform=web&enter_from=web_live&browser_language=zh-CN&browser_platform=Win32&browser_name=Chrome&browser"
   },
   {
@@ -576,8 +544,8 @@
     "steps": [
       "search"
     ],
-    "err": "search: empty list for keyword=粤语学习",
-    "lastUrl": "https://www.douyu.com/lapi/live/getH5PlayV1/11878141"
+    "err": "search: empty list for keyword=二营长你的意大利炮呢~开",
+    "lastUrl": "https://www.douyu.com/lapi/live/getH5PlayV1/431460"
   },
   {
     "file": "短剧/短剧粉.js",

@@ -26,7 +26,15 @@ function curlRaw(url, cfg) {
   const htmp = path.join(os.tmpdir(), "axc-" + process.pid + "-" + seq + ".hdr");
   const timeout = Number(cfg.timeout || 20000);
   const args = ["-sS", "-L", "--compressed", "--max-time", String(Math.ceil(timeout / 1000)), "-o", tmp, "-D", htmp, "-w", "%{http_code}", "-X", String(cfg.method || "GET").toUpperCase()];
-  const hdrs = cfg.headers || {};
+  // Windows 自带 curl 是 Schannel 构建，常常没有 brotli：只要请求里声明了 Accept-Encoding: br，
+  // Cloudflare 就会回 br 正文，curl 报 "Unrecognized content encoding type" 并留下 0 字节文件
+  // （但 -w 仍打印 200，看起来像"空页面"）。统一改写为 gzip, deflate。
+  const hdrs = {};
+  for (const [k, v] of Object.entries(cfg.headers || {})) {
+    if (v == null || /^accept-encoding$/i.test(k)) continue;
+    hdrs[k] = v;
+  }
+  hdrs["Accept-Encoding"] = "gzip, deflate";
   for (const [k, v] of Object.entries(hdrs)) if (v != null) args.push("-H", k + ": " + v);
   if (cfg.data != null) args.push("--data-raw", typeof cfg.data === "string" ? cfg.data : JSON.stringify(cfg.data));
   args.push(url);

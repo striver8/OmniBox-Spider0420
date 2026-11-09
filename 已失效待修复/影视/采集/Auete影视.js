@@ -3,6 +3,7 @@
 // @description 刮削：不支持，弹幕：不支持，嗅探：不支持，支持站内直链播放
 // @version 1.0.2
 // @downloadURL https://gh-proxy.org/https://github.com/Silent1566/OmniBox-Spider/raw/refs/heads/main/影视/采集/Auete影视.js
+// @status dead | PARKED | 原域名 auete.top 已被域名停放商（ParkLogic）接管（2026-11-09 逐站复核）——换源后需重写解析
 
 const OmniBox = require("omnibox_sdk");
 const runner = require("spider_runner");
