@@ -7,7 +7,7 @@
   },
   {
     "file": "Emby/模板二.js",
-    "verdict": "broken",
+    "verdict": "config",
     "siteCls": "NO_HOST",
     "host": ""
   },
@@ -67,7 +67,7 @@
   },
   {
     "file": "影视/影视库/影视库.js",
-    "verdict": "broken",
+    "verdict": "unverifiable",
     "siteCls": "NO_HOST",
     "host": ""
   },
@@ -85,7 +85,7 @@
   },
   {
     "file": "影视/网盘/AListTvbox.js",
-    "verdict": "broken",
+    "verdict": "config",
     "siteCls": "NO_HOST",
     "host": ""
   },
@@ -109,61 +109,61 @@
   },
   {
     "file": "影视/网盘/多多.js",
-    "verdict": "broken",
+    "verdict": "unverifiable",
     "siteCls": "CHALLENGE",
     "host": "https://tv.yydsys.top/"
   },
   {
     "file": "影视/网盘/影巢.js",
-    "verdict": "broken",
+    "verdict": "config",
     "siteCls": "NO_HOST",
     "host": ""
   },
   {
     "file": "影视/网盘/快映.js",
-    "verdict": "broken",
+    "verdict": "unverifiable",
     "siteCls": "ALIVE",
     "host": "http://38.76.197.172:12521/"
   },
   {
     "file": "影视/网盘/木偶.js",
-    "verdict": "broken",
+    "verdict": "unverifiable",
     "siteCls": "ALIVE",
     "host": "https://123.666291.xyz/"
   },
   {
     "file": "影视/网盘/欧哥.js",
-    "verdict": "broken",
+    "verdict": "unverifiable",
     "siteCls": "ALIVE",
     "host": "https://woog.nxog.eu.org/"
   },
   {
     "file": "影视/网盘/玩偶.js",
-    "verdict": "broken",
+    "verdict": "unverifiable",
     "siteCls": "ALIVE",
     "host": "https://www.wogg.net/"
   },
   {
     "file": "影视/网盘/玩偶聚合-非分组.js",
-    "verdict": "broken",
+    "verdict": "unverifiable",
     "siteCls": "ALIVE",
     "host": "https://www.wogg.net/"
   },
   {
     "file": "影视/网盘/玩偶聚合.js",
-    "verdict": "broken",
+    "verdict": "unverifiable",
     "siteCls": "ALIVE",
     "host": "https://www.wogg.net/"
   },
   {
     "file": "影视/网盘/盘搜.js",
-    "verdict": "broken",
+    "verdict": "config",
     "siteCls": "NO_HOST",
     "host": ""
   },
   {
     "file": "影视/网盘/盘搜分组.js",
-    "verdict": "broken",
+    "verdict": "config",
     "siteCls": "NO_HOST",
     "host": ""
   },
@@ -181,7 +181,7 @@
   },
   {
     "file": "影视/网盘/虎斑.js",
-    "verdict": "broken",
+    "verdict": "unverifiable",
     "siteCls": "ALIVE",
     "host": "http://38.76.197.172:16969/"
   },
@@ -211,7 +211,7 @@
   },
   {
     "file": "影视/采集/3Q影视.js",
-    "verdict": "ok",
+    "verdict": "partial",
     "siteCls": "UNKNOWN",
     "host": "https://dduotv01.top/"
   },
@@ -529,7 +529,7 @@
   },
   {
     "file": "流媒体/飞牛.js",
-    "verdict": "broken",
+    "verdict": "config",
     "siteCls": "NO_HOST",
     "host": ""
   },

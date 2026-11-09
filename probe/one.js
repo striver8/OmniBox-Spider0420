@@ -24,7 +24,20 @@ function errStr(e) {
   return String(m).replace(/\s+/g, " ").slice(0, 400);
 }
 function arr(x) { return Array.isArray(x) ? x : []; }
-const UNSUPPORTED = /unavailable|not implemented|probe: .*stub/i;
+// 宿主 SDK 才有的能力（网盘取文件列表 / 媒体库）在探针里只能用桩，脚本多半会 catch 住错误
+// 并返回空结果，所以除了错误文本本身，还要扫它写进 __logs 的日志才能判出"不可验证"。
+const UNSUPPORTED = /unavailable|not implemented|probe: .*stub|listMediaItems|is not a function|getDriveFileList|getDriveVideoPlayInfo|getDriveVideoList|getDriveInfoByShareURL|网盘接口/i;
+const DRIVE_LOG = /getDriveFileList|getDriveVideoPlayInfo|getDriveVideoList|getDriveInfoByShareURL|listMediaItems|unavailable|not a function/i;
+// 需要用户先填配置（服务器地址 / token / API KEY）才能跑的脚本，不算"失效"，单独归类。
+const CONFIG_REQUIRED = /配置缺失|请先填写|请先设置|请先在|未配置|FEINIU_HOST|ALIST_[A-Z_]+|TMDB_KEY|EMBY_[A-Z_]+/i;
+// 脚本源码本身就把后端指向本机服务（如 alist-tvbox 的 127.0.0.1:4567）或留空的 env 变量，
+// 在没有对应服务/配置的环境里必然空列表 —— 这类要在源码层面识别。
+const NEEDS_LOCAL_SERVICE = /process\.env\.[A-Z0-9_]+(?:\s*\|\|\s*process\.env\.[A-Z0-9_]+)?\s*\|\|\s*["'`]https?:\/\/(?:127\.0\.0\.1|localhost)[^"'`]*["'`]/;
+// 只认"后端地址类"的 env 变量（_API/_HOST/_URL/... 且默认留空）；Cookie/Token 之类不算，
+// 否则会把"站点已停运但需要填 cookie"的脚本误判成配置型。
+// NOTE: 弹幕接口 `DANMU_API = process.env.DANMU_API || ""` 几乎每个脚本都有，属可选增强，
+//       必须排除，不然任何失败脚本都会被误判成"没填配置"。
+const NEEDS_ENV_VAR = /process\.env\.(?!DANMU)[A-Z0-9_]*(?:_API|_HOST|_URL|_ENDPOINT|_SERVER|_DOMAIN|_BASE|_TOKEN|_KEY)\s*(?:\|\|\s*process\.env\.[A-Z0-9_]+)?\s*\|\|\s*["'`]{2}/;
 
 async function step(name, fn) {
   const t0 = Date.now();
@@ -34,8 +47,20 @@ async function step(name, fn) {
     return true;
   } catch (e) {
     const msg = errStr(e);
-    const bad = UNSUPPORTED.test(msg);
-    out.steps[name] = { ok: false, ms: Date.now() - t0, err: msg, unsupported: bad };
+    let bad = UNSUPPORTED.test(msg);
+    let logHint = "";
+    if (!bad) {
+      // 扫描脚本自己写下的日志：命中网盘/媒体库桩的报错也算"探针不可验证"。
+      try {
+        const logs = require(path.join(__dirname, "shims", "omnibox_sdk", "index.js")).__logs || [];
+        const hits = logs.slice(-60).map((l) => `${l[0]}:${l[1]}`).filter((t) => DRIVE_LOG.test(t));
+        if (hits.length) {
+          logHint = hits.slice(-2).join(" | ").slice(0, 240);
+          if (/unavailable|not a function|getDrive|listMediaItems/.test(logHint)) bad = true;
+        }
+      } catch (_) {}
+    }
+    out.steps[name] = { ok: false, ms: Date.now() - t0, err: msg, unsupported: bad, logHint: logHint || undefined };
     return false;
   }
 }
@@ -87,6 +112,13 @@ function keywordVariants(base, pool) {
     return;
   }
   out.loadOk = true;
+  // 源码层面的"配置型"判定：后端指向本机服务，或关键 env 变量留空默认值。
+  try {
+    const src = require("fs").readFileSync(abs, "utf8");
+    out.needsLocalService = NEEDS_LOCAL_SERVICE.test(src);
+    out.needsEnvVar = NEEDS_ENV_VAR.test(src);
+    out.needsConfig = out.needsLocalService || out.needsEnvVar;
+  } catch (_) {}
   const runnerMod = require("spider_runner");
   const registered = (typeof runnerMod.getHandlers === "function" && runnerMod.getHandlers()) || global.__SPIDER_HANDLERS;
   if (registered && Object.keys(registered).length) mod = registered;
@@ -105,7 +137,7 @@ function keywordVariants(base, pool) {
       home = await mod.home({}, ctx);
       const cls = arr(home && home.class);
       if (!cls.length) throw new Error("home: empty class list");
-      return { class: cls.length, list: arr(home.list).length, filters: Object.keys((home && home.filters) || {}).length, banner: arr(home && home.banner).length };
+      return { class: cls.length, list: arr(home.list).length, homeListEmpty: arr(home.list).length === 0, filters: Object.keys((home && home.filters) || {}).length, banner: arr(home && home.banner).length };
     });
   }
 
@@ -132,7 +164,8 @@ function keywordVariants(base, pool) {
       lastErr = out.steps.category.err;
     }
     if (!ok) {
-      out.steps.category = { ok: false, ms: out.steps.category ? out.steps.category.ms : 0, err: lastErr, tried };
+      const prev = out.steps.category || {};
+      out.steps.category = { ok: false, ms: prev.ms || 0, err: lastErr, tried, unsupported: prev.unsupported, logHint: prev.logHint };
     } else {
       out.steps.category.note.tried = tried;
     }
@@ -163,8 +196,8 @@ function keywordVariants(base, pool) {
       }
     }
     if (!ok) {
-      const ms = out.steps.search ? out.steps.search.ms : 0;
-      out.steps.search = { ok: false, ms, err: `search: empty list for tried=${attempts.join(" / ")}`, tried: attempts };
+      const prev = out.steps.search || {};
+      out.steps.search = { ok: false, ms: prev.ms || 0, err: `search: empty list for tried=${attempts.join(" / ")}`, tried: attempts, unsupported: prev.unsupported, logHint: prev.logHint };
     }
   }
 
@@ -203,10 +236,31 @@ function keywordVariants(base, pool) {
   const failed = (k) => s[k] && !s[k].ok;
   const hard = (k) => failed(k) && !s[k].unsupported;
   const soft = (k) => failed(k) && s[k].unsupported;
+  const cfg = (k) => failed(k) && CONFIG_REQUIRED.test(String(s[k].err || ""));
+  // 站点的网络层是否已经不正常（连不上 / 5xx）。这种情况即使脚本读 env 变量，也是站点故障而不是"没填配置"。
+  const reqs = (() => {
+    let all = [];
+    try { all = all.concat(require(path.join(__dirname, "shims", "omnibox_sdk", "index.js")).__reqs || []); } catch (_) {}
+    // 走 axios 的脚本由 probe/axios-patch.js 记录（transport=axios），不并进来会漏判网络故障。
+    try { all = all.concat(require("./axios-patch").REQS || []); } catch (_) {}
+    return all;
+  })();
+  const netDead = reqs.some((r) => {
+    const st = Number(r.status || 0);
+    const u = String(r.url || "");
+    return !/127\.0\.0\.1|localhost/.test(u) && (st === 0 || st >= 400);
+  });
+  // home 只要返回非空 class 就算通过，但很多死站会吐硬编码分类却不给任何条目（list=0）
+  out.homeEmptyList = !!(s.home && s.home.ok && s.home.note && s.home.note.homeListEmpty);
   if (!out.loadOk) out.verdict = "broken";
+  else if (cfg("home") || cfg("category")) out.verdict = "config";
+  // 判为"配置型"的前提：脚本因为缺配置**根本没发出请求**（reqs=0）。一旦它真的请求了外站
+  // 又拿不到数据，那就是站点问题，不能赖到配置头上（否则会把 403/522 的死站误标成"没填配置"）。
+  else if (!netDead && reqs.length === 0 && out.needsConfig && (hard("home") || hard("category"))) out.verdict = "config";
   else if (hard("home") || hard("category")) out.verdict = "broken";
   else if (hard("detail")) out.verdict = "broken";
   else if (soft("detail") || soft("play")) out.verdict = "unverifiable";
+  else if (soft("category") || soft("home")) out.verdict = "unverifiable";
   else if (hard("search") || hard("play")) out.verdict = "partial";
   else out.verdict = "ok";
   emit();

@@ -601,3 +601,27 @@ GET https://interface.yy.com/hls/new/get/<rid>/<rid>/<quality>?source=wapyy&call
 2. **408 不触发 curl 降级**：`BLOCK_CODES` 原本是 `[403,429,451,503]`，而 Xcdn 类中间件对 Node TLS 回的是 **408 + Bot detection**，于是探针一直走 fetch 通道、拿不到 curl/Schannel 能过的响应。现已把 408 纳入降级条件。
 
 两处改动后全量复跑（`PROBE_CONC=12 node probe/run.js`，187s）：**ok=60 / partial=0 / broken=41**，与改动前一致（无回归）。
+
+## 三十八、探针判定口径升级（v3）：把"失效"与"探针不可验证 / 未填配置"分开
+
+此前全量报告把 41 条脚本一律记为 `broken`，其中相当一部分其实不是脚本坏了，而是**本地探针给不了宿主才有的能力**，或者**用户必须先填配置**。这会让 operator 误判、甚至误删能用的脚本。本轮把判定口径拆细，并落地到 `probe/one.js` + `probe/gen-report.js` + `probe/run.js`。
+
+**新增两种判定**
+
+| 判定 | 含义 | 判定依据 |
+| --- | --- | --- |
+| `unverifiable` | 只在依赖宿主 SDK 的环节失败 | 失败步骤的异常文本或脚本自己写进 `__logs` 的日志命中 `getDriveFileList` / `getDriveVideoPlayInfo` / `listMediaItems` / `unavailable` / `is not a function`。典型：9 个 `影视/网盘/*`（取 115/夸克分享目录）与 `影视/影视库/影视库.js`（媒体库接口） |
+| `config` | 没填配置导致的"空"，不是站点故障 | ①错误文本命中 `配置缺失 / 请先填写 / FEINIU_HOST / …`；或②源码里后端地址直接指向本机服务（`process.env.X \|\| "http://127.0.0.1:4567"` 这类），或"后端地址类" env 变量默认留空（`*_API/_HOST/_URL/_BASE/_TOKEN/_KEY`），**且本轮一次外网请求都没发出去**（`reqs.length === 0`） |
+
+**踩过的坑（判据收紧过程）**
+
+1. `config` 一开始只看源码里的空 env 默认值，结果把 `哇哇影视 / 永乐视频 / 荐片` 这类死站也标成"配置型" —— 因为它们都有一行 `const DANMU_API = process.env.DANMU_API || ""`（弹幕接口，几乎每个脚本都有）。现在用负向断言 `(?!DANMU)` 排除，并且要求"没有发出任何请求"。
+2. 反过来也不能把死站赖给配置：`蜗牛4K`（`zmi.kdns.fr` 522）、`聚盘搜索`（`ppan.dyuzi.com` 403）、`七味`（`pcmp4.com` 403）、`片库`（`pianku.pro` 403）都会读 env 变量，但**确实发出了请求且拿到 4xx/5xx**，因此维持 `broken`。
+3. 判"网络已死"时必须**同时统计 axios 通道**：`probe/axios-patch.js` 自己维护 `REQS`（`transport: axios`），早先只读 shim 的 `__reqs` 会漏掉用 axios 的脚本（蜗牛4K 就是这样被误判成 config 的）。
+4. 多个 `Set-Cookie` 只留最后一条（第三十七节）与 408 不降级这两个 shim 缺陷同源，都会造成假阴性 —— 已一并修复。
+
+**执行顺序（必须遵守）**：先全量 `node probe/run.js`（单脚本跑会覆盖 `probe/report.json`）→ `cp probe/report.json probe/report-merged.json` → `node probe/gen-drift.js` → `node probe/gen-report.js`。
+
+**本轮全量结果（101 个 active 脚本）**：`ok=58 / partial=2 / unverifiable=9 / config=6 / broken=26`。对照上一版口径（`ok=59 / partial=1 / broken=41`）可见：**原先 41 条"失效"里有 15 条属于探针能力边界或未配置，并非脚本缺陷**。
+
+**剩余的 26 条 `broken` 已逐站复核过**，均为站点级问题：站点改版为 SPA/改接口（`毒舌影视` 仍受 IP 级 WAF 限流、`枝枝影视` CF Turnstile 需 FlareSolverr 环境）、域名/源站死亡（`枫叶`/`枫叶4K`/`柯南影视`/`永乐视频`/`片库`/`荐片`/`4KMP`/`NO视频`/`七味`/`剧迷115`/`蜗牛4K`/`闪电`/`聚盘搜索`）、后端 502（`枫叶音乐`）、CF 522（`枫叶` 系）、以及两个模板/示例文件（`Emby/模板一.js`）。

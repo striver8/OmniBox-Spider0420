@@ -36,6 +36,8 @@ for (const r of REPORT_LIST) {
   let action = "无需处理";
   if (r.verdict === "broken") action = "修复或移入 已失效待修复/";
   else if (r.verdict === "partial") action = "修复单点（仅该步骤失效）";
+  else if (r.verdict === "unverifiable") action = "须在 OmniBox 内实测（依赖宿主 SDK：网盘/媒体库）";
+  else if (r.verdict === "config") action = "配置型脚本，填好环境变量即可用";
   else if (r.verdict === "ok") action = "无需处理";
   if (c && c.siteCls === "DNS_DEAD") action = "换域名或判死";
   if (c && c.siteCls === "PARKED") action = "域名已出售，判死";
@@ -45,13 +47,13 @@ for (const r of REPORT_LIST) {
   rows.push({ file: r.file, verdict: r.verdict, step, err, site: c && c.siteCls, host: c && c.host, action, reqs: r.reqs || [] });
 }
 
-const byVerdict = { ok: [], partial: [], broken: [] };
+const byVerdict = { ok: [], partial: [], broken: [], unverifiable: [], config: [] };
 for (const row of rows) (byVerdict[row.verdict] || (byVerdict[row.verdict] = [])).push(row);
 
 const dirCount = {};
 for (const row of rows) {
   const dir = row.file.split("/")[0];
-  dirCount[dir] = dirCount[dir] || { ok: 0, partial: 0, broken: 0 };
+  dirCount[dir] = dirCount[dir] || { ok: 0, partial: 0, broken: 0, unverifiable: 0, config: 0 };
   dirCount[dir][row.verdict] = (dirCount[dir][row.verdict] || 0) + 1;
 }
 
@@ -63,24 +65,25 @@ md.push("");
 md.push(`- 生成时间：${new Date().toISOString().replace("T", " ").slice(0, 19)} UTC`);
 md.push(`- 基线提交：${process.env.BASE_COMMIT || "05098f0"}`);
 md.push(`- 探活范围：${rows.length} 个可运行脚本（含 runner.run 的 .js）`);
-md.push(`- 判定口径：home/category/detail 任一硬失败 = 失效；只有 search 或 play 失败 = 部分可用；仅因本地 shim 缺少网盘 API 的记为需实测`);
+md.push(`- 判定口径：home/category/detail 任一硬失败 = 失效；只有 search 或 play 失败 = 部分可用；依赖宿主 SDK（网盘/媒体库）而本地用桩的记为"需在宿主实测"；未填配置的记为"配置型"`);
 md.push("");
 md.push("## 一、总体结论");
 md.push("");
 md.push("| 状态 | 数量 | 占比 |");
 md.push("| --- | --- | --- |");
 const total = rows.length;
-for (const k of ["ok", "partial", "broken"]) {
-  md.push(`| ${k === "ok" ? "正常" : k === "partial" ? "部分可用" : "失效"} | ${byVerdict[k].length} | ${((byVerdict[k].length / total) * 100).toFixed(1)}% |`);
+const VERDICT_LABEL = { ok: "正常", partial: "部分可用", broken: "失效", unverifiable: "需在宿主实测", config: "配置型（未填配置）" };
+for (const k of ["ok", "partial", "unverifiable", "config", "broken"]) {
+  md.push(`| ${VERDICT_LABEL[k]} | ${byVerdict[k].length} | ${((byVerdict[k].length / total) * 100).toFixed(1)}% |`);
 }
 md.push("");
 md.push("### 按目录");
 md.push("");
-md.push("| 目录 | 正常 | 部分可用 | 失效 |");
-md.push("| --- | --- | --- | --- |");
+md.push("| 目录 | 正常 | 部分可用 | 需宿主实测 | 配置型 | 失效 |");
+md.push("| --- | --- | --- | --- | --- | --- |");
 for (const dir of Object.keys(dirCount).sort()) {
   const c = dirCount[dir];
-  md.push(`| ${dir} | ${c.ok || 0} | ${c.partial || 0} | ${c.broken || 0} |`);
+  md.push(`| ${dir} | ${c.ok || 0} | ${c.partial || 0} | ${c.unverifiable || 0} | ${c.config || 0} | ${c.broken || 0} |`);
 }
 md.push("");
 md.push("## 二、失效原因分布");
@@ -123,6 +126,8 @@ md.push("## 三、明细");
 md.push("");
 table("失效（broken）", byVerdict.broken, "home/category/detail 存在硬失败，脚本当前不可用。");
 table("部分可用（partial）", byVerdict.partial, "主体可用，仅某一环节（多为搜索或播放）失效。");
+table("需在宿主实测（unverifiable）", byVerdict.unverifiable, "失败只发生在依赖宿主 SDK 的环节（网盘 `getDriveFileList` / 媒体库 `listMediaItems`），本地探针用桩代替，不能据此判死。");
+table("配置型（config）", byVerdict.config, "脚本要求先填环境变量（服务器地址 / Token / API Key），未填即返回空，属于预期行为。");
 md.push(`### 正常（ok，${byVerdict.ok.length}）`);
 md.push("");
 md.push(byVerdict.ok.map((r) => r.file).join("、"));
@@ -173,4 +178,4 @@ if (fs.existsSync(evidencePath)) {
 
 fs.writeFileSync(path.join(ROOT, "维护报告.md"), md.join("\n"));
 console.log("wrote 维护报告.md", md.join("\n").length, "chars");
-console.log(byVerdict.ok.length, byVerdict.partial.length, byVerdict.broken.length);
+console.log(byVerdict.ok.length, byVerdict.partial.length, byVerdict.broken.length, "unverifiable=" + byVerdict.unverifiable.length, "config=" + byVerdict.config.length);

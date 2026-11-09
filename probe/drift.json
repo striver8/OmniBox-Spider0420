@@ -1,7 +1,7 @@
 [
   {
     "file": "Emby/模板二.js",
-    "verdict": "broken",
+    "verdict": "config",
     "step": "home",
     "steps": [
       "home",
@@ -15,7 +15,7 @@
   },
   {
     "file": "影视/影视库/影视库.js",
-    "verdict": "broken",
+    "verdict": "unverifiable",
     "step": "category",
     "steps": [
       "category",
@@ -39,7 +39,7 @@
   },
   {
     "file": "影视/网盘/AListTvbox.js",
-    "verdict": "broken",
+    "verdict": "config",
     "step": "home",
     "steps": [
       "home",
@@ -92,7 +92,7 @@
   },
   {
     "file": "影视/网盘/多多.js",
-    "verdict": "broken",
+    "verdict": "unverifiable",
     "step": "detail",
     "steps": [
       "detail",
@@ -103,7 +103,7 @@
   },
   {
     "file": "影视/网盘/影巢.js",
-    "verdict": "broken",
+    "verdict": "config",
     "step": "home",
     "steps": [
       "home",
@@ -117,18 +117,18 @@
   },
   {
     "file": "影视/网盘/快映.js",
-    "verdict": "broken",
+    "verdict": "unverifiable",
     "step": "detail",
     "steps": [
       "detail",
       "play"
     ],
     "err": "detail: no playable episodes (sources=0, episodes=0)",
-    "lastUrl": "http://38.76.197.172:12521/index.php/vod/detail/id/465933.html"
+    "lastUrl": "http://38.76.197.172:12521/index.php/vod/detail/id/513194.html"
   },
   {
     "file": "影视/网盘/木偶.js",
-    "verdict": "broken",
+    "verdict": "unverifiable",
     "step": "detail",
     "steps": [
       "detail",
@@ -139,7 +139,7 @@
   },
   {
     "file": "影视/网盘/欧哥.js",
-    "verdict": "broken",
+    "verdict": "unverifiable",
     "step": "detail",
     "steps": [
       "detail",
@@ -150,7 +150,7 @@
   },
   {
     "file": "影视/网盘/玩偶.js",
-    "verdict": "broken",
+    "verdict": "unverifiable",
     "step": "detail",
     "steps": [
       "detail",
@@ -161,18 +161,18 @@
   },
   {
     "file": "影视/网盘/玩偶聚合-非分组.js",
-    "verdict": "broken",
+    "verdict": "unverifiable",
     "step": "detail",
     "steps": [
       "detail",
       "play"
     ],
     "err": "detail: no playable episodes (sources=0, episodes=0)",
-    "lastUrl": "http://38.76.197.172:12521/index.php/vod/detail/id/513488.html"
+    "lastUrl": "https://www.wogg.net/voddetail/134244.html"
   },
   {
     "file": "影视/网盘/玩偶聚合.js",
-    "verdict": "broken",
+    "verdict": "unverifiable",
     "step": "detail",
     "steps": [
       "detail",
@@ -183,7 +183,7 @@
   },
   {
     "file": "影视/网盘/盘搜.js",
-    "verdict": "broken",
+    "verdict": "config",
     "step": "category",
     "steps": [
       "category",
@@ -196,7 +196,7 @@
   },
   {
     "file": "影视/网盘/盘搜分组.js",
-    "verdict": "broken",
+    "verdict": "config",
     "step": "category",
     "steps": [
       "category",
@@ -235,14 +235,14 @@
   },
   {
     "file": "影视/网盘/虎斑.js",
-    "verdict": "broken",
+    "verdict": "unverifiable",
     "step": "detail",
     "steps": [
       "detail",
       "play"
     ],
     "err": "detail: no playable episodes (sources=0, episodes=0)",
-    "lastUrl": "http://38.76.197.172:16969/index.php/vod/detail/id/504633.html"
+    "lastUrl": "http://38.76.197.172:16969/index.php/vod/detail/id/504184.html"
   },
   {
     "file": "影视/网盘/蜗牛4K.js",
@@ -271,6 +271,16 @@
     ],
     "err": "home: empty class list",
     "lastUrl": "https://sd.sduc.site/index.php/vod/search/page/1/wd/庆余年.html"
+  },
+  {
+    "file": "影视/采集/3Q影视.js",
+    "verdict": "partial",
+    "step": "play",
+    "steps": [
+      "play"
+    ],
+    "err": "play: empty urls",
+    "lastUrl": "https://dduotv01.top/api.php/web/decode/url"
   },
   {
     "file": "影视/采集/4KMP.js",
@@ -381,28 +391,14 @@
   {
     "file": "影视/采集/歪比巴卜.js",
     "verdict": "broken",
-    "step": "category",
+    "step": "search",
     "steps": [
-      "category",
       "search",
       "detail",
       "play"
     ],
-    "err": "category: empty list (type_id=4)",
-    "lastUrl": "https://wbbb1.com/search/-------------.html?wd=%E5%BA%86%E4%BD%99%E5%B9%B4"
-  },
-  {
-    "file": "影视/采集/毒舌影视.js",
-    "verdict": "broken",
-    "step": "category",
-    "steps": [
-      "category",
-      "search",
-      "detail",
-      "play"
-    ],
-    "err": "category: empty list (type_id=4)",
-    "lastUrl": "https://m.xnhrsb.com/__xcdn/captcha/api/verify"
+    "err": "search: empty list for tried=老江湖 / 敦煌英雄 / 空枪 / 痴迷 / 一英里 / 双妻之劫",
+    "lastUrl": "https://wbbb1.com/detail/116031.html"
   },
   {
     "file": "影视/采集/永乐视频.js",
@@ -428,7 +424,7 @@
       "play"
     ],
     "err": "category: empty list (type_id=4)",
-    "lastUrl": "https://pianku.pro/index.php/verify/index.html?type=search&t=1794240633525"
+    "lastUrl": "https://pianku.pro/index.php/verify/index.html?type=search&t=1794242016384"
   },
   {
     "file": "影视/采集/荐片.js",
@@ -474,7 +470,7 @@
   },
   {
     "file": "流媒体/飞牛.js",
-    "verdict": "broken",
+    "verdict": "config",
     "step": "home",
     "steps": [
       "home",
@@ -493,8 +489,8 @@
     "steps": [
       "search"
     ],
-    "err": "search: empty list for tried=平安顺遂~~~ / 平安顺遂 / 粤语学习 / 弹幕天团 / 一起来看剧啦！",
-    "lastUrl": "https://www.douyu.com/lapi/live/getH5PlayV1/74374"
+    "err": "search: empty list for tried=弹幕天团 / 一起来看剧啦！ / 平安顺遂~~~ / 粤语学习",
+    "lastUrl": "https://www.douyu.com/lapi/live/getH5PlayV1/5908256"
   },
   {
     "file": "短剧/短剧粉.js",

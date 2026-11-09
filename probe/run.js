@@ -74,5 +74,7 @@ function runOne(rel) {
   const ok = results.filter((r) => r.verdict === "ok").length;
   const partial = results.filter((r) => r.verdict === "partial").length;
   const broken = results.filter((r) => r.verdict === "broken").length;
-  console.log(`\n[probe] done in ${((Date.now() - t0) / 1000).toFixed(0)}s  ok=${ok} partial=${partial} broken=${broken}`);
+  const unverifiable = results.filter((r) => r.verdict === "unverifiable").length;
+  const config = results.filter((r) => r.verdict === "config").length;
+  console.log(`\n[probe] done in ${((Date.now() - t0) / 1000).toFixed(0)}s  ok=${ok} partial=${partial} broken=${broken} unverifiable=${unverifiable} config=${config}`);
 })();
