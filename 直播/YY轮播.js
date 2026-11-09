@@ -1,8 +1,8 @@
 // @name YY轮播
 // @author 
-// @description 
+// @description 刮削：支持，弹幕：不支持，嗅探：支持，接口：YY 站点 apiSearch 直播间搜索（补回原空实现）+ hls 逐档降级取流
 // @dependencies: axios
-// @version 1.1.0
+// @version 1.2.0
 // @downloadURL https://gh-proxy.org/https://github.com/Silent1566/OmniBox-Spider/raw/refs/heads/main/直播/YY轮播.js
 
 const axios = require("axios");
@@ -561,8 +561,112 @@ async function category(params) {
     };
 }
 
+/**
+ * 探测房间当前是否真的在推流。
+ * 实测：在播房间 -> {"code":0,"width":1088,"audio":"xa_...","video":"xv_...","hls":"https://sslproxy.yy.com:4443/..."}
+ *       下播/占位房间 -> {"code":0,"width":0,"audio":"","video":"","height":0}（无 hls 字段）
+ *       改用 uid/yynum 去查则是 {"code":0,"hls":"https://google.com/"}（占位哨兵值，同样视为不可播）
+ */
+async function isRoomStreaming(sid) {
+    try {
+        const url = `https://interface.yy.com/hls/new/get/${sid}/${sid}/2500?source=wapyy&callback=jsonp3`;
+        const res = await axios.get(url, {
+            headers: {
+                "Referer": "https://wap.yy.com/",
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+            },
+            timeout: 4000
+        });
+        const match = String(res.data).match(/jsonp3\(([\s\S]*?)\)/);
+        if (!match || !match[1]) return false;
+        const json = JSON.parse(match[1]);
+        if (!json.hls) return false;
+        if (/^https?:\/\/(www\.)?google\.com/i.test(json.hls)) return false;
+        return true;
+    } catch (e) {
+        return false;
+    }
+}
+
+/**
+ * 复用站点搜索接口拉取直播间文档。
+ * https://www.yy.com/apiSearch/doSearch.json?q=<kw>&t=120&n=<页码>&s=0
+ * 返回 searchResult.response['120'] = { docs:[{sid,ssid,uid,yynum,name,channelName,liveOn,posterurl,headurl,...}], numFound }
+ * 实测：n 是页码（n=1/2 返回不同批次），s 被忽略，每页 16 条。
+ * 注意：接口的 name 字段对轮播频道一律返回「YY用户」，真正的频道名在 channelName。
+ */
+async function fetchSearchDocs(keyword, page = 1) {
+    const n = Math.max(1, parseInt(page) || 1);
+    const url = `https://www.yy.com/apiSearch/doSearch.json?q=${encodeURIComponent(keyword)}&t=120&n=${n}&s=0`;
+    try {
+        const res = await axios.get(url, {
+            headers: {
+                'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+                'Referer': `https://www.yy.com/search?target=${encodeURIComponent(keyword)}&type=120`,
+                'Cookie': FAKE_COOKIE,
+                'Accept': 'application/json, text/plain, */*'
+            },
+            timeout: SEARCH_TIMEOUT
+        });
+        const bucket = res?.data?.data?.searchResult?.response?.['120'];
+        const docs = Array.isArray(bucket?.docs) ? bucket.docs : [];
+        const total = parseInt(bucket?.numFound) || docs.length;
+        return { docs, total, pageSize: 16 };
+    } catch (e) {
+        log(`搜索失败: ${e.message}`);
+        return { docs: [], total: 0, pageSize: 16 };
+    }
+}
+
+/**
+ * 搜索 - 走站点 apiSearch 直播间搜索（原实现是空桩，直接 return {list:[]}）
+ * vod_id 采用 `${sid}|||${封面}|||${名称}` 复合形式，detail 可直接复用封面与名称，
+ * 避免二次搜索（旧的 detail 只能靠 ID_NAME_MAP 猜名字）。
+ */
 async function search(params) {
-    return { list: [] };
+    const keyword = String(params.keyword || params.wd || '').trim();
+    const page = Math.max(1, parseInt(params.page) || 1);
+    if (!keyword) {
+        return { list: [], page, pagecount: 1, total: 0 };
+    }
+
+    const { docs, total, pageSize } = await fetchSearchDocs(keyword, page);
+    const list = [];
+    const seen = new Set();
+    for (const doc of docs) {
+        const sid = String(doc.sid || doc.ssid || doc.uid || '').trim();
+        if (!sid || seen.has(sid)) continue;
+        // 只保留在播房间；接口偶尔会把下播房间也带回来
+        if (doc.liveOn !== undefined && String(doc.liveOn) !== '1') continue;
+        seen.add(sid);
+        const pic = doc.posterurl || doc.headurl || DEFAULT_PIC;
+        const rawName = String(doc.name || '').trim();
+        const name = (rawName && rawName !== 'YY用户' ? rawName : '') || doc.channelName || `YY直播:${sid}`;
+        list.push({
+            vod_id: `${sid}|||${pic}|||${name}`,
+            vod_name: name,
+            vod_pic: pic,
+            vod_remarks: doc.channelName ? `直播中 · ${doc.channelName}` : '直播中',
+            _sid: sid
+        });
+    }
+
+    // 站点的"轮播频道"很多是空壳（liveOn=1 但没有推流，hls 接口回 {"width":0}），
+    // 直接把这类排在后面，避免用户点进去播不出来。只探测前 4 个，成本可控。
+    const probeCount = Math.min(4, list.length);
+    if (probeCount > 0) {
+        const flags = await Promise.all(list.slice(0, probeCount).map((it) => isRoomStreaming(it._sid)));
+        list.slice(0, probeCount).forEach((it, i) => {
+            it._live = flags[i];
+            if (!flags[i]) it.vod_remarks = '未开播（占位频道）';
+        });
+    }
+    list.sort((a, b) => (b._live ? 1 : 0) - (a._live ? 1 : 0));
+    list.forEach((it) => { delete it._live; delete it._sid; });
+
+    const pagecount = total > 0 ? Math.max(1, Math.ceil(total / pageSize)) : 1;
+    log(`搜索[${keyword}] 第${page}/${pagecount}页，命中${list.length}个房间（总${total}）`);
+    return { list, page, pagecount, limit: pageSize, total };
 }
 
 async function detail(params) {
@@ -570,18 +674,20 @@ async function detail(params) {
     
     let videoId = params.videoId;
     let cachedPic = null;
-    
+    let cachedName = "";
+
     if (videoId.includes('|||')) {
         const parts = videoId.split('|||');
         videoId = parts[0];
-        cachedPic = parts[1];
-        log(`ID=${videoId}，复用封面`);
+        cachedPic = parts[1] || null;
+        cachedName = parts[2] || "";
+        log(`ID=${videoId}，复用封面${cachedName ? "与名称" : ""}`);
     }
-    
+
     const id = videoId;
-    let realName = ID_NAME_MAP[id] || `YY直播:${id}`;
+    let realName = cachedName || ID_NAME_MAP[id] || `YY直播:${id}`;
     let realPic = cachedPic || DEFAULT_PIC;
-    let foundSource = cachedPic ? "缓存" : "默认";
+    let foundSource = cachedName ? "搜索" : (cachedPic ? "缓存" : "默认");
 
     // 如果没有缓存封面，才去搜索
     if (!cachedPic) {
@@ -674,30 +780,37 @@ async function play(params) {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
     };
     
-    const url = `https://interface.yy.com/hls/new/get/${rid}/${rid}/${quality}?source=wapyy&callback=jsonp3`;
+    // 实测：下播/无人推流的房间，接口会回 {"code":0,"width":0,"audio":"","video":"","height":0}（无 hls 字段）；
+    // 在播房间则回完整 hls。画质档位与房间是否推流相互独立，因此逐档降级重试能显著提升命中率。
+    const order = [quality, ...QUALITY_CONFIG.options.map(q => q.bitrate).filter(b => b !== quality)].slice(0, 3);
+    const tried = [];
     
-    try {
-        const res = await axios.get(url, { headers: headers, timeout: 8000 });
-        const content = res.data.toString();
-        
-        const match = content.match(/jsonp3\(([\s\S]*?)\)/);
-        if (match && match[1]) {
-            const json = JSON.parse(match[1]);
+    for (const q of order) {
+        tried.push(q);
+        const url = `https://interface.yy.com/hls/new/get/${rid}/${rid}/${q}?source=wapyy&callback=jsonp3`;
+        try {
+            const res = await axios.get(url, { headers: headers, timeout: 8000 });
+            const content = res.data.toString();
             
-            if (json.hls) {
-                log(`✅ 播放成功: ${json.hls}`);
-                return { parse: 0, url: json.hls, header: headers };
+            const match = content.match(/jsonp3\(([\s\S]*?)\)/);
+            if (match && match[1]) {
+                const json = JSON.parse(match[1]);
+                
+                if (json.hls) {
+                    log(`✅ 播放成功(画质${q}): ${json.hls}`);
+                    return { parse: 0, url: json.hls, header: headers };
+                }
+                log(`⚠️ 画质${q} 无 hls 字段（房间可能已下播）: ${JSON.stringify(json)}`);
             } else {
-                log(`❌ 无hls字段: ${JSON.stringify(json)}`);
+                log(`❌ 响应格式错误: ${content.substring(0, 200)}`);
             }
-        } else {
-            log(`❌ 响应格式错误: ${content.substring(0, 200)}`);
+        } catch (e) {
+            log(`❌ 画质${q} 播放失败: ${e.message}`);
         }
-    } catch (e) {
-        log(`❌ 播放失败: ${e.message}`);
     }
     
-    return { error: "未获取到播放地址" };
+    log(`❌ 全部画质均未取到地址，已尝试: ${tried.join(",")}`);
+    return { error: "未获取到播放地址（房间可能未开播）" };
 }
 
 module.exports = { home, category, search, detail, play };

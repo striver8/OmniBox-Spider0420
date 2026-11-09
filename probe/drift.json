@@ -368,20 +368,6 @@
   {
     "file": "影视/采集/柯南影视.js",
     "verdict": "broken",
-    "step": "home",
-    "steps": [
-      "home",
-      "category",
-      "search",
-      "detail",
-      "play"
-    ],
-    "err": "STEP_TIMEOUT home 40000ms",
-    "lastUrl": "https://www.knvod.com/search/%E5%BA%86%E4%BD%99%E5%B9%B4-------------.html"
-  },
-  {
-    "file": "影视/采集/歪比巴卜.js",
-    "verdict": "broken",
     "step": "category",
     "steps": [
       "category",
@@ -390,7 +376,19 @@
       "play"
     ],
     "err": "category: empty list (type_id=4)",
-    "lastUrl": "https://wbbb1.com/search/-------------.html?wd=%E5%BA%86%E4%BD%99%E5%B9%B4"
+    "lastUrl": "https://www.knvod.com/search/%E5%BA%86%E4%BD%99%E5%B9%B4-------------.html"
+  },
+  {
+    "file": "影视/采集/歪比巴卜.js",
+    "verdict": "broken",
+    "step": "search",
+    "steps": [
+      "search",
+      "detail",
+      "play"
+    ],
+    "err": "search: empty list for tried=老江湖 / 敦煌英雄 / 空枪 / 痴迷 / 一英里 / 双妻之劫",
+    "lastUrl": "https://wbbb1.com/detail/116031.html"
   },
   {
     "file": "影视/采集/毒舌影视.js",
@@ -429,7 +427,7 @@
       "play"
     ],
     "err": "category: empty list (type_id=4)",
-    "lastUrl": "https://pianku.pro/index.php/verify/index.html?type=search&t=1794236680579"
+    "lastUrl": "https://pianku.pro/index.php/verify/index.html?type=search&t=1794237389697"
   },
   {
     "file": "影视/采集/荐片.js",
@@ -486,27 +484,6 @@
     ],
     "err": "飞牛配置缺失：请先填写 FEINIU_HOST，或提供 FEINIU_SITES 多站配置",
     "lastUrl": ""
-  },
-  {
-    "file": "直播/YY轮播.js",
-    "verdict": "partial",
-    "step": "search",
-    "steps": [
-      "search",
-      "play"
-    ],
-    "err": "search: empty list for tried=玄幻电影 / 超精彩武打场景 / 林正英经典电影 / 周星驰搞笑在线 / 港片喜剧动作 / 林正英经典",
-    "lastUrl": "https://interface.yy.com/hls/new/get/1462895099/1462895099/1200?source=wapyy&callback=jsonp3"
-  },
-  {
-    "file": "直播/抖音直播.js",
-    "verdict": "partial",
-    "step": "search",
-    "steps": [
-      "search"
-    ],
-    "err": "search: empty list for tried=文哥💫正在直播 / 文哥💫正在 / 文哥💫 / 滚石老炮至尊店 / 走遍大江南北 / 新人直播第一天",
-    "lastUrl": "https://live.douyin.com/webcast/room/web/enter/?aid=6383&app_name=douyin_web&live_id=1&device_platform=web&enter_from=web_live&browser_language=zh-CN&browser_platform=Win32&browser_name=Chrome&browser"
   },
   {
     "file": "短剧/短剧粉.js",

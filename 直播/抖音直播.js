@@ -1,8 +1,8 @@
 // @name 抖音直播
 // @author 
-// @description 
+// @description 刮削：支持，弹幕：不支持，嗅探：支持；搜索走抖音分区匹配（web 搜索接口现需登录，status_code=2483）
 // @dependencies: axios, crypto
-// @version 1.0.0
+// @version 1.0.1
 // @downloadURL https://gh-proxy.org/https://github.com/Silent1566/OmniBox-Spider/raw/refs/heads/main/直播/抖音直播.js
 
 /**
@@ -409,6 +409,48 @@ async function detail(params) {
 }
 
 /**
+ * 搜索降级：全站分区抽样 + 名称本地过滤。
+ * 抖音 web 搜索接口需要登录（status_code=2483），分区接口只认"话题/分区名"，
+ * 直接搜主播昵称时两者都拿不到结果，因此改为遍历首页分区取直播间，再按名称本地匹配。
+ */
+async function searchByLocalFilter(keyword, pg = 1) {
+    const HOME_CLASSES = [
+        '10000$3', '10001$3', '102$4', '103$4', '105$4',
+        '101$4', '108$4', '107$4', '106$4', '104$4'
+    ];
+    const norm = (s) => String(s || '').toLowerCase().replace(/[\s\u200b\ufeff\p{Emoji_Presentation}]+/gu, '');
+    const needle = norm(keyword);
+    if (!needle) {
+        return { list: [], page: pg };
+    }
+
+    const merged = [];
+    const seen = new Set();
+    const picked = HOME_CLASSES.slice(0, 5);
+
+    for (const cid of picked) {
+        if (merged.length >= 20) break;
+        try {
+            const ret = await category({ categoryId: cid, page: 1 });
+            const items = Array.isArray(ret?.list) ? ret.list : [];
+            for (const item of items) {
+                if (!item?.vod_id || seen.has(item.vod_id)) continue;
+                const hay = norm(`${item.vod_name || ''}${item.vod_remarks || ''}`);
+                if (!hay.includes(needle)) continue;
+                seen.add(item.vod_id);
+                merged.push(item);
+                if (merged.length >= 20) break;
+            }
+        } catch (e) {
+            logError(`本地过滤抽样失败 ${cid}`, e);
+        }
+    }
+
+    logInfo(`本地过滤命中: ${merged.length}条（关键词「${keyword}」）`);
+    return { list: merged, page: pg };
+}
+
+/**
  * 搜索
  */
 async function search(params) {
@@ -477,6 +519,13 @@ async function search(params) {
                     return { list, page: pg };
                 }
                 
+                // 实测：两个 web 搜索接口当前一律返回 status_code 2483「请先登录，再继续搜索吧」，
+                // 继续试下一个策略只会多打一次必然失败的请求，直接降到分区搜索。
+                if (Number(data.status_code) === 2483) {
+                    logInfo(`搜索策略 ${strategy.name} 需要登录(status_code=2483)，直接降级分区搜索`);
+                    break;
+                }
+                
                 if (data.search_nil_info?.search_nil_type === 'verify_check') {
                     logInfo(`搜索策略 ${strategy.name} 触发风控 verify_check,准备降级分区搜索`);
                     break;
@@ -495,7 +544,10 @@ async function search(params) {
         const partitionData = partitionRes.data || {};
         const partitions = Array.isArray(partitionData?.data?.SearchResult) ? partitionData.data.SearchResult : [];
         if (partitions.length === 0) {
-            return { list: [], page: pg };
+            // 关键词不是"话题/分区名"时（例如直接搜主播昵称），分区接口不会命中任何分区，
+            // 此时改为全站抽样 + 名称本地过滤，否则搜索永远是空的。
+            logInfo(`关键词「${keyword}」未匹配任何分区，改用全站抽样本地过滤`);
+            return await searchByLocalFilter(keyword, pg);
         }
         
         const merged = [];
@@ -534,7 +586,6 @@ async function search(params) {
         return { list: [], page: pg };
     }
 }
-
 /**
  * 播放
  */

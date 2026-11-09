@@ -501,3 +501,64 @@ GET /api.php/provide/vod/?ac=detail&wd=<kw>&pg=<n>       搜索
 - 用同一站点分类页做"本地过滤兜底"也不可靠：实测 `category({type_id:'1'..'4'})` 结果不稳定（cat1 各页码恒为 72 条、cat2 恒 0、cat3/cat4 时有时无），期间还出现 `HTTP 520`，说明站点对翻页请求也在做风控，拿不到稳定语料。
 
 结论：保持现状（搜索空 → 探针 partial/broken 波动），不改代码；记录为**站点级图形验证码门禁**。
+
+## 三十四、YY轮播：补回空实现的搜索（apiSearch）＋播放逐档降级＋在播优先排序
+
+`直播/YY轮播.js` 原状态是 partial：`search()` 直接 `return { list: [] }`（空桩），`play()` 也常拿不到地址。
+
+**搜索接口（新接入）**
+
+```
+GET https://www.yy.com/apiSearch/doSearch.json?q=<kw>&t=120&n=<页码>&s=0
+→ { success:true, data:{ searchResult:{ response:{ "120":{ docs:[...], numFound:71 } } } } }
+```
+
+- `n` 是**页码**（`n=1` 与 `n=2` 返回不同批次），`s` 被忽略，每页固定 16 条，`numFound` 是总数。
+- doc 字段：`sid / ssid / uid / yynum / name / channelName / liveOn / posterurl / headurl / dataType / users`。
+- **坑**：接口的 `name` 对"轮播频道"一律返回**「YY用户」**，真正的频道名在 `channelName`（如 `channelName:"超精彩武打场景"`）。原脚本的 `detail()` 之所以显示「YY直播:xxx」，就是因为它只能靠 `ID_NAME_MAP` 反查名字。
+- 新 `search()` 把 `vod_id` 写成 `${sid}|||${封面}|||${名称}` 复合形式，`detail()` 相应支持第三段（有名称时记为来源「搜索」，不再二次搜索）。
+
+**播放接口的地道行为（实测，与旧注释相反）**
+
+```
+GET https://interface.yy.com/hls/new/get/<rid>/<rid>/<quality>?source=wapyy&callback=jsonp3
+```
+
+- 房间**在播**：`{"code":0,"width":1088,"audio":"xa_...","video":"xv_...","hls":"https://sslproxy.yy.com:4443/livesystem/15013_xv_...m3u8?org=yyweb&uuid=...&t=...&tk=..."}` → m3u8 可直接播。
+- 房间**下播/空壳**：`{"code":0,"width":0,"audio":"","video":"","height":0}`（**没有 hls 字段**）。
+- 用 `uid`/`yynum` 去查会得到 `{"code":0,"hls":"https://google.com/"}` —— 是占位哨兵值，不可播。
+- 结论：之前"YY 全部频道都返回空流、站点已停推流"的判断**不成立**，那是拿了一批空壳频道的 id 去测。真实在播房间是能出流的。
+- 顺手把 `play()` 改成**逐档降级**（playId 指定档位 → 2500 → 4500，最多 3 次），并对全 0 响应给出"房间可能未开播"的日志。
+
+**在播优先排序（让结果真的能播）**
+
+站点的"轮播频道"大量是空壳（`liveOn=1` 但没有推流）。新 `search()` 会拿前 4 条去 `isRoomStreaming()` 探一次（并发、单次 4s 超时），把真正在播的排到前面，空壳标注为「未开播（占位频道）」。
+
+改动汇总（v1.1.0 → **v1.2.0**）：新增 `fetchSearchDocs()` / `isRoomStreaming()` / 重写 `search()`；`detail()` 支持复合 id 第三段（名称）；`play()` 逐档降级。
+
+探针复验 **ok**：home class=2｜category 电影 list=20 pagecount=5 total=97｜search「超精彩武打场景」list=16 pagecount=7｜detail「御山精彩」1 源 4 集｜play `https://sslproxy.yy.com:4443/livesystem/15013_xv_1331449345_...m3u8` parse=0。直连验证：搜「王者」→ 16 条，首条「龙腾_棠棠」(1383543834) 播放返回有效 m3u8。
+
+## 三十五、抖音直播：web 搜索被登录墙拦住 → 分区匹配 + 全站抽样本地过滤
+
+`直播/抖音直播.js` 原状态是 partial（只有 search 空）。
+
+**实测各搜索路径**
+
+| 路径 | 结果 |
+| --- | --- |
+| `GET www.douyin.com/aweme/v1/web/live/search/?...` | `{"status_code":2483,"status_msg":"请先登录，再继续搜索吧"}` |
+| `GET live.douyin.com/aweme/v1/web/live/search/?...` | 同上 2483 |
+| `GET www.douyin.com/aweme/v1/web/general/search/single/?...search_channel=aweme_live` | 同上 2483 |
+| `GET live.douyin.com/webcast/web/partition/search/?keyword=<kw>&aid=6383` | **200 可用**：`{data:{SearchResult:[{partition:{id_str,type,title}}]}}`，把关键词匹配到"分区"（如「王者荣耀」→ `1010045$1`、`1010078$1`） |
+| `GET live.douyin.com/webcast/web/partition/detail/room/?partition=...` | 444 `Access Denied` |
+
+- 因此：`/webcast/web/partition/search/` → 命中分区后再走 `category()` 取该分区直播间，是**唯一免登录可用**的路径；但它只认"话题/分区名"，**直接搜主播昵称永远为空**。
+- 改动 1：策略循环里遇到 `status_code === 2483` 立刻 break（不再白试下一个必然失败的接口），日志写明「需要登录」。
+- 改动 2：新增 `searchByLocalFilter()` —— 分区未命中（或合并结果为空）时，遍历首页 10 个分区中的前 5 个（`10000$3/10001$3/102$4/103$4/105$4/101$4/108$4/107$4/106$4/104$4`）各取 1 页直播间，按「标题+备注去空格/去 emoji 后包含关键词」本地过滤，去重返回，上限 20 条。
+- 本地验证：搜「滚石老炮至尊店」→ 1 条精确命中；「文哥」→ 命中「文哥💫正在直播」；「王者荣耀」→ 走分区路径 20 条。
+
+改动汇总（v1.0.0 → **v1.0.1**）：`search()` 加 2483 短路 + 新增 `searchByLocalFilter()` 兜底。
+
+探针复验 **ok**：home 10 类｜category `10000$3` list=15｜search「滚石老炮至尊店」list=1｜detail 2 源 8 集｜play `http://pull-h5.douyincdn.com/stage/stream-408639466006381401_or4.flv?expire=...&sign=...` parse=0。
+
+**本轮全量结果**：`PROBE_CONC=12 node probe/run.js`（143s）→ **ok=60 / partial=0 / broken=41**（本轮起点 58/2/41，三个 partial 全部清零）。剩余 41 条 broken 的构成：站点级死/墙 20 余个、配置/模板型 6 个、网盘 SDK 不可验证 9 个、异常见 2 个（Emby 模板语法）。

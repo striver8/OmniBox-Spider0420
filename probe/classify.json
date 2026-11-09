@@ -535,13 +535,13 @@
   },
   {
     "file": "直播/YY轮播.js",
-    "verdict": "partial",
+    "verdict": "ok",
     "siteCls": "UNKNOWN",
     "host": "https://interface.yy.com/"
   },
   {
     "file": "直播/抖音直播.js",
-    "verdict": "partial",
+    "verdict": "ok",
     "siteCls": "ALIVE",
     "host": "https://live.douyin.com/"
   },
